@@ -8,16 +8,20 @@ function VideoModal({ close, onchange }) {
 
     const handleSave = () => {
         // if (videoData || videoPreviewUrl || videoFileData) {
-            const youtubeUrlPattern = "/^(https:\/\/youtu\.be\/[\w-]+\?feature=shared|https:\/\/www\.youtube\.com\/watch\?v=[\w-]+)$/";
+        const youtubeUrlPattern = /^(https:\/\/youtu\.be\/[\w-]+\?feature=shared|https:\/\/www\.youtube\.com\/watch\?v=[\w-]+)$/;
 
-              const isValid = (youtubeUrlPattern.test(videoData));
+        const isValid = youtubeUrlPattern?.test(videoData);
+        if (videoData?.trim() == '' || videoData?.trim() == undefined) {
+            close(videoData);
+        }
+        else {
 
-              if(isValid)
-                {
-                    close(videoData);
-                }
-         else {
-            toast.error("Invalid Youtube Video");
+            if (isValid) {
+                close(videoData);
+            }
+            else {
+                toast.error("Invalid Youtube Video");
+            }
         }
     };
 
@@ -63,7 +67,7 @@ function VideoModal({ close, onchange }) {
             <div className='w-full flex justify-end items-center'>
                 <span onClick={handleSave} className='bg-slate-300 py-2 px-4 cursor-pointer'>Save</span>
             </div>
-            
+
         </div>
     );
 }

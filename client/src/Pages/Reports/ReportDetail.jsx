@@ -174,7 +174,7 @@ function ReportDetail() {
                             </span>
                         </div>
                         <div className=' flex justify-center items-center'>
-                            <Calendar className=' rounded' value={dateValue} range rangeHover onChange={handledateChange} />
+                            <Calendar maxDate={new Date()} className=' rounded' value={dateValue} range rangeHover onChange={handledateChange} />
                         </div>
                     </div>
                     <div className=' flex  w-full justify-center items-center py-2 mt-3'>

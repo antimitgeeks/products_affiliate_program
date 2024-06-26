@@ -59,16 +59,16 @@ function Routing() {
                 <Route path="/reset-password/:role" element={<EmailAuth />} />
                 <Route path="*" element={windowLocation?.includes('adm')? <Login auth={setAthenticateLogin} />: windowLocation?.includes('np')&&<NpoLogin auth={setAthenticateLogin} />} />
                 <Route path="page/preview" element={<NpoPreview />} />
-                {
-                    authenticateLogin ?
+                {/* {
+                    authenticateLogin ? */}
                         <Route path="/dashboard" element={<Dashboard />} >
                             <Route path='' element={role === 'Admin' ? <Home />: role==='npo'&&<NpoHome />} />  
                             <Route path='reports' element={<Report />} />
                             <Route path="reports/details/:id" element={<ReportDetail />} />
                             <Route path="npo/details/:id" element={<NpoView />} />
                         </Route>
-                       :"" 
-                } 
+                       {/* :"" 
+                }  */}
             </Routes>
         </div>
     )
