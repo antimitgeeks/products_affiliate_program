@@ -133,11 +133,18 @@ exports.orderComplete = async (payload) => {
 
 // fetch npo records 
 exports.records = async (npoId, details) => {
-    const orderWhere = details.startDate && details.endDate ? {
-        orderDate: {
-            [Op.between]: [details.startDate, details.endDate]
+
+    if (details.startDate && details.endDate) {
+        details.endDate = new Date(details.endDate);
+        details.endDate.setDate(details.endDate.getDate() + 1);
+        orderWhere = {
+            orderDate: {
+                [Op.between]: [details.startDate, details.endDate]
+            }
         }
-    } : {};
+    } else {
+        orderWhere = {}
+    }
     const records = await NpoPayments.findAndCountAll({
         where: { npoId },
         include: [
@@ -155,9 +162,18 @@ exports.records = async (npoId, details) => {
         limit: details.limit,
         offset: details.offset,
     });
-    const totalAmount = await NpoPayments.sum('amount', {
-        where: { npoId }
+
+    const totalAmountWhere = { npoId };
+    const totalAmount = await NpoPayments.sum('NpoPayments.amount', {
+        where: totalAmountWhere,
+        include: [
+            {
+                model: Order,
+                where: orderWhere,
+            }
+        ]
     });
+
     return { records, totalAmount };
 }
 
