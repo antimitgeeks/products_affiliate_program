@@ -4,14 +4,21 @@ import { toast } from 'react-toastify';
 function VideoModal({ close, onchange }) {
     const [videoData, setVideoData] = useState('');
     const [videoFileData, setVideoFileData] = useState(null);
-    const [videoPreviewUrl, setVideoPreviewUrl] = useState();
+    // const [videoPreviewUrl, setVideoPreviewUrl] = useState();
 
     const handleSave = () => {
         // if (videoData || videoPreviewUrl || videoFileData) {
-            close(videoPreviewUrl!=undefined?videoPreviewUrl: videoData);
-        // } else {
-            // toast.error("Field cannot be empty");
-        // }
+            const youtubeUrlPattern = "/^(https:\/\/youtu\.be\/[\w-]+\?feature=shared|https:\/\/www\.youtube\.com\/watch\?v=[\w-]+)$/";
+
+              const isValid = (youtubeUrlPattern.test(videoData));
+
+              if(isValid)
+                {
+                    close(videoData);
+                }
+         else {
+            toast.error("Invalid Youtube Video");
+        }
     };
 
     const handleVideoFile = (e) => {
@@ -19,7 +26,7 @@ function VideoModal({ close, onchange }) {
         if (video) {
             console.log('hi');
             setVideoFileData(video);
-            setVideoPreviewUrl(URL.createObjectURL(video));
+            // setVideoPreviewUrl(URL.createObjectURL(video));
         }
     };
 

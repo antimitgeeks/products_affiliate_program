@@ -12,6 +12,7 @@ import { Zoom } from '@mui/material';
 import { FaUser } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
+import LinesEllipsis from 'react-lines-ellipsis';
 
 
 function Report() {
@@ -69,13 +70,13 @@ function Report() {
                     {/* <img src={itm.img} className=' border object-cover p-1 rounded-lg object-center w-full h-[180px]' alt="" /> */}
 
                     <div className='flex w-fit  items-center gap-1 absolute top-1 right-1' >
-                      <Tooltip arrow TransitionComponent={Zoom} title={`${itm?.isActive?"Active":"InActive"}`} placement='top'>
+                      <Tooltip arrow TransitionComponent={Zoom} title={`${itm?.isActive ? "Active" : "InActive"}`} placement='top'>
                         {
                           itm?.isActive ?
                             <span className='  text-green-600'>
                               {/* <Tooltip arrow title="gg" placement='top'> */}
 
-                                <BiBadgeCheck size={24} />
+                              <BiBadgeCheck size={24} />
                               {/* </Tooltip> */}
                             </span>
                             :
@@ -94,15 +95,35 @@ function Report() {
 
                     <div className=' w-full gap-3 pt-4 text-sm sm:text-[17px] flex flex-col '>
                       <div className=' w-full flex gap-4 px-2 items-center justify-start '>
-                        <span className=' font-semibold pl-1 '><FaUser/>  </span>
-                        <span className=' px-0'>{itm.name ? itm.name : "N/A"}</span>
+                        <span className=' font-semibold pl-1 '><FaUser />  </span>
+                        <span className=' px-0  w-[90%]'>
+                          <LinesEllipsis
+                            text={itm.name ? itm.name : "N/A"}
+                            className=' w-[90%] break-words'
+                            // winWidth={8}
+                            ellipsis='...'
+                            basedOn='letters'
+                            maxLine='1'
+                          />
+
+                        </span>
                       </div>
                       <div className=' w-full flex  px-2 items-center justify-start gap-4 '>
-                        <span className=' font-semibold pl-1'><MdOutlineEmail/>  </span>
-                        <span>{itm.email ? itm?.email : "N/A"}</span>
+                        <span className=' font-semibold pl-1'><MdOutlineEmail />  </span>
+                        <span className=' w-[90%] '>
+                        <LinesEllipsis
+                            text={itm.email ? itm?.email : "N/A"}
+                            className=' w-[90%] break-words'
+                            // winWidth={8}
+                            ellipsis='...'
+                            basedOn='letters'
+                            maxLine='1'
+                          />
+                          
+                        </span>
                       </div>
                       <div className=' mb-2 w-full px-2 flex justify-start items-center gap-4 '>
-                        <span className=' font-semibold pl-1'><FaPhoneAlt/>  </span>
+                        <span className=' font-semibold pl-1'><FaPhoneAlt /> </span>
                         <span>{itm.number ? itm?.number : "N/A"}</span>
                       </div>
                       <hr />

@@ -184,7 +184,7 @@ function ReportDetail() {
                     </div>
                 </DialogComponent>
                 <div className=' hidden md:flex flex-col gap-2 border-2'>
-                    <div className=' py-2 text-[15.4px] bg-slate-300 flex px-2 justify-between'>
+                    <div className=' py-2 text-[15.4px] bg-slate-500 text-white flex px-2 justify-between'>
                         <div className=' uppercase w-4/5 flex items-center pl-3'>Order id</div>
                         <div className=' uppercase w-4/5 flex items-center'>Npo amount</div>
                         <div className=' uppercase w-4/5 flex items-center'>Order amount</div>
