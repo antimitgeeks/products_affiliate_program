@@ -3,12 +3,12 @@ import DialogComponent from '../../../components/DialogComponent';
 import VideoModal from './VideoModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLinkData, setNpoData, setPreviewData } from '../../../Redux/NpoSlices/NpoDataSlice';
-import { FaEdit } from 'react-icons/fa';
-import { FiEdit } from 'react-icons/fi';
-import { MdCancel } from "react-icons/md";
-import { MdCancelPresentation } from "react-icons/md";
-import { RiDeleteBin2Line } from "react-icons/ri";
-import { LuDelete } from "react-icons/lu";
+// import { FaEdit } from 'react-icons/fa';
+// import { FiEdit } from 'react-icons/fi';
+// import { MdCancel } from "react-icons/md";
+// import { MdCancelPresentation } from "react-icons/md";
+// import { RiDeleteBin2Line } from "react-icons/ri";
+// import { LuDelete } from "react-icons/lu";
 import { FaRegEdit } from "react-icons/fa";
 import insta from '../../../Assets/insta.png'
 import facebook from '../../../Assets/Facebook_Logo_2023.png'
@@ -44,9 +44,10 @@ function NpoHome() {
         }
     }, [LocalNpoPreviewData])
 
-    /* Getting PageData using Api by Id */
 
+    /* Getting PageData using Api by Id */
     const { data: singleNpoData, isFetching: singleNpoFetching, isLoading: singleNpoLoading } = useGetSingleNpoQuery({ Id: decodedToken?.id })
+
     useEffect(() => {
         if (singleNpoFetching || singleNpoLoading) {
             setLoading(true)
@@ -56,8 +57,9 @@ function NpoHome() {
         }
     }, [singleNpoData, singleNpoFetching, singleNpoLoading])
 
+
+
     const { data: NpoPagedata, isFetching: ispageDataFetching, isLoading: ispageDataLoading } = useGetPageByIdQuery({ Id: decodedToken?.id || '0' })
-    console.log(decodedToken)
     useEffect(() => {
         if (ispageDataFetching || ispageDataLoading) {
             setLoading(true)
@@ -67,7 +69,6 @@ function NpoHome() {
             setFinalData(NpoPagedata?.result?.pageJson ? JSON.parse(NpoPagedata?.result?.pageJson) : null)
         }
     }, [NpoPagedata, ispageDataFetching, ispageDataLoading])
-    console.log(FinalData)
 
     /* Getting ImageFile data using Api by */
     // const {data:logoImageData,isFetching:isLogoDataFetching,isLoading:isLogoDataLoading} = useGetFileQuery({Id:6,type:'logo'});
@@ -102,6 +103,7 @@ function NpoHome() {
             });
     };
 
+
     useEffect(() => {
         if (decodedToken?.id) {
 
@@ -109,7 +111,8 @@ function NpoHome() {
         }
     }, [decodedToken]);
 
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    
+
     const fetchBannerImgData = () => {
         const config = {
             method: "GET"
@@ -145,7 +148,7 @@ function NpoHome() {
         }
     }, [decodedToken])
 
-    //////////////////////////////////////////////////////////////////////////////
+
 
     const fetchTextImgData = () => {
         const config = {
@@ -173,12 +176,15 @@ function NpoHome() {
             });
     };
 
+
     useEffect(() => {
         if (decodedToken?.id) {
             fetchTextImgData()
 
         }
     }, [decodedToken])
+
+
 
 
     useEffect(() => {
@@ -217,6 +223,7 @@ function NpoHome() {
     const [AddPage] = useAddPageMutation();
     const [UploadFile] = useUploadFileMutation();
 
+
     useEffect(() => {
         setImageHeading(localNpoPreviewDataState?.imageHeading != undefined ? localNpoPreviewDataState?.imageHeading : FinalData?.imageHeading)
         setImageText(localNpoPreviewDataState?.imageText != undefined ? localNpoPreviewDataState?.imageText : FinalData?.imageText);
@@ -231,12 +238,14 @@ function NpoHome() {
         setBannerTextColor(localNpoPreviewDataState?.bannerTextColor != undefined ? localNpoPreviewDataState?.bannerTextColor : FinalData?.bannerTextColor)
     }, [localNpoPreviewDataState, FinalData])
 
+
     useEffect(() => {
         if (cookieData?.length > 0) {
             const DecodedData = jwtDecode(cookieData);
             setDecodedToken(DecodedData);
         }
     }, [cookieData]);
+
 
     useEffect(() => {
         console.log(decodedToken)
@@ -279,26 +288,26 @@ function NpoHome() {
             // return;
         }
         else {
-
+            console.log(file,'filelelelel')
             const formData = new FormData();
             formData.append('image', file);
             const newLogoUrl = file ? URL?.createObjectURL(file) : '';
             setLogoUrl(newLogoUrl);
             setLogoFormData(formData);
-            UploadFile({ Id: decodedToken?.id, data: formData, type: 'logo' })
-                .then((res) => {
-                    console.log(res)
-                    if (res?.error) {
-                        // toast.error(res?.error?.message);
-                        console.log(res?.error?.message)
-                    }
-                    else {
-                        console.log(res);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                });
+            // UploadFile({ Id: decodedToken?.id, data: formData, type: 'logo' })
+            //     .then((res) => {
+            //         console.log(res)
+            //         if (res?.error) {
+            //             // toast.error(res?.error?.message);
+            //             console.log(res?.error?.message)
+            //         }
+            //         else {
+            //             console.log(res);
+            //         }
+            //     })
+            //     .catch((err) => {
+            //         console.log(err)
+            //     });
         }
         // } else {
         // setLogoFormData('');
@@ -309,25 +318,25 @@ function NpoHome() {
         // }
     };
 
-    const handleLogoRemove = () => {
-        const formData = new FormData();
-        formData.append('image', '');
-        setLogoFormData(formData);
-        UploadFile({ Id: decodedToken?.id, data: formData, type: 'logo' })
-            .then((res) => {
-                console.log(res)
-                if (res?.error) {
-                    // toast.error(res?.error?.message);
-                    console.log(res?.error?.message)
-                }
-                else {
-                    console.log(res);
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-    }
+    // const handleLogoRemove = () => {
+    //     const formData = new FormData();
+    //     formData.append('image', '');
+    //     setLogoFormData(formData);
+    //     UploadFile({ Id: decodedToken?.id, data: formData, type: 'logo' })
+    //         .then((res) => {
+    //             console.log(res)
+    //             if (res?.error) {
+    //                 // toast.error(res?.error?.message);
+    //                 console.log(res?.error?.message)
+    //             }
+    //             else {
+    //                 console.log(res);
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err)
+    //         });
+    // }
 
     /* Banner Image upload handle */
     const handleBannerInput = (ev) => {
@@ -337,7 +346,6 @@ function NpoHome() {
             return;
         }
         else {
-
             const newLogoUrl = URL?.createObjectURL(file);
             const formData = new FormData();
             formData.append('image', file);
@@ -370,7 +378,6 @@ function NpoHome() {
                 }
                 else {
                     console.log(res);
-
                 }
             })
             .catch((err) => {
@@ -487,7 +494,22 @@ function NpoHome() {
 
     console.log(logoFormData)
 
-    const handleSave = () => {
+
+    // useEffect(async()=>
+    // {
+    //     let newLink =(logoUrl)
+    //     const response = await fetch(newLink);
+    //     const blob = await response.blob();
+    //     console.log(blob,'bobbbbbbbbbbbbbbbbbb')
+    //     const file  =new File([blob], 'filename', { type: blob.type }); // Set a default filename
+    //     console.log(file,'filelelelel')
+    //     const formData = new FormData();
+    //     formData.append('image', file);
+    //     setLogoFormData(formData)
+    // },[])
+
+    const handleSave = async() => {
+
         console.log(linksData?.instaSwitch, "____________-------------------------")
         console.log(logoUrl, "____________-------------------------")
         let DataForApi = {
@@ -543,21 +565,31 @@ function NpoHome() {
         // console.log(dtaforLogo)
         // formData.append('image',dtaforLogo)
 
+        console.log(logoUrl.split('blob:')[1],"logoURLLLLLLLLLLL")
+        let newLink =(logoUrl)
+            const response = await fetch(newLink);
+            const blob = await response.blob();
+            console.log(blob,'bobbbbbbbbbbbbbbbbbb')
+            const file  =new File([blob], 'filename.jpg', { type: blob.type }); // Set a default filename
+            console.log(file,'filelelelel');
+            const formDataa = new FormData();
+            formDataa.append('image',file);
+            setLogoFormData(formDataa)
 
-        // UploadFile({ Id: decodedToken?.id, data: logoFormData, type: 'logo' })
-        //     .then((res) => {
-        //         console.log(res)
-        //         if (res?.error) {
-        //             // toast.error(res?.error?.message);
-        //             console.log(res?.error?.message)
-        //         }
-        //         else {
-        //             console.log(res);
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err)
-        //     });
+        UploadFile({ Id: decodedToken?.id, data: formDataa, type: 'logo' })
+            .then((res) => {
+                console.log(res)
+                if (res?.error) {
+                    // toast.error(res?.error?.message);
+                    console.log(res?.error?.message)
+                }
+                else {
+                    console.log(res);
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            });
         // UploadFile({ Id: decodedToken?.id, data: textFormData, type: 'text' })
         //     .then((res) => {
         //         if (res?.error) {
@@ -756,7 +788,7 @@ function NpoHome() {
                                                                 // const emptyFormData = new FormData();
                                                                 // emptyFormData.append('image', '');
                                                                 // setLogoFormData(emptyFormData);
-                                                                handleLogoRemove()
+                                                                // handleLogoRemove()
                                                             }} htmlFor='logoInput' className=' absolute top-[-2px] right-[-5px] font-bold text-black bg-slate-200 p-[1.5px] flex items-center justify-center cursor-pointer   m-0'><FaRegEdit /></label>
                                                         </div>
                                                         :

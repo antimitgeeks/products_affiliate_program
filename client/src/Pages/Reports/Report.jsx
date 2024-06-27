@@ -23,28 +23,30 @@ function Report() {
   const [loading, setLoading] = useState('');
   const [allNposData, setAllNposData] = useState([])
 
+
   const { data: ListData, isLoading: ListLoading, isFetching: listFetching, } = useAllNpoListQuery(
     {
       offset: 0,
     }
   );
 
+
   useEffect(() => {
     if (ListLoading || listFetching) {
       setLoading(true);
     }
-
     else {
       setLoading(false);
       setAllNposData(ListData?.result?.rows)
-
     }
-
   }, [ListLoading, ListData, listFetching])
+
+
 
   const handleDetailClick = (id) => {
     navigate(`details/${id}`)
   }
+
 
   return (
     <div className=' w-full h-full overflow-y-scroll py-2 px-3 flex flex-col gap-5'>
@@ -73,10 +75,7 @@ function Report() {
                         {
                           itm?.isActive ?
                             <span className='  text-green-600'>
-                              {/* <Tooltip arrow title="gg" placement='top'> */}
-
                               <BiBadgeCheck size={24} />
-                              {/* </Tooltip> */}
                             </span>
                             :
                             <span className=' text-red-600'>
@@ -84,14 +83,8 @@ function Report() {
                               <BiBadge size={24} />
                             </span>
                         }
-                        {/* <span className=' hover:block hidden'>Active</span> */}
-                        {/* <div class="relative group">
-                        <span class="hidden hover:block">Active</span>
-                        </div> */}
-                        {/* <p className="hover:text-green-600  text-transparent "> Active</p> */}
                       </Tooltip>
                     </div>
-
                     <div className=' w-full gap-3 pt-4 text-sm sm:text-[17px] flex flex-col '>
                       <div className=' w-full flex gap-4 px-2 items-center justify-start '>
                         <span className=' font-semibold pl-1 '><FaUser />  </span>
@@ -104,7 +97,6 @@ function Report() {
                             basedOn='letters'
                             maxLine='1'
                           />
-
                         </span>
                       </div>
                       <div className=' w-full flex  px-2 items-center justify-start gap-4 '>
@@ -118,7 +110,6 @@ function Report() {
                             basedOn='letters'
                             maxLine='1'
                           />
-                          
                         </span>
                       </div>
                       <div className=' mb-2 w-full px-2 flex justify-start items-center gap-4 '>

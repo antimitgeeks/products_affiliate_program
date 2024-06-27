@@ -21,5 +21,4 @@ const ReportService = CreateApi.injectEndpoints(
     }
 );
 
-// const {useGetReportByIdQuery}= ReportService;
 export const {useGetReportByIdQuery}=ReportService

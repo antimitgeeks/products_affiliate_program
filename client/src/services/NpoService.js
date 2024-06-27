@@ -48,17 +48,6 @@ const NpoService = CreateApi.injectEndpoints(
                         )
                     }),
 
-                    // UpdateNpoStatus: builder.mutation(
-                    //     {
-                    //         query: ({ Id, data }) => (
-                    //             {
-                    //                 url: `/admin/npo/${Id}`,
-                    //                 method: "PUT",
-                    //                 body: data
-                    //             }
-                    //         )
-                    //     }),
-
                 DeleteNpo: builder.mutation(
                     {
                         invalidatesTags:["npo"],

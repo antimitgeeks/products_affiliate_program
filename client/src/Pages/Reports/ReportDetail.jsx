@@ -22,7 +22,7 @@ function ReportDetail() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
 
- 
+
     // states for paginatin 
     const [page, setPage] = useState(1);
     const dataPerPage = 6;
@@ -40,7 +40,6 @@ function ReportDetail() {
             offset: offset,
             startDate: startDate || "",
             endDate: endDate || ""
-
         }
     });
 
@@ -68,16 +67,15 @@ function ReportDetail() {
     const handledateChange = (ev) => {
         settempDateValue(ev)
     }
+
+
     function formatDate(calendarObject) {
         if (calendarObject) {
-
             const month = calendarObject?.month?.number?.toString().padStart(2, '0'); // Ensure two digits for the month
             const day = calendarObject?.day?.toString().padStart(2, '0'); // Ensure two digits for the day
             const year = calendarObject?.year;
-
             // Regular format: YYYY-MM-DD
             const formattedDate = `${year}-${month}-${day}`;
-
             return formattedDate;
         }
     }
@@ -90,6 +88,7 @@ function ReportDetail() {
         setDateValue(tempdateValue);
         setDateModal(false)
     }
+
 
     const handleClearAllFilter = () => {
         setStartDate('');
@@ -114,18 +113,16 @@ function ReportDetail() {
     function formatDate(calendarObject) {
         if (calendarObject) {
 
-            const month = calendarObject?.month?.number?.toString().padStart(2, '0'); // Ensure two digits for the month
-            const day = calendarObject?.day?.toString().padStart(2, '0'); // Ensure two digits for the day
+            const month = calendarObject?.month?.number?.toString().padStart(2, '0'); 
+            const day = calendarObject?.day?.toString().padStart(2, '0'); 
             const year = calendarObject?.year;
-
-            // Regular format: YYYY-MM-DD
             const formattedDate = `${year}-${month}-${day}`;
-
             return formattedDate;
         }
     }
+
     console.log(ReportData?.records)
-  
+
     return (
         <>
             <div className=' h-[86vh] overflow-y-scroll px-3 py-3 gap-3 flex flex-col'>
@@ -197,10 +194,10 @@ function ReportDetail() {
                                 </span>
                             </>
                             :
-                            ReportData?.records?.rows?.length == 0   ?
+                            ReportData?.records?.rows?.length == 0 ?
                                 <span className=' w-full flex  items-center justify-center  mt-1 py-1'>No data Found</span>
                                 :
-                                ReportData?.records?.rows?.map((itm,indx) => {
+                                ReportData?.records?.rows?.map((itm, indx) => {
                                     return <div key={indx}>
                                         <div className=' flex border-b text-[15px] justify-between rounded py-2 px-1'>
                                             <div className=' w-4/5 pl-[14px] '>{itm?.order?.orderId || "N/A"}</div>
@@ -215,7 +212,7 @@ function ReportDetail() {
 
                 </div>
                 <div className=' flex md:hidden w-full flex-col gap-[10px] '>
-                    {ReportData?.records?.rows?.map((itm,indx) => {
+                    {ReportData?.records?.rows?.map((itm, indx) => {
                         return <div key={indx}>
                             <div className=' bg-white border text-[14.5px] font-semibold  py-3 px-2'>
                                 <div className=' uppercase w-4/5 flex items-center  pl-0'>Order id : <span className=' pl-5'>{itm?.order?.orderId || "N/A"}</span> </div>

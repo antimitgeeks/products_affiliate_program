@@ -8,6 +8,7 @@ function ReportModal(
 ) {
     console.log(data);
 
+    
     const Data = JSON.parse(data?.customerDetails)
     console.log(Data);
 

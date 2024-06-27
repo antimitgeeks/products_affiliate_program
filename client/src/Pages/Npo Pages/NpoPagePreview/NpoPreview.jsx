@@ -17,8 +17,8 @@ function NpoPreview({ Id }) {
     const [loading, setLoading] = useState(false)
     const [decodedToken, setDecodedToken] = useState('');
     const ReduxPreviewData = useSelector((state) => state.NpoDataSlice.PreviewData);
-
     console.log(ReduxPreviewData)
+
 
     const { data: NpoPagedata, isFetching: ispageDataFetching, isLoading: ispageDataLoading } = useGetPageByIdQuery({ Id: Id || decodedToken?.id })
 
@@ -26,6 +26,7 @@ function NpoPreview({ Id }) {
     const [logoUrl, setLogoUrl] = useState('');
     const [bannerUrl, setBannerUrl] = useState('');
     const [imageTextUrl, setImageTextUrl] = useState('')
+
 
     useEffect(() => {
         if (ispageDataFetching || ispageDataLoading) {
@@ -45,8 +46,8 @@ function NpoPreview({ Id }) {
         }
     }, [cookieData]);
 
-    useEffect(() => {
 
+    useEffect(() => {
         console.log(PageData)
     }, [PageData])
 
@@ -57,9 +58,9 @@ function NpoPreview({ Id }) {
         window.open(emailServiceUrl, '_blank');
     }
 
+
     const handleCall = (number) => {
         const tell = `tel:${number}`;
-
         window.open(tell, '_blank');
     }
 
@@ -89,9 +90,12 @@ function NpoPreview({ Id }) {
             .catch(err => {
             });
     };
+
+
     useEffect(() => {
         if (decodedToken?.id || Id) fetchLogoData()
     }, [decodedToken]);
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     const fetchBannerImgData = () => {
@@ -115,11 +119,12 @@ function NpoPreview({ Id }) {
             });
     };
 
+
     useEffect(() => {
         if (decodedToken?.id || Id) fetchBannerImgData()
     }, [decodedToken])
 
-    //////////////////////////////////////////////////////////////////////////////
+
 
     const fetchTextImgData = () => {
         const config = {
@@ -141,6 +146,8 @@ function NpoPreview({ Id }) {
             .catch(err => {
             });
     };
+
+
     useEffect(() => {
         if (decodedToken?.id || Id) fetchTextImgData()
     }, [decodedToken])
@@ -190,7 +197,6 @@ function NpoPreview({ Id }) {
                                     ReduxPreviewData?.bannerUrl == undefined || ReduxPreviewData?.bannerUrl == '' || PageData?.bannerUrl == undefined
                                         ?
                                         bannerUrl ?
-
 
                                             <div className=' w-full h-full'>
                                                 <img className=' object-cover object-center h-full w-full' src={ReduxPreviewData?.bannerUrl || bannerUrl} alt="" />
@@ -259,7 +265,6 @@ function NpoPreview({ Id }) {
                                             </div>
                                     :
                                     <iframe allowFullScreen src={ReduxPreviewData?.videoData != undefined ? ReduxPreviewData?.videoData : PageData?.videoData} className=' fullscreen rounded w-full h-full' ></iframe>
-
                             }
                         </div>
                         <div className='w-full flex items-center justify-center px-2 sm:px-5 py-4'>
@@ -275,7 +280,6 @@ function NpoPreview({ Id }) {
                         <hr />
 
                         <div className=' flex-wrap flex w-full items-center gap-4 mb-4 mt-2 py-3 justify-center'>
-
                             {
                                 ReduxPreviewData?.linksData?.websiteLink?.show != false || PageData?.linksData?.websiteLink?.show != false
                                     ?
