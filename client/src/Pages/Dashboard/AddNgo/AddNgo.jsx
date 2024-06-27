@@ -1,9 +1,7 @@
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react'
-// import InputComponent from '../../components/InputComponent';
 import InputComponent from '../../../components/InputComponent';
 import * as yup from 'yup';
-// import { useAddNewStoreMutation } from '../../services/StoreServices';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import Cookies from 'js-cookie'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -16,11 +14,9 @@ function AddNgo(
         close
     }
 ) {
-
-
     // const [showPassword, setShowPassword] = useState("password");
     const [CreateNpo] = useCreateNpoMutation();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     /* validation schema */
     const validationSchema = yup.object().shape({
@@ -31,6 +27,7 @@ function AddNgo(
         .matches(/^[a-zA-Z][a-zA-Z 0-9]*$/, "Special characters not allowed and first letter must be a letter")
         .required('Name is required')
         .trim("Invalid name"),
+
         email: yup.string()
         .strict()
         .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Enter a valid email")
@@ -55,7 +52,6 @@ function AddNgo(
     /* handle form submit */
     const handleSubmit = (data, { resetForm }) => {
         setLoading(true)
-        // localStorage.setItem('ngolist', JSON.stringify(updatedData));
         console.log(data);
         CreateNpo({ data: data })
             .then((res) => {
@@ -79,14 +75,11 @@ function AddNgo(
             })
 
     };
-
     return (
         <div className='relative flex p-1 flex-col gap-6'>
             <div className=' flex text-lg font-semibold justify-between'>
                 Register NPO
-                {/* <div> */}
                 <span onClick={() => close()} className=' top-[-20px] absolute items-center justify-center right-[-24px] hover:opacity-80 bg-red-400 text-white cursor-pointer py-[5px] px-[14px] '>X</span>
-                {/* </div> */}
             </div>
             <div>
                 <Formik
@@ -99,7 +92,6 @@ function AddNgo(
                         <Form className='flex flex-col gap-[25px]'>
                             <div className='items-center grid md:grid-cols-1 grid-cols-1 gap-x-6 gap-y-6'>
                                 <div className=' flex items-center gap-1'>
-
                                     <InputComponent
                                         auto={'off'}
                                         required
@@ -109,7 +101,6 @@ function AddNgo(
                                         onChange={settingsProps.handleChange}
                                         value={settingsProps.values.name}
                                     />
-
                                 </div>
                                 <InputComponent
                                     required
@@ -129,7 +120,6 @@ function AddNgo(
                                     value={settingsProps.values.address}
                                 /> */}
                                 <div className=' relative flex  items-center'>
-
                                     <InputComponent
                                         required
                                         auto={"off"}
@@ -140,18 +130,8 @@ function AddNgo(
                                         onChange={settingsProps.handleChange}
                                         value={settingsProps.values.password}
                                     />
-                                    {/* <span className=' absolute cursor-pointer right-2 bottom-3'>
-                                        {
-                                            showPassword === "text" ?
-                                                <IoEye onClick={() => setShowPassword("password")} size={18} />
-                                                :
-                                                <IoEyeOff onClick={() => setShowPassword("text")} size={18} />
-
-                                        }
-                                    </span> */}
                                 </div>
                                 <InputComponent
-                                    // required
                                     auto={"off"}
                                     label={'Contact number'}
                                     placeholder={'Enter contact number'}

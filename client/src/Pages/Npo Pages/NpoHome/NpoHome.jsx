@@ -620,6 +620,7 @@ function NpoHome() {
 
         if (data) {
             dispatch(setLinkData(data))
+            // console.log(data,'Dataaaaaaaaaaaaaaaaaa')
             setLinksData(data)
         }
         setLinksModalOpen(false)
@@ -915,7 +916,7 @@ function NpoHome() {
                                             <div className=' w-full items-center flex flex-col md:flex-row justify-between'>
                                                 <div className=' flex flex-col  gap-3'>
 
-                                                    <span className='' onClick={() => handleCall(linksData?.contactUs)} >
+                                                    <span className='' onClick={() => handleCall(linksData?.contactUs!=undefined?linksData?.contactUs:localNpoPreviewDataState?.linksData?.contactUs?.link || FinalData?.linksData?.contactUs?.link)} >
                                                         <span className=' flex'>
                                                             <span>
                                                                 Contact Us
@@ -925,9 +926,8 @@ function NpoHome() {
                                                                 :
                                                             </span>
                                                             <span className=' pl-[30px] cursor-pointer'>
-                                                                {linksData?.contactUs || localNpoPreviewDataState?.linksData?.contactUs?.link || FinalData?.linksData?.contactUs?.link}
+                                                                {linksData?.contactUs != undefined ? linksData?.contactUs : localNpoPreviewDataState?.linksData?.contactUs?.link || FinalData?.linksData?.contactUs?.link}
                                                             </span>
-                                                            <span></span>
                                                         </span>
                                                     </span>
                                                     <span className=' flex'>
@@ -938,9 +938,9 @@ function NpoHome() {
                                                         </span>
                                                         <span className=' pl-[27px]'>
 
-                                                            <a className='' href={linksData?.websiteLink || "#"}>
+                                                            <a className='' href={linksData?.websiteLink!=undefined?linksData?.websiteLink:localNpoPreviewDataState?.linksData?.websiteLink?.link || FinalData?.linksData?.websiteLink?.link || "#"}>
                                                                 <span>
-                                                                    {linksData?.websiteLink || localNpoPreviewDataState?.linksData?.websiteLink?.link || FinalData?.linksData?.websiteLink?.link}
+                                                                    {linksData?.websiteLink != undefined ? linksData?.websiteLink : localNpoPreviewDataState?.linksData?.websiteLink?.link != undefined ? localNpoPreviewDataState?.linksData?.websiteLink?.link : FinalData?.linksData?.websiteLink?.link}
                                                                 </span>
                                                             </a>
                                                         </span>
@@ -953,7 +953,7 @@ function NpoHome() {
                                     } */}
 
                                                     {/* <a href={linksData?.instagram || localNpoPreviewDataState?.linksData?.instagram?.link || FinalData?.linksData?.instagram?.link} target='_blank'> */}
-                                                    <span  target='_blank'>
+                                                    <span target='_blank'>
                                                         <img className=' w-[42px] h-[41px]' src={insta} alt="" />
                                                     </span>
                                                     {/* {
@@ -969,7 +969,7 @@ function NpoHome() {
                                     &&
                                     } */}
                                                     <span>
-                                                    {/* <a href={linksData?.youtube || localNpoPreviewDataState?.linksData?.youtube?.link || FinalData?.linksData?.youtube?.link} target='_blank'> */}
+                                                        {/* <a href={linksData?.youtube || localNpoPreviewDataState?.linksData?.youtube?.link || FinalData?.linksData?.youtube?.link} target='_blank'> */}
                                                         <img className=' w-fit h-[28px]' src={ytLogo} alt="" />
                                                     </span>
                                                 </div>

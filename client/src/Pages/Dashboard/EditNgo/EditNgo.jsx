@@ -75,7 +75,6 @@ function EditNgo(
     /* handle form submit */
     const handleSubmit = (data, { resetForm }) => {
         setUpdateLoading(true)
-        // localStorage.setItem('ngolist', JSON.stringify(updatedData));
         console.log(data);
         UpdateNpo({ Id: Id, data: data })
             .then((res) => {

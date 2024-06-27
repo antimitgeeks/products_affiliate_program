@@ -4,16 +4,18 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import Switch from '@mui/material/Switch';
 
-function LinksModal({ close,data }) {
+function LinksModal({ close, data }) {
     const NpoReduxData = useSelector((state) => state.NpoDataSlice.linksData);
     console.log(data);
     console.log(NpoReduxData);
+    console.log( NpoReduxData?.contactUs );
+   
     const [linksData, setLinksData] = useState({
-        instagram:NpoReduxData?.instagram!=undefined ?NpoReduxData?.instagram: data?.linksData?.instagram?.link || '',
-        facebook: NpoReduxData?.facebook!=undefined? NpoReduxData?.facebook: data?.linksData?.facebook?.link|| '',
-        youtube: NpoReduxData?.youtube!=undefined?NpoReduxData?.youtube :data?.linksData?.youtube?.link ||  '',
-        contactUs: NpoReduxData?.contactUs!=undefined ?NpoReduxData?.contactUs :data?.linksData?.contactUs?.link ||  '',
-        websiteLink:  NpoReduxData?.websiteLink!=undefined?NpoReduxData?.websiteLink:data?.linksData?.websiteLink?.link || '',
+        instagram: NpoReduxData?.instagram != undefined ? NpoReduxData?.instagram : data?.linksData?.instagram?.link || '',
+        facebook: NpoReduxData?.facebook != undefined ? NpoReduxData?.facebook : data?.linksData?.facebook?.link || '',
+        youtube: NpoReduxData?.youtube != undefined ? NpoReduxData?.youtube : data?.linksData?.youtube?.link || '',
+        contactUs: NpoReduxData?.contactUs != undefined ? NpoReduxData?.contactUs : data?.linksData?.contactUs?.link || '',
+        websiteLink: NpoReduxData?.websiteLink != undefined ? NpoReduxData?.websiteLink : data?.linksData?.websiteLink?.link || '',
         // backgroundColor: NpoReduxData?.backgroundColor || '#CBD5E1',
         // instaSwitch: NpoReduxData?.length != 0? NpoReduxData?.instaSwitch==false ?false:true:data?.linksData?.instagram?.show==false?false:true,
         // facebookSwitch: NpoReduxData?.length != 0? NpoReduxData?.facebookSwitch==false ?false:true:data?.linksData?.facebook?.show ==false?false:true,
@@ -41,15 +43,81 @@ function LinksModal({ close,data }) {
         }));
     };
 
+    // const validationSchema = Yup.object().shape({
+    //     instagram: Yup.string(),
+    //     facebook: Yup.string(),
+    //     youtube: Yup.string(),
+    //     contactUs: Yup.string().optional(),
+    //     websiteLink: Yup.string().matches(/^[a-z A-Z `~!@#$%^&*(_+/:,.|)]+$/,"Invalid link")
+    // });
+    // const validationSchema = Yup.object().shape({
+    //     instagram: Yup.string().notRequired()
+    //         .nullable()
+    //         .matches(
+    //             /^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9_.  ]+\/?$/,
+    //             "Invalid Instagram URL"
+    //         ),
+    //     facebook: Yup.string()
+    //         .nullable()
+    //         .matches(
+    //             /^https:\/\/(www\.)?facebook\.com\/[A-Za-z0-9_.]+\/?$/,
+    //             "Invalid Facebook URL"
+    //         ),
+    //     youtube: Yup.string()
+    //         .nullable()
+    //         .matches(
+    //             /^(https:\/\/youtu\.be\/[A-Za-z0-9_-]+(\?feature=shared)?)|(https:\/\/www\.youtube\.com\/watch\?v=[A-Za-z0-9_-]+)$/,
+    //             "Invalid YouTube URL"
+    //         ),
+    //     contactUs: Yup.string().nullable(),
+    //     websiteLink: Yup.string()
+    //         .nullable()
+    //         .matches(
+    //             /^[a-z A-Z `~!@#$%^&*(_+/:,.|)]+$/,
+    //             "Invalid link"
+    //         )
+    // });
     const validationSchema = Yup.object().shape({
-        instagram: Yup.string(),
-        facebook: Yup.string(),
-        youtube: Yup.string(),
-        contactUs: Yup.string().optional(),
-        websiteLink: Yup.string().matches(/^[a-z A-Z `~!@#$%^&*(_+/:,.|)]+$/,"Invalid link")
+        instagram: Yup.string()
+            .nullable()
+            .test(
+                'is-valid-instagram-url',
+                'Invalid Instagram URL',
+                value => !value || /^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9_.]+\/?$/.test(value)
+            ),
+        facebook: Yup.string()
+            .nullable()
+            .test(
+                'is-valid-facebook-url',
+                'Invalid Facebook URL',
+                value => !value || /^https:\/\/(www\.)?facebook\.com\/[A-Za-z0-9_.]+\/?$/.test(value)
+            ),
+        youtube: Yup.string()
+            .nullable()
+            .test(
+                'is-valid-youtube-url',
+                'Invalid YouTube URL',
+                value => !value || /^(https:\/\/youtu\.be\/[A-Za-z0-9_-]+(\?feature=shared)?)|(https:\/\/www\.youtube\.com\/watch\?v=[A-Za-z0-9_-]+)$/.test(value)
+            ),
+        // contactUs: Yup.string().min(10, "Invalid number").matches(/[0-9]+$/).max(10, "Invalid number").trim("Invalid number"),
+        contactUs: Yup.string()
+            .nullable()
+            .test(
+                'is-valid-contact-number',
+                'Invalid number',
+                value => !value || /^[0-9]{10}$/.test(value)
+            ),
+        websiteLink: Yup.string()
+            .nullable()
+            .test(
+                'is-valid-website-link',
+                'Invalid link',
+                value => !value || /^[a-z A-Z `~!@#$%^&*(_+/:,.|)]+$/.test(value)
+            )
     });
-
+    
     const handleSave = () => {
+        console.log(linksData,'-----')
         validationSchema.validate(linksData, { abortEarly: false })
             .then(() => {
                 close(linksData);
