@@ -4,9 +4,7 @@ import DialogComponent from '../../components/DialogComponent';
 import ReportModal from './ReportModal';
 import { useGetReportByIdQuery } from '../../services/ReportService';
 import { Pagination } from '@mui/material';
-// import { Calendar, DateRangePicker } from 'react-date-range';
 import { Calendar } from "react-multi-date-picker"
-import { FaGalacticSenate } from 'react-icons/fa';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 function ReportDetail() {

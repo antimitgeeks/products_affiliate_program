@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Chart from 'react-apexcharts'
-import DataTable from '../../components/DataTable'
 import MobileTabel from '../../components/MobileTable';
 import DialogComponent from '../../components/DialogComponent'
 import AddNgo from './AddNgo/AddNgo';
@@ -10,8 +8,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiEdit2Fill } from "react-icons/ri";
 import { IoMdEye } from "react-icons/io";
 import AlertComponent from '../../components/AlertComponent';
-import InputComponent from '../../components/InputComponent';
-import { FaSearch } from 'react-icons/fa';
 import { Pagination } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import EditNgo from './EditNgo/EditNgo';
