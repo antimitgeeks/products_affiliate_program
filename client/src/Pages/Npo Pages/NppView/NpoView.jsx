@@ -71,12 +71,12 @@ function NpoView() {
                       <p className="text-[19px] mb-2"><strong>Email:</strong> {NpoData?.email || "N/A"}</p>
                       <p className="text-[19px]"><strong>Number:</strong> {NpoData?.number || "N/A"}</p>
                     </div>
-                    <button
+                    <span
                       onClick={toggleDetails}
-                      className="text-blue-500 underline mt-4 inline-block"
+                      className=" p-1 border bg-slate-300 rounded px-2 cursor-pointer mt-4 inline-block"
                     >
                       {showDetails ? 'Hide NPO Page ' : 'View NPO Page '}
-                    </button>
+                    </span>
                     {showDetails && (
                       <div className="mt-4">
                         {detailsLoading ? (

@@ -18,6 +18,7 @@ import EditNgo from './EditNgo/EditNgo';
 import Switch from '@mui/material/Switch';
 import { toast } from 'react-toastify';
 import { IoWarning, IoWarningOutline } from 'react-icons/io5';
+import LinesEllipsis from 'react-lines-ellipsis'
 
 
 function Home() {
@@ -169,8 +170,8 @@ function Home() {
   return (
     <>
       <div className=' flex flex-col gap-8 overflow-y-scroll scroll-m-1 py-3 px-3 bg-slate-50 h-full w-full'>
-        <div  onClick={()=>handleActionsClose('')}  className=' flex w-full justify-end'>
-          <div onClick={() => handleModalOpen()} className=' hover:opacity-80 hover:border-slate-500 py-[5.5px] px-3 text-[13px]  bg-slate-300 border border-slate-700 rounded cursor-pointer'>
+        <div onClick={() => handleActionsClose('')} className=' flex w-full justify-end'>
+          <div onClick={() => handleModalOpen()} className=' hover:opacity-80 hover:border-slate-500 py-[5.5px] px-3 text-[13px]  text-white bg-slate-400 border border-slate-700 rounded cursor-pointer'>
             <span>ADD</span>
           </div>
         </div>
@@ -185,8 +186,8 @@ function Home() {
 
           <div className='  w-full flex flex-col gap-5 items-center'>
             <div className=' hidden  md:table rounded w-full '>
-              <div onClick={()=>handleActionsClose('')} className='head divide-x-2 bg-slate-300 text-black rounded border-r border-l flex justify-between'>
-                <div  className=' w-full font-medium  text-[13.5px] self-center py-[10.6px] pl-3 uppercase' >NPO  name</div>
+              <div onClick={() => handleActionsClose('')} className='head divide-x-2 bg-slate-500 text-white  rounded border-r border-l flex justify-between'>
+                <div className=' w-full font-medium  text-[13.5px] self-center py-[10.6px] pl-3 uppercase' >NPO  name</div>
                 <div className=' w-full font-medium text-[13.5px] self-center py-[10.6px] pl-3 uppercase'>NPO email</div>
                 <div className=' w-full font-medium text-[13.0px] self-center py-[10.6px] pl-3 uppercase'>Npo number</div>
                 <div className=' w-full font-medium text-[13.0px] self-center py-[10.6px] pl-3 uppercase'>Active</div>
@@ -201,10 +202,33 @@ function Home() {
                     :
                     listData?.map((itm, indx) => {
                       return <div key={indx} className=' w-full  gap-1 border  flex justify-between    rounded-md  px-1 py-3'>
-                        <span  onClick={()=>handleActionsClose('')}  className=' w-[23%]  text-[14.6px] flex items-center    h-[22px] pl-2 lg:pl-3  '> <span className=' '>{itm?.name ? itm?.name : "N/A"}</span> </span>
-                        <span  onClick={()=>handleActionsClose('')}  className='  w-[22%] noScroll flex self-center h-[21px] md:h-[26px] py-0  text-[14.6px] '>{itm?.email ? itm?.email : "N/A"}</span>
-                        <span  onClick={()=>handleActionsClose('')}  className=' w-[23%] pl-3  text-[14.2px] h-[20px]'>{itm?.number ? itm?.number : "N/A"}</span>
-                        <span  onClick={()=>handleActionsClose('')}  className=' w-[22%] flex items-center text-[13.6px] h-[20px]'><Switch checked={itm?.isActive} onChange={(e) => handleSwitchToggle(itm, e)} /></span>
+
+                        <span onClick={() => handleActionsClose('')} className=' w-[23%]  text-[14.6px] flex items-center    h-[22px] pl-2 lg:pl-3   break-words '>
+                          <LinesEllipsis
+                            text={itm?.name ? itm?.name : "N/A"}
+                            maxLine='1'
+                            winWidth={2}
+                            ellipsis='...'
+                            trimRight
+                            basedOn='letters'
+                            className=' break-words w-3/4'
+                          />
+                          {/* <span className=' '>{itm?.name ? itm?.name : "N/A"}</span> */}
+                        </span>
+                        <span onClick={() => handleActionsClose('')} className='  w-[22%] noScroll flex self-center h-[21px] md:h-[26px] py-0  text-[14.6px] '>
+                          <LinesEllipsis
+                            text={itm?.email ? itm?.email : "N/A"}
+                            maxLine='1'
+                            winWidth={2}
+                            ellipsis='...'
+                            trimRight
+                            basedOn='letters'
+                            className=' break-words w-4/5'
+                          />
+                          {/* {itm?.email ? itm?.email : "N/A"} */}
+                          </span>
+                        <span onClick={() => handleActionsClose('')} className=' w-[23%] pl-3  text-[14.2px] h-[20px]'>{itm?.number ? itm?.number : "N/A"}</span>
+                        <span onClick={() => handleActionsClose('')} className=' w-[22%] flex items-center text-[13.6px] h-[20px]'><Switch checked={itm?.isActive} onChange={(e) => handleSwitchToggle(itm, e)} /></span>
                         <span className=' w-[10%]  text-[14.6px] h-[20px] relative '> <span className=' hover:opacity-75 w-fit flex items-center pt-1  cursor-pointer' onClick={() => { actionIndex[indx] === true ? handleActionsClose(indx) : handleActions(indx, itm?.id) }}><BsThreeDotsVertical /></span>
                           {
                             actionIndex[indx] === true ?
@@ -243,7 +267,7 @@ function Home() {
                           {
                             actionIndex[indx] === true ?
                               <>  <span className=' select-none rounded-full left-[145px] sm:left-[200px] lg:left-[80px] w-[130px] divide-x-2 2xl:right-[100px]  gap-1  py-1 px-2 shadow  right-5 bottom-0 bg-white absolute flex  items-center justify-between'>
-                                <span onClick={()=>handleEdit()} className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17} /></span>
+                                <span onClick={() => handleEdit()} className=' cursor-pointer w-full flex items-center justify-center'><RiEdit2Fill size={17} /></span>
                                 {/* <span onClick={() => handleDelete(indx)} className=' cursor-pointer w-full flex items-center justify-center'><AiFillDelete size={16} /></span> */}
                                 <span onClick={() => handleView(itm.id)} className=' cursor-pointer w-full flex items-center justify-center'><IoMdEye size={17} /></span>
                               </span>

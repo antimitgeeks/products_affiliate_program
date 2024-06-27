@@ -25,10 +25,21 @@ function AddNgo(
     /* validation schema */
     const validationSchema = yup.object().shape({
 
-        name: yup.string().strict().matches(/^[a-zA-Z 0-9]+$/, "Special characters not allowed").required('name is required').trim("Invalid name"),
-        email: yup.string().strict().email('Enter Valid email').required('email is required').trim("Invalid email"),
+        name:  yup.string()
+        .strict()
+        .max(80, "Should not be this long")
+        .matches(/^[a-zA-Z][a-zA-Z 0-9]*$/, "Special characters not allowed and first letter must be a letter")
+        .required('Name is required')
+        .trim("Invalid name"),
+        email: yup.string()
+        .strict()
+        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Enter a valid email")
+        .max(70, "Length should not exceed 70")
+        .email("Enter a valid email")
+        .required("Email is required")
+        .trim("Invalid email"),
         // address: yup.string().required('address is required').trim("Enter valid address").strict(),
-        password: yup.string().required('password is required').min(6, "minimum 6 characters required").trim("Invalid password").strict(),
+        password: yup.string().matches(/^[a-zA-Z0-9!@#$%&^*()_+=-['?/><"]+$/,'spaces not allowed').required('password is required').min(6, "minimum 6 characters required").trim("Invalid password").strict(),
         number: yup.string().matches(/^[0-9]+$/, "Invalid number").min(10, "Invalid number").max(10, "Invalid number").trim("Invalid number")
     });
 
