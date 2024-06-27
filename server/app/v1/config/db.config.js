@@ -1,8 +1,9 @@
 module.exports = {
-  HOST: "localhost",
-  USER: "root",
-  PASSWORD: "",
-  DB: "itg_admin",
+  HOST: process.env.DB_HOST,
+  USER: process.env.DB_USER,
+  PASSWORD: process.env.DB_PASSWORD,
+  DB: process.env.DB_NAME,
+  PORT: process.env.DB_PORT,
   dialect: "mysql",
   pool: {
     max: 5,
@@ -13,10 +14,11 @@ module.exports = {
 };
 
 // module.exports = {
-//   HOST: "bktm4rjw7yvng5wterml-mysql.services.clever-cloud.com",
-//   USER: "unlcdiovbnjvg0lj",
-//   PASSWORD: "nzdXBdivmDdPPZ9mAhlY",
-//   DB: "bktm4rjw7yvng5wterml",
+//   HOST: "db-mysql-nyc1-59311-do-user-16992257-0.c.db.ondigitalocean.com",
+//   USER: "doadmin",
+//   PASSWORD: "AVNS_uzhr339TCWdgsY517mA",
+//   DB: "defaultdb",
+//   PORT: 25060,
 //   dialect: "mysql",
 //   pool: {
 //     max: 5,

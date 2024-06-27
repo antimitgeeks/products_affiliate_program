@@ -14,15 +14,22 @@ const Sequelize = require("sequelize");
 //   }
 // });
 
-const sequelize = new Sequelize({
-  host: dbConfig.HOST,
-  username: dbConfig.USER,
-  password: dbConfig.PASSWORD,
-  database: dbConfig.DB,
-  dialect: "mysql",
-  dialectModule: require("mysql2"),
-  benchmark: true
-})
+const sequelize = new Sequelize(
+  dbConfig.DB,
+  dbConfig.USER,
+  dbConfig.PASSWORD,
+  {
+    host: dbConfig.HOST,
+    dialect: 'mysql',
+    port: dbConfig.PORT,
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true,
+    //     rejectUnauthorized: false
+    //   }
+    // }
+  }
+);
 const db = {};
 
 db.Sequelize = Sequelize;
