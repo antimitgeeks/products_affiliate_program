@@ -7,11 +7,12 @@ require('./server/app/v1/utils/cron.job');
 const serveStatic = require("serve-static");
 const { readFileSync } = require("fs");
 const { join } = require("path");
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
- 
+
 // parse requests of content-type - application/json
 app.use(express.json());
 
@@ -51,25 +52,14 @@ const data = () => {
   console.log('test');
 }
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to respect admin panel." });
-});
-
+app.use(express.static(path.join(STATIC_PATH, 'build')));
 
 app.use(process.env.BASE_URL, routes);
 
-// Serve static files from the specified path without generating an index.
-app.use(serveStatic(STATIC_PATH, { index: false }));
 
-// eslint-disable-next-line no-unused-vars
-app.use("/*", async (req, res, next) => {
-  return res
-    .status(200)
-    .set("Content-Type", "text/html")
-    .send(readFileSync(join(STATIC_PATH, "public/index.html")));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
