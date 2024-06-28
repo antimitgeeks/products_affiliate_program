@@ -205,7 +205,7 @@ function NpoPreview({ Id }) {
                                                 <div className=' w-full h-full'>
                                                     <img className=' object-cover object-center h-full w-full' src={ReduxPreviewData?.bannerUrl || bannerUrl} alt="" />
                                                     <span className=' absolute top-[175px] sm:top-[250px] text-white w-full flex items-center justify-center'>
-                                                        <span style={{ color: ReduxPreviewData?.bannerTextColor != undefined ? ReduxPreviewData?.bannerTextColor : PageData?.bannerTextColor }} className=' w-full px-16 break-words text-center text-slate-50 text-[30px] rounded py-1'>
+                                                        <span style={{ color: ReduxPreviewData?.bannerTextColor != undefined ? ReduxPreviewData?.bannerTextColor : PageData?.bannerTextColor }} className=' w-full px-16 break-words text-center text-slate-50 font-medium text-[30px] rounded py-1'>
                                                             {ReduxPreviewData?.bannerBackgroundText != undefined ? ReduxPreviewData?.bannerBackgroundText : PageData?.bannerBackgroundText}
                                                         </span>
                                                     </span>

@@ -20,7 +20,7 @@ function VideoModal({ close, onchange }) {
                 close(videoData);
             }
             else {
-                toast.error("Invalid Youtube Video");
+                toast.warn("Invalid Youtube Video");
             }
         }
     };

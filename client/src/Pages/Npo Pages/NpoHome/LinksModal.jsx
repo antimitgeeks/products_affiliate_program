@@ -88,7 +88,7 @@ function LinksModal({ close, data }) {
             })
             .catch((err) => {
                 console.log(err.errors)
-                toast.error(err.errors[0]);
+                toast.warn(err.errors[0]);
             });
     };
 
