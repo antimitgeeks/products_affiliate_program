@@ -176,12 +176,12 @@ function NpoPreview({ Id }) {
                                         ?
                                         // logoUrl!='' || ReduxPreviewData?.logoUrl!='' ?
                                         logoUrl ?
-                                            // ReduxPreviewData?.logoUrl?.length == 0 ?
-                                            //     <div className=' bg-slate-400 h-[70px] w-[70px] rounded-full'>
+                                            ReduxPreviewData?.logoUrl?.length == 0 ?
+                                                <div className=' bg-slate-400 h-[70px] w-[70px] rounded-full'>
 
-                                            //     </div>
-                                            // :
-                                            <img className=' sm:w-[70px] w-[45px] h-[45px] sm:h-[70px] rounded-full' src={ReduxPreviewData?.logoUrl || logoUrl} alt="" />
+                                                </div>
+                                                :
+                                                <img className=' sm:w-[70px] w-[45px] h-[45px] sm:h-[70px] rounded-full' src={ReduxPreviewData?.logoUrl != undefined ? ReduxPreviewData?.logoUrl : logoUrl} alt="" />
                                             :
                                             <>
                                                 <div className=' bg-slate-400 h-[70px] w-[70px] rounded-full'>
@@ -189,7 +189,7 @@ function NpoPreview({ Id }) {
                                                 </div>
                                             </>
                                         :
-                                        <img className=' w-[70px] h-[70px] rounded-full' src={ReduxPreviewData?.logoUrl || logoUrl} alt="" />
+                                        <img className=' w-[70px] h-[70px] rounded-full' src={ReduxPreviewData?.logoUrl != undefined ? ReduxPreviewData?.logoUrl : logoUrl} alt="" />
                                 }
                             </div>
                             <div className=' w-full h-[380px] sm:h-[580px]'>
@@ -197,15 +197,19 @@ function NpoPreview({ Id }) {
                                     ReduxPreviewData?.bannerUrl == undefined || ReduxPreviewData?.bannerUrl == '' || PageData?.bannerUrl == undefined
                                         ?
                                         bannerUrl ?
+                                            ReduxPreviewData?.bannerUrl?.length == 0 ?
+                                                <div className=' bg-slate-300  w-full h-full'>
 
-                                            <div className=' w-full h-full'>
-                                                <img className=' object-cover object-center h-full w-full' src={ReduxPreviewData?.bannerUrl || bannerUrl} alt="" />
-                                                <span className=' absolute top-[175px] sm:top-[250px] text-white w-full flex items-center justify-center'>
-                                                    <span style={{ color: ReduxPreviewData?.bannerTextColor != undefined ? ReduxPreviewData?.bannerTextColor : PageData?.bannerTextColor }} className=' w-full px-16 break-words text-center text-slate-50 text-[30px] rounded py-1'>
-                                                        {ReduxPreviewData?.bannerBackgroundText != undefined ? ReduxPreviewData?.bannerBackgroundText : PageData?.bannerBackgroundText}
+                                                </div>
+                                                :
+                                                <div className=' w-full h-full'>
+                                                    <img className=' object-cover object-center h-full w-full' src={ReduxPreviewData?.bannerUrl || bannerUrl} alt="" />
+                                                    <span className=' absolute top-[175px] sm:top-[250px] text-white w-full flex items-center justify-center'>
+                                                        <span style={{ color: ReduxPreviewData?.bannerTextColor != undefined ? ReduxPreviewData?.bannerTextColor : PageData?.bannerTextColor }} className=' w-full px-16 break-words text-center text-slate-50 text-[30px] rounded py-1'>
+                                                            {ReduxPreviewData?.bannerBackgroundText != undefined ? ReduxPreviewData?.bannerBackgroundText : PageData?.bannerBackgroundText}
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            </div> :
+                                                </div> :
                                             <div className=' bg-slate-300  w-full h-full'>
 
                                             </div>
@@ -227,8 +231,11 @@ function NpoPreview({ Id }) {
                                     ReduxPreviewData?.imageTextUrl == undefined || ReduxPreviewData?.imageTextUrl == '' || PageData?.imageTextUrl == undefined
                                         ?
                                         imageTextUrl ?
-
-                                            <img className='rounded self-center   object-cover' src={ReduxPreviewData?.imageTextUrl || imageTextUrl} alt="" />
+                                            ReduxPreviewData?.imageTextUrl?.length == 0 ?
+                                                <div className='bg-slate-300 min-h-[400px] rounded h-full w-full'>
+                                                </div>
+                                                :
+                                                <img className='rounded self-center   object-cover' src={ReduxPreviewData?.imageTextUrl || imageTextUrl} alt="" />
 
                                             :
                                             <div className='bg-slate-300 min-h-[400px] rounded h-full w-full'>

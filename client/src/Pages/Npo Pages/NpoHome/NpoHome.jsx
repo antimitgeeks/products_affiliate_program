@@ -346,44 +346,44 @@ function NpoHome() {
             return;
         }
         else {
-            const newLogoUrl = URL?.createObjectURL(file);
+            const newLogoUrl = file ? URL?.createObjectURL(file) : '';
             const formData = new FormData();
             formData.append('image', file);
             setBannerUrl(newLogoUrl);
-            setBannerFormData(formData)
-            UploadFile({ Id: decodedToken?.id, data: formData, type: 'banner' })
-                .then((res) => {
-                    if (res?.error) {
-                        toast.error(res?.error?.data?.message);
-                        setBannerUrl('')
-                    }
-                    else {
-                        console.log(res);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            // setBannerFormData(formData)
+            // UploadFile({ Id: decodedToken?.id, data: formData, type: 'banner' })
+            //     .then((res) => {
+            //         if (res?.error) {
+            //             toast.error(res?.error?.data?.message);
+            //             setBannerUrl('')
+            //         }
+            //         else {
+            //             console.log(res);
+            //         }
+            //     })
+            //     .catch((err) => {
+            //         console.log(err)
+            //     })
         }
     };
-    const handleBannerRemove = () => {
-        const formData = new FormData();
-        formData.append('image', '');
-        setBannerFormData(formData)
-        UploadFile({ Id: decodedToken?.id, data: formData, type: 'banner' })
-            .then((res) => {
-                if (res?.error) {
-                    toast.error(res?.error?.data?.message);
-                    setBannerUrl('')
-                }
-                else {
-                    console.log(res);
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
+    // const handleBannerRemove = () => {
+    //     const formData = new FormData();
+    //     formData.append('image', '');
+    //     setBannerFormData(formData)
+    //     UploadFile({ Id: decodedToken?.id, data: formData, type: 'banner' })
+    //         .then((res) => {
+    //             if (res?.error) {
+    //                 toast.error(res?.error?.data?.message);
+    //                 setBannerUrl('')
+    //             }
+    //             else {
+    //                 console.log(res);
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err)
+    //         })
+    // }
 
     /* Handle Image with text upload */
     const handleImagewithText = (ev) => {
@@ -400,59 +400,44 @@ function NpoHome() {
             const newLogoUrl = URL?.createObjectURL(file);
             setImageTextUrl(newLogoUrl)
             setTextFormData(formData);
-            UploadFile({ Id: decodedToken?.id, data: formData, type: 'text' })
-                .then((res) => {
-                    if (res?.error) {
-                        toast.error(res?.error?.data?.message);
-                        console.log(res?.error);
-                        setImageTextUrl('')
-                    }
-                    else {
-                        console.log(res);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            // UploadFile({ Id: decodedToken?.id, data: formData, type: 'text' })
+            //     .then((res) => {
+            //         if (res?.error) {
+            //             toast.error(res?.error?.data?.message);
+            //             console.log(res?.error);
+            //             setImageTextUrl('')
+            //         }
+            //         else {
+            //             console.log(res);
+            //         }
+            //     })
+            //     .catch((err) => {
+            //         console.log(err)
+            //     })
         }
 
 
-        // UploadFile({ Id: decodedToken?.id, data: formData, type: 'text' })
-        //     .then((res) => {
-        //         if (res?.error) {
-        //             toast.error(res?.error?.data?.message);
-        //             console.log(res?.error)
-        //         }
-        //         else {
-        //             console.log(res);
-        //             setImageTextUrl(newLogoUrl);
-
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err)
-        //     })
 
     };
-    const handleImageTextRemove = () => {
-        const formData = new FormData();
-        formData.append('image', '');
-        setTextFormData(formData)
-        UploadFile({ Id: decodedToken?.id, data: formData, type: 'text' })
-            .then((res) => {
-                if (res?.error) {
-                    toast.error(res?.error?.data?.message);
-                    setImageTextUrl('')
-                }
-                else {
-                    console.log(res);
+    // const handleImagewithTextRemove=() => {
+    //     const formData = new FormData();
+    //     formData.append('image', '');
+    //     setTextFormData(formData)
+    //     UploadFile({ Id: decodedToken?.id, data: formData, type: 'text' })
+    //         .then((res) => {
+    //             if (res?.error) {
+    //                 toast.error(res?.error?.data?.message);
+    //                 setImageTextUrl('')
+    //             }
+    //             else {
+    //                 console.log(res);
 
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err)
+    //         })
+    // }
 
     const handleImageTextInput = (ev) => {
         const val = ev?.target?.value;
@@ -494,19 +479,6 @@ function NpoHome() {
 
     console.log(logoFormData)
 
-
-    // useEffect(async()=>
-    // {
-    //     let newLink =(logoUrl)
-    //     const response = await fetch(newLink);
-    //     const blob = await response.blob();
-    //     console.log(blob,'bobbbbbbbbbbbbbbbbbb')
-    //     const file  =new File([blob], 'filename', { type: blob.type }); // Set a default filename
-    //     console.log(file,'filelelelel')
-    //     const formData = new FormData();
-    //     formData.append('image', file);
-    //     setLogoFormData(formData)
-    // },[])
 
     const handleSave = async() => {
 
@@ -565,16 +537,24 @@ function NpoHome() {
         // console.log(dtaforLogo)
         // formData.append('image',dtaforLogo)
 
-        console.log(logoUrl.split('blob:')[1],"logoURLLLLLLLLLLL")
         let newLink =(logoUrl)
             const response = await fetch(newLink);
             const blob = await response.blob();
             console.log(blob,'bobbbbbbbbbbbbbbbbbb')
-            const file  =new File([blob], 'filename.jpg', { type: blob.type }); // Set a default filename
-            console.log(file,'filelelelel');
+            const file  =new File([blob], 'filename.jpg', { type: blob.type=='image/*'?"image/jpeg":blob.type }); // Set a default filename
+            console.log(file,'bobbbbbbbbbbbbbbbbbb');
             const formDataa = new FormData();
-            formDataa.append('image',file);
-            setLogoFormData(formDataa)
+            if(logoUrl)
+                {
+
+                    formDataa.append('image',file);
+                }
+                else
+                {
+                    formDataa.append('image','');
+
+                }
+            setLogoFormData(formDataa);
 
         UploadFile({ Id: decodedToken?.id, data: formDataa, type: 'logo' })
             .then((res) => {
@@ -590,35 +570,76 @@ function NpoHome() {
             .catch((err) => {
                 console.log(err)
             });
-        // UploadFile({ Id: decodedToken?.id, data: textFormData, type: 'text' })
-        //     .then((res) => {
-        //         if (res?.error) {
-        //             toast.error(res?.error?.data?.message);
-        //             console.log(res?.error);
-        //             setImageTextUrl('')
-        //         }
-        //         else {
-        //             console.log(res);
 
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err)
-        //     })
-        // UploadFile({ Id: decodedToken?.id, data: bannerFormData, type: 'banner' })
-        //     .then((res) => {
-        //         if (res?.error) {
-        //             toast.error(res?.error?.data?.message);
-        //             setBannerUrl('')
-        //         }
-        //         else {
-        //             console.log(res);
 
-        //         }
-        //     })
-        // .catch((err) => {
-        //     console.log(err)
-        // })
+            let textimageLink =(imageTextUrl)
+            const imageTextResponse = await fetch(textimageLink);
+            const imageTextBlob = await imageTextResponse.blob();
+            console.log(imageTextBlob,'bobbbbbbbbbbbbbbbbbb')
+            const imageTextFile  =new File([imageTextBlob], 'filename.jpg', { type: imageTextBlob.type=='image/*'?"image/jpeg":imageTextBlob.type }); // Set a default filename
+            console.log(imageTextFile,'filelelelel');
+            const imageTextFomData = new FormData();
+            if(imageTextUrl)
+                {
+                    imageTextFomData.append('image',imageTextFile);
+                }
+            else
+            {
+                
+                imageTextFomData.append('image','');
+    
+            }
+            setTextFormData(imageTextFomData);
+
+        UploadFile({ Id: decodedToken?.id, data: imageTextFomData, type: 'text' })
+            .then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message);
+                    console.log(res?.error);
+                    setImageTextUrl('')
+                }
+                else {
+                    console.log(res);
+
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+        let bannerLink =(bannerUrl)
+        const bannerResponse = await fetch(bannerLink);
+        const bannerBlob = await bannerResponse.blob();
+        console.log(bannerBlob,'bobbbbbbbbbbbbbbbbbb')
+        const bannerFile  =new File([bannerBlob], 'filename.jpg', { type: bannerBlob.type=='image/*'?"image/jpeg":bannerBlob.type }); // Set a default filename
+        console.log(bannerFile,'filelelelel');
+        const bannerFomData = new FormData();
+        if(bannerUrl)
+            {
+                bannerFomData.append('image',bannerFile);
+            }
+        else
+        {
+            
+            bannerFomData.append('image','');
+
+        }
+        setBannerFormData(bannerFomData);
+
+        UploadFile({ Id: decodedToken?.id, data: bannerFomData, type: 'banner' })
+            .then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message);
+                    setBannerUrl('')
+                }
+                else {
+                    console.log(res);
+
+                }
+            })
+        .catch((err) => {
+            console.log(err)
+        })
         // console.log(logoUrl)
 
 
@@ -824,7 +845,7 @@ function NpoHome() {
 
                                                         </span>
 
-                                                        <label onClick={() => { setBannerUrl(''); handleBannerRemove() }} className=' m-0  z-10  cursor-pointer absolute text-black p-[2px] top-[-10px] font-bold bg-slate-200  right-[-7px]'><FaRegEdit /></label>
+                                                        <label onClick={() => { setBannerUrl(''); }} className=' m-0  z-10  cursor-pointer absolute text-black p-[2px] top-[-10px] font-bold bg-slate-200  right-[-7px]'><FaRegEdit /></label>
                                                     </div>
                                                     :
                                                     <div className=' flex  focus:border-2 p-1  focus:border-black focus:border-solid border-dashed border-slate-400 border-2 items-center justify-center bg-slate-300 w-full h-[340px] sm:h-[535px]'>
@@ -843,7 +864,7 @@ function NpoHome() {
                                                         <div className='  h-full w-full'>
                                                             <img className=' w-full h-full object-fill' src={imageTextUrl} alt="" />
                                                             {/* <input onInput={(e) => handleImagewithText(e)} id='imageWithText' type="file" accept=' .jpg , .png , .jpeg' className=' w-0 hidden' /> */}
-                                                            <label onClick={() => { setImageTextUrl(''); handleImageTextRemove() }} className=' text-black m-0  font-bold bg-slate-200 p-[1px] right-[-4px] top-[-10px] cursor-pointer absolute'><FaRegEdit /></label>
+                                                            <label onClick={() => { setImageTextUrl(''); }} className=' text-black m-0  font-bold bg-slate-200 p-[1px] right-[-4px] top-[-10px] cursor-pointer absolute'><FaRegEdit /></label>
                                                         </div>
                                                         :
                                                         <div className=' w-full py-1  focus:border-2 h-full focus:border-black focus:border-solid border-dashed border-slate-400 border-2  flex items-center justify-center'>
