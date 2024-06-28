@@ -19,6 +19,7 @@ function ReportDetail() {
     const [selectedData, setSelectedData] = useState([]);
     const [ReportData, setReportData] = useState([]);
 
+    // states for modal and date filter
     const [isModalOpen, setModalOpen] = useState(false)
     const [dateModal, setDateModal] = useState(false);
     const [dateValue, setDateValue] = useState('')
@@ -171,7 +172,6 @@ function ReportDetail() {
                 <div className=' w-full flex-col text-sm sm:text-[15.5px] sm:flex-row flex mb-2 justify-between'>
                     <div className=' flex gap-3 items-center'>
                         <div onClick={() => setDateModal(true)} className=' flex gap-2 hover:opacity-85 w-fit  border-2 border-slate-400 px-2 py-1 rounded cursor-pointer mb-2'>
-                            {/* Filters area */}
                             Select Date Range
                         </div>
                         {

@@ -58,7 +58,6 @@ function EditNgo(
             .email("Enter a valid email")
             .required("Email is required")
             .trim("Invalid email"),
-        // address: yup.string().required('address is required').trim("Enter valid address").strict(),
         password: yup.string().matches(/^[a-zA-Z0-9!@#$%&^*()_+=-['?/><"]+$/, 'spaces not allowed').required('password is required').min(6, "minimum 6 characters required").trim("Invalid password").strict(),
         number: yup.string().min(10, "Invalid number").matches(/[0-9]+$/).max(10, "Invalid number").trim("Invalid number")
     });
@@ -68,7 +67,6 @@ function EditNgo(
     const initialValues = {
         name: NpoData?.name || '',
         email: NpoData?.email || '',
-        // address: NpoData?.address || '',
         number: NpoData?.number || '',
         password: NpoData?.password || ''
     };
@@ -111,9 +109,7 @@ function EditNgo(
                     <>
                         <div className=' flex text-lg font-semibold justify-between'>
                             Edit Ngo
-                            {/* <div> */}
                             <span onClick={() => close()} className=' top-[-20px] absolute items-center justify-center right-[-24px] hover:opacity-80 bg-red-400 text-white cursor-pointer py-[5px] px-[14px] '>X</span>
-                            {/* </div> */}
                         </div>
                         <div>
                             <Formik
@@ -145,14 +141,6 @@ function EditNgo(
                                                 onChange={settingsProps.handleChange}
                                                 value={settingsProps.values.email}
                                             />
-                                            {/* <InputComponent
-                                                required
-                                                label={'Address'}
-                                                placeholder={'Enter ngo Address'}
-                                                name={'address'}
-                                                onChange={settingsProps.handleChange}
-                                                value={settingsProps.values.address}
-                                            /> */}
                                             <div className=' relative flex  items-center'>
 
                                                 <InputComponent
@@ -173,7 +161,6 @@ function EditNgo(
                                                             <IoEyeOff onClick={() => setShowPassword("text")} size={18} />
 
                                                     }
-
                                                 </span>
                                             </div>
                                             <InputComponent

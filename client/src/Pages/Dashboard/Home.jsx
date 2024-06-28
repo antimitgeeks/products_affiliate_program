@@ -94,7 +94,6 @@ function Home() {
 
 
   const handleDeleteYes = () => {
-    // DeleteStore({ Id: selectedIndex })
     DeleteNpo({ Id: selectedIndex })
       .then((res) => {
         if (res?.error) {
@@ -151,7 +150,6 @@ function Home() {
               console.log(res?.error?.data?.message)
             }
             else {
-              // close()
               //  toast.success(res?.data?.message)
               console.log(res?.data?.message)
             }
@@ -292,14 +290,11 @@ function Home() {
                 page={Page}
                 count={count}
                 onChange={handlePageChange}
-              // renderItem={(item) => <PaginationItem {...item}   className=" shadow-md" />}
               />
             }
           </div>
         </div>
       </div>
-
-
     </>
   )
 }

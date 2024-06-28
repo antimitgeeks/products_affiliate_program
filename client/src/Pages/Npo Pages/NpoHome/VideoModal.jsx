@@ -25,15 +25,6 @@ function VideoModal({ close, onchange }) {
         }
     };
 
-    const handleVideoFile = (e) => {
-        let video = e.target.files[0];
-        if (video) {
-            console.log('hi');
-            setVideoFileData(video);
-            // setVideoPreviewUrl(URL.createObjectURL(video));
-        }
-    };
-
     return (
         <div className='flex flex-col gap-8 py-2 w-full'>
             <div className='relative flex w-full justify-between'>
@@ -52,18 +43,6 @@ function VideoModal({ close, onchange }) {
                     onChange={(e) => setVideoData(e.target.value)}
                 />
             </div>
-            {/* <span className='m-auto self-center'>OR</span>
-            <div className='items-center justify-between w-full flex'>
-                <span>Select file from system:</span>
-                <span className='self-end pl-6'>
-                    <input
-                        onChange={handleVideoFile}
-                        type="file"
-                        className='w-fit'
-                        accept='video/*'
-                    />
-                </span>
-            </div> */}
             <div className='w-full flex justify-end items-center'>
                 <span onClick={handleSave} className='bg-slate-300 py-2 px-4 cursor-pointer'>Save</span>
             </div>

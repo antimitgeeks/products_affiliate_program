@@ -3,16 +3,11 @@ import DialogComponent from '../../../components/DialogComponent';
 import VideoModal from './VideoModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLinkData, setNpoData, setPreviewData } from '../../../Redux/NpoSlices/NpoDataSlice';
-// import { FaEdit } from 'react-icons/fa';
-// import { FiEdit } from 'react-icons/fi';
-// import { MdCancel } from "react-icons/md";
-// import { MdCancelPresentation } from "react-icons/md";
-// import { RiDeleteBin2Line } from "react-icons/ri";
 // import { LuDelete } from "react-icons/lu";
 import { FaRegEdit } from "react-icons/fa";
-import insta from '../../../Assets/insta.png'
-import facebook from '../../../Assets/Facebook_Logo_2023.png'
-import ytLogo from '../../../Assets/Youtube_logo.png'
+import insta from '../../../Assets/insta.png';
+import facebook from '../../../Assets/Facebook_Logo_2023.png';
+import ytLogo from '../../../Assets/Youtube_logo.png';
 import LinksModal from './LinksModal';
 import { toast } from 'react-toastify';
 import { json, useNavigate } from 'react-router-dom';
@@ -27,7 +22,6 @@ function NpoHome() {
     const [loading, setLoading] = useState(false);
     const [FinalData, setFinalData] = useState();
     const [decodedToken, setDecodedToken] = useState('');
-    const [IMG, setImg] = useState('');
     const [logoLoading, setLogoLoading] = useState(false);
     const [bannerLoading, setBannerLoading] = useState(false);
     const [TextImageloading, setTextImageLoading] = useState(false);
@@ -219,7 +213,6 @@ function NpoHome() {
     const [textFormData, setTextFormData] = useState(null);
 
 
-    console.log(logoFormData)
     const [AddPage] = useAddPageMutation();
     const [UploadFile] = useUploadFileMutation();
 
@@ -451,12 +444,9 @@ function NpoHome() {
                     setVideoModalData(data)
                 }
             }
-
         }
         setVideoModalOpen(false)
     }
-
-    console.log(logoFormData)
 
 
     const handleSave = async () => {
@@ -538,7 +528,7 @@ function NpoHome() {
             .then((res) => {
                 console.log(res)
                 if (res?.error) {
-                    // toast.error(res?.error?.message);
+                    toast.error(res?.error?.data?.message);
                     console.log(res?.error?.message)
                 }
                 else {
@@ -952,7 +942,6 @@ function NpoHome() {
                                                                 Contact Us
                                                             </span>
                                                             <span className=' pl-4'>
-
                                                                 :
                                                             </span>
                                                             <span className=' pl-[30px] cursor-pointer'>
@@ -1009,14 +998,11 @@ function NpoHome() {
                                             <LinksModal data={FinalData} close={handleLinksModalClose} />
                                         </DialogComponent>
                                     </div>
-                                    {/* <div className=' w-1/3'>
-            </div> */}
+                                    
                                 </div>
                         }
                     </>
             }
-
-
         </div>
     )
 }

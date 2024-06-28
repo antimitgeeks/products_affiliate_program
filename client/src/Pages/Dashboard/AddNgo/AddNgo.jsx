@@ -109,14 +109,6 @@ function AddNgo(
                                     onChange={settingsProps.handleChange}
                                     value={settingsProps.values.email}
                                 />
-                                {/* <InputComponent
-                                    required
-                                    label={'Address'}
-                                    placeholder={'Enter ngo Address'}
-                                    name={'address'}
-                                    onChange={settingsProps.handleChange}
-                                    value={settingsProps.values.address}
-                                /> */}
                                 <InputComponent
                                     required
                                     auto={"off"}
