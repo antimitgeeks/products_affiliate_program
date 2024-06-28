@@ -42,12 +42,10 @@ function EmailAuth() {
         setUserData(data)
         console.log(data);
         const roleData = { email: data?.email, role: role }
-        // tutorialService.resetPassword(data)
         resetPassword({ data: roleData })
             .then((dta) => {
                 if (dta?.data) {
                     setTimeout(() => {
-                        // toast.success(<div className=' cursor-pointer ' onClick={() => toast.dismiss()}>{dta?.data?.message}</div>)
                         toast.success(dta?.data?.message)
                         setLinkSend(true);
                         resetForm();
@@ -63,15 +61,12 @@ function EmailAuth() {
                 }
                 else if (dta?.error) {
                     console.log(dta?.error)
-                    // toast.custom(<div className=' p-2 rounded cursor-pointer bg-red-400 text-white' onClick={()=>toast.dismiss()}>{dta?.error?.data?.message || "Invalid Email"}</div>);
-                    // toast.error(<div className=' cursor-pointer' onClick={() => toast.dismiss()}>{dta?.error?.data?.message || "Invalid Email"}</div>, { duration: 2000 })
                     toast.error(dta?.error?.data?.message || "Internal server error")
                     setLinkSend(false)
                 }
                 setLoading(false)
             })
             .catch((err) => { toast.error(err.response.data.message); setLoading(false); setLinkSend(false) })
-
     };
 
 
@@ -112,9 +107,6 @@ function EmailAuth() {
                                         <span className='  text-black cursor-pointer ' onClick={() => { role == 'admin' ? navigate('/login/admin') : navigate('/login/npo') }}> <u>Login ? </u></span>
                                     </div>
                                 </div>
-
-
-
                             </div>
 
                             <div className=' w-1/2  gap-1 flex flex-col'>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useAllNpoListQuery } from '../../services/NpoService';
-// import { BsEye } from 'react-icons/bs';
 import { IoMdEye } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { IoWarningOutline } from 'react-icons/io5';
@@ -17,7 +16,6 @@ import LinesEllipsis from 'react-lines-ellipsis';
 function Report() {
 
   const navigate = useNavigate();
-
 
 
   const [loading, setLoading] = useState('');
@@ -68,7 +66,6 @@ function Report() {
                 :
                 allNposData?.map((itm, indx) => {
                   return <div key={indx} className={` overflow-hidden relative shadow-md border p-1 flex flex-col justify-center items-center gap-3 px-1 py-2 w-[92%] bg-slate-50 rounded-md `}>
-                    {/* <img src={itm.img} className=' border object-cover p-1 rounded-lg object-center w-full h-[180px]' alt="" /> */}
 
                     <div className='flex w-fit  items-center gap-1 absolute top-1 right-1' >
                       <Tooltip arrow TransitionComponent={Zoom} title={`${itm?.isActive ? "Active" : "InActive"}`} placement='top'>
@@ -92,7 +89,6 @@ function Report() {
                           <LinesEllipsis
                             text={itm.name ? itm.name : "N/A"}
                             className=' w-[90%] break-words'
-                            // winWidth={8}
                             ellipsis='...'
                             basedOn='letters'
                             maxLine='1'
@@ -105,7 +101,6 @@ function Report() {
                         <LinesEllipsis
                             text={itm.email ? itm?.email : "N/A"}
                             className=' w-[90%] break-words'
-                            // winWidth={8}
                             ellipsis='...'
                             basedOn='letters'
                             maxLine='1'

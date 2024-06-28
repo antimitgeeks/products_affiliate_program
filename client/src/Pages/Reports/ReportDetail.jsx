@@ -6,6 +6,10 @@ import { useGetReportByIdQuery } from '../../services/ReportService';
 import { Pagination } from '@mui/material';
 import { Calendar } from "react-multi-date-picker"
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import exportFromJSON from 'export-from-json';
+import { toast } from 'react-toastify';
+
+
 
 function ReportDetail() {
 
@@ -15,6 +19,7 @@ function ReportDetail() {
     const [selectedData, setSelectedData] = useState([]);
     const [ReportData, setReportData] = useState([]);
 
+    // states for modal and date filter
     const [isModalOpen, setModalOpen] = useState(false)
     const [dateModal, setDateModal] = useState(false);
     const [dateValue, setDateValue] = useState('')
@@ -113,8 +118,8 @@ function ReportDetail() {
     function formatDate(calendarObject) {
         if (calendarObject) {
 
-            const month = calendarObject?.month?.number?.toString().padStart(2, '0'); 
-            const day = calendarObject?.day?.toString().padStart(2, '0'); 
+            const month = calendarObject?.month?.number?.toString().padStart(2, '0');
+            const day = calendarObject?.day?.toString().padStart(2, '0');
             const year = calendarObject?.year;
             const formattedDate = `${year}-${month}-${day}`;
             return formattedDate;
@@ -123,19 +128,50 @@ function ReportDetail() {
 
     console.log(ReportData?.records)
 
+    const handleDownload = () => {
+
+        // if (ReportData?.records?.rows?.length <= 0) {
+        //     toast.warn("No data to download")
+        // }
+        // else {
+
+        //     const ddttaa = ReportData?.records?.rows;
+
+        //     const flattenedData = ddttaa.map(item => {
+        //         const parsedOrder = JSON.parse(item.order.customerDetails);
+        //         return {
+        //             orderId: item.order.orderId,
+        //             amount: item.amount,
+        //             orderAmount: item.order.amount,
+        //             orderDate: item.order.orderDate.split('T')[0],
+        //             customerId: parsedOrder.id,
+        //             customerEmail: parsedOrder.email,
+        //         };
+
+        //     });
+
+        //     console.log(flattenedData);
+        //     let dtaa = [{ Name: "HI", Email: "akshatbinjwa@gmail.com" }, { Name: "HII", Email: "akshadstbinjwa@gmail.com" }]
+        //     const data = flattenedData;
+        //     const fileName = 'NpoRecords';
+        //     const exportType = 'csv';
+
+        //     exportFromJSON({ data, fileName, exportType })
+        // }
+    }
+
     return (
         <>
             <div className=' h-[86vh] overflow-y-scroll px-3 py-3 gap-3 flex flex-col'>
                 <div className='  w-full flex items-center justify-between'>
                     <span className='font-semibold text-lg'>Report details</span>
-                    <div className=" float-end mb-3 cursor-pointer bg-slate-300 px-3 py-[5px] rounded w-fit" onClick={() => navigate('/dashboard/reports')}>
+                    <div className=" float-end mb-3 cursor-pointer hover:opacity-85 bg-slate-500 text-white px-3 py-[4.0px] rounded w-fit" onClick={() => navigate('/dashboard/reports')}>
                         Back
                     </div>
                 </div>
                 <div className=' w-full flex-col text-sm sm:text-[15.5px] sm:flex-row flex mb-2 justify-between'>
                     <div className=' flex gap-3 items-center'>
                         <div onClick={() => setDateModal(true)} className=' flex gap-2 hover:opacity-85 w-fit  border-2 border-slate-400 px-2 py-1 rounded cursor-pointer mb-2'>
-                            {/* Filters area */}
                             Select Date Range
                         </div>
                         {
@@ -148,11 +184,14 @@ function ReportDetail() {
                             </span>
                         }
                     </div>
-                    <div className=' flex gap-4 sm:gap-6'>
+                    <div className=' flex gap-4 sm:gap-6 items-center'>
                         <div>
                             <span className=' font-semibold text-sm sm:text-lg cursor-default'>
                                 Total Npo Amount : {ReportData?.totalAmount?.toFixed(3) || "N/A"}
                             </span>
+                        </div>
+                        <div onClick={() => handleDownload()} className=' border text-white flex items-center bg-slate-500 hover:opacity-85 rounded px-3 py-[6.7px] cursor-pointer'>
+                            Export
                         </div>
                         <div onClick={() => handleClearAllFilter()} className=' sm:text-[15.5px] text-sm border-b h-fit w-fit p-0 m-0 cursor-pointer border-blue-600 hover:text-blue-600'>
 

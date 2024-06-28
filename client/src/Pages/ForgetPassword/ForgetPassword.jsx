@@ -45,7 +45,6 @@ function ForgetPassword() {
                     console.log(res?.data)
                     toast.success(res?.data?.message)
                     resetForm();
-                    // toast.success("Go back to login page")
                     if (paramEmail?.role == 'npo') {
                         navigate('/login/npo')
                     }
@@ -63,7 +62,6 @@ function ForgetPassword() {
                 toast.error(err.response.data.message)
                 setLoading(false)
             })
-        // navigate('/')
     };
 
 
@@ -113,15 +111,11 @@ function ForgetPassword() {
                                     />
                                 </div>
 
-
                             </div>
 
                             <div className=' w-1/2  gap-1 flex flex-col'>
                                 <button type='submit' className=' text-white mt-1 border-none outline-none bg-slate-400 hover:opacity-75 rounded px-4 py-2'> {loading ? <span className=' flex w-full items-center justify-center animate-spin py-1 '><AiOutlineLoading3Quarters size={17} /></span> : "Submit"}</button>
-
-                                {/* <button type='submit' className=' mt-1 border-none outline-none bg-slate-400 rounded px-4 py-2'>Submit</button> */}
                             </div>
-
                         </div>
                     </Form>
                 )}

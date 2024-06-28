@@ -75,7 +75,6 @@ function NpoLogin(props) {
     const handleSubmit = (data) => {
         setLoading(true);
         const loginData = { email: data?.email, password: data?.password ,role:'npo' };
-        // console.log(data)
         LoginUser({ data: loginData })
             .then((res) => {
                 setLoading(false)
@@ -93,8 +92,6 @@ function NpoLogin(props) {
                     dispatch(setLoginData(data))
                     Cookies.set("isLogged", `${res?.data?.result?.accessToken}`,{expires:30});
                     Cookies.set("NpoisChecked", JSON.stringify(data),{ expires: 30 });
-                    // localStorage.setItem('IsUserLogged', JSON.stringify(data))
-                    // toast.success("Login Successfull")
                     navigate('/dashboard')
                 } else if (res?.error) {
                     toast.error(res?.error?.data?.message || "Internal server error");
@@ -145,7 +142,6 @@ function NpoLogin(props) {
                                                 type="checkbox"
                                                 id='checkbox'
                                                 name='rememberMe'
-                                                // value={loginProps.values.rememberMe}
                                                 defaultChecked={loginProps.values.rememberMe}
                                                 onClick={(e) => loginProps.setFieldValue('rememberMe', e.target.checked)}
                                             />

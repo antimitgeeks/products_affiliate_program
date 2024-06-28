@@ -16,7 +16,6 @@ function LinksModal({ close, data }) {
         youtube: NpoReduxData?.youtube != undefined ? NpoReduxData?.youtube : data?.linksData?.youtube?.link || '',
         contactUs: NpoReduxData?.contactUs != undefined ? NpoReduxData?.contactUs : data?.linksData?.contactUs?.link || '',
         websiteLink: NpoReduxData?.websiteLink != undefined ? NpoReduxData?.websiteLink : data?.linksData?.websiteLink?.link || '',
-        // backgroundColor: NpoReduxData?.backgroundColor || '#CBD5E1',
         // instaSwitch: NpoReduxData?.length != 0? NpoReduxData?.instaSwitch==false ?false:true:data?.linksData?.instagram?.show==false?false:true,
         // facebookSwitch: NpoReduxData?.length != 0? NpoReduxData?.facebookSwitch==false ?false:true:data?.linksData?.facebook?.show ==false?false:true,
         // youtubeSwitch: NpoReduxData?.length!=0? NpoReduxData?.youtubeSwitch==false ?false:true : data?.linksData?.youtube?.show ==false?false:true,
@@ -43,40 +42,6 @@ function LinksModal({ close, data }) {
         }));
     };
 
-    // const validationSchema = Yup.object().shape({
-    //     instagram: Yup.string(),
-    //     facebook: Yup.string(),
-    //     youtube: Yup.string(),
-    //     contactUs: Yup.string().optional(),
-    //     websiteLink: Yup.string().matches(/^[a-z A-Z `~!@#$%^&*(_+/:,.|)]+$/,"Invalid link")
-    // });
-    // const validationSchema = Yup.object().shape({
-    //     instagram: Yup.string().notRequired()
-    //         .nullable()
-    //         .matches(
-    //             /^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9_.  ]+\/?$/,
-    //             "Invalid Instagram URL"
-    //         ),
-    //     facebook: Yup.string()
-    //         .nullable()
-    //         .matches(
-    //             /^https:\/\/(www\.)?facebook\.com\/[A-Za-z0-9_.]+\/?$/,
-    //             "Invalid Facebook URL"
-    //         ),
-    //     youtube: Yup.string()
-    //         .nullable()
-    //         .matches(
-    //             /^(https:\/\/youtu\.be\/[A-Za-z0-9_-]+(\?feature=shared)?)|(https:\/\/www\.youtube\.com\/watch\?v=[A-Za-z0-9_-]+)$/,
-    //             "Invalid YouTube URL"
-    //         ),
-    //     contactUs: Yup.string().nullable(),
-    //     websiteLink: Yup.string()
-    //         .nullable()
-    //         .matches(
-    //             /^[a-z A-Z `~!@#$%^&*(_+/:,.|)]+$/,
-    //             "Invalid link"
-    //         )
-    // });
     const validationSchema = Yup.object().shape({
         instagram: Yup.string()
             .nullable()
@@ -99,7 +64,6 @@ function LinksModal({ close, data }) {
                 'Invalid YouTube URL',
                 value => !value || /^(https:\/\/youtu\.be\/[A-Za-z0-9_-]+(\?feature=shared)?)|(https:\/\/www\.youtube\.com\/watch\?v=[A-Za-z0-9_-]+)$/.test(value)
             ),
-        // contactUs: Yup.string().min(10, "Invalid number").matches(/[0-9]+$/).max(10, "Invalid number").trim("Invalid number"),
         contactUs: Yup.string()
             .nullable()
             .test(
@@ -124,7 +88,7 @@ function LinksModal({ close, data }) {
             })
             .catch((err) => {
                 console.log(err.errors)
-                toast.error(err.errors[0]);
+                toast.warn(err.errors[0]);
             });
     };
 
@@ -214,12 +178,7 @@ function LinksModal({ close, data }) {
                 </div>
                 <hr />
                 <div className='flex items-center gap-8 mt-3'>
-                    {/* <span className='font-semibold'>
-                        Background color
-                    </span>
-                    <span>
-                        <input value={linksData?.backgroundColor} onChange={handleInputChange} name='backgroundColor' type="color" />
-                    </span> */}
+                 
                 </div>
                 <div className='w-full flex justify-end pt-2'>
                     <span onClick={handleSave} className='bg-slate-300 py-2 px-4 cursor-pointer'>Save</span>

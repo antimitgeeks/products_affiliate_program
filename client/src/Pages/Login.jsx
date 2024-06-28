@@ -94,8 +94,6 @@ function Login(props) {
                     dispatch(setLoginData(data))
                     Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
                     Cookies.set("isChecked", JSON.stringify(data), { expires: 30 });
-                    // localStorage.setItem('IsUserLogged', JSON.stringify(data))
-                    // toast.success("Login Successfull")
                     navigate('/dashboard')
                 } else if (res?.error) {
                     toast.error(res?.error?.data?.message || "Internal server error");
@@ -147,7 +145,6 @@ function Login(props) {
                                                 type="checkbox"
                                                 id='checkbox'
                                                 name='rememberMe'
-                                                // value={loginProps.values.rememberMe}
                                                 defaultChecked={loginProps.values.rememberMe}
                                                 onClick={(e) => loginProps.setFieldValue('rememberMe', e.target.checked)}
                                             />

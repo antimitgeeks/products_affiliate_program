@@ -101,25 +101,19 @@ function AddNgo(
                                 </div>
                                 <InputComponent
                                     required
-                                    auto={'off'}
+                                    auto='off'
                                     label={'Email'}
+                                    defaultValue={''}
                                     placeholder={'Enter npo email'}
                                     name={'email'}
                                     onChange={settingsProps.handleChange}
                                     value={settingsProps.values.email}
                                 />
-                                {/* <InputComponent
-                                    required
-                                    label={'Address'}
-                                    placeholder={'Enter ngo Address'}
-                                    name={'address'}
-                                    onChange={settingsProps.handleChange}
-                                    value={settingsProps.values.address}
-                                /> */}
                                 <InputComponent
                                     required
                                     auto={"off"}
                                     type={'password'}
+                                    defaultValue={''}
                                     label={'Password'}
                                     placeholder={'Enter npo password'}
                                     name={'password'}

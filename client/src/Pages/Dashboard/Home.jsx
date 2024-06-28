@@ -94,7 +94,6 @@ function Home() {
 
 
   const handleDeleteYes = () => {
-    // DeleteStore({ Id: selectedIndex })
     DeleteNpo({ Id: selectedIndex })
       .then((res) => {
         if (res?.error) {
@@ -151,7 +150,6 @@ function Home() {
               console.log(res?.error?.data?.message)
             }
             else {
-              // close()
               //  toast.success(res?.data?.message)
               console.log(res?.data?.message)
             }
@@ -213,7 +211,6 @@ function Home() {
                             basedOn='letters'
                             className=' break-words w-3/4'
                           />
-                          {/* <span className=' '>{itm?.name ? itm?.name : "N/A"}</span> */}
                         </span>
                         <span onClick={() => handleActionsClose('')} className='  w-[22%] noScroll flex self-center h-[21px] md:h-[26px] py-0  text-[14.6px] '>
                           <LinesEllipsis
@@ -225,7 +222,6 @@ function Home() {
                             basedOn='letters'
                             className=' break-words w-4/5'
                           />
-                          {/* {itm?.email ? itm?.email : "N/A"} */}
                           </span>
                         <span onClick={() => handleActionsClose('')} className=' w-[23%] pl-3  text-[14.2px] h-[20px]'>{itm?.number ? itm?.number : "N/A"}</span>
                         <span onClick={() => handleActionsClose('')} className=' w-[22%] flex items-center text-[13.6px] h-[20px]'><Switch checked={itm?.isActive} onChange={(e) => handleSwitchToggle(itm, e)} /></span>
@@ -261,8 +257,6 @@ function Home() {
                         <span className=' w-full text-[12.8px]  flex gap-6'> <span className='  flex-wrap font-semibold'>Npo email : </span> <span className=' w-auto flex-wrap text-wrap break-words'>{itm?.email ? itm?.email : "N/A"}</span> </span>
                         <span className=' w-full text-[12.8px]  flex gap-6'> <span className='  flex-wrap font-semibold'>Npo number : </span> <span className=' w-auto flex-wrap text-wrap break-words'>{itm?.number ? itm?.number : "N/A"}</span> </span>
                         <span className=' w-full text-[12.8px]  flex gap-6'> <span className='  flex-wrap font-semibold'>Active : </span> <span className=' w-auto text-[5px] flex-wrap text-wrap break-words'><Switch size='small' checked={itm?.isActive} onChange={(e) => handleSwitchToggle(itm, e)} /></span> </span>
-                        {/* <span className=' w-full  text-[13.4px] flex gap-10'><span className=' font-semibold'>Api store Key :</span> {itm.apiKey}</span> */}
-                        {/* <span className=' w-full  text-[13.4px] flex gap-10'><span className=' font-semibold'>Api store pass </span>{itm.apiPassword}</span> */}
                         <span className=' w-full  text-[13.4px] gap-20 relative  flex'> <span className=' font-semibold'>Actions  </span> <span className=' pt-1 cursor-pointer' onClick={() => { actionIndex[indx] === true ? handleActionsClose(indx) : handleActions(indx, itm?.id) }}><BsThreeDotsVertical /></span>
                           {
                             actionIndex[indx] === true ?
@@ -292,14 +286,11 @@ function Home() {
                 page={Page}
                 count={count}
                 onChange={handlePageChange}
-              // renderItem={(item) => <PaginationItem {...item}   className=" shadow-md" />}
               />
             }
           </div>
         </div>
       </div>
-
-
     </>
   )
 }
