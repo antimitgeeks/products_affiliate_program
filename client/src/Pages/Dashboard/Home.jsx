@@ -46,6 +46,7 @@ function Home() {
     setModalOpen(true)
   }
 
+
   const handleModalClose = () => {
     setModalOpen(false)
   }
@@ -64,8 +65,8 @@ function Home() {
         setLoading(false)
       }, 300);
     }
-
   }, [ListData, isListFetching, isListLoading])
+
 
   const handleActions = (indx, id) => {
     let itm = [actionIndex];
@@ -74,6 +75,7 @@ function Home() {
     itm[indx] = true;
     setActionIndex(itm)
   }
+
 
   const handlePageChange = (e, value) => {
     let itm = [actionIndex];
@@ -89,8 +91,9 @@ function Home() {
     itm[indx] = false;
     setActionIndex(itm)
   }
-  const handleDeleteYes = () => {
 
+
+  const handleDeleteYes = () => {
     // DeleteStore({ Id: selectedIndex })
     DeleteNpo({ Id: selectedIndex })
       .then((res) => {
@@ -103,15 +106,15 @@ function Home() {
           setActionIndex('');
           toast.success("Store Successfully Deleted")
         }
-
       })
       .catch((err) => toast.error("Internal Server Error"))
-
   }
+
 
   const handleDelete = (index) => {
     AlertComponent({ heading: "Are you sure to Delete ?", handleDeleteYes })
   }
+
 
   const handleView = (id) => {
     // setViewOpen(!viewOpen)
@@ -126,6 +129,7 @@ function Home() {
     }
   }
 
+
   const handleSwitchToggle = (data, e) => {
     console.log(data.id)
     let customizedData = {
@@ -136,7 +140,7 @@ function Home() {
       password: data?.password,
       isActive: e?.target.checked
     }
-    console.log(customizedData)
+    
     AlertComponent({
       heading: "Are you sure to Change ?",
       handleDeleteYes: () => {
@@ -159,7 +163,6 @@ function Home() {
           })
       }
     })
-
   }
 
 
@@ -172,6 +175,7 @@ function Home() {
           </div>
         </div>
         <div className='w-full flex-wrap  rounded '>
+          
           <DialogComponent open={isModalOpen} maxWidth={'sm'}>
             <AddNgo close={handleModalClose} />
           </DialogComponent>

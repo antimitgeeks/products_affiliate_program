@@ -40,11 +40,11 @@ function EditNgo(
                 setLoading(false)
             }, 300);
         }
-
     }, [singleData, isdataLoading, isdataFetching])
+
+
     /* validation schema */
     const validationSchema = yup.object().shape({
-
         name:  yup.string()
         .strict()
         .max(80, "Should not be this long")
@@ -63,6 +63,7 @@ function EditNgo(
         number: yup.string().min(10, "Invalid number").matches(/[0-9]+$/).max(10, "Invalid number").trim("Invalid number")
     });
 
+
     /* initial values */
     const initialValues = {
         name: NpoData?.name || '',
@@ -71,6 +72,7 @@ function EditNgo(
         number: NpoData?.number || '',
         password: NpoData?.password || ''
     };
+
 
     /* handle form submit */
     const handleSubmit = (data, { resetForm }) => {
@@ -94,6 +96,7 @@ function EditNgo(
             })
     };
 
+    
     return (
         <div className='relative flex p-1 flex-col gap-6'>
             {

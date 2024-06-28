@@ -45,7 +45,7 @@ function Login(props) {
         }
     }, [userToken]);
 
-    // console.log(decodedToken)
+
     useEffect(() => {
         if (isLogged) {
             props.auth(true);
@@ -55,12 +55,13 @@ function Login(props) {
 
     const [LoginUser] = useLoginMutation();
 
-    // console.log(isLogged)
+
     const initialValues = {
         email: decodedToken?.email?.toLowerCase() || '',
         password: userLoginData?.password || '',
         rememberMe: userLoginData?.rememberMe
     };
+
 
     const validationSchema = yup.object().shape({
         email: yup.string()
@@ -72,6 +73,7 @@ function Login(props) {
         .trim("Invalid email"),
         password: yup.string().trim("Enter valid password").required("password is required").strict(),
     });
+
 
     const handleSubmit = (data) => {
         setLoading(true);
@@ -88,7 +90,6 @@ function Login(props) {
                         var in30Minutes = 1 / 48;
                         Cookies.set("AuthLogin", `${res?.data?.result?.accessToken}`, { expires: in30Minutes });
                         Cookies.set("AuthData", JSON.stringify(data), { expires: in30Minutes });
-
                     }
                     dispatch(setLoginData(data))
                     Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
@@ -106,6 +107,7 @@ function Login(props) {
             });
     };
 
+    
     return (
         <div className='h-[100vh] bg-slate-50 flex w-full items-center justify-center'>
             <Formik
