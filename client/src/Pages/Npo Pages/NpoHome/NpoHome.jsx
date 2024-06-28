@@ -111,7 +111,7 @@ function NpoHome() {
         }
     }, [decodedToken]);
 
-    
+
 
     const fetchBannerImgData = () => {
         const config = {
@@ -257,38 +257,17 @@ function NpoHome() {
     const [linksModalOpen, setLinksModalOpen] = useState(false);
 
     console.log(NpoReduxData?.data);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    /* Logo ImageUplaod handle*/
-    // const handleLogoInput = (ev) => {
-    //     // setLogoUrl(logoUrl)
-    //     if (ev) {
-    //         const file = ev?.target?.files[0];
-    //         const formData = new FormData();
-    //         console.log(formData)
-    //         formData.append('image', file);
-    //         const newLogoUrl = file ? URL?.createObjectURL(file) : '';
-    //         setLogoUrl(newLogoUrl);
-    //         setLogoFormData(formData)
-    //     }
-    //     else {
-    //         const formData = new FormData();
-    //         formData.append('image', '');
-    //         setLogoFormData(formData)
-
-    //     }
-
-    // };
     const handleLogoInput = (ev) => {
         // if (ev) {
         const file = ev?.target?.files[0];
         setLogoUrlFileData(file)
         if (file && file.size >= 5 * 1024 * 1024) {
             toast.error("Image size must be less than 5mb");
-            // return;
         }
         else {
-            console.log(file,'filelelelel')
+            console.log(file, 'filelelelel');
             const formData = new FormData();
             formData.append('image', file);
             const newLogoUrl = file ? URL?.createObjectURL(file) : '';
@@ -480,9 +459,8 @@ function NpoHome() {
     console.log(logoFormData)
 
 
-    const handleSave = async() => {
+    const handleSave = async () => {
 
-        console.log(linksData?.instaSwitch, "____________-------------------------")
         console.log(logoUrl, "____________-------------------------")
         let DataForApi = {
             logoUrl: logoUrl,
@@ -537,25 +515,25 @@ function NpoHome() {
         // console.log(dtaforLogo)
         // formData.append('image',dtaforLogo)
 
-        let newLink =(logoUrl)
-            const response = await fetch(newLink);
-            const blob = await response.blob();
-            console.log(blob,'bobbbbbbbbbbbbbbbbbb')
-            const file  =new File([blob], 'filename.jpg', { type: blob.type=='image/*'?"image/jpeg":blob.type }); // Set a default filename
-            console.log(file,'bobbbbbbbbbbbbbbbbbb');
-            const formDataa = new FormData();
-            if(logoUrl)
-                {
+        let newLink = (logoUrl)
+        const response = await fetch(newLink);
+        const blob = await response.blob();
+        console.log(blob, 'bobbbbbbbbbbbbbbbbbb')
+        const file = new File([blob], 'filename.jpg', { type: blob.type == 'image/*' ? "image/jpeg" : blob.type }); // Set a default filename
+        console.log(file, 'bobbbbbbbbbbbbbbbbbb');
+        const formDataa = new FormData();
+        if (logoUrl) {
 
-                    formDataa.append('image',file);
-                }
-                else
-                {
-                    formDataa.append('image','');
+            formDataa.append('image', file);
+        }
+        else {
+            formDataa.append('image', '');
 
-                }
-            setLogoFormData(formDataa);
+        }
+        setLogoFormData(formDataa);
 
+
+        //Api calling to save logo image
         UploadFile({ Id: decodedToken?.id, data: formDataa, type: 'logo' })
             .then((res) => {
                 console.log(res)
@@ -572,25 +550,25 @@ function NpoHome() {
             });
 
 
-            let textimageLink =(imageTextUrl)
-            const imageTextResponse = await fetch(textimageLink);
-            const imageTextBlob = await imageTextResponse.blob();
-            console.log(imageTextBlob,'bobbbbbbbbbbbbbbbbbb')
-            const imageTextFile  =new File([imageTextBlob], 'filename.jpg', { type: imageTextBlob.type=='image/*'?"image/jpeg":imageTextBlob.type }); // Set a default filename
-            console.log(imageTextFile,'filelelelel');
-            const imageTextFomData = new FormData();
-            if(imageTextUrl)
-                {
-                    imageTextFomData.append('image',imageTextFile);
-                }
-            else
-            {
-                
-                imageTextFomData.append('image','');
-    
-            }
-            setTextFormData(imageTextFomData);
+        let textimageLink = (imageTextUrl)
+        const imageTextResponse = await fetch(textimageLink);
+        const imageTextBlob = await imageTextResponse.blob();
+        console.log(imageTextBlob, 'bobbbbbbbbbbbbbbbbbb')
+        const imageTextFile = new File([imageTextBlob], 'filename.jpg', { type: imageTextBlob.type == 'image/*' ? "image/jpeg" : imageTextBlob.type }); // Set a default filename
+        console.log(imageTextFile, 'filelelelel');
+        const imageTextFomData = new FormData();
+        if (imageTextUrl) {
+            imageTextFomData.append('image', imageTextFile);
+        }
+        else {
 
+            imageTextFomData.append('image', '');
+
+        }
+        setTextFormData(imageTextFomData);
+
+
+        //Api calling to save ImageWithText image
         UploadFile({ Id: decodedToken?.id, data: imageTextFomData, type: 'text' })
             .then((res) => {
                 if (res?.error) {
@@ -607,25 +585,24 @@ function NpoHome() {
                 console.log(err)
             })
 
-        let bannerLink =(bannerUrl)
+
+        let bannerLink = (bannerUrl)
         const bannerResponse = await fetch(bannerLink);
         const bannerBlob = await bannerResponse.blob();
-        console.log(bannerBlob,'bobbbbbbbbbbbbbbbbbb')
-        const bannerFile  =new File([bannerBlob], 'filename.jpg', { type: bannerBlob.type=='image/*'?"image/jpeg":bannerBlob.type }); // Set a default filename
-        console.log(bannerFile,'filelelelel');
+        console.log(bannerBlob, 'bobbbbbbbbbbbbbbbbbb')
+        const bannerFile = new File([bannerBlob], 'filename.jpg', { type: bannerBlob.type == 'image/*' ? "image/jpeg" : bannerBlob.type }); // Set a default filename
+        console.log(bannerFile, 'filelelelel');
         const bannerFomData = new FormData();
-        if(bannerUrl)
-            {
-                bannerFomData.append('image',bannerFile);
-            }
-        else
-        {
-            
-            bannerFomData.append('image','');
-
+        if (bannerUrl) {
+            bannerFomData.append('image', bannerFile);
+        }
+        else {
+            bannerFomData.append('image', '');
         }
         setBannerFormData(bannerFomData);
 
+
+        // Api calling to save banner image
         UploadFile({ Id: decodedToken?.id, data: bannerFomData, type: 'banner' })
             .then((res) => {
                 if (res?.error) {
@@ -637,12 +614,12 @@ function NpoHome() {
 
                 }
             })
-        .catch((err) => {
-            console.log(err)
-        })
+            .catch((err) => {
+                console.log(err)
+            })
         // console.log(logoUrl)
 
-
+        // Api calling to save full page details
         AddPage({ Id: decodedToken?.id, data: DataForApi })
             .then((res) => {
                 console.log(res);
@@ -969,7 +946,7 @@ function NpoHome() {
                                             <div className=' w-full items-center flex flex-col md:flex-row justify-between'>
                                                 <div className=' flex flex-col  gap-3'>
 
-                                                    <span className='' onClick={() => handleCall(linksData?.contactUs!=undefined?linksData?.contactUs:localNpoPreviewDataState?.linksData?.contactUs?.link || FinalData?.linksData?.contactUs?.link)} >
+                                                    <span className='' onClick={() => handleCall(linksData?.contactUs != undefined ? linksData?.contactUs : localNpoPreviewDataState?.linksData?.contactUs?.link || FinalData?.linksData?.contactUs?.link)} >
                                                         <span className=' flex'>
                                                             <span>
                                                                 Contact Us
@@ -991,7 +968,7 @@ function NpoHome() {
                                                         </span>
                                                         <span className=' pl-[27px]'>
 
-                                                            <a className='' href={linksData?.websiteLink!=undefined?linksData?.websiteLink:localNpoPreviewDataState?.linksData?.websiteLink?.link || FinalData?.linksData?.websiteLink?.link || "#"}>
+                                                            <a className='' href={linksData?.websiteLink != undefined ? linksData?.websiteLink : localNpoPreviewDataState?.linksData?.websiteLink?.link || FinalData?.linksData?.websiteLink?.link || "#"}>
                                                                 <span>
                                                                     {linksData?.websiteLink != undefined ? linksData?.websiteLink : localNpoPreviewDataState?.linksData?.websiteLink?.link != undefined ? localNpoPreviewDataState?.linksData?.websiteLink?.link : FinalData?.linksData?.websiteLink?.link}
                                                                 </span>

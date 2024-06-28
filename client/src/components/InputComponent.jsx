@@ -21,6 +21,7 @@ function InputComponent(
                     label && <span className=' font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span> } </span>
                 }
                 <input
+                    autoSave='off'
                     value={value}
                     autoComplete={auto}
                     defaultValue={defaultValue}
