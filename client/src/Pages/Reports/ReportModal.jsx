@@ -9,7 +9,7 @@ function ReportModal(
     console.log(data);
 
     
-    const Data = JSON.parse(data?.customerDetails)
+    const Data = (data?.customerDetails)
     console.log(Data);
 
     return (

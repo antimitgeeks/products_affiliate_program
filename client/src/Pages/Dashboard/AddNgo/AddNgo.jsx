@@ -130,7 +130,7 @@ function AddNgo(
                                 />
                             </div>
                             <div className='flex items-center justify-end gap-4'>
-                                <button type='submit' className='mt-2 border-none outline-none select-none bg-slate-300 text-black hover:opacity-75 rounded px-4 py-[5px]'>
+                                <button type='submit' className='mt-2 border-none outline-none select-none bg-slate-500 text-slate-50 hover:opacity-90 rounded px-4 py-[5px]'>
                                     <span className='flex w-full items-center px-2 justify-center py-1'> {loading ? <span className=' py-1 px-[10px] animate-spin'><AiOutlineLoading3Quarters /></span> : <span>Create</span>}</span>
                                 </button>
                             </div>

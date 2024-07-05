@@ -97,7 +97,7 @@ function Dashboard() {
             <img className='object-cover w-32' src="https://53bc37-e5.myshopify.com/cdn/shop/files/Screenshot_2024-05-07_at_7.14.21_PM.png?v=1715134582" alt="" />
           </span>
         </span>
-          <span  onClick={() => handleProfileToggle()} className={` ${ToggleProfile ? "shadow" : ""} select-none cursor-pointer flex items-center justify-center text-white w-8 h-8 bg-slate-400 rounded-full font-semibold`}>
+          <span  onClick={() => handleProfileToggle()} className={` ${ToggleProfile ? "shadow" : ""} select-none cursor-pointer flex items-center justify-center text-white w-8 h-8 bg-slate-500 rounded-full font-semibold`}>
             {role === 'Admin' ? 'A' : 'N'}
           </span>
         {

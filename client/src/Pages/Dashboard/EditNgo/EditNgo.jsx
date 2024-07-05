@@ -59,7 +59,7 @@ function EditNgo(
             .required("Email is required")
             .trim("Invalid email"),
         password: yup.string().matches(/^[a-zA-Z0-9!@#$%&^*()_+=-['?/><"]+$/, 'spaces not allowed').required('password is required').min(6, "minimum 6 characters required").trim("Invalid password").strict(),
-        number: yup.string().min(10, "Invalid number").matches(/[0-9]+$/).max(10, "Invalid number").trim("Invalid number")
+        number: yup.string().min(10, "Invalid number").matches(/[0-9]+$/,'Invalid number').max(10, "Invalid number").trim("Invalid number")
     });
 
 
@@ -173,7 +173,7 @@ function EditNgo(
                                         </div>
                                         <div className='flex items-center justify-end gap-4'>
 
-                                            <button type='submit' className='mt-2 border-none outline-none select-none bg-slate-300 text-black hover:opacity-75 rounded px-4 py-[5px]'>
+                                            <button type='submit' className='mt-2 border-none outline-none select-none bg-slate-500 text-slate-50 hover:opacity-85 rounded px-4 py-[5px]'>
                                                 <span className='flex w-full items-center px-2 justify-center py-1'> {updateLoading ? <span className=' py-1 px-[10px] animate-spin'><AiOutlineLoading3Quarters /></span> : <span>Update</span>}</span>
                                             </button>
                                         </div>

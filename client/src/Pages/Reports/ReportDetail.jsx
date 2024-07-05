@@ -138,7 +138,7 @@ function ReportDetail() {
             const ddttaa = ReportData?.records?.rows;
 
             const flattenedData = ddttaa.map(item => {
-                const parsedOrder = JSON.parse(item.order.customerDetails);
+                const parsedOrder = (item.order.customerDetails);
                 return {
                     orderId: item.order.orderId,
                     amount: item.amount,
@@ -203,7 +203,7 @@ function ReportDetail() {
                 <DialogComponent open={dateModal} maxWidth={'sm'}>
                     <div className=' w-full flex-col flex'>
                         <div onClick={() => setDateModal(false)} className=' w-full flex justify-end '>
-                            <span className=' p-1 px-2 bg-slate-300 cursor-pointer'>
+                            <span className=' p-1 px-2 bg-slate-500 text-slate-50 cursor-pointer'>
                                 X
                             </span>
                         </div>
@@ -212,7 +212,7 @@ function ReportDetail() {
                         </div>
                     </div>
                     <div className=' flex  w-full justify-center items-center py-2 mt-3'>
-                        <div onClick={() => handleSave()} className=' w-full flex items-center justify-center hover:opacity-80 bg-slate-300 py-2 px-3 rounded cursor-pointer'>
+                        <div onClick={() => handleSave()} className=' w-full flex items-center justify-center hover:opacity-90 bg-slate-500 text-slate-50 py-2 px-3 rounded cursor-pointer'>
                             Save
                         </div>
                     </div>

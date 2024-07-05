@@ -168,7 +168,7 @@ function Home() {
     <>
       <div className=' flex flex-col gap-8 overflow-y-scroll scroll-m-1 py-3 px-3 bg-slate-50 h-full w-full'>
         <div onClick={() => handleActionsClose('')} className=' flex w-full justify-end'>
-          <div onClick={() => handleModalOpen()} className=' hover:opacity-80 hover:border-slate-500 py-[5.5px] px-3 text-[13px]  text-white bg-slate-400 border border-slate-700 rounded cursor-pointer'>
+          <div onClick={() => handleModalOpen()} className=' hover:opacity-80 hover:border-slate-500 py-[5.5px] px-3 text-[13px]  text-white bg-slate-500 border border-slate-700 rounded cursor-pointer'>
             <span>ADD</span>
           </div>
         </div>
