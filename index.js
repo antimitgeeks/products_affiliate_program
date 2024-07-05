@@ -21,12 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 
 //Static file path
 const STATIC_PATH =
-  // eslint-disable-next-line no-undef
   process.env.NODE_ENV === "production"
-    // eslint-disable-next-line no-undef
-    ? `${process.cwd()}/client/dist`
-    // eslint-disable-next-line no-undef
-    : `${process.cwd()}/client/`;
+    ? path.join(process.cwd(), 'client', 'build')
+    : path.join(process.cwd(), 'client');
+
+console.log(`STATIC_PATH: ${STATIC_PATH}`);
 
 // const uploadDir = path.join(os.tmpdir(), 'uploads');
 
