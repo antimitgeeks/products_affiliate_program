@@ -18,7 +18,7 @@ function Report() {
   const navigate = useNavigate();
 
 
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState(false);
   const [allNposData, setAllNposData] = useState([])
 
 
@@ -50,6 +50,13 @@ function Report() {
     <div className=' w-full h-full overflow-y-scroll py-2 px-3 flex flex-col gap-5'>
       <span className=' mx-auto text-[24px] font-semibold'>NPOS Report</span>
       {
+        loading ?
+        <div className=' grid grid-cols-3 gap-x-4 gap-y-6'>
+          {Array(6).fill(0).map((itm) => {
+            return <div className=' bg-slate-200 shadow-sm border animate-pulse h-48 rounded w-[96%]'> </div>
+          })}
+        </div>
+        :
         allNposData?.length <= 0 || !allNposData ?
           <div className=' py-3 mt-1 w-full flex items-center justify-center'>
             <span className=' w-full border py-[7px]  justify-center flex gap-3 items-center'>No Data Found <IoWarningOutline size={19} /></span>
@@ -57,13 +64,7 @@ function Report() {
           :
           <div className=' w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 py-2 gap-x-0 gap-y-4'>
             {
-              loading ?
-                <>
-                  {Array(8).fill(0).map((itm) => {
-                    return <div className=' bg-slate-200 shadow-sm border animate-pulse h-48 w-[80%]'> </div>
-                  })}
-                </>
-                :
+              
                 allNposData?.map((itm, indx) => {
                   return <div key={indx} className={` overflow-hidden relative shadow-md border p-1 flex flex-col justify-center items-center gap-3 px-1 py-2 w-[92%] bg-slate-50 rounded-md `}>
 
