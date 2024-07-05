@@ -54,8 +54,8 @@ function NpoView() {
       <div className=' h-full overflow-y-scroll flex flex-col gap-2 pt-2  '>
         {
           loading ?
-            <div className=' w-full flex flex-col gap-2 mt-10'>
-              <div className=' border h-[300px] rounded w-full bg-slate-400 animate-pulse'></div>
+            <div className=' w-full flex flex-col gap-2 px-4 mt-10'>
+              <div className=' border h-[300px] rounded w-full px-4 bg-slate-400 animate-pulse'></div>
             </div>
             :
             <div className="container  mx-auto p-4">

@@ -957,7 +957,7 @@ function NpoHome() {
                                                         </span>
                                                         <span className=' pl-[27px]'>
 
-                                                            <a className='' href={linksData?.websiteLink != undefined ? linksData?.websiteLink : localNpoPreviewDataState?.linksData?.websiteLink?.link || FinalData?.linksData?.websiteLink?.link || "#"}>
+                                                            <a className='' target='_blank' href={linksData?.websiteLink != undefined ? linksData?.websiteLink : localNpoPreviewDataState?.linksData?.websiteLink?.link || FinalData?.linksData?.websiteLink?.link || "#"}>
                                                                 <span>
                                                                     {linksData?.websiteLink != undefined ? linksData?.websiteLink : localNpoPreviewDataState?.linksData?.websiteLink?.link != undefined ? localNpoPreviewDataState?.linksData?.websiteLink?.link : FinalData?.linksData?.websiteLink?.link}
                                                                 </span>
