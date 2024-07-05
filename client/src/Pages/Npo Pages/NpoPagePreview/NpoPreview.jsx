@@ -245,7 +245,7 @@ function NpoPreview({ Id }) {
                             </div>
                             <div className=' w-full sm:w-1/2  self-stretch  border my-1 px-3 rounded mr-1 flex items-center justify-center'>
                                 <div className='w-full flex flex-col gap-3 items-center'>
-                                    <span className='font-semibold text-xl mb-2'>{ReduxPreviewData?.imageHeading != undefined ? ReduxPreviewData?.imageHeading : PageData?.imageHeading}</span>
+                                    <span className='font-semibold text-xl overflow-hidden whitespace-pre-wrap break-words mb-2'>{ReduxPreviewData?.imageHeading != undefined ? ReduxPreviewData?.imageHeading : PageData?.imageHeading}</span>
                                     <span className='w-full text-center  h-auto overflow-hidden whitespace-pre-wrap break-words'>
                                         {ReduxPreviewData?.imageText != undefined ? ReduxPreviewData?.imageText : PageData?.imageText}
                                     </span>
@@ -275,7 +275,7 @@ function NpoPreview({ Id }) {
                         </div>
                         <div className='w-full flex items-center justify-center px-2 sm:px-5 py-4'>
                             <div className='flex px-4 w-full flex-col items-center gap-10'>
-                                <span className='font-semibold text-md sm:text-2xl capitalize'>
+                                <span className='font-semibold text-md sm:text-2xl capitalize break-words whitespace-normal'>
                                     {ReduxPreviewData?.richHeading != undefined ? ReduxPreviewData?.richHeading : PageData?.richHeading}
                                 </span>
                                 <span className='w-full sm:text-md text-sm break-words text-center whitespace-normal'>
