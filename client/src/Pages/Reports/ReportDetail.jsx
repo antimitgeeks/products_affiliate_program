@@ -130,34 +130,34 @@ function ReportDetail() {
 
     const handleDownload = () => {
 
-        // if (ReportData?.records?.rows?.length <= 0) {
-        //     toast.warn("No data to download")
-        // }
-        // else {
+        if (ReportData?.records?.rows?.length <= 0) {
+            toast.warn("No data to download")
+        }
+        else {
 
-        //     const ddttaa = ReportData?.records?.rows;
+            const ddttaa = ReportData?.records?.rows;
 
-        //     const flattenedData = ddttaa.map(item => {
-        //         const parsedOrder = JSON.parse(item.order.customerDetails);
-        //         return {
-        //             orderId: item.order.orderId,
-        //             amount: item.amount,
-        //             orderAmount: item.order.amount,
-        //             orderDate: item.order.orderDate.split('T')[0],
-        //             customerId: parsedOrder.id,
-        //             customerEmail: parsedOrder.email,
-        //         };
+            const flattenedData = ddttaa.map(item => {
+                const parsedOrder = JSON.parse(item.order.customerDetails);
+                return {
+                    orderId: item.order.orderId,
+                    amount: item.amount,
+                    orderAmount: item.order.amount,
+                    orderDate: item.order.orderDate.split('T')[0],
+                    customerId: parsedOrder.id,
+                    customerEmail: parsedOrder.email,
+                };
 
-        //     });
+            });
 
-        //     console.log(flattenedData);
-        //     let dtaa = [{ Name: "HI", Email: "akshatbinjwa@gmail.com" }, { Name: "HII", Email: "akshadstbinjwa@gmail.com" }]
-        //     const data = flattenedData;
-        //     const fileName = 'NpoRecords';
-        //     const exportType = 'csv';
+            console.log(flattenedData);
+            let dtaa = [{ Name: "HI", Email: "akshatbinjwa@gmail.com" }, { Name: "HII", Email: "akshadstbinjwa@gmail.com" }]
+            const data = flattenedData;
+            const fileName = 'NpoRecords';
+            const exportType = 'csv';
 
-        //     exportFromJSON({ data, fileName, exportType })
-        // }
+            exportFromJSON({ data, fileName, exportType })
+        }
     }
 
     return (

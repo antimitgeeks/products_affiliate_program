@@ -428,7 +428,7 @@ function NpoHome() {
             }
 
             else {
-                if (data.length > 5) {
+                if (data?.length > 5) {
 
                     const getYouTubeEmbedUrl = (url) => {
                         console.log(url)
@@ -787,7 +787,7 @@ function NpoHome() {
                                                 }
                                             </span>
                                             {
-                                                bannerUrl && bannerUrl.length > 0
+                                                bannerUrl && bannerUrl?.length > 0
                                                     ?
                                                     <div className=' z-0   w-full overflow-hidden '>
                                                         <img className=' w-full  object-cover h-[330px] sm:h-[530px]' src={bannerUrl} alt="" />
