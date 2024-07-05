@@ -23,8 +23,8 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         orderId: {
-            type: Sequelize.STRING,
-        },
+            type: Sequelize.FLOAT,
+        }, 
         amount: {
             type: Sequelize.INTEGER,
         },
