@@ -34,7 +34,7 @@ function NpoPreview({ Id }) {
         }
         else {
             setLoading(false);
-            setPageData(NpoPagedata?.result?.pageJson ? JSON.parse(NpoPagedata?.result?.pageJson) : null)
+            setPageData(NpoPagedata?.result?.pageJson ? NpoPagedata?.result?.pageJson : null)
         }
     }, [NpoPagedata, ispageDataFetching, ispageDataLoading])
 
