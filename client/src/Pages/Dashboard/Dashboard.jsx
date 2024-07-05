@@ -132,7 +132,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className='w-full bg-slate-50'>
+        <div onClick={()=>setToggleProfile(false)} className='w-full bg-slate-50'>
           <Outlet />
         </div>
       </div>

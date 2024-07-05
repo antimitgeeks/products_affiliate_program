@@ -8,7 +8,7 @@ function VideoModal({ close, onchange }) {
 
     const handleSave = () => {
         // if (videoData || videoPreviewUrl || videoFileData) {
-        const youtubeUrlPattern = /^(https:\/\/youtu\.be\/[\w-]+\?feature=shared|https:\/\/www\.youtube\.com\/watch\?v=[\w-]+)$/;
+        const youtubeUrlPattern = /^(https:\/\/youtu\.be\/[\w-]+(\?feature=shared)?)|(https:\/\/www\.youtube\.com\/watch\?v=[\w-]+(&[\w-]+=[\w-]+)*)$/;
 
         const isValid = youtubeUrlPattern?.test(videoData);
         if (videoData?.trim() == '' || videoData?.trim() == undefined) {

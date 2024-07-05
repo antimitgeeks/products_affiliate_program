@@ -53,8 +53,7 @@ function NpoPreview({ Id }) {
 
 
     const handleRedirectEmail = (email) => {
-        const emailServiceUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`; // Replace with your email service URL
-        // const mailtoUrl = `mailto:${email}`;
+        const emailServiceUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`; 
         window.open(emailServiceUrl, '_blank');
     }
 
@@ -159,7 +158,7 @@ function NpoPreview({ Id }) {
             {
                 Id && !PageData || PageData?.length == 0 ?
                     <>
-                        <span className=' w-full flex items-center justify-center font-semibold'>Ask npo to edit page  </span>
+                        <span className=' w-full flex items-center justify-center font-semibold'>No Data Found  </span>
                     </>
                     :
                     <>
@@ -204,7 +203,7 @@ function NpoPreview({ Id }) {
                                                 :
                                                 <div className=' w-full h-full'>
                                                     <img className=' object-cover object-center h-full w-full' src={ReduxPreviewData?.bannerUrl || bannerUrl} alt="" />
-                                                    <span className=' absolute top-[175px] sm:top-[250px] text-white w-full flex items-center justify-center'>
+                                                    <span className=' absolute top-[175px] sm:top-[250px] w-full flex items-center justify-center'>
                                                         <span style={{ color: ReduxPreviewData?.bannerTextColor != undefined ? ReduxPreviewData?.bannerTextColor : PageData?.bannerTextColor }} className=' w-full px-16 break-words text-center text-slate-50 font-medium text-[30px] rounded py-1'>
                                                             {ReduxPreviewData?.bannerBackgroundText != undefined ? ReduxPreviewData?.bannerBackgroundText : PageData?.bannerBackgroundText}
                                                         </span>
