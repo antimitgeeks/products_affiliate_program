@@ -169,6 +169,7 @@ exports.records = async (npoId, details) => {
         include: [
             {
                 model: Order,
+                attributes: [],
                 where: orderWhere,
             }
         ]
