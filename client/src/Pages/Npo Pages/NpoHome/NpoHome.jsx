@@ -60,7 +60,7 @@ function NpoHome() {
         }
         else {
             setLoading(false);
-            setFinalData(NpoPagedata?.result?.pageJson ?(NpoPagedata?.result?.pageJson) : null)
+            setFinalData(NpoPagedata?.result?.pageJson ? NpoPagedata?.result?.pageJson : null)
         }
     }, [NpoPagedata, ispageDataFetching, ispageDataLoading])
 
@@ -998,7 +998,7 @@ function NpoHome() {
                                             <LinksModal data={FinalData} close={handleLinksModalClose} />
                                         </DialogComponent>
                                     </div>
-                                    
+
                                 </div>
                         }
                     </>

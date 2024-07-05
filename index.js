@@ -24,10 +24,10 @@ const STATIC_PATH =
   // eslint-disable-next-line no-undef
   process.env.NODE_ENV === "production"
     // eslint-disable-next-line no-undef
-    ? `${process.cwd()}/client/dist`
+    ? `${process.cwd()}/client/`
     // eslint-disable-next-line no-undef
     : `${process.cwd()}/client/`;
-
+console.log(`STATIC_PATH: ${STATIC_PATH}`);
 // const uploadDir = path.join(os.tmpdir(), 'uploads');
 
 // // Ensure the directory exists
