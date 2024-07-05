@@ -164,7 +164,7 @@ exports.records = async (npoId, details) => {
     });
 
     const totalAmountWhere = { npoId };
-    const totalAmount = await NpoPayments.sum('NpoPayments.amount', {
+    const totalAmount = await NpoPayments.sum('npoPayments.amount', {
         where: totalAmountWhere,
         include: [
             {
