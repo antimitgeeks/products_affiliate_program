@@ -113,7 +113,7 @@ exports.updateShopifyProductMetaFields = async (npoName) => {
         if (!details) {
             return true
         }
-        const metaFieldsDetails = details.metafields?.find(mf => mf.namespace === 'custom' && mf.key === 'npotesting');
+        const metaFieldsDetails = details.metafields?.find(mf => mf.namespace === 'custom' && mf.key === 'npos');
         let metaFields = metaFieldsDetails?.value;
         metaFields = metaFields ? metaFields : "";
         metaFields.length > 0 ? metaFields += "," + npoName : metaFields = npoName;
@@ -138,7 +138,7 @@ exports.updateShopifyProductMetaFields = async (npoName) => {
                 "metafields": [
                     {
                         "namespace": "custom",
-                        "key": "npotesting",
+                        "key": "npos",
                         "value": `${metaFields}`,
                         "type": "single_line_text_field",
                         "ownerId": `gid://shopify/Product/${process.env.PRODUCT_ID}`
