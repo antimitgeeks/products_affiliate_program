@@ -40,7 +40,7 @@ function NpoHome() {
 
 
     /* Getting PageData using Api by Id */
-    const { data: singleNpoData, isFetching: singleNpoFetching, isLoading: singleNpoLoading } = useGetSingleNpoQuery({ Id: decodedToken?.id })
+    const { data: singleNpoData, isFetching: singleNpoFetching, isLoading: singleNpoLoading } = useGetSingleNpoQuery({ Id: decodedToken?.id || '0' })
 
     useEffect(() => {
         if (singleNpoFetching || singleNpoLoading) {

@@ -53,7 +53,7 @@ function NpoPreview({ Id }) {
 
 
     const handleRedirectEmail = (email) => {
-        const emailServiceUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`; 
+        const emailServiceUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
         window.open(emailServiceUrl, '_blank');
     }
 
@@ -170,7 +170,7 @@ function NpoPreview({ Id }) {
                         }
                         <div className=' relative w-full  '>
                             <div className=' py-3 px-3 w-full absolute'>
-                                {
+                                {/* {
                                     ReduxPreviewData?.logoUrl == undefined || ReduxPreviewData?.logoUrl == '' || logoUrl || PageData?.logoUrl == undefined
                                         ?
                                         // logoUrl!='' || ReduxPreviewData?.logoUrl!='' ?
@@ -189,9 +189,37 @@ function NpoPreview({ Id }) {
                                             </>
                                         :
                                         <img className=' w-[70px] h-[70px] rounded-full' src={ReduxPreviewData?.logoUrl != undefined ? ReduxPreviewData?.logoUrl : logoUrl} alt="" />
-                                }
+                                } */}
+                                <div>
+                                    <div>
+                                        {ReduxPreviewData?.logoUrl !== undefined ? (
+                                            ReduxPreviewData.logoUrl.length > 0 ? (
+                                                <img
+                                                    className='sm:w-[70px] w-[45px] h-[45px] sm:h-[70px] rounded-full'
+                                                    src={ReduxPreviewData.logoUrl}
+                                                    alt="Logo"
+                                                />
+                                            ) : (
+                                                <div className='bg-slate-400 h-[70px] w-[70px] rounded-full'></div>
+                                            )
+                                        ) : (
+                                            logoUrl ? (
+                                                <img
+                                                    className='sm:w-[70px] w-[45px] h-[45px] sm:h-[70px] rounded-full'
+                                                    src={logoUrl}
+                                                    alt="Logo"
+                                                />
+                                            ) : (
+                                                <div className='bg-slate-400 h-[70px] w-[70px] rounded-full'></div>
+                                            )
+                                        )}
+                                    </div>
+
+
+                                </div>
+
                             </div>
-                            <div className=' w-full h-[380px] sm:h-[580px]'>
+                            {/* <div className=' w-full h-[380px] sm:h-[580px]'>
                                 {
                                     ReduxPreviewData?.bannerUrl == undefined || ReduxPreviewData?.bannerUrl == '' || PageData?.bannerUrl == undefined
                                         ?
@@ -222,10 +250,52 @@ function NpoPreview({ Id }) {
                                             </span>
                                         </div>
                                 }
+                            </div> */}
+                            <div className='w-full h-[380px] sm:h-[580px]'>
+                                {ReduxPreviewData?.bannerUrl !== undefined ? (
+                                    ReduxPreviewData.bannerUrl.length > 0 ? (
+                                        <div className='w-full h-full'>
+                                            <img
+                                                className='object-cover object-center h-full w-full'
+                                                src={ReduxPreviewData.bannerUrl}
+                                                alt=""
+                                            />
+                                            <span className='absolute top-[175px] sm:top-[250px] w-full flex items-center justify-center'>
+                                                <span
+                                                    style={{ color: ReduxPreviewData?.bannerTextColor !== undefined ? ReduxPreviewData.bannerTextColor : PageData?.bannerTextColor }}
+                                                    className='w-full px-16 break-words text-center text-slate-50 font-medium text-[30px] rounded py-1'
+                                                >
+                                                    {ReduxPreviewData?.bannerBackgroundText !== undefined ? ReduxPreviewData.bannerBackgroundText : PageData?.bannerBackgroundText}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <div className='bg-slate-300 w-full h-full'></div>
+                                    )
+                                ) : bannerUrl ? (
+                                    <div className='w-full h-full'>
+                                        <img
+                                            className='object-cover object-center h-full w-full'
+                                            src={bannerUrl}
+                                            alt=""
+                                        />
+                                        <span className='absolute top-[250px] text-white w-full flex items-center justify-center'>
+                                            <span
+                                                style={{ color: ReduxPreviewData?.bannerTextColor !== undefined ? ReduxPreviewData.bannerTextColor : PageData?.bannerTextColor }}
+                                                className='w-full px-16 break-words text-center text-slate-50 text-[30px] rounded py-1'
+                                            >
+                                                {ReduxPreviewData?.bannerBackgroundText !== undefined ? ReduxPreviewData.bannerBackgroundText : PageData?.bannerBackgroundText}
+                                            </span>
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <div className='bg-slate-300 w-full h-full'></div>
+                                )}
                             </div>
+
                         </div>
                         <div className='w-full gap-1 flex items-center justify-center center flex-col sm:flex-row px-2 sm:px-3'>
-                            <div className=' w-full self-center sm:w-1/2  flex items-center justify-center min-h-[220px] sm:min-h-[320px] h-full px-1 py-1'>
+                            {/* <div className=' w-full self-center sm:w-1/2  flex items-center justify-center min-h-[220px] sm:min-h-[320px] h-full px-1 py-1'>
                                 {
                                     ReduxPreviewData?.imageTextUrl == undefined || ReduxPreviewData?.imageTextUrl == '' || PageData?.imageTextUrl == undefined
                                         ?
@@ -242,7 +312,29 @@ function NpoPreview({ Id }) {
                                         :
                                         <img className='rounded object-cover self-center' src={ReduxPreviewData?.imageTextUrl || imageTextUrl} alt="" />
                                 }
+                            </div> */}
+                            <div className='w-full self-center sm:w-1/2 flex items-center justify-center min-h-[220px] sm:min-h-[320px] h-full px-1 py-1'>
+                                {ReduxPreviewData?.imageTextUrl !== undefined ? (
+                                    ReduxPreviewData.imageTextUrl.length > 0 ? (
+                                        <img
+                                            className='rounded self-center object-cover'
+                                            src={ReduxPreviewData.imageTextUrl}
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <div className='bg-slate-300 min-h-[400px] rounded h-full w-full'></div>
+                                    )
+                                ) : imageTextUrl ? (
+                                    <img
+                                        className='rounded self-center object-cover'
+                                        src={imageTextUrl}
+                                        alt=""
+                                    />
+                                ) : (
+                                    <div className='bg-slate-300 min-h-[400px] rounded h-full w-full'></div>
+                                )}
                             </div>
+
                             <div className=' w-full sm:w-1/2  self-stretch  border my-1 px-3 rounded mr-1 flex items-center justify-center'>
                                 <div className='w-full flex flex-col gap-3 items-center'>
                                     <span className='font-semibold text-xl overflow-hidden whitespace-pre-wrap break-words mb-2'>{ReduxPreviewData?.imageHeading != undefined ? ReduxPreviewData?.imageHeading : PageData?.imageHeading}</span>
