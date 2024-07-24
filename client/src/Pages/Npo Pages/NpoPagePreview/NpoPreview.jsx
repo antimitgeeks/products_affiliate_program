@@ -19,7 +19,7 @@ function NpoPreview({ Id }) {
     const ReduxPreviewData = useSelector((state) => state.NpoDataSlice.PreviewData);
     console.log(ReduxPreviewData, 'reduxpreviewData');
     console.log(ReduxPreviewData?.linksData?.instagram?.link, 'instaLink');
-    console.log(PageData?.linksData?.instagram?.link.length, 'instaLink');
+    console.log(PageData?.linksData?.instagram?.link?.length, 'instaLink');
 
 
 
