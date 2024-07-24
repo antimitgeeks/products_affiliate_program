@@ -1,4 +1,6 @@
 const axios = require('axios');
+const fs = require('fs');
+const path = require("path")
 
 const db = require("../models/index.js");
 const Npos = db.Npos;
@@ -162,5 +164,24 @@ exports.updateShopifyProductMetaFields = async (npoName) => {
         return true;
     } catch (err) {
         console.log("Error in get product metaFields :", err);
+    }
+}
+
+exports.createFolder = async(path)=>{
+    try{
+
+        fs.mkdir(path, (error) => {
+            if (error) {
+              console.log(error,"error----------------------------");
+            } else {
+                console.log("New Directory created successfully !!");
+              return true;
+           
+            }
+          });
+    }catch(error){
+        console.log(error)
+        return false;
+       
     }
 }

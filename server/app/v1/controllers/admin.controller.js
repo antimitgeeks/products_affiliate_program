@@ -2,7 +2,8 @@ const service = require("../services/admin.service.js");
 const { sendResponse } = require("../utils/sendResponse.js");
 const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
 const statusCode = require("../constants/statusCodes.js");
-
+const fs = require('fs');
+const path = require("path")
 // add npo controller
 exports.createNpo = async (req, res) => {
     console.info('***************************************************Create Npo Api************************************************');
@@ -22,6 +23,13 @@ exports.createNpo = async (req, res) => {
         const result = await service.addNpo(details);
         if (!result) {
             return sendResponse(res, statusCode.BAD_REQUEST, false, `Npo ${ErrorMessage.NOT_CREATED}`);
+        }
+
+        const finalPath = path.join(__dirname,"..","utils","images",`${result.id}`);
+        const folderCreated = await service.createFolder(finalPath)
+        
+        if(folderCreated == false){
+         return sendResponse(re,statusCode.BAD_REQUEST, false,`Folder ${ErrorMessage.NOT_CREATED}`)   
         }
         return sendResponse(res, statusCode.OK, true, `Npo ${SuccessMessage.CREATED}`, result);
     } catch (error) {

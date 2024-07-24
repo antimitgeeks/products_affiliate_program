@@ -56,7 +56,7 @@ exports.id = async (req, res, next) => {
     if (error) {
         res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
     } else {
-        next();
+       next();
     }
 };
 
@@ -65,6 +65,6 @@ exports.npoImageType = async (req, res, next) => {
     if (error) {
         res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
     } else {
-        next();
+       next();
     }
 };

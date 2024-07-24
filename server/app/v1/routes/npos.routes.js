@@ -18,12 +18,12 @@ router.post('/shopify/page-details/:id', controllers.getPageShopify);
 router.post('/upload/:id', authValidation.id, authValidation.npoImageType, (req, res) => {
     upload(req, res, async (err) => {
         if (err) {
-            res.status(400).send(err);
+           res.status(400).send(err);
         } else {
-            if (req.file == undefined) {
+             if (req.file == undefined) {
                 const dir = path.join(__dirname, `../utils/images/${req.params.id}`);;
                 const fileName = await service.findImageName(dir, req.query.type);
-                if (fileName) {
+               if (fileName) {
                     fs.unlinkSync(path.join(dir, fileName));
                 }
                 return sendResponse(res, statusCode.OK, true, `File ${SuccessMessage.UPLOADED}`);
