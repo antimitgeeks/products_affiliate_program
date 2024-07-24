@@ -17,7 +17,10 @@ function NpoPreview({ Id }) {
     const [loading, setLoading] = useState(false)
     const [decodedToken, setDecodedToken] = useState('');
     const ReduxPreviewData = useSelector((state) => state.NpoDataSlice.PreviewData);
-    console.log(ReduxPreviewData)
+    console.log(ReduxPreviewData, 'reduxpreviewData');
+    console.log(ReduxPreviewData?.linksData?.instagram?.link, 'instaLink');
+    console.log(PageData?.linksData?.instagram?.link.length, 'instaLink');
+
 
 
     const { data: NpoPagedata, isFetching: ispageDataFetching, isLoading: ispageDataLoading } = useGetPageByIdQuery({ Id: Id || decodedToken?.id })
@@ -384,8 +387,14 @@ function NpoPreview({ Id }) {
                                     <span className=' flex cursor-pointer'>
 
                                         <span className=' text-[14.9px] font-bold pl-[18.5px]'>
-
-                                            <a target='_blank' href={ReduxPreviewData?.linksData?.websiteLink?.link || PageData?.linksData?.websiteLink?.link}> <u>Website Link</u></a>
+                                            {
+                                                ReduxPreviewData?.linksData?.websiteLink?.link == '' ?
+                                                    <u>Website Link</u> :
+                                                    ReduxPreviewData?.linksData?.websiteLink?.link == undefined &&
+                                                        PageData?.linksData?.websiteLink?.link?.length == 0 ?
+                                                        <u>Website Link</u> :
+                                                        <a target='_blank' href={ReduxPreviewData?.linksData?.websiteLink?.link != undefined ? ReduxPreviewData?.linksData?.websiteLink?.link : PageData?.linksData?.websiteLink?.link}> <u>Website Link</u></a>
+                                            }
                                         </span>
                                     </span>
                                     : ''
@@ -395,32 +404,59 @@ function NpoPreview({ Id }) {
                                 {
                                     ReduxPreviewData?.linksData?.facebook?.show != false || PageData?.linksData?.facebook?.show
                                         ?
-                                        <a href={ReduxPreviewData?.linksData?.facebook?.link || PageData?.linksData?.facebook?.link} target='_blank'>
-                                            <img className=' w-fit h-[22px] sm:h-[22px] hover:opacity-80' src={facebook} alt="" />
-                                        </a>
+                                        ReduxPreviewData?.linksData?.facebook?.link == '' ?
+                                            <p>
+                                                <img className=' cursor-pointer w-fit h-[22px] sm:h-[22px] hover:opacity-80' src={facebook} alt="" />
+                                            </p> :
+                                            ReduxPreviewData?.linksData?.facebook?.link == undefined &&
+                                                PageData?.linksData?.facebook?.link?.length == 0 ?
+                                                <p>
+                                                    <img className=' cursor-pointer w-fit h-[22px] sm:h-[22px] hover:opacity-80' src={facebook} alt="" />
+                                                </p> :
+                                                <a href={ReduxPreviewData?.linksData?.facebook?.link != undefined ? ReduxPreviewData?.linksData?.facebook?.link : PageData?.linksData?.facebook?.link != '' ? PageData?.linksData?.facebook?.link : ''} target='_blank'>
+                                                    <img className=' w-fit h-[22px] sm:h-[22px] hover:opacity-80' src={facebook} alt="" />
+                                                </a>
                                         : ''
                                 }
                                 {
                                     ReduxPreviewData?.linksData?.instagram?.show != false || PageData?.linksData?.instagram?.show
                                         ?
-                                        <a href={ReduxPreviewData?.linksData?.instagram?.link || PageData?.linksData?.instagram?.link} target='_blank'>
-                                            <img className=' w-[18px] h-[18px] sm:w-[27px] hover:opacity-80 sm:h-[27px]' src={insta} alt="" />
-                                        </a>
+                                        ReduxPreviewData?.linksData?.instagram?.link == '' ?
+                                            <p>
+                                                <img className=' cursor-pointer w-[18px] h-[18px] sm:w-[27px] hover:opacity-80 sm:h-[27px]' src={insta} alt="" />
+                                            </p> :
+                                            ReduxPreviewData?.linksData?.instagram?.link == undefined &&
+                                                PageData?.linksData?.instagram?.link.length == 0 ?
+                                                <p>
+                                                    <img className=' cursor-pointer w-[18px] h-[18px] sm:w-[27px] hover:opacity-80 sm:h-[27px]' src={insta} alt="" />
+                                                </p> :
+                                                <a href={ReduxPreviewData?.linksData?.instagram?.link != undefined ? ReduxPreviewData?.linksData?.instagram?.link : PageData?.linksData?.instagram?.link} target='_blank'>
+                                                    <img className=' w-[18px] h-[18px] sm:w-[27px] hover:opacity-80 sm:h-[27px]' src={insta} alt="" />
+                                                </a>
                                         : ''
                                 }
                                 {
                                     ReduxPreviewData?.linksData?.youtube?.show || PageData?.linksData?.youtube?.show
                                         ?
-                                        <a href={ReduxPreviewData?.linksData?.youtube?.link || PageData?.linksData?.youtube?.link} target='_blank'>
-                                            <img className=' w-fit h-[17.5px] sm:h-[20.0px] hover:opacity-80' src={ytLogo} alt="" />
-                                        </a>
+                                        ReduxPreviewData?.linksData?.youtube?.link == '' ?
+                                            <p>
+                                                <img className=' cursor-pointer w-fit h-[17.5px] sm:h-[20.0px] hover:opacity-80' src={ytLogo} alt="" />
+                                            </p> :
+                                            ReduxPreviewData?.linksData?.youtube?.link == undefined &&
+                                                PageData?.linksData?.youtube?.link?.length == 0 ?
+                                                <p>
+                                                    <img className=' cursor-pointer w-fit h-[17.5px] sm:h-[20.0px] hover:opacity-80' src={ytLogo} alt="" />
+                                                </p> :
+                                                <a href={ReduxPreviewData?.linksData?.youtube?.link != undefined ? ReduxPreviewData?.linksData?.youtube?.link : PageData?.linksData?.youtube?.link} target='_blank'>
+                                                    <img className=' w-fit h-[17.5px] sm:h-[20.0px] hover:opacity-80' src={ytLogo} alt="" />
+                                                </a>
                                         : ''
                                 }
                             </div>
                             {
                                 ReduxPreviewData?.linksData?.contactUs?.show != false || PageData?.linksData?.contactUs?.show != false
                                     ?
-                                    <span onClick={() => handleCall(ReduxPreviewData?.linksData?.contactUs?.link || PageData?.linksData?.contactUs?.link)} >
+                                    <span onClick={() => { ReduxPreviewData?.linksData?.contactUs?.link == '' ? console.log('no Contact detail') : ReduxPreviewData?.linksData?.contactUs?.link == undefined && PageData?.linksData?.contactUs?.link.length == 0 ? console.log('no Contact detail') : handleCall(ReduxPreviewData?.linksData?.contactUs?.link != undefined ? ReduxPreviewData?.linksData?.contactUs?.link : PageData?.linksData?.contactUs?.link) }} >
                                         <span className=' pl-3'>
                                             <span className=' text-[14.9px] cursor-pointer font-bold hover:text-blue-600'> <u> Contact Us</u></span>
                                         </span>
@@ -428,7 +464,7 @@ function NpoPreview({ Id }) {
                                     : ''
                             }
                             <div className=' flex text-[14.9px] flex-col items-center gap-1'>
-                                <span onClick={() => handleRedirectEmail(ReduxPreviewData?.PageData || PageData?.emailData)} className=' font-bold text-md hover:text-blue-500 cursor-pointer '><u>Email Address</u></span>
+                                <span onClick={() => { ReduxPreviewData?.emailData == '' ? console.log('') : ReduxPreviewData?.emailData == undefined && PageData?.emailData.length == 0 ? console.log('') : handleRedirectEmail(ReduxPreviewData?.emailData != undefined ? ReduxPreviewData?.emailData : PageData?.emailData) }} className=' font-bold text-md hover:text-blue-500 cursor-pointer '><u>Email Address</u></span>
                             </div>
 
                         </div>

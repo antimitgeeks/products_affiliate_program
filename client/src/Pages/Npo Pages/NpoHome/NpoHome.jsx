@@ -29,6 +29,8 @@ function NpoHome() {
     const [localNpoPreviewDataState, setlocalNpoPreviewDataState] = useState('');
     const [clear, setclear] = useState('');
     const [AllowEdit, setAllowEdit] = useState(true);
+    const NpoReduxLinksData = useSelector((state) => state.NpoDataSlice.linksData);
+
 
 
 
@@ -691,25 +693,28 @@ function NpoHome() {
             linksData: {
                 instagram: {
                     // link: linksData?.instagram || FinalData?.linksData?.instagram?.link,
-                    link: linksData?.instagram,
+                    link: NpoReduxLinksData?.instagram!=undefined ?NpoReduxLinksData?.instagram: linksData?.instagram,
                     show: linksData?.instaSwitch != undefined ? linksData?.instaSwitch == false ? false : true : FinalData?.linksData?.instagram?.show == false ? false : true
                 },
                 facebook: {
                     // link: linksData?.facebook || FinalData?.linksData?.facebook?.link,
-                    link: linksData?.facebook,
+                    link: NpoReduxLinksData?.facebook!=undefined ?NpoReduxLinksData?.facebook: linksData?.facebook,
                     show: linksData?.facebook != undefined ? linksData?.facebookSwitch == false ? false : true : FinalData?.linksData?.facebook?.show == false ? false : true
                 },
                 youtube: {
-                    link: linksData?.youtube || FinalData?.linksData?.youtube?.link,
+                    link: NpoReduxLinksData?.youtube!=undefined ? NpoReduxLinksData?.youtube: linksData?.youtube,
+                    // link: linksData?.youtube || FinalData?.linksData?.youtube?.link,
                     show: linksData?.youtube != undefined ? linksData?.youtubeSwitch == false ? false : true : FinalData?.linksData?.youtube?.show == false ? false : true
 
                 },
                 contactUs: {
-                    link: linksData?.contactUs || FinalData?.linksData?.contactUs?.link,
+                    link:NpoReduxLinksData?.contactUs!=undefined? NpoReduxLinksData?.contactUs: linksData?.youtube,
+                    // link: linksData?.contactUs || FinalData?.linksData?.contactUs?.link,
                     show: linksData?.contactUs != undefined ? linksData?.contactSwitch == false ? false : true : FinalData?.linksData?.contactUs?.show == false ? false : true
                 },
                 websiteLink: {
-                    link: linksData?.websiteLink || FinalData?.linksData?.websiteLink?.link,
+                    link:NpoReduxLinksData?.websiteLink!=undefined? NpoReduxLinksData?.websiteLink:linksData?.websiteLink,
+                    // link: linksData?.websiteLink || FinalData?.linksData?.websiteLink?.link,
                     show: linksData?.websiteLink != undefined ? linksData?.websiteSwitch == false ? false : true : FinalData?.linksData?.websiteLink?.show == false ? false : true
                 }
             }
@@ -945,7 +950,7 @@ function NpoHome() {
                                                                 :
                                                             </span>
                                                             <span className=' pl-[30px] cursor-pointer'>
-                                                                {linksData?.contactUs != undefined ? linksData?.contactUs : localNpoPreviewDataState?.linksData?.contactUs?.link || FinalData?.linksData?.contactUs?.link}
+                                                                {linksData?.contactUs != undefined ? linksData?.contactUs : localNpoPreviewDataState?.linksData?.contactUs?.link!=undefined?localNpoPreviewDataState?.linksData?.contactUs?.link: FinalData?.linksData?.contactUs?.link}
                                                             </span>
                                                         </span>
                                                     </span>
