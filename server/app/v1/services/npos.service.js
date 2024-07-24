@@ -62,6 +62,7 @@ exports.findImageName = async (fullPath, imageType) => {
             return element;
         }
     }
+    console.log('-----------------------------------');
     return false;
 }
 
