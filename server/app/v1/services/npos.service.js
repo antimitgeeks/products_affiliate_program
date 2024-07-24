@@ -69,8 +69,8 @@ exports.findImageName = async (fullPath, imageType) => {
 exports.orderComplete = async (payload) => {
     const orderRecordDetails = {
         orderId: payload.id,
-        amount: payload.current_total_discounts,
-        // amount: payload.current_subtotal_price,
+        // amount: payload.current_total_discounts,
+        amount: payload.current_subtotal_price,
         orderDate: payload.created_at,
         customerDetails: payload.customer
     }
