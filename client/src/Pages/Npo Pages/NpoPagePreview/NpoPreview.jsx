@@ -19,7 +19,7 @@ function NpoPreview({ Id }) {
     const ReduxPreviewData = useSelector((state) => state.NpoDataSlice.PreviewData);
     console.log(ReduxPreviewData, 'reduxpreviewData');
     console.log(ReduxPreviewData?.linksData?.instagram?.link, 'instaLink');
-    console.log(PageData?.linksData?.instagram?.link.length, 'instaLink');
+    console.log(PageData?.linksData?.instagram?.link?.length, 'instaLink');
 
 
 
@@ -196,7 +196,7 @@ function NpoPreview({ Id }) {
                                 <div>
                                     <div>
                                         {ReduxPreviewData?.logoUrl !== undefined ? (
-                                            ReduxPreviewData.logoUrl.length > 0 ? (
+                                            ReduxPreviewData.logoUrl?.length > 0 ? (
                                                 <img
                                                     className='sm:w-[70px] w-[45px] h-[45px] sm:h-[70px] rounded-full'
                                                     src={ReduxPreviewData.logoUrl}
@@ -256,11 +256,11 @@ function NpoPreview({ Id }) {
                             </div> */}
                             <div className='w-full h-[380px] sm:h-[580px]'>
                                 {ReduxPreviewData?.bannerUrl !== undefined ? (
-                                    ReduxPreviewData.bannerUrl.length > 0 ? (
+                                    ReduxPreviewData?.bannerUrl?.length > 0 ? (
                                         <div className='w-full h-full'>
                                             <img
                                                 className='object-cover object-center h-full w-full'
-                                                src={ReduxPreviewData.bannerUrl}
+                                                src={ReduxPreviewData?.bannerUrl}
                                                 alt=""
                                             />
                                             <span className='absolute top-[175px] sm:top-[250px] w-full flex items-center justify-center'>
@@ -318,7 +318,7 @@ function NpoPreview({ Id }) {
                             </div> */}
                             <div className='w-full self-center sm:w-1/2 flex items-center justify-center min-h-[220px] sm:min-h-[320px] h-full px-1 py-1'>
                                 {ReduxPreviewData?.imageTextUrl !== undefined ? (
-                                    ReduxPreviewData.imageTextUrl.length > 0 ? (
+                                    ReduxPreviewData?.imageTextUrl?.length > 0 ? (
                                         <img
                                             className='rounded self-center object-cover'
                                             src={ReduxPreviewData.imageTextUrl}
@@ -426,7 +426,7 @@ function NpoPreview({ Id }) {
                                                 <img className=' cursor-pointer w-[18px] h-[18px] sm:w-[27px] hover:opacity-80 sm:h-[27px]' src={insta} alt="" />
                                             </p> :
                                             ReduxPreviewData?.linksData?.instagram?.link == undefined &&
-                                                PageData?.linksData?.instagram?.link.length == 0 ?
+                                                PageData?.linksData?.instagram?.link?.length == 0 ?
                                                 <p>
                                                     <img className=' cursor-pointer w-[18px] h-[18px] sm:w-[27px] hover:opacity-80 sm:h-[27px]' src={insta} alt="" />
                                                 </p> :
@@ -456,7 +456,7 @@ function NpoPreview({ Id }) {
                             {
                                 ReduxPreviewData?.linksData?.contactUs?.show != false || PageData?.linksData?.contactUs?.show != false
                                     ?
-                                    <span onClick={() => { ReduxPreviewData?.linksData?.contactUs?.link == '' ? console.log('no Contact detail') : ReduxPreviewData?.linksData?.contactUs?.link == undefined && PageData?.linksData?.contactUs?.link.length == 0 ? console.log('no Contact detail') : handleCall(ReduxPreviewData?.linksData?.contactUs?.link != undefined ? ReduxPreviewData?.linksData?.contactUs?.link : PageData?.linksData?.contactUs?.link) }} >
+                                    <span onClick={() => { ReduxPreviewData?.linksData?.contactUs?.link == '' ? console.log('no Contact detail') : ReduxPreviewData?.linksData?.contactUs?.link == undefined && PageData?.linksData?.contactUs?.link?.length == 0 ? console.log('no Contact detail') : handleCall(ReduxPreviewData?.linksData?.contactUs?.link != undefined ? ReduxPreviewData?.linksData?.contactUs?.link : PageData?.linksData?.contactUs?.link) }} >
                                         <span className=' pl-3'>
                                             <span className=' text-[14.9px] cursor-pointer font-bold hover:text-blue-600'> <u> Contact Us</u></span>
                                         </span>
@@ -464,7 +464,7 @@ function NpoPreview({ Id }) {
                                     : ''
                             }
                             <div className=' flex text-[14.9px] flex-col items-center gap-1'>
-                                <span onClick={() => { ReduxPreviewData?.emailData == '' ? console.log('') : ReduxPreviewData?.emailData == undefined && PageData?.emailData.length == 0 ? console.log('') : handleRedirectEmail(ReduxPreviewData?.emailData != undefined ? ReduxPreviewData?.emailData : PageData?.emailData) }} className=' font-bold text-md hover:text-blue-500 cursor-pointer '><u>Email Address</u></span>
+                                <span onClick={() => { ReduxPreviewData?.emailData == '' ? console.log('') : ReduxPreviewData?.emailData == undefined && PageData?.emailData?.length == 0 ? console.log('') : handleRedirectEmail(ReduxPreviewData?.emailData != undefined ? ReduxPreviewData?.emailData : PageData?.emailData) }} className=' font-bold text-md hover:text-blue-500 cursor-pointer '><u>Email Address</u></span>
                             </div>
 
                         </div>

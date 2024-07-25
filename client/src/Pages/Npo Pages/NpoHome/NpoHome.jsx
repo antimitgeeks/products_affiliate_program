@@ -507,18 +507,20 @@ function NpoHome() {
         // console.log(dtaforLogo)
         // formData.append('image',dtaforLogo)
 
-        let newLink = (logoUrl)
+        let newLink = (logoUrl);
+        console.log(newLink?.length,'LOGOURLBOBB')
         const response = await fetch(newLink);
         const blob = await response.blob();
-        console.log(blob, 'bobbbbbbbbbbbbbbbbbb')
+        console.log(blob, 'LOGOBOBB')
         const file = new File([blob], 'filename.jpg', { type: blob.type == 'image/*' ? "image/jpeg" : blob.type }); // Set a default filename
-        console.log(file, 'bobbbbbbbbbbbbbbbbbb');
+        console.log(file, 'URLFILEBOBB');
         const formDataa = new FormData();
-        if (logoUrl) {
-
+        if (logoUrl?.length>0) {
+            console.log('LOGOLength0BOBB')
             formDataa.append('image', file);
         }
         else {
+            console.log('LOGOLength1BOBB')
             formDataa.append('image', '');
 
         }
@@ -542,18 +544,21 @@ function NpoHome() {
             });
 
 
-        let textimageLink = (imageTextUrl)
+        let textimageLink = (imageTextUrl);
+        console.log(textimageLink,'TEXTURLBOBB');
+        console.log(textimageLink?.length,'LOGOURLBOBB')
         const imageTextResponse = await fetch(textimageLink);
         const imageTextBlob = await imageTextResponse.blob();
-        console.log(imageTextBlob, 'bobbbbbbbbbbbbbbbbbb')
+        console.log(imageTextBlob, 'TEXTBOBBB')
         const imageTextFile = new File([imageTextBlob], 'filename.jpg', { type: imageTextBlob.type == 'image/*' ? "image/jpeg" : imageTextBlob.type }); // Set a default filename
-        console.log(imageTextFile, 'filelelelel');
+        console.log(imageTextFile, 'TEXTFILEBOBB');
         const imageTextFomData = new FormData();
-        if (imageTextUrl) {
+        if (imageTextUrl?.length>0) {
+            console.log('IMagelength0BOBB')
             imageTextFomData.append('image', imageTextFile);
         }
         else {
-
+            console.log('IMagelength1BOBB')
             imageTextFomData.append('image', '');
 
         }
@@ -578,17 +583,21 @@ function NpoHome() {
             })
 
 
-        let bannerLink = (bannerUrl)
+        let bannerLink = (bannerUrl);
+        console.log(bannerLink,'BANNERLINKBOBB')
+        console.log(bannerLink?.length,'BANNERLINKBOBB')
         const bannerResponse = await fetch(bannerLink);
         const bannerBlob = await bannerResponse.blob();
-        console.log(bannerBlob, 'bobbbbbbbbbbbbbbbbbb')
+        console.log(bannerBlob, 'BANNERBOBB')
         const bannerFile = new File([bannerBlob], 'filename.jpg', { type: bannerBlob.type == 'image/*' ? "image/jpeg" : bannerBlob.type }); // Set a default filename
-        console.log(bannerFile, 'filelelelel');
+        console.log(bannerFile, 'BANNERFILEBOBB');
         const bannerFomData = new FormData();
-        if (bannerUrl) {
+        if (bannerUrl?.length>0) {
+            console.log('Bannerlength0BOBB')
             bannerFomData.append('image', bannerFile);
         }
         else {
+            console.log('Bannerlength1BOBB')
             bannerFomData.append('image', '');
         }
         setBannerFormData(bannerFomData);
