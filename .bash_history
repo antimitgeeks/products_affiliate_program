@@ -70,3 +70,6 @@ clear
 git config user.email 
 clear
 git push origin main
+ls
+cat index.js 
+clear
