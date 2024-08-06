@@ -42,7 +42,7 @@ function NpoHome() {
 
 
     /* Getting PageData using Api by Id */
-    const { data: singleNpoData, isFetching: singleNpoFetching, isLoading: singleNpoLoading } = useGetSingleNpoQuery({ Id: decodedToken?.id || '0' })
+    const { data: singleNpoData, isFetching: singleNpoFetching, isLoading: singleNpoLoading } = useGetSingleNpoQuery({ Id: decodedToken?.id || 0 })
 
     useEffect(() => {
         if (singleNpoFetching || singleNpoLoading) {
@@ -55,7 +55,7 @@ function NpoHome() {
 
 
 
-    const { data: NpoPagedata, isFetching: ispageDataFetching, isLoading: ispageDataLoading } = useGetPageByIdQuery({ Id: decodedToken?.id || '0' })
+    const { data: NpoPagedata, isFetching: ispageDataFetching, isLoading: ispageDataLoading } = useGetPageByIdQuery({ Id: decodedToken?.id || 0 })
     useEffect(() => {
         if (ispageDataFetching || ispageDataLoading) {
             setLoading(true)
@@ -76,7 +76,7 @@ function NpoHome() {
             method: "GET"
         };
         setLoading(true)
-        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id}?type=logo`, config)
+        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || 0}?type=logo`, config)
             .then(response => {
                 if (!response?.ok) {
                     throw new Error('Image not found');
@@ -116,7 +116,7 @@ function NpoHome() {
         setLoading(true);
         setBannerLoading(true);
 
-        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id}?type=banner`, config)
+        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || 0}?type=banner`, config)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Image not found');
@@ -152,7 +152,7 @@ function NpoHome() {
         };
         setLoading(true)
         setTextImageLoading(true);
-        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id}?type=text`, config)
+        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || '0'}?type=text`, config)
             .then(response => {
                 if (!response?.ok) {
                     throw new Error('Image not found');
