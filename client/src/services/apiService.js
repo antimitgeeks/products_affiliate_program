@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://urchin-app-8uy68.ondigitalocean.app/api/v1",
+        baseUrl: "https://coral-app-icynq.ondigitalocean.app/api/v1",
         prepareHeaders: (headers) => {
             const user = Cookies.get('isLogged');
             if (user) {

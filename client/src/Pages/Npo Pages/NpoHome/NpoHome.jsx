@@ -76,7 +76,7 @@ function NpoHome() {
             method: "GET"
         };
         setLoading(true)
-        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || 0}?type=logo`, config)
+        fetch(`https://coral-app-icynq.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || 0}?type=logo`, config)
             .then(response => {
                 if (!response?.ok) {
                     throw new Error('Image not found');
@@ -116,7 +116,8 @@ function NpoHome() {
         setLoading(true);
         setBannerLoading(true);
 
-        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || 0}?type=banner`, config)
+        fetch(`https://coral-app-icynq.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || 0}?type=banner`, config)
+        fetch(`https://coral-app-icynq.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || 0}?type=banner`, config)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Image not found');
@@ -152,7 +153,7 @@ function NpoHome() {
         };
         setLoading(true)
         setTextImageLoading(true);
-        fetch(`https://urchin-app-8uy68.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || '0'}?type=text`, config)
+        fetch(`https://coral-app-icynq.ondigitalocean.app/api/v1/npos/image/${decodedToken?.id || '0'}?type=text`, config)
             .then(response => {
                 if (!response?.ok) {
                     throw new Error('Image not found');
