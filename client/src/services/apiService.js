@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://coral-app-icynq.ondigitalocean.app/api/v1",
+        baseUrl: "http://143.244.153.133:8080/api/v1",
         prepareHeaders: (headers) => {
             const user = Cookies.get('isLogged');
             if (user) {
