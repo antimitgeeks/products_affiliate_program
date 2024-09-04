@@ -14,11 +14,6 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
 
-const myfunc=()=>
-  {
-      localStorage.clear('previewData')
-  }
-window.onload= myfunc();
 
 class App extends Component {
   render() {

@@ -6,10 +6,13 @@ import InputComponent from '../components/InputComponent';
 import Cookies from 'js-cookie';
 import { setLoginData } from '../Redux/Slices/loginSlice';
 import { useDispatch } from 'react-redux';
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useLoginMutation } from '../services/AuthServices';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
+import LoginBanner from '../Assets/loginBanner.png';
+import { Container, Row, Col } from "reactstrap";
+import LoginTab from './LoginTabs';
+
 
 function Login(props) {
     const userToken = Cookies.get("AuthLogin");
@@ -65,12 +68,12 @@ function Login(props) {
 
     const validationSchema = yup.object().shape({
         email: yup.string()
-        .strict()
-        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Enter a valid email")
-        .max(70, "Length should not exceed 70")
-        .email("Enter a valid email")
-        .required("Email is required")
-        .trim("Invalid email"),
+            .strict()
+            .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Enter a valid email")
+            .max(70, "Length should not exceed 70")
+            .email("Enter a valid email")
+            .required("Email is required")
+            .trim("Invalid email"),
         password: yup.string().trim("Enter valid password").required("password is required").strict(),
     });
 
@@ -105,77 +108,60 @@ function Login(props) {
             });
     };
 
-    
+
     return (
-        <div className='h-[100vh] bg-slate-50 flex w-full items-center justify-center'>
-            <Formik
+        <div className='h-[full] py-5  bg-white flex w-full items-center justify-center'>
+            <Container fluid={true} className="p-0 login-page">
+                <Row>
+                    <Col xs="12">
+                        <div className="login-card flex-column">
+                            <div className="logo">
+                                {/* <Image
+                                    className="img-fluid for-light mx-auto"
+                                    src={require("../assets/images/logo/login.png")}
+                                /> */}
+                               image
+                            </div>
+                            <div className="login-main login-tab">
+                                <LoginTab />
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+            
+            {/* <Formik
                 enableReinitialize
                 validationSchema={validationSchema}
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
             >
                 {(loginProps) => (
-                    <Form className='w-full flex items-center justify-center'>
-                        <div className='flex bg-white justify-center flex-col gap-8 items-center lg:w-1/2 w-5/6 border rounded-lg shadow px-0 sm:px-2 mb-20 py-4'>
-                            <div>
-                                <span className='font-mono text-[26px] tracking-wide'>ADMIN LOGIN</span>
+                    <Form className=' w-[88%] rounded-[14px] p-2 bg-[rgb(243,244,246)] flex items-center justify-center'>
+                        <div className=' w-full h-full p-4 rounded-[10px] bg-[#F9FAFB] flex  justify-center gap-4'>
+
+                            <div className=' w-[88%] h-full bg-orange-100 flex flex-col justify-between'>
+                                <div>
+                                    Login
+                                </div>
+                                <div>
+                                    Login btn
+                                </div>
                             </div>
-                            <div className='w-full items-center justify-center grid grid-cols-1 gap-5'>
-                                <div className='w-2/3 lg:w-1/2 relative mx-auto'>
-                                    <InputComponent
-                                        name='email'
-                                        onChange={(e) => loginProps.setFieldValue('email', e.target.value?.trim())}
-                                        placeholder='Enter your Email'
-                                        value={loginProps.values.email}
-                                    />
-                                </div>
-                                <div className='relative w-2/3 lg:w-1/2 self-center mx-auto'>
-                                    <InputComponent
-                                        value={loginProps.values.password}
-                                        name='password'
-                                        onChange={loginProps.handleChange}
-                                        type='password'
-                                        placeholder='Enter your password'
-                                    />
-                                </div>
-                                <div className='w-2/3 lg:w-1/2 flex flex-col mx-auto self-center gap-0'>
-                                    <div className='w-full flex gap-1 items-center flex-col sm:flex-row justify-between'>
-                                        <div className='gap-2 flex items-center'>
-                                            <input
-                                                type="checkbox"
-                                                id='checkbox'
-                                                name='rememberMe'
-                                                defaultChecked={loginProps.values.rememberMe}
-                                                onClick={(e) => loginProps.setFieldValue('rememberMe', e.target.checked)}
-                                            />
-                                            <label htmlFor='checkbox' className='select-none p-0 m-0 cursor-pointer text-[14px]'>Remember me?</label>
-                                        </div>
-                                        <div>
-                                            <span onClick={() => navigate('/reset-password/admin')} className='cursor-pointer text-slate-600'>
-                                                <u>Forgot Password?</u>
-                                            </span>
-                                        </div>
+                            <div className=' w-full h-full  '>
+                                <div className=' rounded-full bg-[#F9FAFB] h-[600px] relative object-cover object-center'>
+                                    <img className=' object-cover h-full rounded-[12.5px] w-full object-center' src={LoginBanner} alt="" />
+                                    <div className='absolute flex items-center justify-center w-full'>
+                                        <span>
+                                            SignUp btn
+                                        </span>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='w-2/3 lg:w-1/2 gap-1 flex flex-col'>
-                                <button
-                                    type='submit'
-                                    className='text-slate-200 mt-1 border-none outline-none bg-slate-500  hover:opacity-95 rounded px-4 py-2'
-                                >
-                                    {isLoading ? (
-                                        <span className='flex w-full items-center justify-center animate-spin py-1'>
-                                            <AiOutlineLoading3Quarters size={17} />
-                                        </span>
-                                    ) : (
-                                        "LOGIN"
-                                    )}
-                                </button>
                             </div>
                         </div>
                     </Form>
                 )}
-            </Formik>
+            </Formik> */}
         </div>
     );
 }
