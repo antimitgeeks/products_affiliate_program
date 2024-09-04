@@ -3,7 +3,6 @@ const cors = require("cors");
 require("dotenv").config({ path: './.env' });
 const db = require("./server/app/v1/models");
 const routes = require("./server/app/v1/routes");
-require('./server/app/v1/utils/cron.job');
 const serveStatic = require("serve-static");
 const { readFileSync } = require("fs");
 const { join } = require("path");
@@ -52,17 +51,18 @@ const data = () => {
   console.log('test');
 }
 
-app.use(express.static(path.join(STATIC_PATH, 'build')));
+// app.use(express.static(path.join(STATIC_PATH, 'build')));
 
 app.use(process.env.BASE_URL, routes);
 
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+// });
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
+console.log(PORT)
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

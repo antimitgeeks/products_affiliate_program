@@ -10,7 +10,6 @@ exports.loginSchema = Joi.object({
 });
 
 exports.registerSchema = Joi.object({
-    name: Joi.string().required(),
     email: emailSchema.required(),
     password: Joi.string().min(6).required(),
     phone: Joi.string().pattern(/^[0-9]{10}$/).required(),
