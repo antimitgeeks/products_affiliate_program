@@ -16,7 +16,7 @@ import NpoView from './Pages/Npo Pages/NppView/NpoView';
 import NpoPreview from './Pages/Npo Pages/NpoPagePreview/NpoPreview';
 import WelcomePage from './Pages/WelcomePage';
 import ReportDetail from './Pages/Reports/ReportDetail';
-
+import Logins from "./components/Auth/Signin"
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -52,7 +52,8 @@ function Routing() {
     return (
         <div>
             <Routes>
-                <Route path="" element={<WelcomePage />} />
+                <Route path="" element={<Logins />} />
+                {/* <Route exact path={`${process.env.PUBLIC_URL}/login`} element={<Logins />} /> */}
                 <Route path="login/admin" element={<Login auth={setAthenticateLogin} />} />
                 <Route path="login/npo" element={<NpoLogin auth={setAthenticateLogin} />} />
                 <Route path="/forgot-password/:role/:id" element={<ForgetPassword />} />
