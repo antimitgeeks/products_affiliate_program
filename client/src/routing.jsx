@@ -10,6 +10,12 @@ import { jwtDecode } from 'jwt-decode';
 import Header from './components/Header';
 import SignUp from './Pages/SignUp/SignUp';
 
+import NpoHome from './Pages/Npo Pages/NpoHome/NpoHome';
+import NpoView from './Pages/Npo Pages/NppView/NpoView';
+import NpoPreview from './Pages/Npo Pages/NpoPagePreview/NpoPreview';
+import WelcomePage from './Pages/WelcomePage';
+import ReportDetail from './Pages/Reports/ReportDetail';
+import Logins from "./components/Auth/Signin"
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -46,9 +52,13 @@ function Routing() {
         <div className=' w-full h-full'>
             <Header/>
             <Routes>
-                <Route path="" element={<Login auth={setAthenticateLogin} />} />
+                {/* <Route path="" element={<Login auth={setAthenticateLogin} />} />
                 <Route path="/login" element={<Login auth={setAthenticateLogin} />} />
-                <Route path="/sign-up" element={<SignUp auth={setAthenticateLogin} />} />
+                <Route path="/sign-up" element={<SignUp auth={setAthenticateLogin} />} /> */}
+                <Route path="" element={<Logins />} />
+                {/* <Route exact path={`${process.env.PUBLIC_URL}/login`} element={<Logins />} /> */}
+                <Route path="login/admin" element={<Login auth={setAthenticateLogin} />} />
+                <Route path="login/npo" element={<NpoLogin auth={setAthenticateLogin} />} />
                 <Route path="/forgot-password/:role/:id" element={<ForgetPassword />} />
                 <Route path="/reset-password/:role" element={<EmailAuth />} />
             </Routes>
