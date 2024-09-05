@@ -17,7 +17,9 @@ import { toast } from 'react-toastify';
 import LoginBanner from '../../Assets/loginBanner.png';
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
-import demoBanner from '../../Assets/logo/nathan-dumlao-lvWw_G8tKsk-unsplash.jpg'
+// import demoBanner from '../../Assets/logo/nathan-dumlao-lvWw_G8tKsk-unsplash.jpg';
+// import demoBanner from '../../Assets/logo/Aino website design - Lapa Ninja.png';
+import demoBanner from '../../Assets/logo/Invasion of Privacy (69_365).png';
 
 function SignUp() {
 
