@@ -79,7 +79,7 @@ function EmailAuth() {
     // }, [localData])
 
     return (
-        <div className='h-[100vh] relative flex-col gap-2 flex w-full items-center justify-center'>
+        <div className='h-[100vh] bg-slate-50 relative flex-col gap-2 flex w-full items-center justify-center'>
             <span className=' text-[18px]  text-green-500'> {linksend && "Check Your Email to Reset Password !"} </span>
 
             <Formik
@@ -89,7 +89,7 @@ function EmailAuth() {
             >
                 {(loginProps) => (
                     <Form className='w-full flex items-center justify-center'>
-                        <div className='flex justify-center flex-col gap-8 items-center w-1/2 border rounded shadow px-2 mb-12 py-4'>
+                        <div className='flex justify-center flex-col gap-8 items-center w-1/2 rounded bg-white shadow px-2 mb-12 py-4'>
                             <div>
                                 <span className=' font-mono  text-2xl  tracking-wide'>Reset Password</span>
                             </div>
@@ -104,7 +104,7 @@ function EmailAuth() {
                                         placeholder={'Enter your email'}
                                     />
                                     <div className=' w-full flex end justify-end'>
-                                        <span className='  text-black cursor-pointer ' onClick={() => { role == 'admin' ? navigate('/login/admin') : navigate('/login/npo') }}> <u>Login ? </u></span>
+                                        <span className='  text-black cursor-pointer ' onClick={() => { role == 'admin' ? navigate('/login') : navigate('/login') }}> <u>Login ? </u></span>
                                     </div>
                                 </div>
                             </div>
