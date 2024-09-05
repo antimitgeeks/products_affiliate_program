@@ -10,10 +10,21 @@ exports.authenticate = async (req, res, next) => {
     if (auth) {
       let token = auth.split(" ");
       if (token[0] == 'Bearer') {
+
+        const { exp: expiresIn } = jwt.decode(token[1])
+        const now = new Date().toISOString();
+        const expiryDate = new Date(expiresIn * 1000).toISOString();
+        const isExpired = now > expiryDate;
+        // If token is expired, deny access
+        if (isExpired) {
+        return  Utils.sendResponse(res, statusCode.UNAUTHORIZED, false, ErrorMessage.TOKEN_EXPIRE);
+        }
         req.currUser = jwt.verify(token[1], process.env.JWT_SECRET_KEY);
         if (req.currUser) {
           next();
-        } else {
+        }
+
+        else {
           Utils.sendResponse(res, statusCode.UNAUTHORIZED, false, ErrorMessage.UNAUTHORIZED);
         }
       } else {
@@ -24,7 +35,7 @@ exports.authenticate = async (req, res, next) => {
     }
 
   } catch (error) {
-    console.log(error);
+    console.log("error in the auth middleware", error);
     Utils.sendResponse(res, statusCode.SERVER, false, ErrorMessage.INVALID_TOKEN);
   }
 

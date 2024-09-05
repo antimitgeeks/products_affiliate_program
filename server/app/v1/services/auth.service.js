@@ -31,7 +31,7 @@ exports.login = async (details) => {
     const token = jwt.sign(
         { id: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET_KEY,
-        { expiresIn: process.env.JWT_EXPIRE_TIME }
+        { expiresIn: Math.floor(Date.now() / 1000) + 60 * 60, }
     );
     return { status: true, message: { accessToken: token } };
 }
@@ -52,8 +52,7 @@ exports.generateId = async () => {
 
 
 //get user profile
-
-exports.getUserProfile = async () => {
+exports.getUserProfile = async (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1]
         const id = jwt.decode(token).id
@@ -70,7 +69,40 @@ exports.getUserProfile = async () => {
             }
         }
     } catch (error) {
-        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+}
+
+//update user profile
+exports.updateProfile = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1]
+        const id = jwt.decode(token).id
+        const updatedUser = await Users.update(
+            req.body,
+            {
+                where:
+                {
+                    id: id
+                }
+            }
+        )
+        if (updatedUser) {
+            return {
+                status: true,
+                result: updatedUser
+            }
+        }
+        else {
+            return {
+                status: false
+            }
+        }
+
+    } catch (error) {
         return {
             status: false,
             result: error
