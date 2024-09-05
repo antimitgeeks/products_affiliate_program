@@ -9,7 +9,8 @@ function Dashboard() {
     <div>
       <div onClick={()=>{Cookies.remove("isLogged");navigate('/')}}>
         Logout
-      </div>
+      </div>  
+      
 
     </div>
   )

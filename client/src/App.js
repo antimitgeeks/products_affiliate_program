@@ -8,27 +8,33 @@ import Store from "./Redux/store";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { PrimeReactProvider } from 'primereact/api';
 import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer} from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import 'react-date-range/dist/styles.css'; 
+import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-  
+import CustomizerProvider from './Context/Customizer/CustomizerProvider';
+import BookmarkProvider from './Context/Bookmark/BookmarkProvider';
+
 
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Provider store={Store}>
-          <Toaster position="top-right" />
-          <ToastContainer 
-          draggable 
-          autoClose={2000}
-          />
-          <PrimeReactProvider>
-            <Routing />
-          </PrimeReactProvider>
-        </Provider>
+        <CustomizerProvider>
+          <BookmarkProvider>
+            <Provider store={Store}>
+              <Toaster position="top-right" />
+              <ToastContainer
+                draggable
+                autoClose={2000}
+              />
+              <PrimeReactProvider>
+                <Routing />
+              </PrimeReactProvider>
+            </Provider>
+          </BookmarkProvider>
+        </CustomizerProvider>
       </div>
     );
   }
