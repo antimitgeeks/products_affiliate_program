@@ -23,10 +23,10 @@ function AlertComponent(
                                 }}
                                 className=' py-[3px] px-3 bg-slate-600 rounded hover:opacity-75 text-[14px] text-white'
                             >
-                                Yes 
+                                Yes
                             </button>
-                            
-                            <button onClick={onClose}  className=' py-[3px] px-3 bg-slate-600 text-[14px] rounded text-white hover:opacity-75'>No</button>
+
+                            <button onClick={onClose} className=' py-[3px] px-3 bg-slate-600 text-[14px] rounded text-white hover:opacity-75'>No</button>
                         </div>
                     </div>
                 </div>

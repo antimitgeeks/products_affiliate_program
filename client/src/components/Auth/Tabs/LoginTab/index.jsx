@@ -5,18 +5,36 @@ import { ForgotPassword, RememberPassword } from "../../../Constant";
 import OtherWay from "./OtherWay";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
-const LoginTab = () => {
-  const history = useNavigate();
+const LoginTab = (props) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("test123@gmail.com");
   const [password, setPassword] = useState("Test@123");
+  const [rememberMe, setRememberMe] = useState(false);
+  let isLogged = Cookies.get("isLogged");
+
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate('/dashboard/default');
+    }
+  }, [isLogged]);
+
+
 
   const SimpleLoginHandle = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     if (email === "test123@gmail.com" && password === "Test@123") {
       toast.success("Login Success...!");
-      history(`${process.env.PUBLIC_URL}/dashboard/default`);
-      localStorage.setItem("login", JSON.stringify(true));
+      let data = { email: email, password: password };
+
+      Cookies.set("isLogged", `${data}`, { expires: 30 });
+      props.props.auth(true);
+      navigate(`${process.env.PUBLIC_URL}/dashboard/default`);
+
     } else {
       toast.error("Please Enter valid email or password...!");
     }
@@ -25,7 +43,7 @@ const LoginTab = () => {
 
   return (
     <form onSubmit={SimpleLoginHandle} className="theme-form">
-      <H4 className="text-center"> Sign In With Simple Login</H4>
+      <H4 className="text-center font-semibold text-xl"> Sign In</H4>
       <P className="text-center">{"Enter your email & password to login"}</P>
       <FormGroup>
         <Input type="text" defaultValue={email} onChange={(event) => setEmail(event.target.value)} />
@@ -37,12 +55,12 @@ const LoginTab = () => {
       </FormGroup>
       <div className="position-relative form-group mb-0">
         <div className="checkbox">
-          <Input id="checkbox1" type="checkbox" />
+          <Input id="checkbox1" type="checkbox" onChange={(e) => setRememberMe(e.target.checked)} />
           <Label className="text-muted" for="checkbox1">
             {RememberPassword}
           </Label>
         </div>
-        <a className="link" href="#javascript">
+        <a className="link" href="/reset-password/user">
           {ForgotPassword}
         </a>
         <Btn color="primary" type="submit" className="d-block w-100 mt-2">

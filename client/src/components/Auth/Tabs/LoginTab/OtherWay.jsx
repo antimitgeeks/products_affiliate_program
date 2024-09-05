@@ -38,7 +38,7 @@ const OtherWay = () => {
       </div>
       <P className='text-center mb-0 '>
         Don't have account?
-        <Link className='ms-2' to={`${process.env.PUBLIC_URL}/pages/authentication/register-simple`}>
+        <Link className='ms-2' to={`${process.env.PUBLIC_URL}/register`}>
           Create Account
         </Link>
       </P>
