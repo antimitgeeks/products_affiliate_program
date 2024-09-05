@@ -11,6 +11,7 @@ module.exports.SuccessMessage = {
   DELETE: "Delete Success.",
   UPLOADED: "Uploaded Success.",
   SAVED: "Saved Success.",
+  
 };
 //Error messages
 module.exports.ErrorMessage = {
@@ -25,5 +26,5 @@ module.exports.ErrorMessage = {
   FILE_NOT_UPLOAD: "File Not Upload.",
   NOT_CREATED: "Not Created.",
   BAD_REQUEST:"Bad Request",
-  
+
 };

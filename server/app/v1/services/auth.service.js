@@ -37,17 +37,43 @@ exports.login = async (details) => {
 }
 
 //  register service
-exports.register = async (details,userId) => {
-    const data  = {...details,userId}
+exports.register = async (details, userId) => {
+    const data = { ...details, userId }
     const userDetails = await Users.create(data);
     // remove password
     delete userDetails.dataValues.password;
     return userDetails;
 }
 
-exports.generateId = async()=>{
+exports.generateId = async () => {
     const uid = new ShortUniqueId({ length: 10 })
     return uid.rnd()
 }
 
 
+//get user profile
+
+exports.getUserProfile = async () => {
+    try {
+        const token = req.headers.authorization.split(' ')[1]
+        const id = jwt.decode(token).id
+        const user = await Users.findOne({ where: { id: id } })
+        if (user) {
+            return {
+                status: true,
+                result: user
+            }
+        }
+        else {
+            return {
+                status: false,
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+}

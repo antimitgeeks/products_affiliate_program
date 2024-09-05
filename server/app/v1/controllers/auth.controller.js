@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
     try {
         const details = req.body;
         const uniqueId = await service.generateId()
-        const result = await service.register(details,uniqueId);
+        const result = await service.register(details, uniqueId);
         return sendResponse(res, statusCode.OK, true, `${details.role} ${SuccessMessage.CREATED}`, result);
     } catch (error) {
         console.error('Error in register api : ', error);
@@ -33,3 +33,24 @@ exports.register = async (req, res) => {
     }
 };
 
+
+//get user profile
+exports.getProfile = async (req, res) => {
+    try {
+        const result = await service.getUserProfile()
+        if (result.status) {
+            return sendResponse(res, statusCode.OK, true, `User Details${SuccessMessage.FETCH}`, result);
+        }
+        else if (result.status == false && result.result) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, result.result);
+        }
+        else {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST);
+
+        }
+    } catch (error) {
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
