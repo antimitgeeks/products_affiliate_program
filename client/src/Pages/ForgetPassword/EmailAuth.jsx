@@ -47,31 +47,32 @@ function EmailAuth() {
         setUserData(data)
         console.log(data);
         const roleData = { email: data?.email, role: role }
-        resetPassword({ data: roleData })
-            .then((dta) => {
-                if (dta?.data) {
-                    setTimeout(() => {
-                        toast.success(dta?.data?.message)
-                        setLinkSend(true);
-                        resetForm();
-                    }, 100);
-                    setTimeout(() => {
-                        if (role == 'admin') {
-                            navigate('/login/admin')
-                        }
-                        else {
-                            navigate('/login/npo')
-                        }
-                    }, 600);
-                }
-                else if (dta?.error) {
-                    console.log(dta?.error)
-                    toast.error(dta?.error?.data?.message || "Internal server error")
-                    setLinkSend(false)
-                }
-                setLoading(false)
-            })
-            .catch((err) => { toast.error(err.response.data.message); setLoading(false); setLinkSend(false) })
+        // resetPassword({ data: roleData })
+        //     .then((dta) => {
+        //         if (dta?.data) {
+        //             setTimeout(() => {
+        //                 toast.success(dta?.data?.message)
+        //                 setLinkSend(true);
+        //                 resetForm();
+        //             }, 100);
+        //             setTimeout(() => {
+        //                 if (role == 'admin') {
+        //                     navigate('/login/admin')
+        //                 }
+        //                 else {
+        //                     navigate('/login/npo')
+        //                 }
+        //             }, 600);
+        //         }
+        //         else if (dta?.error) {
+        //             console.log(dta?.error)
+        //             toast.error(dta?.error?.data?.message || "Internal server error")
+        //             setLinkSend(false)
+        //         }
+        //         setLoading(false)
+        //     })
+        //     .catch((err) => { toast.error(err.response.data.message); setLoading(false); setLinkSend(false) })
+
     };
 
 
@@ -84,7 +85,7 @@ function EmailAuth() {
     // }, [localData])
 
     return (
-        <div className='h-[100vh] bg-slate-50 relative flex-col gap-2 flex w-full items-center justify-center'>
+        <div className='h-[95vh] bg-slate-50 relative flex-col gap-2 flex w-full items-center justify-center'>
             <span className=' text-[18px]  text-green-500'> {linksend && "Check Your Email to Reset Password !"} </span>
 
             <Formik
@@ -94,7 +95,7 @@ function EmailAuth() {
             >
                 {(loginProps) => (
                     <Form className='w-full flex items-center justify-center'>
-                        <Container fluid={true} className="p-0 login-page bg-slate-50">
+                        <Container fluid={true} className="p-0 login-page bg-slate-50 shoaw">
                             <Row>
                                 <Col xs="12">
                                     <div className="login-card flex-column">
@@ -104,17 +105,23 @@ function EmailAuth() {
                                                 src={require("../../Assets/logo/itg_logo.webp")}
                                             />
                                         </div>
-                                        <div className="login-main login-tab">
+                                        <div className="login-main login-tab shadow">
                                             <div className="theme-form">
                                                 <H4 className="text-center font-semibold text-2xl">Forgot apssword ?</H4>
                                                 <P className="text-center">{"Enter your email to get reset link"}</P>
-                                                <FormGroup className=" flex flex-col gap-5">
-                                                    <InputComponent placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
+                                                <div className=' flex flex-col gap-2'>
 
-                                                </FormGroup>
-                                                <Btn color="primary" type="submit" className=" pt-2 d-block w-100 mt-1 rounded-full">
-                                                    Reset
-                                                </Btn>
+                                                    <FormGroup className=" flex flex-col gap-5">
+                                                        <InputComponent placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
+
+                                                    </FormGroup>
+                                                    <div onClick={()=>navigate('/login')} className=' flex w-full justify-end text-[#3E5FCE] hover:underline cursor-pointer'>
+                                                        <span>Sign in ?</span>
+                                                    </div>
+                                                    <Btn color="primary" type="submit" className="d-block w-100 mt-1 rounded-full">
+                                                        Reset
+                                                    </Btn>
+                                                </div>
                                             </div >
                                         </div>
                                     </div>

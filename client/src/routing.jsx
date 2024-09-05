@@ -41,13 +41,13 @@ function Routing() {
         <div className=' w-full h-full'>
             {/* <Header/> */}
             <Routes>
-                <Route path="" element={<Logins auth={setAthenticateLogin}  />} />
+                <Route path="" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/login" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/register" element={<SignUp auth={setAthenticateLogin} />} />
                 <Route path="/reset-password/:role" element={<EmailAuth />} />
                 <Route path="/forgot-password/:role/:id" element={<ForgetPassword />} />
                 {
-                    authenticateLogin&&
+                    authenticateLogin &&
                     <Route path="/dashboard/default" element={<Dashboard />} />
                 }
                 {/* <Route path="" element={<Login auth={setAthenticateLogin} />} />

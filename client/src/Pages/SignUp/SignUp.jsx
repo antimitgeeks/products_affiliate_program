@@ -14,6 +14,10 @@ import Select from 'react-select'
 import { useRegisterMutation } from '../../services/AuthServices';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import LoginBanner from '../../Assets/loginBanner.png';
+import { FiEye } from "react-icons/fi";
+import { FiEyeOff } from "react-icons/fi";
+import demoBanner from '../../Assets/logo/nathan-dumlao-lvWw_G8tKsk-unsplash.jpg'
 
 function SignUp() {
 
@@ -22,6 +26,9 @@ function SignUp() {
   const [Register] = useRegisterMutation();
   let isLogged = Cookies.get("isLogged");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState("password");
+  const [showConfirmPassword, setShowConfirmPassword] = useState("password")
+
 
 
   const changeHandler = value => {
@@ -140,7 +147,7 @@ function SignUp() {
       >
         {(signupProps) => (
           <Form>
-            <Container fluid={true} className="p-0 login-page bg-slate-50">
+            <Container fluid={true} className="p-0 w-full  bg-slate-50">
               <Row>
                 <Col xs="12">
                   <div className="login-card flex-column">
@@ -150,81 +157,86 @@ function SignUp() {
                         src={require("../../Assets/logo/itg_logo.webp")}
                       />
                     </div>
-                    <div className="login-main login-tab">
-                      <div className="theme-form">
-                        <H4 className="text-center font-semibold text-xl"> Sign Up</H4>
-                        <P className="text-center">{"Enter your details to Sign up"}</P>
-                        {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
-                        <div className=' w-full flex flex-col gap-6 pb-4'>
+                    <div className=" w-full flex items-center justify-center login-tab">
+                      <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
+                        <div className=" w-full md:w-[45%]">
 
-                          <InputComponent type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} />
-                          <InputComponent type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={signupProps.handleChange} />
-                          <hr />
-                          {/* <Select options={options} name='country' value={value} onChange={changeHandler} /> */}
-                          <div className=' relative'>
-                            <Select
-                              options={options}
-                              name="country"
-                              value={signupProps.values.country}
-                              onChange={value => signupProps.setFieldValue('country', value)}
-                            />
-                            <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
+                          <div className="theme-form flex flex-col gap-3 p-2">
+                            <H4 className="text-center font-semibold text-2xl"> Sign Up</H4>
+                            <P className="text-center">{"Enter your details to Sign up"}</P>
+                            {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
+                            <div className=' w-full flex flex-col gap-6 pb-4'>
+
+                              <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} />
+                              <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={signupProps.handleChange} />
+                              <hr />
+                              {/* <Select options={options} name='country' value={value} onChange={changeHandler} /> */}
+                              <div className=' relative'>
+                                <span className=' pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
+                                <Select
+                                  placeholder="Select Country"
+                                  options={options}
+                                  name="country"
+                                  value={signupProps.values.country}
+                                  onChange={value => signupProps.setFieldValue('country', value)}
+                                />
+                                <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
+                              </div>
+
+
+
+                              {/* <InputComponent type={"text"} value={signupProps.values.country} name='country' onChange={signupProps.handleChange} placeholder={"Enter country name"} /> */}
+                              <InputComponent label={"City"} type={"text"} value={signupProps.values.city} name='city' onChange={signupProps.handleChange} placeholder={"Enter city name"} />
+                              <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter your address"} />
+                              <hr />
+                              <InputComponent label={"Company name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
+                              <InputComponent label={"Company number"} type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} />
+                              <hr />
+                              <div className='relative w-full flex gap-1'>
+                                <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
+                                <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
+                                  {
+                                    showPassword == "password" ?
+                                      <FiEyeOff />
+                                      :
+                                      <FiEye />
+                                  }
+                                </span>
+                              </div>
+                              <div className=' relative w-full flex gap-1'>
+                                <InputComponent label={"Confirm password"} type={showConfirmPassword=="password"?"password":"text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={signupProps.handleChange} placeholder={"Enter confirm password"} />
+                                <span onClick={() => showConfirmPassword == "password" ? setShowConfirmPassword("text") : setShowConfirmPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
+                                  {
+                                    showConfirmPassword == "password" ?
+                                      <FiEyeOff />
+                                      :
+                                      <FiEye />
+                                  }
+                                </span>
+                              </div>
+                              <div className=' flex gap-2 items-center'>
+                                <input className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
+                                <label className=' p-0 m-0 cursor-pointer underline' htmlFor="checkboxx">Accept terms and condition</label>
+                              </div>
+                            </div>
+                            <div className="position-relative form-group mb-0">
+                              <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
+                                Sign up
+                              </Btn>
+                            </div>
+                            <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
+                              Already have an account ?
+                              <Link className='ms-2 text-[#3E5FCE]' to={`${process.env.PUBLIC_URL}/login`}>
+                                Sign in
+                              </Link>
+                            </P>
                           </div>
-
-
-
-                          {/* <InputComponent type={"text"} value={signupProps.values.country} name='country' onChange={signupProps.handleChange} placeholder={"Enter country name"} /> */}
-                          <InputComponent type={"text"} value={signupProps.values.city} name='city' onChange={signupProps.handleChange} placeholder={"Enter city name"} />
-                          <InputComponent type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter your address"} />
-                          <hr />
-                          <InputComponent type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
-                          <InputComponent type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} />
-                          <hr />
-                          <InputComponent type={"password"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
-                          <InputComponent type={"password"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={signupProps.handleChange} placeholder={"Enter confirm password"} />
-
                         </div>
-                        <div className="position-relative form-group mb-0">
-                          <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
-                            Register
-                          </Btn>
+                        <div className=" w-full p-2 md:w-[60%] object-contain md:object-cover h-[200px]  md:h-[1080px]">
+                          <img src={demoBanner} className=" shadow-xl object-cover w-full h-full rounded-[16px]" alt="" />
                         </div>
-                        <div className='login-social-title'>
-                          <H6 className='text-muted or mt-4'>Or Sign up with</H6>
-                        </div>
-                        <div className='social my-4 '>
-                          <FormGroup className='form-group'>
-                            <UL className='login-social d-flex flex-row simple-list'>
-                              <LI>
-                                <a href='https://www.google.com/'>
-                                  <Linkedin className=' me-0' />
-                                </a>
-                              </LI>
-                              <LI>
-                                <a href='https://twitter.com/'>
-                                  <Twitter className='me-0' />
-                                </a>
-                              </LI>
-                              <LI>
-                                <a href='https://www.facebook.com/'>
-                                  <Facebook className='me-0' />
-                                </a>
-                              </LI>
-                              <LI>
-                                <a href='https://www.instagram.com/'>
-                                  <Instagram className='me-0' />
-                                </a>
-                              </LI>
-                            </UL>
-                          </FormGroup>
-                        </div>
-                        <P className='text-center mb-0 '>
-                          Already have an Account ?
-                          <Link className='ms-2 text-[#3E5FCE]' to={`${process.env.PUBLIC_URL}/login`}>
-                            Login
-                          </Link>
-                        </P>
                       </div>
+
 
                     </div>
                   </div>

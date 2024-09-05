@@ -19,7 +19,7 @@ function InputComponent(
 
         <div className=' w-full relative'>
             {
-                label && <span className=' font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span>} </span>
+                label && <span className=' pl-[3px] font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span>} </span>
             }
             {/* <input
                     autoSave='off'
@@ -38,7 +38,7 @@ function InputComponent(
                 defaultValue={defaultValue}
                 name={name}
                 onChange={onChange}
-                className=' py-2 w-full form-control h-10 rounded-[10px]'
+                className=' py-2 w-full form-control border h-10 rounded-[10px]'
                 type={type}
                 placeholder={placeholder} />
 
