@@ -107,13 +107,12 @@ function EmailAuth() {
                                         </div>
                                         <div className="login-main login-tab shadow">
                                             <div className="theme-form">
-                                                <H4 className="text-center font-semibold text-2xl">Forgot apssword ?</H4>
+                                                <H4 className="text-center font-semibold text-2xl">Forgot password ?</H4>
                                                 <P className="text-center">{"Enter your email to get reset link"}</P>
                                                 <div className=' flex flex-col gap-2'>
 
                                                     <FormGroup className=" flex flex-col gap-5">
                                                         <InputComponent placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
-
                                                     </FormGroup>
                                                     <div onClick={()=>navigate('/login')} className=' flex w-full justify-end text-[#3E5FCE] hover:underline cursor-pointer'>
                                                         <span>Sign in ?</span>
