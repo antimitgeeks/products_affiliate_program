@@ -32,19 +32,19 @@ function InputComponent(
                     type={type}
                     placeholder={placeholder}
                 /> */}
-            <Input autoSave='off'
+            <Input
                 value={value}
                 autoComplete={auto}
                 defaultValue={defaultValue}
                 name={name}
                 onChange={onChange}
-                className='px-2 py-2 rounded w-full border font-semibold outline-none'
+                className=' py-2 w-full form-control h-10 rounded-[10px]'
                 type={type}
                 placeholder={placeholder} />
 
             {
                 name &&
-                <ErrorMessage className='text-red-400 absolute text-[14px]  mt-0' name={name} component='div' />
+                <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={name} component='div' />
             }
         </div>
 

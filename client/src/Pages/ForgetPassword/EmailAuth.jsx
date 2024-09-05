@@ -6,6 +6,11 @@ import InputComponent from '../../components/InputComponent';
 import { useResetPasswordMutation } from '../../services/AuthServices';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
+import { Container, Row, Col } from "reactstrap";
+import { Btn, H4, P, Image } from "../../components/AbstractElements";
+import { FormGroup } from "reactstrap";
+
+
 
 function EmailAuth() {
 
@@ -26,13 +31,13 @@ function EmailAuth() {
 
     /* form Validation using Yup */
     const validationSchema = yup.object().shape({
-        email:  yup.string()
-        .strict()
-        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Enter a valid email")
-        .max(70, "Length should not exceed 70")
-        .email("Enter a valid email")
-        .required("Email is required")
-        .trim("Invalid email"),
+        email: yup.string()
+            .strict()
+            .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Enter a valid email")
+            .max(70, "Length should not exceed 70")
+            .email("Enter a valid email")
+            .required("Email is required")
+            .trim("Invalid email"),
     });
 
 
@@ -89,31 +94,33 @@ function EmailAuth() {
             >
                 {(loginProps) => (
                     <Form className='w-full flex items-center justify-center'>
-                        <div className='flex justify-center flex-col gap-8 items-center w-1/2 rounded bg-white shadow px-2 mb-12 py-4'>
-                            <div>
-                                <span className=' font-mono  text-2xl  tracking-wide'>Reset Password</span>
-                            </div>
-                            <div className=' w-full items-center justify-center grid grid-cols-1 gap-5'>
-                                <div className=' w-1/2 relative gap-2 flex-col flex  mx-auto'>
+                        <Container fluid={true} className="p-0 login-page bg-slate-50">
+                            <Row>
+                                <Col xs="12">
+                                    <div className="login-card flex-column">
+                                        <div className="logo">
+                                            <Image
+                                                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
+                                                src={require("../../Assets/logo/itg_logo.webp")}
+                                            />
+                                        </div>
+                                        <div className="login-main login-tab">
+                                            <div className="theme-form">
+                                                <H4 className="text-center font-semibold text-2xl">Forgot apssword ?</H4>
+                                                <P className="text-center">{"Enter your email to get reset link"}</P>
+                                                <FormGroup className=" flex flex-col gap-5">
+                                                    <InputComponent placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
 
-                                    <InputComponent
-                                        value={loginProps.values.email}
-                                        name='email'
-                                        onChange={loginProps.handleChange}
-                                        type='email'
-                                        placeholder={'Enter your email'}
-                                    />
-                                    <div className=' w-full flex end justify-end'>
-                                        <span className='  text-black cursor-pointer ' onClick={() => { role == 'admin' ? navigate('/login') : navigate('/login') }}> <u>Login ? </u></span>
+                                                </FormGroup>
+                                                <Btn color="primary" type="submit" className=" pt-2 d-block w-100 mt-1 rounded-full">
+                                                    Reset
+                                                </Btn>
+                                            </div >
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div className=' w-1/2  gap-1 flex flex-col'>
-                                <button type='submit' className='  border-none outline-none bg-slate-400 hover:opacity-75 rounded px-4 py-2'> {loading ? <span className=' flex w-full items-center justify-center animate-spin py-1 '><AiOutlineLoading3Quarters size={17} /></span> : "SUBMIT"}</button>
-                            </div>
-
-                        </div>
+                                </Col>
+                            </Row>
+                        </Container>
                     </Form>
                 )}
             </Formik>

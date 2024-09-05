@@ -5,7 +5,7 @@ import LoginTab from "./Tabs/LoginTab";
 const Logins = (props) => {
 
   return (
-    <Container fluid={true} className="p-0 login-page bg-slate-50">
+    <Container fluid={true} className="p-0 m-0 login-page w-full bg-slate-50">
       <Row>
         <Col xs="12">
           <div className="login-card flex-column">
@@ -15,7 +15,7 @@ const Logins = (props) => {
                 src={require("../../Assets/logo/itg_logo.webp")}
               />
             </div>
-            <div className="login-main login-tab">
+            <div className="login-main login-tab w-full">
               <LoginTab props={props} />
             </div>
           </div>
