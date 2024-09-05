@@ -35,20 +35,11 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
 db.users = require("./users.model.js")(sequelize, Sequelize);
-// db.stores = require("./stores.model.js")(sequelize, Sequelize);
-// db.uploadedFiles = require("./uploaded.files.model.js")(sequelize, Sequelize);
-db.Npos = require("./npos.model.js")(sequelize, Sequelize);
-db.NpoPages = require("./npoPages.model.js")(sequelize, Sequelize);
-db.Order = require("./order.model.js")(sequelize, Sequelize);
-db.NpoPayments = require("./npoPayments.model.js")(sequelize, Sequelize);
+db.affiliate = require('./affiliate.model.js')(sequelize, Sequelize)
+db.users.hasMany(db.affiliate);
+db.affiliate.belongsTo(db.users);
 
-db.Order.hasMany(db.NpoPayments, { foreignKey: 'orderId' });
-db.NpoPayments.belongsTo(db.Order, { foreignKey: 'orderId' });
-
-db.Npos.hasMany(db.NpoPayments, { foreignKey: 'npoId' });
-db.NpoPayments.belongsTo(db.Npos, { foreignKey: 'npoId' });
 
 
 module.exports = db;

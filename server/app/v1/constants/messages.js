@@ -24,4 +24,6 @@ module.exports.ErrorMessage = {
   FILE_REQUIRED: "File Required.",
   FILE_NOT_UPLOAD: "File Not Upload.",
   NOT_CREATED: "Not Created.",
+  BAD_REQUEST:"Bad Request",
+  
 };

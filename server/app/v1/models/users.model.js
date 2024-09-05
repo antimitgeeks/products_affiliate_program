@@ -11,25 +11,45 @@
  */
 
 const bcrypt = require('bcrypt');
+const { ENUM } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
     /**
      * @type {Model}
      */
     const Users = sequelize.define("users", {
-        name: {
-            type: Sequelize.STRING
+        userId:{
+            type:Sequelize.STRING
         },
         email: {
             type: Sequelize.STRING,
             unique: true
+        },
+        paypalAddress: {
+            type: Sequelize.STRING
+        },
+        country: {
+            type:  Sequelize.STRING
+        },
+        city: {
+            type: Sequelize.STRING
+        },
+        address: {
+            type: Sequelize.STRING
+        },
+        companyName: {
+            type: Sequelize.STRING
+        },
+        companyNumber: {
+            type: Sequelize.INTEGER,
         },
         password: {
             type: Sequelize.STRING,
             allowNull: false
         },
         phone: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true
         },
         role: {
             type: Sequelize.STRING
