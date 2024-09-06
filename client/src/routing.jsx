@@ -9,7 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import Header from './components/Header';
 import SignUp from './Pages/SignUp/SignUp';
 import Dashboard from './Pages/Dashboard/Dashboard'
-
+import RouteLayout from "./RouteLayout"
 import Logins from "./components/Auth/Signin";
 
 function Routing() {
@@ -41,14 +41,15 @@ function Routing() {
         <div className=' w-full h-full'>
             {/* <Header/> */}
             <Routes>
-                <Route path="" element={<Logins auth={setAthenticateLogin}  />} />
+                <Route path="" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/login" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/register" element={<SignUp auth={setAthenticateLogin} />} />
                 <Route path="/reset-password/:role" element={<EmailAuth />} />
                 <Route path="/forgot-password/:role/:id" element={<ForgetPassword />} />
                 {
-                    authenticateLogin&&
-                    <Route path="/dashboard/default" element={<Dashboard />} />
+                    authenticateLogin &&
+                    <Route path='/dashboard/default' element={<RouteLayout />} />
+                    // </Route>
                 }
                 {/* <Route path="" element={<Login auth={setAthenticateLogin} />} />
                 <Route path="/sign-up" element={<SignUp auth={setAthenticateLogin} />} /> */}
