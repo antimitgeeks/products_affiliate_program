@@ -11,6 +11,9 @@ import SignUp from './Pages/SignUp/SignUp';
 import Dashboard from './Pages/Dashboard/Dashboard'
 import RouteLayout from "./RouteLayout"
 import Logins from "./components/Auth/Signin";
+import Layout from './components/Layout/Layout';
+import WelcomePage from './Pages/WelcomePage';
+import Profile from './Pages/Profile/Profile';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -48,8 +51,10 @@ function Routing() {
                 <Route path="/reset-password/:role/:id" element={<ForgetPassword />} />
                 {
                     authenticateLogin &&
-                    <Route path='/dashboard/default' element={<RouteLayout />} />
-                    // </Route>
+                    // <Route path='/dashboard/default' element={<RouteLayout />} />
+                    <Route path='/dashboard/default' element={<Layout />} >
+                        <Route path='' element={<Profile/>}/>
+                    </Route>
                 }
             </Routes>
         </div>

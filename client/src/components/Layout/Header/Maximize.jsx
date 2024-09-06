@@ -14,6 +14,7 @@ const Maximize = () => {
       setFullScreen(!fullScreen);
     }
   };
+  
   return (
     <Link className='text-dark' to='#javascript' onClick={fullScreenToggleHandler}>
       <FiMaximize />
