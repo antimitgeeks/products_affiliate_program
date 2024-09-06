@@ -21,7 +21,7 @@ const Logins = (props) => {
 
                 <LoginTab props={props} />
               </div>
-              <div className=" w-full md:w-[58%] object-center object-contain md:object-cover h-[200px]  md:h-[500px]">
+              <div className=" w-full md:w-[58%] object-center object-contain md:object-cover h-[200px]  md:h-[460px]">
                 <img src={LoginBanner} className=" shadow-xl object-cover object-center w-full h-full rounded-[16px]" alt="" />
               </div>
             </div>

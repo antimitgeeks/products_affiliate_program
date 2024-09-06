@@ -13,13 +13,14 @@ import countryList from 'react-select-country-list';
 import Select from 'react-select'
 import { useRegisterMutation } from '../../services/AuthServices';
 import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import LoginBanner from '../../Assets/loginBanner.png';
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
+import demoBanner from '../../Assets/logo/Invasion of Privacy (69_365).png';
 // import demoBanner from '../../Assets/logo/nathan-dumlao-lvWw_G8tKsk-unsplash.jpg';
 // import demoBanner from '../../Assets/logo/Aino website design - Lapa Ninja.png';
-import demoBanner from '../../Assets/logo/Invasion of Privacy (69_365).png';
 
 function SignUp() {
 
@@ -56,6 +57,7 @@ function SignUp() {
     address: '',
     companyName: '',
     companyNumber: '',
+    companyUrl: '',
     password: '',
     confirmPassword: ''
   };
@@ -71,6 +73,7 @@ function SignUp() {
     city: yup.string().trim("Enter valid city").required("city is required").strict(),
     address: yup.string().trim("Enter valid address").required("address is required").strict(),
     companyName: yup.string().trim("Enter valid companyName").required("company name is required").strict(),
+    companyUrl: yup.string().trim("Enter valid company url").required("company url is required").strict(),
     companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
     password: yup.string().trim("Enter valid password").required("password is required").strict(),
     confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("confirm password is required").strict(),
@@ -87,6 +90,7 @@ function SignUp() {
       "address": data?.address,
       "companyName": data?.companyName,
       "companyNumber": data?.companyNumber,
+      "companyUrl": data?.companyUrl,
       "password": data?.password,
       // "role":"admin"
     }
@@ -98,8 +102,8 @@ function SignUp() {
         }
         else {
           resetForm();
-          toast.success("User Created Successfully");
-          navigate('/login')
+          toast.success("User Registered Successfully");
+          navigate('/login');
           console.log(res.data?.result, 'register res')
         }
       })
@@ -149,7 +153,7 @@ function SignUp() {
       >
         {(signupProps) => (
           <Form>
-            <Container fluid={true} className="p-0 w-full  bg-slate-50">
+            <Container fluid={true} className="p-0 w-full m-0  bg-slate-50">
               <Row>
                 <Col xs="12">
                   <div className="login-card flex-column">
@@ -186,13 +190,13 @@ function SignUp() {
                               </div>
 
 
-
                               {/* <InputComponent type={"text"} value={signupProps.values.country} name='country' onChange={signupProps.handleChange} placeholder={"Enter country name"} /> */}
                               <InputComponent label={"City"} type={"text"} value={signupProps.values.city} name='city' onChange={signupProps.handleChange} placeholder={"Enter city name"} />
                               <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter your address"} />
                               <hr />
                               <InputComponent label={"Company name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
                               <InputComponent label={"Company number"} type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} />
+                              <InputComponent label={"Company Url"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={signupProps.handleChange} placeholder={"Enter company Url"} />
                               <hr />
                               <div className='relative w-full flex gap-1'>
                                 <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
@@ -206,7 +210,7 @@ function SignUp() {
                                 </span>
                               </div>
                               <div className=' relative w-full flex gap-1'>
-                                <InputComponent label={"Confirm password"} type={showConfirmPassword=="password"?"password":"text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={signupProps.handleChange} placeholder={"Enter confirm password"} />
+                                <InputComponent label={"Confirm password"} type={showConfirmPassword == "password" ? "password" : "text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={signupProps.handleChange} placeholder={"Enter confirm password"} />
                                 <span onClick={() => showConfirmPassword == "password" ? setShowConfirmPassword("text") : setShowConfirmPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
                                   {
                                     showConfirmPassword == "password" ?
@@ -218,7 +222,7 @@ function SignUp() {
                               </div>
                               <div className=' flex gap-2 items-center'>
                                 <input className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
-                                <label className=' p-0 m-0 cursor-pointer underline' htmlFor="checkboxx">Accept terms and condition</label>
+                                <label className=' p-0 m-0 cursor-pointer underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px]' href="https://partners.krownthemes.com/terms-and-conditions">Accept terms and condition</a></label>
                               </div>
                             </div>
                             <div className="position-relative form-group mb-0">
@@ -234,7 +238,7 @@ function SignUp() {
                             </P>
                           </div>
                         </div>
-                        <div className=" w-full p-2 md:w-[60%] object-contain md:object-cover h-[200px]  md:h-[1080px]">
+                        <div className=" w-full p-2 md:w-[60%] object-contain md:object-cover h-[200px]  md:h-[1140px]">
                           <img src={demoBanner} className=" shadow-xl object-cover w-full h-full rounded-[16px]" alt="" />
                         </div>
                       </div>

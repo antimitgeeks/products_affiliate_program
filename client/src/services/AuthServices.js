@@ -27,32 +27,31 @@ const AuthServices = CreateApi.injectEndpoints(
                             }
                         )
                     }),
-                ResetPassword: builder.mutation(
+                ForgotPassword: builder.mutation(
                     {
                         invalidatesTags: ["auth"],
                         query: ({ data }) => (
                             {
-                                url: '/auth/reset-password',
+                                url: '/auth/forget-password',
                                 method: "POST",
                                 body: data
                             }
                         )
                     }),
-                ForgotPassword: builder.mutation(
+                ResetPassword: builder.mutation(
                     {
                         invalidatesTags: ["auth"],
                         query: ({ data, Id }) => (
                             {
-                                url: `/auth/forgot-password/${Id}`,
+                                url: `/auth/reset-password/${Id}`,
                                 method: "POST",
                                 body: data
                             }
                         )
                     })
-
             }
         )
     }
 )
 
-export const { useLoginMutation,useRegisterMutation, useResetPasswordMutation, useForgotPasswordMutation } = AuthServices;
+export const { useLoginMutation,useRegisterMutation, useResetPasswordMutation,useForgotPasswordMutation } = AuthServices;

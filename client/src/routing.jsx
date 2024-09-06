@@ -44,18 +44,13 @@ function Routing() {
                 <Route path="" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/login" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/register" element={<SignUp auth={setAthenticateLogin} />} />
-                <Route path="/reset-password/:role" element={<EmailAuth />} />
-                <Route path="/forgot-password/:role/:id" element={<ForgetPassword />} />
+                <Route path="/forgot-password/:role" element={<EmailAuth />} />
+                <Route path="/reset-password/:role/:id" element={<ForgetPassword />} />
                 {
                     authenticateLogin &&
                     <Route path='/dashboard/default' element={<RouteLayout />} />
                     // </Route>
                 }
-                {/* <Route path="" element={<Login auth={setAthenticateLogin} />} />
-                <Route path="/sign-up" element={<SignUp auth={setAthenticateLogin} />} /> */}
-                {/* <Route exact path={`${process.env.PUBLIC_URL}/login`} element={<Logins />} /> */}
-                {/* <Route path="login/admin" element={<Login auth={setAthenticateLogin} />} />
-                <Route path="login/npo" element={<NpoLogin auth={setAthenticateLogin} />} /> */}
             </Routes>
         </div>
     )

@@ -1,127 +1,153 @@
-import React, { useEffect, useState } from 'react';
-import { Formik, Form, ErrorMessage } from 'formik';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Container, Row, Col } from "reactstrap";
+import { Btn, H4, H6, P, Image } from "../../components/AbstractElements";
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { useNavigate, useParams } from 'react-router-dom';
+import { ErrorMessage, Form, Formik } from 'formik';
 import InputComponent from '../../components/InputComponent';
-import { useForgotPasswordMutation } from '../../services/AuthServices';
-import { toast } from 'react-toastify';
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import countryList from 'react-select-country-list';
+import { useResetPasswordMutation } from '../../services/AuthServices';
+import Cookies from 'js-cookie';
+// import { toast } from 'react-toastify';
+import {toast} from 'react-hot-toast'
+import LoginBanner from '../../Assets/loginBanner.png';
+import { FiEye } from "react-icons/fi";
+import { FiEyeOff } from "react-icons/fi";
 
 function ForgetPassword() {
 
-    let navigate = useNavigate();
-    const [UserData, setUserData] = useState('');
-    const [loading, setLoading] = useState(false)
+    let isLogged = Cookies.get("isLogged");
+    const navigate = useNavigate();
+    const ParamData = useParams();
+    console.log(ParamData, 'paramData');
 
-    /* code for getting email from url */
+    const [showPassword, setShowPassword] = useState("password");
+    const [showConfirmPassword, setShowConfirmPassword] = useState("password")
 
-    const paramEmail = useParams()
-    console.log(paramEmail);
-    const [forgotPassword] = useForgotPasswordMutation()
+    const [loading, setLoading] = useState(false);
+    const [Reset] = useResetPasswordMutation()
 
-    /* form initialValues */
-    const [initialValues, setInitialValues] = useState({
+
+    useEffect(() => {
+        if (isLogged) {
+            navigate('/dashboard/default');
+        }
+    }, [isLogged]);
+
+    const initialValues = {
         password: '',
-        confirmPassword: '',
-    });
+        confirmPassword: ''
+    };
 
-
-    /* form Validation using Yup */
     const validationSchema = yup.object().shape({
-        password: yup.string().trim().required("password is required").min(6, "enter minimum 6 characters"),
-        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim().required("confirm password is required").min(6, "enter minimum 6 characters"),
+        password: yup.string().trim("Enter valid password").required("password is required").strict(),
+        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("confirm password is required").strict(),
     });
 
-
-    /* handling form submit */
     const handleSubmit = (data, { resetForm }) => {
-        setLoading(true)
-        setUserData(data);
-        let dataaa = { password: data.password, confirmPassword: data.confirmPassword, role: paramEmail?.role }
-        console.log(dataaa,'dataaa')
-        forgotPassword({ data: dataaa, Id: paramEmail?.id })
+        setLoading(true);
+        console.log(data, 'reset data');
+        let resetData = {
+            password: data?.password,
+        }
+        Reset({ data: resetData, Id: ParamData?.id })
             .then((res) => {
-                if (res?.data) {
-                    console.log(res?.data)
-                    toast.success(res?.data?.message)
-                    resetForm();
-                    if (paramEmail?.role == 'npo') {
-                        navigate('/login/npo')
-                    }
-                    else
-                    {
-                        navigate('/login/admin')
-                    }
+                if (res.error) {
+                    console.log(res.error, 'reset error')
+                    toast.error(res.error.data.message || "Something went wrong");
+
                 }
-                else if (res?.error) {
-                    toast.error('Something went wrong')
+                else {
+                    navigate('/login');
+                    toast.success(res?.data?.message);
+                    console.log(res?.data?.message, 'reset res')
                 }
-                setLoading(false)
             })
             .catch((err) => {
-                toast.error(err.response.data.message)
-                setLoading(false)
+                console.log(err, 'reset catch err');
+                toast.error(err.data.message || "Something went wrong");
+
             })
+
     };
 
 
-
-    // let localData= JSON.parse(localStorage.getItem('IsUserLogged'))
-    // /////////// if user already logged in will be redirect to dashboard */
-    // useEffect(()=>
-    // {
-    //     if(localData || localData !=null  )
-    //         {
-    //             navigate('/dashboard')
-    //         }
-    // },[localData])
-
     return (
-        <div className='h-[100vh] flex w-full items-center justify-center'>
+        <>
             <Formik
+                enableReinitialize
                 validationSchema={validationSchema}
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
             >
-                {(loginProps) => (
-                    <Form className='w-full flex items-center justify-center'>
-                        <div className='flex justify-center flex-col gap-8 items-center w-1/2 border rounded shadow px-2 mb-20 py-3'>
-                            <div>
-                                <span className=' font-mono  text-2xl  tracking-wide'>Reset Password</span>
-                            </div>
-                            <div className=' w-full items-center justify-center grid grid-cols-1 gap-5'>
-                                <div className=' w-1/2 relative  mx-auto'>
+                {(signupProps) => (
+                    <Form>
+                        <Container fluid={true} className="p-0 w-full  bg-slate-50">
+                            <Row>
+                                <Col xs="12">
+                                    <div className="login-card flex-column">
+                                        <div className="logo">
+                                            <Image
+                                                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
+                                                src={require("../../Assets/logo/itg_logo.webp")}
+                                            />
+                                        </div>
+                                        <div className=" w-full flex items-center justify-center login-tab">
+                                            <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
+                                                <div className=" w-full md:w-[45%]">
 
-                                    <InputComponent
-                                        value={loginProps.values.password}
-                                        name='password'
-                                        onChange={loginProps.handleChange}
-                                        type='password'
-                                        placeholder={'Enter new Password'}
-                                    />
-                                </div>
-                                <div className='relative w-1/2 self-center  mx-auto'>
-
-                                    <InputComponent
-                                        value={loginProps.values.confirmPassword}
-                                        name='confirmPassword'
-                                        onChange={loginProps.handleChange}
-                                        type='password'
-                                        placeholder={'Confirm your Password'}
-                                    />
-                                </div>
-
-                            </div>
-
-                            <div className=' w-1/2  gap-1 flex flex-col'>
-                                <button type='submit' className=' text-white mt-1 border-none outline-none bg-slate-400 hover:opacity-75 rounded px-4 py-2'> {loading ? <span className=' flex w-full items-center justify-center animate-spin py-1 '><AiOutlineLoading3Quarters size={17} /></span> : "Submit"}</button>
-                            </div>
-                        </div>
+                                                    <div className="theme-form flex flex-col gap-3 p-2">
+                                                        <H4 className="text-center font-semibold text-2xl">Reset password</H4>
+                                                        <P className="text-center">{"Enter details to reset your password"}</P>
+                                                        {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
+                                                        <div className=' w-full flex flex-col gap-6 pb-4'>
+                                                            {/* <InputComponent label={"Password"} type={"password"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} /> */}
+                                                            <div className='relative w-full flex gap-1'>
+                                                                <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
+                                                                <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
+                                                                    {
+                                                                        showPassword == "password" ?
+                                                                            <FiEyeOff />
+                                                                            :
+                                                                            <FiEye />
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                            <div className=' relative w-full flex gap-1'>
+                                                                <InputComponent label={"Confirm password"} type={showConfirmPassword == "password" ? "password" : "text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={signupProps.handleChange} placeholder={"Enter confirm password"} />
+                                                                <span onClick={() => showConfirmPassword == "password" ? setShowConfirmPassword("text") : setShowConfirmPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
+                                                                    {
+                                                                        showConfirmPassword == "password" ?
+                                                                            <FiEyeOff />
+                                                                            :
+                                                                            <FiEye />
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="position-relative form-group mb-0">
+                                                            <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
+                                                                Submit
+                                                            </Btn>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className=" w-full p-2 md:w-[60%] object-contain md:object-cover h-[200px]  md:h-[460px]">
+                                                    <img src={LoginBanner} className=" shadow-xl object-cover w-full h-full rounded-[16px]" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
                     </Form>
                 )}
+
+
             </Formik>
-        </div>
-    );
+        </>
+    )
 }
 
 export default ForgetPassword;

@@ -4,7 +4,8 @@ import { Btn, H4, P } from "../../../AbstractElements";
 import { ForgotPassword, RememberPassword } from "../../../Constant";
 import OtherWay from "./OtherWay";
 import { useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import {toast} from 'react-hot-toast'
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import InputComponent from "../../../InputComponent";
@@ -46,11 +47,11 @@ const LoginTab = (props) => {
     Login({ data: data })
       .then((res) => {
         if (res.error) {
+          toast.error(res.error?.data?.message || "Something went wrong");
           console.log(res.error?.data?.message, 'err')
-          toast.error(res.error?.data?.message);
         }
         else {
-          toast.success("Login Success...!");
+          // toast.success("Login Success...!");
           Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
           props.props.auth(true);
           resetForm();
@@ -83,20 +84,20 @@ const LoginTab = (props) => {
               <FormGroup className=" flex flex-col gap-5">
                 <InputComponent label={"Email"} placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
                 <div className=" relative flex gap-1 justify-between">
-                  <InputComponent label={"Password"} placeholder={"Enter your Password"} value={loginProps.values.password} name={"password"} type={ showPassword=="password"?"password":"text"} onChange={loginProps.handleChange} />
-                  <span onClick={()=>showPassword=='password'?setShowPassword('text'):setShowPassword('password')} className=" cursor-pointer absolute right-3 bottom-3">
+                  <InputComponent label={"Password"} placeholder={"Enter your Password"} value={loginProps.values.password} name={"password"} type={showPassword == "password" ? "password" : "text"} onChange={loginProps.handleChange} />
+                  <span onClick={() => showPassword == 'password' ? setShowPassword('text') : setShowPassword('password')} className=" cursor-pointer absolute right-3 bottom-3">
                     {
-                      showPassword=="password"?
-                      <FiEyeOff className=" cursor-pointer"/>
-                      :
-                      <FiEye className=" cursor-pointer" />
+                      showPassword == "password" ?
+                        <FiEyeOff className=" cursor-pointer" />
+                        :
+                        <FiEye className=" cursor-pointer" />
                     }
                   </span>
                 </div>
                 <div className=" w-full float-end flex justify-end">
-                  <a className=" text-[#3E5FCE] text-[15px]" href="/reset-password/user">
+                  <span onClick={() => navigate('/forgot-password/user')} className=" hover:underline cursor-pointer text-[#3E5FCE] text-[15px]" >
                     Forgot password ?
-                  </a>
+                  </span>
                 </div>
               </FormGroup>
               <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
@@ -106,7 +107,7 @@ const LoginTab = (props) => {
                 <hr />
                 Don't have account?
                 <Link className='ms-2 text-[#3E5FCE]' to={`${process.env.PUBLIC_URL}/register`}>
-                  Create Account
+                  Sign Up
                 </Link>
               </div>
             </div >

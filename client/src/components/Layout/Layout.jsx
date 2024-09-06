@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import CustomizerContext from "../../Context/Customizer";
 import Footer from "./Footer/Footer";
 import Header from "./Header";
@@ -7,9 +7,12 @@ import Loader from "./Loader";
 import Sidebar from "./Sidebar";
 import TapTop from "./TapTop";
 import Themecustomizer from "./ThemeCustomizer";
+import Cookies from 'js-cookie';
 
 const Layout = () => {
   const { sidebar_types, setTogglSidebar, setSidebarTypes, defaultClass, setDefaultClass, } = useContext(CustomizerContext);
+
+  const navigate = useNavigate()
 
   const compactSidebar = () => {
     let sidebar_types1 = localStorage.getItem("sidebar_types");
@@ -49,17 +52,21 @@ const Layout = () => {
   }, [sidebar_types]);
   return (
     <>
-      <Loader />
+      {/* <Loader />
       <TapTop />
       <div className={`page-wrapper ${defaultClass ? "compact-wrapper" : sidebar_types}`}>
         <Header />
+         
         <div className={`page-body-wrapper `}>
           <Sidebar />
           <Outlet />
           <Footer />
           <Themecustomizer />
         </div>
-      </div>
+      </div> */}
+      <span
+        onClick={() => { Cookies.remove("isLogged"); navigate('/') }}
+      >Logout</span>
     </>
   );
 };
