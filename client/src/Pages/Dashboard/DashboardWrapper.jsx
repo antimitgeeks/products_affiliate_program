@@ -3,7 +3,7 @@ import Dashboard from './Dashboard';
 
 function DashboardWrapper() {
   return (
-    <div className="page-body">
+    <div className="page-body px-4">
         <Dashboard/>
     </div>
   )

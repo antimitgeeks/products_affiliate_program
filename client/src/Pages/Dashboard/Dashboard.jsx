@@ -7,7 +7,7 @@ function Dashboard() {
   const navigate = useNavigate()
   return (
     <div>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam porro est facere iste neque itaque necessitatibus eum ullam? Possimus, consectetur?
+      Dashboard
     </div>
   )
 }

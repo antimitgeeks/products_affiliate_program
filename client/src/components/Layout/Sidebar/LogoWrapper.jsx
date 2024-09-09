@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Image } from '../../AbstractElements';
 // import logo from '../../assets/images/logo/logo.png';
 import CustomizerContext from '../../../Context/Customizer';
+import { IoSettingsSharp } from "react-icons/io5";
 
 const LogoWrapper = () => {
   const { togglSidebar, setTogglSidebar } = useContext(CustomizerContext)
@@ -13,14 +14,13 @@ const LogoWrapper = () => {
         <Image className='img-fluid for-light' src="" alt='logo' />
       </Link>
       <div onClick={() => setTogglSidebar(!togglSidebar)} className='back-btn'>
-        <i className='fa fa-angle-left' />
+        S
       </div>
-      <div onClick={() => setTogglSidebar(!togglSidebar)} className='toggle-sidebar'>
-        <i className='fa fa-cog status_toggle middle sidebar-toggle' />
+      <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[24px] toggle-sidebar hover:none text-white'>
+        <IoSettingsSharp color='white' stroke='white' size={24} />
       </div>
     </div>
   );
 };
 
 export default LogoWrapper;
-  
