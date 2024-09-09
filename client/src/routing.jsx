@@ -14,6 +14,8 @@ import Logins from "./components/Auth/Signin";
 import Layout from './components/Layout/Layout';
 import WelcomePage from './Pages/WelcomePage';
 import Profile from './Pages/Profile/Profile';
+import ProfileWrapper from './Pages/Profile/ProfileWrapper';
+import DashboardWrapper from './Pages/Dashboard/DashboardWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -53,7 +55,8 @@ function Routing() {
                     authenticateLogin &&
                     // <Route path='/dashboard/default' element={<RouteLayout />} />
                     <Route path='/dashboard/default' element={<Layout />} >
-                        <Route path='' element={<Profile/>}/>
+                        <Route path='' element={<DashboardWrapper/>}/>
+                        <Route path='profile' element={<ProfileWrapper/>}/>
                     </Route>
                 }
             </Routes>
@@ -61,4 +64,4 @@ function Routing() {
     )
 }
 
-export default Routing;
+export default Routing; 

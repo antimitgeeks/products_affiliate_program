@@ -7,11 +7,7 @@ function Dashboard() {
   const navigate = useNavigate()
   return (
     <div>
-      <div onClick={()=>{Cookies.remove("isLogged");navigate('/')}}>
-        Logout
-      </div>  
-      
-
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam porro est facere iste neque itaque necessitatibus eum ullam? Possimus, consectetur?
     </div>
   )
 }
