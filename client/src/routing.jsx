@@ -54,7 +54,7 @@ function Routing() {
                 {
                     authenticateLogin &&
                     // <Route path='/dashboard/default' element={<RouteLayout />} />
-                    <Route path='/dashboard/default' element={<Layout />} >
+                    <Route path='/dashboard/' element={<Layout />} >
                         <Route path='' element={<DashboardWrapper/>}/>
                         <Route path='profile' element={<ProfileWrapper/>}/>
                     </Route>

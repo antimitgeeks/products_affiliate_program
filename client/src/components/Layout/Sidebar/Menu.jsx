@@ -9,7 +9,7 @@ export const MENU = [
         menu: [
           {
             title: 'Default',
-            url: `${process.env.PUBLIC_URL}/dashboard/default`,
+            url: `${process.env.PUBLIC_URL}/dashboard/`,
           },
           {
             title: 'Ecommerce',

@@ -45,7 +45,7 @@ function SignUp() {
 
   useEffect(() => {
     if (isLogged) {
-      navigate('/dashboard/default');
+      navigate('/dashboard/');
     }
   }, [isLogged]);
 

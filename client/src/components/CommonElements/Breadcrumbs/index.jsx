@@ -16,7 +16,7 @@ const Breadcrumbs = (props) => {
         <Col sm='6'>
           <Breadcrumb>
             <BreadcrumbItem>
-              <Link to={`${process.env.PUBLIC_URL}/dashboard/default`}>
+              <Link to={`${process.env.PUBLIC_URL}/dashboard/`}>
                 <FiHome />
               </Link>
             </BreadcrumbItem>

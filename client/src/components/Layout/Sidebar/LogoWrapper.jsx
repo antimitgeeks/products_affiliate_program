@@ -9,7 +9,7 @@ const LogoWrapper = () => {
 
   return (
     <div className='logo-wrapper'>
-      <Link to={`${process.env.PUBLIC_URL}/dashboard/default`}>
+      <Link to={`${process.env.PUBLIC_URL}/dashboard/`}>
         <Image className='img-fluid for-light' src="" alt='logo' />
       </Link>
       <div onClick={() => setTogglSidebar(!togglSidebar)} className='back-btn'>

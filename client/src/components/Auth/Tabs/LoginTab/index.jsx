@@ -36,7 +36,7 @@ const LoginTab = (props) => {
 
   useEffect(() => {
     if (isLogged) {
-      navigate('/dashboard/default');
+      navigate('/dashboard/');
     }
   }, [isLogged]);
 
@@ -55,7 +55,7 @@ const LoginTab = (props) => {
           Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
           props.props.auth(true);
           resetForm();
-          navigate(`${process.env.PUBLIC_URL}/dashboard/default`);
+          navigate(`${process.env.PUBLIC_URL}/dashboard/`);
         }
 
       })

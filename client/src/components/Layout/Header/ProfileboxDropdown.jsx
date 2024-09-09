@@ -14,11 +14,17 @@ const ProfileboxDropdown = () => {
     Cookies.remove("isLogged"); navigate('/')
   };
 
+  const handleProfile=()=>
+  {
+    navigate('profile')
+  }
+
+
 
   return (
     <UL className="profile-dropdown px-3 py-[10px] onhover-show-div border flex flex-col gap-1 shadow-sm">
-      <LI className="border-0 border-b-2">
-        <Link className=' flex w-full items-center gap-3 p-1' to={`${process.env.PUBLIC_URL}/users/user-profile`}>
+      <LI onClick={handleProfile} className="border-0 border-b-2">
+        <Link  className=' flex w-full items-center gap-3 p-1'>
           <FiUser />
           <span>{Account}</span>
         </Link>
