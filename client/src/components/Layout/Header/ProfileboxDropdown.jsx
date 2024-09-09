@@ -37,13 +37,6 @@ const ProfileboxDropdown = () => {
         </Link>
       </LI>
       <hr />
-      <LI className="border-0">
-        <Link className=' flex w-full items-center gap-3 p-1' to={`${process.env.PUBLIC_URL}/kanban-board`}>
-          <FiFileText />
-          <span>{Taskboard}</span>
-        </Link>
-      </LI>
-      <hr />
       <LI className="border-0" onClick={logout}>
         <Link className=' flex w-full items-center gap-3 p-1' >
           <FiLogIn />

@@ -54,10 +54,10 @@ const Layout = () => {
     <>
       <Loader />
       <TapTop />
-      <div className={`page-wrapper w-full h-[100vh] ${defaultClass ? "compact-wrapper" : sidebar_types}`}>
+      <div className={`page-wrapper w-full h-full ${defaultClass ? "compact-wrapper" : sidebar_types}`}>
         <Header />
          
-        <div className={`page-body-wrapper h-[100vh] `}>
+        <div className={`page-body-wrapper h-full `}>
           <Sidebar />
           <Outlet />
           {/* <div className=" w-1/2 h-full bg-slate-200">

@@ -36,9 +36,9 @@ const MixLayoutComponent = () => {
   return (
     <Fragment>
       <H6 className=''>{MixLayout}</H6>
-      <UL className='simple-list flex-row layout-grid customizer-mix'>
+      <UL className='simple-list  layout-grid flex-col flex gap-5 customizer-mix'>
         <LI
-          className={`color-layout ${tabvalue === 1 ? 'active' : ''}`}
+          className={`color-layout border ${tabvalue === 1 ? 'active' : ''}`}
           data-attr='light-only'
           onClick={() => {
             handleCustomizerMix_Background('light-only');
@@ -55,7 +55,7 @@ const MixLayoutComponent = () => {
           </div>
         </LI>
         <LI
-          className={`color-layout ${tabvalue === 2 ? 'active' : ''}`}
+          className={`color-layout border ${tabvalue === 2 ? 'active' : ''}`}
           dataattr='dark-sidebar'
           onClick={() => {
             handleCustomizerMix_Background('dark-sidebar');
@@ -72,7 +72,7 @@ const MixLayoutComponent = () => {
           </div>
         </LI>
         <LI
-          className={`color-layout ${tabvalue === 3 ? 'active' : ''}`}
+          className={`color-layout border ${tabvalue === 3 ? 'active' : ''}`}
           dataattr='dark-only'
           onClick={() => {
             handleCustomizerMix_Background('dark-only');
