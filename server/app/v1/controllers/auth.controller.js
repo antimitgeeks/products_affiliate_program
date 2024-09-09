@@ -34,6 +34,51 @@ exports.register = async (req, res) => {
 };
 
 
+//forget password
+exports.forgetPassword = async (req, res) => {
+    try {
+        const result = await service.forgetPassword(req, res)
+        console.log(result)
+        if (result.status == false && result.result == false) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, result.result);
+        }
+        if (result.status == false && result.isExist == false) {
+            return sendResponse(res, statusCode.NOT_FOUND, false, `User ${ErrorMessage.NOT_FOUND}`);
+        }
+        if (result.status == false) {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST);
+        }
+        return sendResponse(res, statusCode.OK, true, SuccessMessage.FORGOT_PASSWORD)
+    } catch (error) {
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
+
+
+//reset password
+exports.resetPassword = async (req, res) => {
+    try {
+        const id = req.params.id
+        const password = req.body.password
+        const result = await service.resetPassword(id, password)
+        if (result.status) {
+            return sendResponse(res, statusCode.OK, true, SuccessMessage.RESET_PASSWORD)
+        }
+        if (result.status == false && result.result) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+        }
+        return sendResponse(res, statusCode.NOT_FOUND, false, `User ${ErrorMessage.NOT_FOUND}`);
+
+    } catch (error) {
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
+
 //get user profile
 exports.getProfile = async (req, res) => {
     try {

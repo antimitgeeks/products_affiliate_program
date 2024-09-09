@@ -2,7 +2,7 @@
 module.exports.SuccessMessage = {
   LOGIN: "Login Success.",
   CREATED: "Created Success.",
-  RESET_PASSWORD: "Check Your Mail For Reset Password Link.",
+  RESET_PASSWORD: "Password Reset Successfully.",
   FORGOT_PASSWORD: "Forgot Password Success.",
   EMAIL_SEND: "Email Send Success.",
   LIST_FETCH: "List Fetch Success.",

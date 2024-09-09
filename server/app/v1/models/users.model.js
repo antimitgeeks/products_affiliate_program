@@ -21,6 +21,9 @@ module.exports = (sequelize, Sequelize) => {
         userId:{
             type:Sequelize.STRING
         },
+        companyUrl:{
+            type:Sequelize.STRING
+        },
         email: {
             type: Sequelize.STRING,
             unique: true
