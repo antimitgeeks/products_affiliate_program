@@ -19,6 +19,7 @@ import DashboardWrapper from './Pages/Dashboard/DashboardWrapper';
 import AnalyticsWrapper from './Pages/Analytics/AnalyticsWrapper';
 import InvoicesWrapper from './Pages/Invoices/InvoicesWrapper';
 import AffiliateLinksWrapper from './Pages/AffiliateLinks/AffiliateLinksWrapper';
+import AddAffiliateLinksWrapper from './Pages/AffiliateLinks/AddAffiliateLinks/AddAffiliateLinksWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -61,6 +62,7 @@ function Routing() {
                         <Route path='' element={<DashboardWrapper/>}/>
                         <Route path='profile' element={<ProfileWrapper/>}/>
                         <Route path='affiliate-links' element={<AffiliateLinksWrapper/>}/>
+                        <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper/>}/>
                         <Route path='invoices' element={<InvoicesWrapper/>}/>
                         <Route path='analytics' element={<AnalyticsWrapper/>}/>
                     </Route>
