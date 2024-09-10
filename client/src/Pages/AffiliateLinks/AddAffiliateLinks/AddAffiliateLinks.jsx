@@ -8,15 +8,17 @@ import InputComponent from '../../../components/InputComponent';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { useUpdateProfileMutation } from '../../../services/ProfileService';
 import toast from 'react-hot-toast';
+import { useAddAffiliateLinkMutation } from '../../../services/AffiliateService';
+import { useNavigate } from 'react-router-dom';
 // import { useGetProfileDataQuery } from '../../services/AuthServices';
 
 function AddAffiliateLinks({ listData, loading }) {
 
     const options = useMemo(() => countryList().getData(), []);
-    const [UpdateProfile] = useUpdateProfileMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
+    const [AddAffiliate] = useAddAffiliateLinkMutation();
+    const navigate = useNavigate();
 
 
     console.log(submitLoading, 'SubmitLoading')
@@ -33,8 +35,8 @@ function AddAffiliateLinks({ listData, loading }) {
         name: '',
         link: '',
         dropboxLink: '',
-        clickCount: '',
-        purchases:  '',
+        clickCount: '0',
+        purchases: '0',
         // companyNumber: listData?.companyNumber || '',
     };
 
@@ -42,8 +44,8 @@ function AddAffiliateLinks({ listData, loading }) {
         name: yup.string().trim("Enter valid name").required("name is required").strict(),
         link: yup.string().trim("Enter valid link").required("link is required").strict(),
         dropboxLink: yup.string().trim("Enter valid dropboxLink").required("dropboxLink is required").strict(),
-        clickCount: yup.string().trim("Enter valid clickCount").required("clickCount is required").strict(),
-        purchases: yup.string().trim("Enter valid purchase count").required("purchase count is required").strict(),
+        clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
+        purchases: yup.string().matches(/^\d+$/, "Purchases must be a number").required("Purchases count is required").strict(),
         // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
     });
 
@@ -51,15 +53,15 @@ function AddAffiliateLinks({ listData, loading }) {
 
         setSubmitLoading(true);
 
-        // let DataForApi = {
-        //   "paypalAddress": data?.payPalAddress,
-        //   "country": data?.country?.label,
-        //   "city": data?.city,
-        //   "address": data?.address,
-        //   "companyName": data?.companyName,
-        //   "companyNumber": data?.companyNumber,
-        //   "companyUrl": data?.companyUrl,
-        // }
+        let DataForApi = {
+            "paypalAddress": data?.payPalAddress,
+            "country": data?.country?.label,
+            "city": data?.city,
+            "address": data?.address,
+            "companyName": data?.companyName,
+            "companyNumber": data?.companyNumber,
+            "companyUrl": data?.companyUrl,
+        }
 
         // console.log(DataForApi, 'submitData');
 
@@ -81,6 +83,26 @@ function AddAffiliateLinks({ listData, loading }) {
         //     toast.error("Internal server error");
         //     setSubmitLoading(false)
         //   })
+
+        AddAffiliate({ data: DataForApi })
+            .then((res) => {
+                if (res.error) {
+                    console.log(res.error, 'res.error');
+                    toast.error("Internal server error");
+                    setSubmitLoading(false)
+                }
+                else {
+                    console.log(res, 'res');
+                    //   toast.success("Data updated successfully");
+                    navigate('/affiliate-links')
+                    setSubmitLoading(false)
+                }
+            })
+            .catch((err) => {
+                console.log(err, 'err');
+                toast.error("Internal server error");
+                setSubmitLoading(false)
+            })
     };
 
 
@@ -124,26 +146,31 @@ function AddAffiliateLinks({ listData, loading }) {
                                                     <Col md='4'>
                                                         {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                                                         {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                        <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} />
+                                                        <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} />
+
 
                                                     </Col>
                                                     <Col md='4 mb-3'>
                                                         {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                         {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                        <InputComponent label={"dropboxLink"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} />
+                                                        {/* <InputComponent label={"dropboxLink"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} /> */}
+                                                        <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} />
+
                                                     </Col>
                                                 </Row>
                                                 <Row className='g-3'>
                                                     <Col md='6'>
                                                         {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter City Name *' register={{ ...register('city', { required: 'is Required.' }) }} /> */}
                                                         {/* City */}
-                                                        <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} />
+                                                        {/* <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} /> */}
+                                                        <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} />
 
                                                     </Col>
-                                                    <Col md='3'>
+                                                    <Col md='6'>
                                                         {/* <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> */}
                                                         {/* State */}
-                                                        <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} />
+                                                        <InputComponent label={"dropboxLink"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} />
+
 
                                                     </Col>
                                                 </Row>

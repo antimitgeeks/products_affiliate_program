@@ -7,7 +7,7 @@ function Dashboard() {
   const navigate = useNavigate()
   return (
     <div>
-      Dashboard
+      {/* Dashboard */}
     </div>
   )
 }

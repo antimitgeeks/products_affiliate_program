@@ -8,12 +8,15 @@ import InputComponent from '../../components/InputComponent';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useUpdatePasswordMutation } from '../../services/AuthServices';
+import toast from 'react-hot-toast';
 // import { useGetPasswordUpdateDataQuery } from '../../services/AuthServices';
 
 function PasswordUpdate({ listData, loading }) {
 
-    const options = useMemo(() => countryList().getData(), []);
     console.log(listData, 'listDataProf');
+    const [UpdatePassword] = useUpdatePasswordMutation();
+    
 
 
     const previousCountryName = listData?.country;
@@ -24,43 +27,42 @@ function PasswordUpdate({ listData, loading }) {
 
 
     const initialValues = {
-        payPalAddress: listData?.paypalAddress,
-        country: PreviousCountryData || null,
-        city: listData?.city || '',
-        address: listData?.address || '',
-        companyName: listData?.companyName || '',
-        companyNumber: listData?.companyNumber || '',
-        companyUrl: listData?.companyUrl || '',
+        oldPassword: '',
+        password: '',
+        confirmPassword: ''
     };
 
     const validationSchema = yup.object().shape({
-        payPalAddress: yup.string().trim("Enter valid address").required("address is required").strict(),
-        country: yup.object().shape({
-            label: yup.string().required("Country is required"),
-            value: yup.string().required("Country is required")
-        }).nullable().required("Country is required"),
-        city: yup.string().trim("Enter valid city").required("city is required").strict(),
-        address: yup.string().trim("Enter valid address").required("address is required").strict(),
-        companyName: yup.string().trim("Enter valid companyName").required("company name is required").strict(),
-        companyUrl: yup.string().trim("Enter valid company url").required("company url is required").strict(),
-        companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
+        oldPassword: yup.string().trim("Enter valid password").required("old password is required").strict(),
+        password: yup.string().trim("Enter valid password").min(6,"minimum 6 characters required").required("password is required").strict(),
+        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').min(6,"minimum 6 characters required").trim("Enter valid confirm password").required("confirm password is required").strict(),
     });
 
-    const handleSubmit = (data) => {
+    const handleSubmit = (data,{resetForm}) => {
 
-        let registerData = {
-            "paypalAddress": data?.payPalAddress,
-            "country": data?.country?.label,
-            "city": data?.city,
-            "address": data?.address,
-            "companyName": data?.companyName,
-            "companyNumber": data?.companyNumber,
-            "companyUrl": data?.companyUrl,
-            "password": data?.password,
+        let dataForApi = {
+            "oldPassword":data?.oldPassword,
+            "newPassword": data?.password,
         }
-
-        console.log(registerData, 'submitData')
-
+        // console.log(registerData, 'submitData')
+        UpdatePassword({data:dataForApi})
+        .then((res)=>
+        {
+            if(res?.error)
+            {
+                console.log(res?.error,'resError');
+                toast.error(res?.error?.data?.message || "Internal server error")
+            }
+            else
+            {
+                toast.success("Password updated");
+                resetForm();
+            }
+        })
+        .catch((err)=>
+        {
+            console.log(err,'catchErr')
+        })
     };
 
 
@@ -87,7 +89,7 @@ function PasswordUpdate({ listData, loading }) {
                                     <Fragment>
                                         <Card className=' w-full'>
                                             <CardHeader className='pb-0'>
-                                                <H5>Profile Update</H5>
+                                                <H5>Password Update</H5>
                                                 <span>
                                                     {/* Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, voluptatibus. */}
                                                     {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Error alias enim fugiat explicabo facere vitae culpa incidunt, vel doloremque. Illo laborum nesciunt deleniti inventore impedit! */}
@@ -99,18 +101,18 @@ function PasswordUpdate({ listData, loading }) {
                                                     <Col md='4'>
                                                         {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                                                         {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                                                        <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={profileProps.handleChange} />
+                                                        <InputComponent label={"Old password"} type="text" name='oldPassword' value={profileProps.values.oldPassword} placeholder='Enter your old password ' onChange={profileProps.handleChange} />
                                                     </Col>
                                                     <Col md='4'>
                                                         {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                                                         {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                        <InputComponent label={"City"} type={"text"} value={profileProps.values.city} name='city' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
+                                                        <InputComponent label={"New password"} type={"text"} value={profileProps.values.password} name='password' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
 
                                                     </Col>
                                                     <Col md='4 mb-3'>
                                                         {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                         {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                        <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
+                                                        <InputComponent label={"Confirm password"} type={"text"} value={profileProps.values.confirmPassword} name='confirmPassword' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
                                                     </Col>
                                                 </Row>
 

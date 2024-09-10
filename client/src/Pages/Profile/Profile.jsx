@@ -32,7 +32,7 @@ function Profile({ listData, loading }) {
 
   const initialValues = {
     payPalAddress: listData?.paypalAddress,
-    country: PreviousCountryData || null,
+    country: PreviousCountryData?.label != undefined ? PreviousCountryData : null,
     city: listData?.city || '',
     address: listData?.address || '',
     companyName: listData?.companyName || '',
@@ -200,7 +200,7 @@ function Profile({ listData, loading }) {
         }
         {/* Profile Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt veniam velit porro fugit nulla eligendi iusto veritatis nemo quod! Veniam quia aperiam omnis repellendus, pariatur molestias inventore perferendis ullam magni consequuntur amet repudiandae. Porro debitis perspiciatis modi excepturi ipsa soluta odio cumque provident sapiente sint fugit temporibus, culpa, harum dolor. */}
       </Formik>
-      {/* <PasswordUpdate/> */}
+      <PasswordUpdate/>
     </>
   )
 }

@@ -6,6 +6,7 @@ import SideBarNav from './SideBarNav';
 import logoSmall from '../../../Assets/logo/logo-icon1.png';
 import { Image } from '../../AbstractElements';
 import CustomizerContext from '../../../Context/Customizer';
+import itgLogo from '../../../Assets/logo/itg_logo.webp'
 
 const Sidebar = () => {
   const { customizer, togglSidebar } = useContext(CustomizerContext);
@@ -59,10 +60,10 @@ const Sidebar = () => {
         <LogoWrapper />
         <div className='logo-icon-wrapper'>
           <Link to={`${process.env.PUBLIC_URL}/dashboard/`}>
-            <Image className='img-fluid' src={logoSmall} alt='logo' />
+            <Image className='img-fluid h-[50px] w-[50px] ' src={itgLogo} alt='logo' />
+            {/* <Image className='img-fluid' src={logoSmall} alt='logo' /> */}
           </Link>
         </div>
-
         <nav className='sidebar-main'>
           <div className='left-arrow' id='left-arrow' onClick={scrollToLeft}>
             <FiArrowLeft />
