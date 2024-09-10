@@ -25,7 +25,7 @@ exports.authenticate = async (req, res, next) => {
 
   } catch (error) {
     console.log(error);
-    Utils.sendResponse(res, statusCode.SERVER, false, ErrorMessage.INVALID_TOKEN);
+    Utils.sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INVALID_TOKEN);
   }
 
 }
