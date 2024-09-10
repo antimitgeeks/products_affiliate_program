@@ -54,14 +54,13 @@ function AddAffiliateLinks({ listData, loading }) {
         setSubmitLoading(true);
 
         let DataForApi = {
-            "paypalAddress": data?.payPalAddress,
-            "country": data?.country?.label,
-            "city": data?.city,
-            "address": data?.address,
-            "companyName": data?.companyName,
-            "companyNumber": data?.companyNumber,
-            "companyUrl": data?.companyUrl,
+            "name":data?.name,
+            "purchases":data?.purchases,
+            "link" : data?.link,
+            "dropboxLink":data?.dropboxLink,
+            "clickCount" : data?.clickCount
         }
+
 
         // console.log(DataForApi, 'submitData');
 
@@ -94,7 +93,7 @@ function AddAffiliateLinks({ listData, loading }) {
                 else {
                     console.log(res, 'res');
                     //   toast.success("Data updated successfully");
-                    navigate('/affiliate-links')
+                    navigate('/dashboard/affiliate-links')
                     setSubmitLoading(false)
                 }
             })
@@ -141,7 +140,7 @@ function AddAffiliateLinks({ listData, loading }) {
                                                     <Col md='4'>
                                                         {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                                                         {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                                                        <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter your name' onChange={profileProps.handleChange} />
+                                                        <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
                                                     </Col>
                                                     <Col md='4'>
                                                         {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
