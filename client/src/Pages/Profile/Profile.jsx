@@ -200,7 +200,7 @@ function Profile({ listData, loading }) {
         }
         {/* Profile Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt veniam velit porro fugit nulla eligendi iusto veritatis nemo quod! Veniam quia aperiam omnis repellendus, pariatur molestias inventore perferendis ullam magni consequuntur amet repudiandae. Porro debitis perspiciatis modi excepturi ipsa soluta odio cumque provident sapiente sint fugit temporibus, culpa, harum dolor. */}
       </Formik>
-      <PasswordUpdate/>
+      <PasswordUpdate loading={loading}/>
     </>
   )
 }
