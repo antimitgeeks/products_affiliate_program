@@ -74,7 +74,7 @@ function Dashboard() {
 
 
   return (
-    <div className=' w-full flex flex-col gap-12'>
+    <div className=' w-full flex flex-col gap-12 pt-6'>
       <div className='w-full px-5 py-4 rounded border bg-white'>
 
         <ReactApexChart
@@ -86,7 +86,7 @@ function Dashboard() {
         />
 
       </div>
-      <div className='flex w-full gap-4'>
+      <div className='flex w-full gap-10'>
         <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
 
           <ReactApexChart

@@ -2,7 +2,7 @@ import { FiAirplay, FiBarChart, FiBox, FiCalendar, FiCheckSquare, FiClock, FiClo
 export const MENU = [
 
   {
-    title: 'General',
+    title: '',
     menu: [
       {
         title: 'Dashboard',

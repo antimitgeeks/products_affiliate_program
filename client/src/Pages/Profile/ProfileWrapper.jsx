@@ -20,11 +20,9 @@ function ProfileWrapper() {
 
 
   return (
-    <>
       <div className="page-body h-full pb-4 px-4 ">
         <Profile loading={loading} listData={listData?.result} />
       </div>
-    </>
   )
 }
 

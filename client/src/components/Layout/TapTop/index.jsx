@@ -1,5 +1,6 @@
-import React, { useEffect , useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronsUp } from 'react-feather';
+import { FaAnglesUp } from "react-icons/fa6";
 
 const Taptop = () => {
 
@@ -26,7 +27,10 @@ const Taptop = () => {
     }, []);
 
     return (
-        <div className="tap-top flex items-center justify-center" style={{ display: tapTopStyle }}><ChevronsUp onClick={() => executeScroll()} /></div>
+        <div onClick={() => executeScroll()} className="tap-top flex items-center justify-center" style={{ display: tapTopStyle }}>
+            {/* <ChevronsUp onClick={() => executeScroll()} /> */}
+            <FaAnglesUp size={20} className=' m-auto px-auto pt-1' />
+        </div>
     );
 };
 

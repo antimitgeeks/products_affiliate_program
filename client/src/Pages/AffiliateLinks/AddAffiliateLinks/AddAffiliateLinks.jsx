@@ -174,7 +174,7 @@ function AddAffiliateLinks({ listData, loading }) {
                                                     </Col>
                                                 </Row>
 
-                                                <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
+                                                <Btn color="primary" type="submit" className="d-block mt-4  w-[120px]">
                                                     {
                                                         submitLoading ?
                                                             <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>

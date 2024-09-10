@@ -7,9 +7,9 @@ const SideBarNav = () => {
   const [isOpen, setIsOpen] = useState([]);
 
   return (
-    <ul className='sidebar-links' id='simple-bar'>
+    <ul className='sidebar-links'  id='simple-bar'>
       {MENU.map((item, i) => (
-        <Fragment key={i}>
+        <Fragment className=" " key={i}>
           {item.title && (
             <li className='sidebar-main-title'>
               <H6>{item.title}</H6>
