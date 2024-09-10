@@ -1,9 +1,9 @@
 import {createApi,fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://urchin-app-8uy68.ondigitalocean.app/api/v1",
+        baseUrl: "https://a9a7-49-249-2-6.ngrok-free.app/api/v1",
         prepareHeaders: (headers) => {
             const user = Cookies.get('isLogged');
             if (user) {

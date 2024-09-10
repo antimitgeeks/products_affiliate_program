@@ -2,46 +2,56 @@ import CreateApi from "./apiService";
 
 const AuthServices = CreateApi.injectEndpoints(
     {
-        endpoints:(builder)=>(
+        endpoints: (builder) => (
             {
 
-                Login:builder.mutation(
+                Login: builder.mutation(
                     {
-                        invalidatesTags:["auth"],
-                        query:({data})=>(
+                        invalidatesTags: ["auth"],
+                        query: ({ data }) => (
                             {
-                                url:'/auth/login',
-                                method:"POST",
-                                body:data
+                                url: '/auth/login',
+                                method: "POST",
+                                body: data
                             }
                         )
                     }),
-                ResetPassword:builder.mutation(
+                Register: builder.mutation(
                     {
-                        invalidatesTags:["auth"],
-                        query:({data})=>(
+                        invalidatesTags: ["auth"],
+                        query: ({ data }) => (
                             {
-                                url:'/auth/reset-password',
-                                method:"POST",
-                                body:data
+                                url: '/auth/register',
+                                method: "POST",
+                                body: data
                             }
                         )
                     }),
-                    ForgotPassword:builder.mutation(
-                        {
-                            invalidatesTags:["auth"],
-                            query:({data,Id})=>(
-                                {
-                                    url:`/auth/forgot-password/${Id}`,
-                                    method:"POST",
-                                    body:data
-                                }
-                            )
-                        })
-
+                ForgotPassword: builder.mutation(
+                    {
+                        invalidatesTags: ["auth"],
+                        query: ({ data }) => (
+                            {
+                                url: '/auth/forget-password',
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }),
+                ResetPassword: builder.mutation(
+                    {
+                        invalidatesTags: ["auth"],
+                        query: ({ data, Id }) => (
+                            {
+                                url: `/auth/reset-password/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    })
             }
         )
     }
 )
 
-export const {useLoginMutation,useResetPasswordMutation,useForgotPasswordMutation}= AuthServices;
+export const { useLoginMutation,useRegisterMutation, useResetPasswordMutation,useForgotPasswordMutation } = AuthServices;

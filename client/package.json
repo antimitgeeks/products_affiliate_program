@@ -84,6 +84,7 @@
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
+    "react-select-country-list": "^2.2.3",
     "react-simple-maps": "^3.0.0",
     "react-simple-star-rating": "^5.1.7",
     "react-simplemde-editor": "^5.2.0",

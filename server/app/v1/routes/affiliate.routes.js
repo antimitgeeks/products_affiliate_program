@@ -3,8 +3,17 @@ const controllers = require("../controllers/affiliate.controller.js");
 const router = express.Router();
 const validation = require("../validations/affiliate.validation.js");
 
-router.post('/add',validation.addAffiliate, controllers.addAffiliate);
-router.get('/:id', controllers.redirectShortLink);
+
+const {authenticate} = require('../middleware/authentication.js')
+
+router.post('/add', authenticate,controllers.addAffiliate);
+router.post('/list',controllers.getAffiliate)
+router.post('/:id', controllers.redirectShortLink);
+
+
+
+//list affiliate 
+// password update 
 
 
 module.exports = router;

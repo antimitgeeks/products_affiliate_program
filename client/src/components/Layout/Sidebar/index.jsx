@@ -58,7 +58,7 @@ const Sidebar = () => {
       <div>
         <LogoWrapper />
         <div className='logo-icon-wrapper'>
-          <Link to={`${process.env.PUBLIC_URL}/dashboard/default`}>
+          <Link to={`${process.env.PUBLIC_URL}/dashboard/`}>
             <Image className='img-fluid' src={logoSmall} alt='logo' />
           </Link>
         </div>

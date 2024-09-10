@@ -139,7 +139,7 @@ function Home() {
       password: data?.password,
       isActive: e?.target.checked
     }
-    
+
     AlertComponent({
       heading: "Are you sure to Change ?",
       handleDeleteYes: () => {
@@ -173,7 +173,6 @@ function Home() {
           </div>
         </div>
         <div className='w-full flex-wrap  rounded '>
-          
           <DialogComponent open={isModalOpen} maxWidth={'sm'}>
             <AddNgo close={handleModalClose} />
           </DialogComponent>
@@ -222,7 +221,7 @@ function Home() {
                             basedOn='letters'
                             className=' break-words w-4/5'
                           />
-                          </span>
+                        </span>
                         <span onClick={() => handleActionsClose('')} className=' w-[23%] pl-3  text-[14.2px] h-[20px]'>{itm?.number ? itm?.number : "N/A"}</span>
                         <span onClick={() => handleActionsClose('')} className=' w-[22%] flex items-center text-[13.6px] h-[20px]'><Switch checked={itm?.isActive} onChange={(e) => handleSwitchToggle(itm, e)} /></span>
                         <span className=' w-[10%]  text-[14.6px] h-[20px] relative '> <span className=' hover:opacity-75 w-fit flex items-center pt-1  cursor-pointer' onClick={() => { actionIndex[indx] === true ? handleActionsClose(indx) : handleActions(indx, itm?.id) }}><BsThreeDotsVertical /></span>

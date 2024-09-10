@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input, InputGroup } from 'reactstrap';
 import { MENU } from '../Sidebar/Menu';
 import SearchSuggestionList from './SearchSuggestionList';
+import { IoSearch } from "react-icons/io5";
 
 const MobileSearch = () => {
   const [searchMobilOpen, setSearchMobilOpen] = useState(false);
@@ -50,12 +51,13 @@ const MobileSearch = () => {
   return (
     <>
       <InputGroup className='input-group'>
-        <div className='input-group-prepend'>
+        <div className='input-group-prepend flex items-center'>
           <span onClick={() => {setSearchMobilOpen(!searchMobilOpen);setSuggestionOpen(!suggestionOpen  ) }} className='input-group-text mobile-search'>
-            <i className='fa fa-search' />
+            {/* <i className='fa fa-search' /> */}
+            <IoSearch/>
           </span>
-        </div>
         <Input onChange={handleSearch} className={searchMobilOpen ? 'open' : ''} type='text' placeholder='Search Here........' />
+        </div>
       </InputGroup>
       {suggestionOpen && <SearchSuggestionList setSuggestionOpen={setSuggestionOpen} suggestion={suggestion} />}
     </>
