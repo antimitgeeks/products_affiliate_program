@@ -5,6 +5,8 @@ import { Image } from '../../AbstractElements';
 import logo from '../../../Assets/logo/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.png';
 import CustomizerContext from '../../../Context/Customizer';
 import { IoSettingsSharp } from "react-icons/io5";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { RiSettings5Fill } from "react-icons/ri";
 
 const LogoWrapper = () => {
   const { togglSidebar, setTogglSidebar } = useContext(CustomizerContext);
@@ -18,7 +20,13 @@ const LogoWrapper = () => {
         S
       </div> */}
       <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[24px] toggle-sidebar hover:none text-white'>
-        <IoSettingsSharp color='white' stroke='white' size={24} />
+        {/* <IoSettingsSharp color='white' stroke='white' size={24} /> */}
+        <RiSettings5Fill color='white' stroke='white' size={24} />
+
+
+        {/* <FontAwesomeIcon icon={faGearComplex} /> */}
+        {/* <FontAwesomeIcon icon="fa fa-cog status_toggle middle sidebar-toggle" /> */}
+
       </div>
     </div>
   );

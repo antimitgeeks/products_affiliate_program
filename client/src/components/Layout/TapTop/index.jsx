@@ -26,7 +26,7 @@ const Taptop = () => {
     }, []);
 
     return (
-        <div className="tap-top" style={{ display: tapTopStyle }}><ChevronsUp onClick={() => executeScroll()} /></div>
+        <div className="tap-top flex items-center justify-center" style={{ display: tapTopStyle }}><ChevronsUp onClick={() => executeScroll()} /></div>
     );
 };
 

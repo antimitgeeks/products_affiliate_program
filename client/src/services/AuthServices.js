@@ -48,10 +48,21 @@ const AuthServices = CreateApi.injectEndpoints(
                                 body: data
                             }
                         )
+                    }),
+                UpdatePassword: builder.mutation(
+                    {
+                        invalidatesTags: ["auth"],
+                        query: ({ data, Id }) => (
+                            {
+                                url: `/auth/updatePassword`,
+                                method: "PUT",
+                                body: data
+                            }
+                        )
                     })
             }
         )
     }
 )
 
-export const { useLoginMutation,useRegisterMutation, useResetPasswordMutation,useForgotPasswordMutation } = AuthServices;
+export const { useLoginMutation, useRegisterMutation, useResetPasswordMutation, useForgotPasswordMutation ,useUpdatePasswordMutation } = AuthServices;
