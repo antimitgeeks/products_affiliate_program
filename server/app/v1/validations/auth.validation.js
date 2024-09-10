@@ -2,7 +2,7 @@ const schema = require("./schema/auth.schema.js");
 const statusCode = require("../constants/statusCodes.js");
 
 exports.login = async (req, res, next) => {
-    const { error } = schema.loginSchema.validate(req.body);
+    const { error } = schema.loginSchema.validate(req.body,{abortEarly:false});
     if (error) {
         res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
     } else {
@@ -10,8 +10,17 @@ exports.login = async (req, res, next) => {
     }
 };
 
+exports.updatePassword=async (req,res,next)=>{
+    const {error}=schema.updatePassword.validate(req.body)
+    if (error) {
+        res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
+    } else {
+        next();
+    }
+}
+
 exports.register = async (req, res, next) => {
-    const { error } = schema.registerSchema.validate(req.body);
+    const { error } = schema.registerSchema.validate(req.body,{abortEarly:false});
     if (error) {
         res.status(statusCode.BAD_REQUEST).json({ error: error.details[0].message });
     } else {

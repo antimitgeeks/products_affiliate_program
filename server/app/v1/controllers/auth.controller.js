@@ -33,3 +33,24 @@ exports.register = async (req, res) => {
     }
 };
 
+
+exports.updatePassword=async (req,res)=>{
+    console.info('********************************************************Update Password*********************************************')
+    try {
+        const id=req.params.id
+        const oldPassword=req.body.oldPassword
+        const newPassword=req.body.newPassword
+        // console.log(id, oldPassword,newPassword);
+        const result=await service.updatePassword(id,oldPassword,newPassword)
+        if(!result.status){
+            return sendResponse(res,statusCode.BAD_REQUEST,false,result.message)
+        }
+
+        return sendResponse(res,statusCode.OK,true,result.message,result)
+
+
+    } catch (error) {
+        console.error('Error in update Password api : ', error);
+        return sendResponse(res,statusCode.INTERNAL_SERVER_ERROR,false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors)
+    }
+}

@@ -35,10 +35,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         clickCount: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         },
         purchases: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         },
     });
 

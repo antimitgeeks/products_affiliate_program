@@ -48,11 +48,12 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         phone: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             unique: true
         },
         role: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            defaultValue:'User'
         },
         isActive: {
             type: Sequelize.BOOLEAN
