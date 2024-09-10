@@ -11,6 +11,15 @@ import SignUp from './Pages/SignUp/SignUp';
 import Dashboard from './Pages/Dashboard/Dashboard'
 import RouteLayout from "./RouteLayout"
 import Logins from "./components/Auth/Signin";
+import Layout from './components/Layout/Layout';
+import WelcomePage from './Pages/WelcomePage';
+import Profile from './Pages/Profile/Profile';
+import ProfileWrapper from './Pages/Profile/ProfileWrapper';
+import DashboardWrapper from './Pages/Dashboard/DashboardWrapper';
+import AnalyticsWrapper from './Pages/Analytics/AnalyticsWrapper';
+import InvoicesWrapper from './Pages/Invoices/InvoicesWrapper';
+import AffiliateLinksWrapper from './Pages/AffiliateLinks/AffiliateLinksWrapper';
+import AddAffiliateLinksWrapper from './Pages/AffiliateLinks/AddAffiliateLinks/AddAffiliateLinksWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -44,21 +53,23 @@ function Routing() {
                 <Route path="" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/login" element={<Logins auth={setAthenticateLogin} />} />
                 <Route path="/register" element={<SignUp auth={setAthenticateLogin} />} />
-                <Route path="/reset-password/:role" element={<EmailAuth />} />
-                <Route path="/forgot-password/:role/:id" element={<ForgetPassword />} />
+                <Route path="/forgot-password/:role" element={<EmailAuth />} />
+                <Route path="/reset-password/:role/:id" element={<ForgetPassword />} />
                 {
                     authenticateLogin &&
-                    <Route path='/dashboard/default' element={<RouteLayout />} />
-                    // </Route>
+                    // <Route path='/dashboard/default' element={<RouteLayout />} />
+                    <Route path='/dashboard/' element={<Layout />} >
+                        <Route path='' element={<DashboardWrapper/>}/>
+                        <Route path='profile' element={<ProfileWrapper/>}/>
+                        <Route path='affiliate-links' element={<AffiliateLinksWrapper/>}/>
+                        <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper/>}/>
+                        <Route path='invoices' element={<InvoicesWrapper/>}/>
+                        <Route path='analytics' element={<AnalyticsWrapper/>}/>
+                    </Route>
                 }
-                {/* <Route path="" element={<Login auth={setAthenticateLogin} />} />
-                <Route path="/sign-up" element={<SignUp auth={setAthenticateLogin} />} /> */}
-                {/* <Route exact path={`${process.env.PUBLIC_URL}/login`} element={<Logins />} /> */}
-                {/* <Route path="login/admin" element={<Login auth={setAthenticateLogin} />} />
-                <Route path="login/npo" element={<NpoLogin auth={setAthenticateLogin} />} /> */}
             </Routes>
         </div>
     )
 }
 
-export default Routing;
+export default Routing; 

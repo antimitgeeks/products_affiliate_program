@@ -33,16 +33,18 @@ const ColorsComponent = () => {
   };
 
   return (
-    <Fragment>
-      <H6>{UnlimitedColor}</H6>
-      <UL className='simple-list flex-row layout-grid unlimited-color-layout'>
-        <Input type='color' name='Color-Background1' value={colorBackground1} onChange={(e) => handleUnlimatedColor1Change(e)} />
-        <Input type='color' name='Color-Background2' value={colorBackground2} onChange={(e) => handleUnlimatedColor2Change(e)} />
-        <Btn color='primary' className='color-apply-btn color-apply-btn' onClick={OnUnlimatedColorClick}>
-          {Apply}
-        </Btn>
-      </UL>
-    </Fragment>
+    // <Fragment>
+    //   <H6>{UnlimitedColor}</H6>
+    //   <UL className='simple-list flex-row layout-grid unlimited-color-layout'>
+    //     <Input type='color' name='Color-Background1' value={colorBackground1} onChange={(e) => handleUnlimatedColor1Change(e)} />
+    //     <Input type='color' name='Color-Background2' value={colorBackground2} onChange={(e) => handleUnlimatedColor2Change(e)} />
+    //     <Btn color='primary' className='color-apply-btn color-apply-btn' onClick={OnUnlimatedColorClick}>
+    //       {Apply}
+    //     </Btn>
+    //   </UL>
+    // </Fragment>
+    <>
+    </>
   );
 };
 

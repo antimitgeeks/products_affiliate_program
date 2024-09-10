@@ -16,7 +16,6 @@ const RouteLayout = () => {
           <Route key={i} path={path} element={element} />
         ))}
       </Routes> */}
-
       <Layout />
     </>
   );

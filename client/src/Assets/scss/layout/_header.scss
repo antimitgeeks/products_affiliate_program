@@ -33,18 +33,7 @@
     font-size: $header-wrapper-nav-icon-size;
     color: $white;
   }
-  &:hover {
-    &:before {
-      height: 40px;
-      width: 40px;
-      transform: scale(1);
-      transition: all 0.3s ease;
-    }
-    > svg {
-      color: var(--theme-default) !important;
-      stroke: var(--theme-default) !important;
-    }
-  }
+
 }
 
 .onhover-dropdown {
@@ -59,7 +48,7 @@
 }
 
 .onhover-show-div {
-  top: 80px;
+  top: 65px;
   position: absolute;
   z-index: 8;
   background-color: $white;

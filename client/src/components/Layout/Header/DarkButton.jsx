@@ -1,6 +1,11 @@
 import React, { useContext, useState } from "react";
 import { LI } from "../../AbstractElements";
 import CustomizerContext from "../../../Context/Customizer";
+import { FaLightbulb } from "react-icons/fa";
+// import { PiLightbulbDuotone } from "react-icons/fa";
+import { PiLightbulbDuotone } from "react-icons/pi";
+
+
 const DarkButton = () => {
   const { addMixBackgroundLayout } = useContext(CustomizerContext);
   const [moonlight, setMoonlight] = useState(false);
@@ -22,9 +27,9 @@ const DarkButton = () => {
     <LI>
       <div className="mode" onClick={() => MoonlightToggle(moonlight)}>
         {moonlight ? (
-          <i className="fa fa-lightbulb-o"></i>
+            <PiLightbulbDuotone className=" text-white" stroke="white" color="white"/>
         ) : (
-          <i className="fa fa-moon-o"></i>
+          <i className="fa fa-moon-o">mo</i>
         )}
       </div>
     </LI>
