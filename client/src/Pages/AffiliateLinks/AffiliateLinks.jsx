@@ -40,13 +40,13 @@ function AffiliateLinks({ listData }) {
                       <div className='flex flex-col gap-3'>
 
                         <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
-                            <FaLink/>
+                          <FaLink />
                           <a className='' target='_blank' href={itm?.shortUrl}>
                             {itm?.shortUrl}
                           </a>
                         </span>
                         <div className=' w-full flex justify-between gap-4'>
-                          <span onClick={() => {navigator.clipboard.writeText(itm?.shortUrl)}} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                          <span onClick={() => { navigator.clipboard.writeText(itm?.shortUrl) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                             Copy link
                           </span>
                           <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
