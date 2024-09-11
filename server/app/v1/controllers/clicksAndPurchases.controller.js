@@ -41,7 +41,13 @@ exports.getClickAndPurchasesList = async (req, res) => {
         const id = decode(token).id
         console.log(id)
         const type = req.body.type
-        const result = await clickAndPurchaseServices.getClickAndPurchasesList(req, res, type, id)
+        const name = req.body.name
+        const result = await clickAndPurchaseServices.getClickAndPurchasesList(req, res, type, id,name)
+        
+        if(result.isAffiliateExist==false && result.status==false){
+            return sendResponse(res, statusCode.NOT_FOUND, false, `Affiliate With Given Name  ${ErrorMessage.NOT_FOUND}`)
+
+        }
         if (result.status == false && result.isExist == false) {
             return sendResponse(res, statusCode.NOT_FOUND, false, `Click And Purchases  ${ErrorMessage.NOT_FOUND}`)
         }

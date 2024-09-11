@@ -1,7 +1,7 @@
 const shortid = require('shortid');
 
 const db = require("../models");
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const ClickAndPurchases = db.ClickAndPurchases;
 const Affiliate = db.affiliate;
 
@@ -18,7 +18,6 @@ exports.addClickAndPurchases = async (req, res, type, affiliateId) => {
                 isExist: false
             }
         }
-        console.log(isExistAffiliate.userId)
         const result = await ClickAndPurchases.create({ type: type, userId: isExistAffiliate.userId ,affiliateId:affiliateId})
         if (result) {
             return {
@@ -42,17 +41,31 @@ exports.addClickAndPurchases = async (req, res, type, affiliateId) => {
 }
 
 //get click and purchases list 
-exports.getClickAndPurchasesList = async (req, res, type, id) => {
+exports.getClickAndPurchasesList = async (req, res, type, id,name) => {
     try {
-        console.log(id, "id")
-        console.log(type, "type")
-
-        const result = await ClickAndPurchases.findAll(
+        const isAffiliateExist = await Affiliate.findOne(
             {
                 where:
                 {
                     [Op.and]: [
                         { userId: id },
+                        { name: name }
+                    ]
+                }
+            })
+    
+        if(isAffiliateExist==null){
+            return {
+                status:false,
+                isAffiliateExist:false
+            }
+        }
+        const result = await ClickAndPurchases.findAll(
+            {
+                where:
+                {
+                    [Op.and]: [
+                        { affiliateId: isAffiliateExist.id },
                         { type: type }
                     ]
                 }
