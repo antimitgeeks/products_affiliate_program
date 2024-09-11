@@ -1,5 +1,6 @@
 const shortid = require('shortid');
 const db = require("../models");
+const { Op } = require('sequelize')
 const Affiliate = db.affiliate;
 const jwt = require('jsonwebtoken');
 //add affiliate 
@@ -8,6 +9,22 @@ exports.addAffiliate = async (req, res, shortId) => {
         const token = req.headers.authorization.split(' ')[1]
         const userId = jwt.decode(token).id
         const details = { ...req.body, userId }
+        const isAlreadyExist = await Affiliate.findOne({
+            where: {
+                [Op.and]:
+                    [
+                        { name: req.body.name },
+                        { userId: userId }
+                    ]
+            }
+        })
+        console.log(isAlreadyExist,"already exist")
+        if (isAlreadyExist) {
+            return {
+                status: false,
+                isAlreadyExist: true
+            }
+        }
         details.shortId = shortId
         details.shortUrl = `${process.env.AFFILIATE_LINK}:${process.env.PORT}${process.env.BASE_URL}/affiliate/${shortId}`
 
