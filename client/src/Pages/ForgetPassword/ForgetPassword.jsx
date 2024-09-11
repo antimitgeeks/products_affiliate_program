@@ -9,7 +9,7 @@ import countryList from 'react-select-country-list';
 import { useResetPasswordMutation } from '../../services/AuthServices';
 import Cookies from 'js-cookie';
 // import { toast } from 'react-toastify';
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import LoginBanner from '../../Assets/loginBanner.png';
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
@@ -86,18 +86,19 @@ function ForgetPassword() {
                             <Row>
                                 <Col xs="12">
                                     <div className="login-card flex-column">
-                                        <div className="logo">
-                                            <Image
-                                                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
-                                                src={require("../../Assets/logo/itg_logo.webp")}
-                                            />
-                                        </div>
+
                                         <div className=" w-full flex items-center justify-center login-tab">
                                             <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
                                                 <div className=" w-full md:w-[45%]">
 
                                                     <div className="theme-form flex flex-col gap-3 p-2">
-                                                        <H4 className="text-center font-semibold text-2xl">Reset password</H4>
+                                                        <div className=' flex flex-col gap-3'>
+                                                            <Image
+                                                                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
+                                                                src={require("../../Assets/logo/itg_logo.webp")}
+                                                            />
+                                                            <H4 className="text-center font-semibold text-2xl">Reset password</H4>
+                                                        </div>
                                                         <P className="text-center">{"Enter details to reset your password"}</P>
                                                         {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
                                                         <div className=' w-full flex flex-col gap-6 pb-4'>
@@ -126,9 +127,9 @@ function ForgetPassword() {
                                                             </div>
                                                         </div>
                                                         <div className="position-relative form-group mb-0">
-                                                            <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
+                                                            <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
                                                                 Submit
-                                                            </Btn>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>

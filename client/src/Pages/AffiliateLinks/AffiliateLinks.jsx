@@ -14,15 +14,17 @@ function AffiliateLinks({ listData }) {
     <>
       <div className=' w-full flex flex-col h-full items-center gap-8 '>
         <div className=' w-full flex items-center justify-between'>
-          {/* <span onClick={() => navigate('add')} className=' p-2 border cursor-pointer rounded bg-slate-100'>Create Links</span> */}
           <span>
             {/* <H5 className="text-[#547f96] font-semibold">
               Affiliate Links
             </H5> */}
           </span>
-          <Btn color="primary" onClick={() => navigate('add')}>
+          {/* <Btn className="bg-white text-black" onClick={() => navigate('add')}>
             Create Links
-          </Btn>
+          </Btn> */}
+          <span onClick={() => navigate('add')} className=' cursor-pointer p-2 bg-black text-white rounded'>
+            Create Links
+          </span>
         </div>
         <div className='w-full flex flex-col h-full items-center gap-8 mt-3 '>
 
@@ -41,7 +43,8 @@ function AffiliateLinks({ listData }) {
 
                         <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
                           <FaLink />
-                          <a className='' target='_blank' href={itm?.shortUrl}>
+                          {console.log(itm?.shortUrl)}
+                          <a target='_blank' href={itm?.shortUrl}>
                             {itm?.shortUrl}
                           </a>
                         </span>

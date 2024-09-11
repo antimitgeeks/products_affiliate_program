@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FormGroup, Input, Label } from "reactstrap";
-import { Btn, H4, P } from "../../../AbstractElements";
+import { Btn, H4, Image, P } from "../../../AbstractElements";
 import { ForgotPassword, RememberPassword } from "../../../Constant";
 import OtherWay from "./OtherWay";
 import { useState } from "react";
 // import { toast } from "react-toastify";
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import InputComponent from "../../../InputComponent";
@@ -78,8 +78,14 @@ const LoginTab = (props) => {
         (
           <Form>
 
-            <div className="theme-form flex flex-col gap-3 p-3  w-full">
-              <H4 className="text-center font-semibold text-2xl"> Sign In</H4>
+            <div className="theme-form flex flex-col gap-2 px-2 py-1 w-full">
+              <div className=" flex flex-col gap-3">
+                <Image
+                  className="img-fluid for-light mx-auto h-[65px] w-[65px]"
+                  src={require("../../../../Assets/logo/itg_logo.webp")}
+                />
+                <H4 className="text-center font-semibold text-2xl"> Sign In</H4>
+              </div>
               <P className="text-center">{"Enter your email & password to SignIn"}</P>
               <FormGroup className=" flex flex-col gap-5">
                 <InputComponent label={"Email"} placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
@@ -95,18 +101,22 @@ const LoginTab = (props) => {
                   </span>
                 </div>
                 <div className=" w-full float-end flex justify-end">
-                  <span onClick={() => navigate('/forgot-password/user')} className=" hover:underline cursor-pointer text-[#3E5FCE] text-[15px]" >
+                  <span onClick={() => navigate('/forgot-password/user')} className=" hover:underline cursor-pointer text-black text-[15px]" >
                     Forgot password ?
                   </span>
                 </div>
               </FormGroup>
-              <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
+              {/* <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
                 Sign In
-              </Btn>
+              </Btn> */}
+
+              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
+                Sign In
+              </button>
               <div className=" pt-3 w-full flex items-center justify-center">
                 <hr />
                 Don't have account?
-                <Link className='ms-2 text-[#3E5FCE]' to={`${process.env.PUBLIC_URL}/register`}>
+                <Link className='ms-2 text-black' to={`${process.env.PUBLIC_URL}/register`}>
                   Sign Up
                 </Link>
               </div>

@@ -44,7 +44,7 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
             }}>
             <div className='d-flex align-items-center'>
               {item.icon && item.icon}
-              <span className='sidebar-title-alignment text-black'>{item.title}</span>
+              <span style={{color:'black'}} className='sidebar-title-alignment underline-none text-black'>{item.title}</span>
             </div>
             {item.menu && (
               <span className='sub-arrow'>

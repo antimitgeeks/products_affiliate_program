@@ -132,9 +132,14 @@ function AddAffiliateLinks({ listData, loading }) {
                                     :
                                     <Fragment>
                                         <Card className=' w-full'>
-                                            <CardHeader className='pb-0'>
-                                                <H5>Add Affiliate Links</H5>
-                                            </CardHeader>
+                                            {/* <CardHeader>
+                                                <H5 className="text-black">Add Affiliate Links</H5>
+                                            </CardHeader> */}
+                                            <div className='pb-0 pt-4 px-4'>
+                                                <span className='text-[20px]'>
+                                                    Add Affiliate Links
+                                                </span>
+                                            </div>
                                             <CardBody>
                                                 <Row className='g-3 pb-1'>
                                                     <Col md='6'>
@@ -165,7 +170,7 @@ function AddAffiliateLinks({ listData, loading }) {
                                                     </Col>
                                                 </Row>
 
-                                                <Btn color="primary" type="submit" className="d-block mt-5  w-[120px]">
+                                                {/* <Btn color="primary" type="submit" className="d-block mt-5  w-[120px]">
                                                     {
                                                         submitLoading ?
                                                             <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
@@ -174,7 +179,17 @@ function AddAffiliateLinks({ listData, loading }) {
                                                             :
                                                             "Submit"
                                                     }
-                                                </Btn>
+                                                </Btn> */}
+                                                <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
+                                                    {
+                                                        submitLoading ?
+                                                            <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                <AiOutlineLoading3Quarters />
+                                                            </span>
+                                                            :
+                                                            "Submit"
+                                                    }
+                                                </button>
                                             </CardBody>
                                         </Card>
                                     </Fragment>

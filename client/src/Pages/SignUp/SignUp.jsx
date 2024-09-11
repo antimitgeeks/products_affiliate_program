@@ -153,22 +153,22 @@ function SignUp() {
       >
         {(signupProps) => (
           <Form>
-            <Container fluid={true} className="p-0 w-full m-0  bg-slate-50">
+            <Container fluid={true} className="p-0 w-full m-0 pt-4  bg-slate-50">
               <Row>
                 <Col xs="12">
                   <div className="login-card flex-column">
-                    <div className="logo">
-                      <Image
-                        className="img-fluid for-light mx-auto h-[65px] w-[65px]"
-                        src={require("../../Assets/logo/itg_logo.webp")}
-                      />
-                    </div>
                     <div className=" w-full flex items-center justify-center login-tab">
                       <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
                         <div className=" w-full md:w-[45%]">
 
-                          <div className="theme-form flex flex-col gap-3 p-2">
-                            <H4 className="text-center font-semibold text-2xl"> Sign Up</H4>
+                          <div className="theme-form flex flex-col gap-3 p-1">
+                            <div className=' flex flex-col gap-3'>
+                              <Image
+                                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
+                                src={require("../../Assets/logo/itg_logo.webp")}
+                              />
+                              <H4 className="text-center font-semibold text-2xl"> Sign Up</H4>
+                            </div>
                             <P className="text-center">{"Enter your details to Sign up"}</P>
                             {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
                             <div className=' w-full flex flex-col gap-6 pb-4'>
@@ -226,24 +226,22 @@ function SignUp() {
                               </div>
                             </div>
                             <div className="position-relative form-group mb-0">
-                              <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
+                              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
                                 Sign up
-                              </Btn>
+                              </button>
                             </div>
                             <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
                               Already have an account ?
-                              <Link className='ms-2 text-[#3E5FCE]' to={`${process.env.PUBLIC_URL}/login`}>
+                              <Link className='ms-2 text-black' to={`${process.env.PUBLIC_URL}/login`}>
                                 Sign in
                               </Link>
                             </P>
                           </div>
                         </div>
-                        <div className=" w-full p-2 md:w-[60%] object-contain md:object-cover h-[200px]  md:h-[1140px]">
+                        <div className=" w-full p-2 md:w-[60%] object-contain md:object-cover h-[200px]  md:h-[1160px]">
                           <img src={demoBanner} className=" shadow-xl object-cover w-full h-full rounded-[16px]" alt="" />
                         </div>
                       </div>
-
-
                     </div>
                   </div>
                 </Col>

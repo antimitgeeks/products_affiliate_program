@@ -10,12 +10,12 @@ const Logins = (props) => {
       <Row>
         <Col xs="12">
           <div className="login-card flex-column">
-            <div className="logo">
+            {/* <div className="logo">
               <Image
                 className="img-fluid for-light mx-auto h-[65px] w-[65px]"
                 src={require("../../Assets/logo/itg_logo.webp")}
               />
-            </div>
+            </div> */}
             <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-10">
               <div className=" w-full md:w-[45%]">
 

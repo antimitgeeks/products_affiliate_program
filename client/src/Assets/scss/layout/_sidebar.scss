@@ -162,8 +162,10 @@
               background-color: $primary-color;
               i,
               svg {
-                color: $white;
-                stroke: $white;
+                // color: $white;
+                // stroke: $white;
+                color: black;
+                stroke: black;
               }
               .profile-dropdown {
                 li {
@@ -321,7 +323,8 @@
 
               button {
                 background-color: $transparent-color;
-                color: $white;
+                // color: $white;
+                color: black;
                 border: none;
 
                 &:focus {
@@ -355,7 +358,8 @@
                 transform: none;
                 width: 18px;
                 &:hover {
-                  stroke: $white;
+                  // stroke: $white;
+                  stroke:black;
                   transition: all 0.3s ease;
                 }
               }
@@ -863,7 +867,8 @@
                     a {
                       &.active,
                       &:hover {
-                        color: $white;
+                        // color: $white;
+                        color: black;
                         &:after {
                           background-color: $white;
                         }
@@ -888,7 +893,8 @@
                   &:hover {
                     > a {
                       > span {
-                        color: $white;
+                        // color: $white;
+                        color: black;
                         transition: all 0.3s ease;
                       }
                       &:after {
@@ -902,14 +908,16 @@
                       transition: all 0.3s ease;
                       svg {
                         fill: rgba($primary-color, 0.1%);
-                        stroke: $white;
+                        // stroke: $white;
+                        stroke: black;
                         transition: all 0.3s ease;
                       }
                     }
                   }
                   > a {
                     display: block;
-                    color: $white;
+                    // color: $white;
+                    color: black;
                     line-height: 23px;
                     text-decoration: none;
                     text-transform: capitalize;
@@ -925,7 +933,8 @@
                       transition: all 0.3s ease;
                       svg,
                       span {
-                        color: $white;
+                        // color: $white;
+                        color: black;
                         transition: all 0.3s ease;
                       }
                     }
@@ -961,7 +970,8 @@
                         display: block;
                         transition: all 0.5s ease;
                         line-height: 1.9;
-                        color: $white;
+                        // color: $white;
+                        color: black;
                         letter-spacing: 0.06em;
                         font-weight: 500;
                         transition: all 0.3s ease;
@@ -971,7 +981,8 @@
                         }
 
                         &:hover {
-                          color: $white;
+                          // color: $white;
+                          color: black;
                           letter-spacing: 1.5px;
                           transition: all 0.3s ease;
 
@@ -1036,7 +1047,8 @@
                                 letter-spacing: 1.5px;
                                 transition: all 0.3s ease;
                                 &:after {
-                                  color: $white;
+                                  // color: $white;
+                                  color: black;
                                   transition: all 0.3s ease;
                                 }
                               }
@@ -1178,7 +1190,8 @@
           z-index: 9;
           height: 100%;
           line-height: inherit;
-          background-color: $primary-color;
+          // background-color: $primary-color;
+          background-color: white;
           width: 320px;
           text-align: left;
           transition: 0.3s;
@@ -1453,7 +1466,8 @@
                   span {
                     letter-spacing: 0.7px;
                     text-transform: capitalize;
-                    color: $white;
+                    // color: $white;
+                    color: black;
                   }
                   &.link-nav {
                     .according-menu {
@@ -1491,8 +1505,11 @@
               }
               .menu-box {
                 background-color: rgba($white, 0.07);
+                // background-color: rgba(#f6f8fc, 1);
+                // border: 1px solid gray;
+              
                 padding-top: 20px;
-                padding-bottom: 20px;
+                padding-bottom: 40px;
                 border-radius: 10px;
                 margin-bottom: 30px;
                 &:last-child {
@@ -1508,21 +1525,25 @@
                         &:hover {
                           svg {
                             fill: rgba($primary-color, 0.1%);
-                            stroke: $white;
+                            // stroke: $white;
+                            stroke: black;
                             transition: all 0.3s ease;
                           }
                           .sub-arrow {
                             svg {
-                              fill: $white;
+                              // fill: $white;
+                              fill: black;
                             }
                           }
                           span {
-                            color: $white;
+                            // color: $white;
+                            color: black;
                             transition: all 0.3s ease;
                           }
                           .according-menu {
                             i {
-                              color: $white;
+                              // color: $white;
+                              color: black;
                               transition: all 0.3s ease;
                             }
                           }
@@ -1532,7 +1553,8 @@
                     a {
                       padding: 12px 25px;
                       position: relative;
-                      color: $white;
+                      // color: $white;
+                      color: black;
                       transition: all 0.3s ease;
                       svg {
                         width: 18px;
@@ -1541,7 +1563,8 @@
                         vertical-align: middle;
                         float: none;
                         stroke-width: 2.3px;
-                        color: $white;
+                        // color: $white;
+                        color: black;
                         transition: all 0.3s ease;
                       }
                       .sub-arrow {
@@ -1615,7 +1638,8 @@
                         a {
                           padding: 7px 25px;
                           font-size: 14px;
-                          color: $white;
+                          // color: $white;
+                          color:black;
                           display: block;
                           position: relative;
                           letter-spacing: 0.06em;
@@ -1774,12 +1798,15 @@
                       transition: all 0.5s ease;
                       display: flex;
                       border-left: 2px solid transparent;
+                      border-radius: 5px;
                       &.active,
                       &:hover {
                         transition: all 0.5s ease;
                         position: relative;
-                        background-color: lighten($primary-color, 10%);
-                        border-color: $secondary-color;
+                        // background-color: lighten($primary-color, 10%);
+                        background-color: #d1d1d2;
+                        // border-color: $secondary-color;
+                        border-color: #59667a;
                         .according-menu {
                           i {
                             color: $secondary-color;
@@ -2010,7 +2037,8 @@
       }
 
       svg {
-        stroke: $white !important;
+        // stroke: $white !important;
+        stroke: black;
       }
     }
   }
