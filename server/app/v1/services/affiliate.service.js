@@ -9,7 +9,7 @@ exports.addAffiliate = async (req, res, shortId) => {
         const userId = jwt.decode(token).id
         const details = { ...req.body, userId }
         details.shortId = shortId
-        details.shortUrl = `${process.env.AFFILIATE_LINK}:${process.env.PORT}${process.env.BASE_URL}/affiliate/${shortId}`
+        details.shortUrl = `${process.env.AFFILIATE_LINK}:${process.env.PORT}${process.env.BASE_URL}/affiliate/${shortId}` 
 
         const result = await Affiliate.create(details)
         if (result) {
@@ -49,7 +49,7 @@ exports.shortLink = async (req, res, link) => {
 }
 
 // redirect short url link
-exports.    redirectShortLink = async (req, res) => {
+exports.redirectShortLink = async (req, res) => {
     try {
         const shortId = req.params.id
         const result = await Affiliate.findOne({ where: { shortId: shortId } });
