@@ -9,7 +9,8 @@ exports.addAffiliate = async (req, res, shortId) => {
         const userId = jwt.decode(token).id
         const details = { ...req.body, userId }
         details.shortId = shortId
-        details.shortUrl = `${process.env.AFFILIATE_LINK}:${process.env.PORT}${process.env.BASE_URL}/affiliate/${shortId}` 
+        const host=await req.headers.host
+        details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}` 
 
         const result = await Affiliate.create(details)
         if (result) {
@@ -77,7 +78,9 @@ exports.redirectShortLink = async (req, res) => {
 exports.getAffiliate = async (req, res) => {
     try {
 
-        const result = await Affiliate.findAll();
+        const result = await Affiliate.findAll({ order: [
+            ['id', 'DESC'],
+        ]});
         console.log(result)
         if (result) {
             return {
