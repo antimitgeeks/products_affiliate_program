@@ -33,7 +33,7 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
   return (
     <ul className={`${className ? className : ''}`}>
       {menu.map((item, i) => (
-        <li key={i} className={`${className ? '' : 'sidebar-list'} ${(item.menu ? item.menu.map((innerItem) => ActiveNavLinkUrl(innerItem.url)).includes(true) : ActiveNavLinkUrl(item.url)) || isOpen[level] === item.title ? 'active' : ''} `}>
+        <li style={{color:'black'}} key={i} className={`${className ? '' : 'sidebar-list'} ${(item.menu ? item.menu.map((innerItem) => ActiveNavLinkUrl(innerItem.url)).includes(true) : ActiveNavLinkUrl(item.url)) || isOpen[level] === item.title ? 'active' : ''} `}>
           <Link
             className={`${className ? '' : 'sidebar-link sidebar-title'}  ${(item.menu ? item.menu.map((innerItem) => ActiveNavLinkUrl(innerItem.url)).includes(true) : ActiveNavLinkUrl(item.url)) || isOpen[level] === item.title ? 'active' : ''}`}
             to={item.url ? item.url : '#javascript'}
@@ -42,9 +42,11 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
               temp[level] = item.title !== temp[level] && item.title;
               setIsOpen(temp);
             }}>
-            <div className='d-flex align-items-center'>
+            <div  className='d-flex align-items-center'>
+              <span >
               {item.icon && item.icon}
-              <span className='sidebar-title-alignment'>{item.title}</span>
+              </span>
+              <span className='sidebar-title-alignment text-black'>{item.title}</span>
             </div>
             {item.menu && (
               <span className='sub-arrow'>

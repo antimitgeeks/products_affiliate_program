@@ -7,6 +7,7 @@ import CustomizerContext from '../../../Context/Customizer';
 import { IoSettingsSharp } from "react-icons/io5";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RiSettings5Fill } from "react-icons/ri";
+import { FaArrowRightArrowLeft } from "react-icons/fa6";
 
 const LogoWrapper = () => {
   const { togglSidebar, setTogglSidebar } = useContext(CustomizerContext);
@@ -21,12 +22,8 @@ const LogoWrapper = () => {
       </div> */}
       <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[24px] toggle-sidebar hover:none text-white'>
         {/* <IoSettingsSharp color='white' stroke='white' size={24} /> */}
-        <RiSettings5Fill color='white' stroke='white' size={24} />
-
-
-        {/* <FontAwesomeIcon icon={faGearComplex} /> */}
-        {/* <FontAwesomeIcon icon="fa fa-cog status_toggle middle sidebar-toggle" /> */}
-
+        {/* <RiSettings5Fill color='white' stroke='white' size={24} /> */}
+            <FaArrowRightArrowLeft className=' text-sm' size={22}/>
       </div>
     </div>
   );
