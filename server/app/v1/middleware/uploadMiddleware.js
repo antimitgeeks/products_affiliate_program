@@ -1,15 +1,14 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-// const adminService = require('../services/admin.service')
+const adminService = require('../services/admin.service')
 
 // Set storage engine
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log(file);
-        // const npoId = req.params.id;
+        const npoId = req.params.id;
         const type = req.query.type;
-        // const dir = path.join(__dirname, `../utils/images/${npoId}`);
+        const dir = path.join(__dirname, `../utils/images/${npoId}`);
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
