@@ -2,15 +2,18 @@ const shortid = require('shortid');
 const db = require("../models");
 const Affiliate = db.affiliate;
 const jwt = require('jsonwebtoken');
+const fs = require('fs')
+const path=require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
         const token = req.headers.authorization.split(' ')[1]
         const userId = jwt.decode(token).id
-        const details = { ...req.body, userId }
+        console.log(req.file);
+        const details = { ...req.body, userId, url: req.file.originalname }
         details.shortId = shortId
-        const host=await req.headers.host
-        details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}` 
+        const host = await req.headers.host
+        details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}`
 
         const result = await Affiliate.create(details)
         if (result) {
@@ -43,7 +46,7 @@ exports.shortLink = async (req, res, link) => {
 
         urls[shortId] = link;
         return shortId
-    } catch (error) {   
+    } catch (error) {
         console.log(error)
         return false
     }
@@ -78,10 +81,43 @@ exports.redirectShortLink = async (req, res) => {
 exports.getAffiliate = async (req, res) => {
     try {
 
-        const result = await Affiliate.findAll({ order: [
-            ['id', 'DESC'],
-        ]});
-        console.log(result)
+        const result = await Affiliate.findAll({
+            order: [
+                ['id', 'DESC'],
+            ]
+        });
+
+
+        result.forEach(obj => {
+
+
+            
+            
+            // else {
+            //     console.log("/tmp/myfile does not exist!");
+            // }
+
+
+
+            if (obj.dataValues.url !== null && obj.dataValues.url !== undefined){
+
+                const dir = path.join(__dirname,"..")
+                const newpath=  `${dir}/utils/images/${obj.dataValues.url}`
+
+            if (fs.existsSync(`${newpath}`)) {
+
+                obj.dataValues.url = req.hostname + '/' + obj.dataValues.url
+                console.log(obj.dataValues.url);
+                console.log("/tmp/myfile exists!");
+                }
+
+                
+   
+            }
+            
+        });
+
+
         if (result) {
             return {
                 status: true,

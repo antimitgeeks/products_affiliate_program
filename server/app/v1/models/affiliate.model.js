@@ -40,6 +40,9 @@ module.exports = (sequelize, Sequelize) => {
         purchases: {
             type: Sequelize.INTEGER
         },
+        url: {
+            type: Sequelize.INTEGER
+        },
     });
 
 

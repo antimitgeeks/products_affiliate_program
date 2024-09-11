@@ -71,4 +71,4 @@ exports.getAffiliate = async(req,res)=>{
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
 
     }
-}
+}   
