@@ -97,38 +97,32 @@ exports.getClickAndPurchasesList = async (req, res, type, id, name) => {
     }
 }
 
-exports.updateClickAndPurhcases = async (req, res, details, type) => {
+exports.updateClickAndPurhcases = async (req, res, affiliateId, type) => {
     try {
-    
-        const affiliate = await Affiliate.findOne({ userId: details.userId })
+        const affiliate = await Affiliate.findOne({ where: { id: affiliateId } });
         if (type == "Click") {
             const clickToUpdate = affiliate.clickCount + 1
             const updatedResult = await Affiliate.update(
                 { clickCount: clickToUpdate },
                 {
                     where: {
-                        id: affiliate.userId,
+                        id: affiliate.id,
                     },
                 }
             );
             return updatedResult
-        }
-
-        if (type == 'Purchase') {
+        } else {
             const purchaseToUpdate = affiliate.purchases + 1
             const updatedResult = await Affiliate.update(
                 { purchases: purchaseToUpdate },
                 {
                     where: {
-                        id: affiliate.userId,
+                        id: affiliate.id,
                     },
                 }
             );
             return updatedResult
         }
-
-        return false
-
     } catch (error) {
         console.log(error)
         return {

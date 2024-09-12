@@ -22,7 +22,7 @@ exports.addClickAndPurchases = async (req, res) => {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
         }
         if (result.status == true && result.result) {
-            const updatedResult = await clickAndPurchaseServices.updateClickAndPurhcases(req, res, result, type)
+            const updatedResult = await clickAndPurchaseServices.updateClickAndPurhcases(req, res, affiliateId, type)
             if (updatedResult == false) {
                 return sendResponse(res, statusCode.BAD_REQUEST, false, `Click Count Or Purchase Count ${ErrorMessage.NOT_UPDATED}`)
             }
