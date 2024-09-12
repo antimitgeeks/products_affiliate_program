@@ -17,39 +17,33 @@ module.exports = (sequelize, Sequelize) => {
     /**
      * @type {Model}
      */
-    const Affiliate = sequelize.define("affiliate", {
-        userId:{
+    const Invoice = sequelize.define("invoice", {
+        userId: {
             type: Sequelize.INTEGER,
             references: {
                 model: "users",
                 key: 'id',
             },
-        },
-        name: {
+        }
+        ,
+        themeName: {
             type: Sequelize.STRING,
+            unique: true
         },
-        shortId: {
+        domain: {
             type: Sequelize.STRING
         },
-        shortUrl: {
-            type: Sequelize.STRING
+        commission: {
+            type: Sequelize.INTEGER
         },
-        link: {
-            type: Sequelize.STRING
-        },
-        dropboxLink: {
-            type: Sequelize.STRING
-        },
-        clickCount: {
-            type: Sequelize.STRING
-        },
-        purchases: {
-            type: Sequelize.STRING
+        status: {
+            type: Sequelize.ENUM,
+            values: ['Pending', 'Success', 'Cancel']
         },
     });
 
 
-    return Affiliate;
+    return Invoice;
 };
 
 
