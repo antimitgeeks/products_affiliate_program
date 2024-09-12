@@ -12,13 +12,14 @@
 
 const bcrypt = require('bcrypt');
 const { ENUM } = require('sequelize');
+const { toDefaultValue } = require('sequelize/lib/utils');
 
 module.exports = (sequelize, Sequelize) => {
     /**
      * @type {Model}
      */
     const Affiliate = sequelize.define("affiliate", {
-        userId:{
+        userId: {
             type: Sequelize.INTEGER,
             references: {
                 model: "users",
@@ -41,14 +42,16 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         clickCount: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            defaultValue: 0
         },
         purchases: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            defaultValue: 0
         },
         url: {
-            type: Sequelize.INTEGER
-        },
+            type: Sequelize.STRING
+        }
     });
 
 
