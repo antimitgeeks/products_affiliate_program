@@ -10,7 +10,7 @@ exports.addAffiliate = async (req, res, shortId) => {
     try {
         const token = req.headers.authorization.split(' ')[1]
         const userId = jwt.decode(token).id
-        const details = { ...req.body, userId, url: req.file.originalname }
+        const details = { ...req.body, userId, imageUrl: req.file.originalname }
         const isAlreadyExist = await Affiliate.findOne({
             where: {
                 [Op.and]:
@@ -110,14 +110,14 @@ exports.getAffiliate = async (req, res) => {
         result.forEach(obj => {
 
 
-            if (obj.dataValues.url !== null && obj.dataValues.url !== undefined){
+            if (obj.dataValues.imageUrl !== null && obj.dataValues.imageUrl !== undefined){
 
                 const dir = path.join(__dirname,"..")
-                const newpath=  `${dir}/utils/images/${obj.dataValues.url}`
+                const newpath=  `${dir}/utils/images/${obj.dataValues.imageUrl}`
 
             if (fs.existsSync(`${newpath}`)) {
 
-                obj.dataValues.url = req.hostname + '/' + obj.dataValues.url
+                obj.dataValues.imageUrl = req.hostname + '/' + obj.dataValues.imageUrl
 
                 }
 
