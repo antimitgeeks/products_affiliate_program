@@ -42,34 +42,39 @@ exports.addClickAndPurchases = async (req, res, type, affiliateId) => {
 //get click and purchases list 
 exports.getClickAndPurchasesList = async (req, res, type, id, name) => {
     try {
-        const isAffiliateExist = await Affiliate.findOne(
-            {
-                where:
+        let result;
+        if (type === 'Purchase') {
+            result = await ClickAndPurchases.findAll({ where: { userId: id, type: "Purchase" } });
+        } else {
+            const isAffiliateExist = await Affiliate.findOne(
                 {
-                    [Op.and]: [
-                        { userId: id },
-                        { name: name }
-                    ]
-                }
-            })
+                    where:
+                    {
+                        [Op.and]: [
+                            { userId: id },
+                            { name: name }
+                        ]
+                    }
+                })
 
-        if (isAffiliateExist == null) {
-            return {
-                status: false,
-                isExist: false
-            }
-        }
-        const result = await ClickAndPurchases.findAll(
-            {
-                where:
-                {
-                    [Op.and]: [
-                        { affiliateId: isAffiliateExist.id },
-                        { type: type }
-                    ]
+            if (isAffiliateExist == null) {
+                return {
+                    status: false,
+                    isExist: false
                 }
             }
-        )
+            result = await ClickAndPurchases.findAll(
+                {
+                    where:
+                    {
+                        [Op.and]: [
+                            { affiliateId: isAffiliateExist.id },
+                            { type: type }
+                        ]
+                    }
+                }
+            )
+        }
         if (!result) {
             return {
                 status: false,
