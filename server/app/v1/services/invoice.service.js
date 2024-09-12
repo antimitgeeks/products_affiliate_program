@@ -20,3 +20,26 @@ exports.createInvoice=async (body)=>{
     }
 }
 
+exports.getInvoiceList=async (id)=>{
+
+    try {
+        
+        const result=await Invoice.findAll({where:{
+            userId:id
+        }})
+        return {
+            status:true,
+            result:result
+        }
+        }
+
+     catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+
+}
+
