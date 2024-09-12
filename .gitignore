@@ -117,3 +117,6 @@ dist/
 /*.txt
 
 # End of https://www.gitignore.io/api/node,visualstudiocode
+node_modules
+products_affiliate_program\node_modules
+C:\Users\itgeeks\Desktop\Ankit\products_affiliate_program\node_modules

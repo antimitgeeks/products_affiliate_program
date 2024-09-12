@@ -35,8 +35,8 @@ exports.authenticate = async (req, res, next) => {
     }
 
   } catch (error) {
-    console.log("error in the auth middleware", error);
-    Utils.sendResponse(res, statusCode.SERVER, false, ErrorMessage.INVALID_TOKEN);
+    console.log(error);
+    Utils.sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INVALID_TOKEN);
   }
 
 }

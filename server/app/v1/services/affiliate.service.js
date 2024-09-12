@@ -3,6 +3,8 @@ const db = require("../models");
 const { Op } = require('sequelize')
 const Affiliate = db.affiliate;
 const jwt = require('jsonwebtoken');
+const fs = require('fs')
+const path=require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
@@ -26,7 +28,8 @@ exports.addAffiliate = async (req, res, shortId) => {
             }
         }
         details.shortId = shortId
-        details.shortUrl = `${process.env.AFFILIATE_LINK}:${process.env.PORT}${process.env.BASE_URL}/affiliate/${shortId}`
+        const host = await req.headers.host
+        details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}`
 
         const result = await Affiliate.create(details)
         if (result) {
@@ -94,8 +97,43 @@ exports.redirectShortLink = async (req, res) => {
 exports.getAffiliate = async (req, res) => {
     try {
 
-        const result = await Affiliate.findAll();
-        console.log(result)
+        const result = await Affiliate.findAll({
+            order: [
+                ['id', 'DESC'],
+            ]
+        });
+
+
+        result.forEach(obj => {
+
+
+            
+            
+            // else {
+            //     console.log("/tmp/myfile does not exist!");
+            // }
+
+
+
+            if (obj.dataValues.url !== null && obj.dataValues.url !== undefined){
+
+                const dir = path.join(__dirname,"..")
+                const newpath=  `${dir}/utils/images/${obj.dataValues.url}`
+
+            if (fs.existsSync(`${newpath}`)) {
+
+                obj.dataValues.url = req.hostname + '/' + obj.dataValues.url
+                console.log(obj.dataValues.url);
+                console.log("/tmp/myfile exists!");
+                }
+
+                
+   
+            }
+            
+        });
+
+
         if (result) {
             return {
                 status: true,

@@ -6,15 +6,25 @@ const emailSchema = Joi.string().email().required()
 exports.loginSchema = Joi.object({
     email: emailSchema.required(),
     password: Joi.string().required(),
-    role: Joi.string().optional(),
+   
 });
+exports.updatePassword=Joi.object({
+    oldPassword:Joi.string().min(6).required(),
+    newPassword:Joi.string().min(6).required()
+})
 
 exports.registerSchema = Joi.object({
     email: emailSchema.required(),
     password: Joi.string().min(6).required(),
-    phone: Joi.string().pattern(/^[0-9]{10}$/).required(),
-    role: Joi.string().valid('Admin', 'User').required(),
-    isActive: Joi.boolean().required()
+    paypalAddress:Joi.string().optional(),
+    country:Joi.string().optional(),
+    city:Joi.string().optional(),
+    address:Joi.string().optional(),
+    companyName:Joi.string().optional(),
+    companyNumber:Joi.number().optional(),
+    phone: Joi.number().max(10).optional(),
+    role: Joi.string().valid('Admin', 'User').optional(),
+    isActive: Joi.boolean().optional()
 });
 
 exports.resetPasswordSchema = Joi.object({
