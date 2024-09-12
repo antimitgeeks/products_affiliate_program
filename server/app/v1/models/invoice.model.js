@@ -28,7 +28,6 @@ module.exports = (sequelize, Sequelize) => {
         ,
         themeName: {
             type: Sequelize.STRING,
-            unique: true
         },
         domain: {
             type: Sequelize.STRING
