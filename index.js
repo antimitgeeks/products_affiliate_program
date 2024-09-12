@@ -18,7 +18,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-//Static file path
+//Static file path 
 const STATIC_PATH =
   // eslint-disable-next-line no-undef
   process.env.NODE_ENV === "production"
@@ -53,8 +53,8 @@ const data = () => {
 
 // app.use(express.static(path.join(STATIC_PATH, 'build')));
 
-const parentDirectory = path.join(__dirname, "server/app/v1/utils")
-console.log(parentDirectory, '-------------------------------------------iu');
+const parentDirectory = path.join(__dirname,"server/app/v1/utils")
+
 //important to server the static file 
 // app.use(express.static(path.join(parentDirectory)));
 

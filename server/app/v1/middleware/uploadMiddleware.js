@@ -1,6 +1,6 @@
 const multer=require('multer')
 var path = require('path');
-const fs=require('fs')
+const fs=require('fs');
 
 
 const storage = multer.diskStorage({
@@ -18,6 +18,8 @@ const storage = multer.diskStorage({
     //   const baseFileName=path.parse(fileName).name;
 
     //   console.log("from file nname",fileName);
+    console.log(req);
+    
       cb(null, file.originalname)
     }
     

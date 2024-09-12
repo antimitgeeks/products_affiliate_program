@@ -10,7 +10,8 @@ exports.addAffiliate = async (req, res, shortId) => {
     try {
         const token = req.headers.authorization.split(' ')[1]
         const userId = jwt.decode(token).id
-        const details = { ...req.body, userId }
+        console.log(req.file);
+        const details = { ...req.body, userId, url: req.file.originalname }
         const isAlreadyExist = await Affiliate.findOne({
             where: {
                 [Op.and]:
