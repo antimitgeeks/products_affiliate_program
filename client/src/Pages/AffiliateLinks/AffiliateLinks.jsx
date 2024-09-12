@@ -35,6 +35,8 @@ function AffiliateLinks({ listData }) {
                 <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                   <div className=' w-1/2 shadow-sm rounded-xl  p-2 bg-slate-100'>
                     <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" />
+                    {/* {console.log(itm.url,'IMG URL')} */}
+                    {/* <img height={"full"} width={"full"} src={itm?.url} alt="IMG" /> */}
                   </div>
                   <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                     <div className=' flex flex-col gap-5'>

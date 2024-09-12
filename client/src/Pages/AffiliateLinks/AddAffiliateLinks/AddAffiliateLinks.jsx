@@ -20,7 +20,8 @@ function AddAffiliateLinks({ listData, loading }) {
     const [submitLoading, setSubmitLoading] = useState(false);
     const [AddAffiliate] = useAddAffiliateLinkMutation();
     const [FileName, setFileName] = useState('No file choosen');
-    const [ImageUrl, setImageUrl] = useState('')
+    const [ImageUrl, setImageUrl] = useState('');
+    const [ImageData, setImageData] = useState(null);
 
     console.log(submitLoading, 'SubmitLoading')
 
@@ -62,9 +63,13 @@ function AddAffiliateLinks({ listData, loading }) {
             // "clickCount": data?.clickCount
         }
 
+        const formData = new FormData();
+        formData.append('image', ImageData);
+        formData.append('name', data?.name);
+        formData.append('link', data?.link);
+        formData.append('dropboxLink', data?.dropboxLink);
 
-
-        AddAffiliate({ data: DataForApi })
+        AddAffiliate({ data: formData })
             .then((res) => {
                 if (res.error) {
                     console.log(res.error, 'res.error');
@@ -89,22 +94,16 @@ function AddAffiliateLinks({ listData, loading }) {
         const File = event.target.files[0];
         if (File) {
 
-            setFileName(File.name)
+            setFileName(File.name);
+            setImageData(File);
 
-            const formData = new FormData();
-            formData.append('file', File);
-
-            // const response = await axios.put('https://itgeeks.wrazzle.com/api/shopify/public/upload-image', formData, {
-            //     headers: {
-            //       'hostname': 'wrazzle',
-            //       'location': 'https://www.wrazzle.com',
-            //     }
-            //   });
-            //   setImageUrl(response.data.data.path);
+            // const formData = new FormData();
+            // formData.append('file', File);
         }
         else {
             setFileName('No file choosen');
-            setImageUrl('')
+            setImageUrl('');
+            setImageData(null);
         }
 
     }

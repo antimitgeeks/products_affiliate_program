@@ -56,6 +56,7 @@ function Profile({ listData, loading }) {
   const handleSubmit = (data) => {
 
     setSubmitLoading(true);
+    console.log('Handle profile submit')
 
     let DataForApi = {
       "paypalAddress": data?.payPalAddress,
@@ -112,14 +113,14 @@ function Profile({ listData, loading }) {
                   :
                   <Fragment>
                     <Card className=' w-full'>
-                      <CardHeader className='pb-0'>
+                      {/* <CardHeader className='pb-0'>
                         <H5>Profile Update</H5>
-                        <span>
-                          {/* Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, voluptatibus. */}
-                          {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Error alias enim fugiat explicabo facere vitae culpa incidunt, vel doloremque. Illo laborum nesciunt deleniti inventore impedit! */}
+                      </CardHeader> */}
+                      <div className='pb-0 pt-4 px-[26px]'>
+                        <span className='text-[20px]'>
+                          Profile Update
                         </span>
-
-                      </CardHeader>
+                      </div>
                       <CardBody>
                         <Row className='g-3 pb-3'>
                           <Col md='6'>
@@ -150,13 +151,11 @@ function Profile({ listData, loading }) {
                             <InputComponent label={"Company number"} type={"text"} value={profileProps.values.companyNumber} name='companyNumber' onChange={profileProps.handleChange} placeholder={"Enter company number"} />
 
                           </Col>
-                          {/* <Col md='3' className='mb-3'>
-                            <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
-                          </Col> */}
-                        
+
+
                         </Row>
                         <Row className='g-3'>
-                        <Col md='6 mb-3'>
+                          <Col md='6 mb-3'>
                             <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
                           </Col>
                           <Col md='6'>
@@ -177,6 +176,11 @@ function Profile({ listData, loading }) {
                             </div>
                           </Col>
 
+                        </Row>
+                        <Row className='g-3'>
+                          <Col md='12' className='mb-3'>
+                            <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
+                          </Col>
                         </Row>
                         <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
                           {

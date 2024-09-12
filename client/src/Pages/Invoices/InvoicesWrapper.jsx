@@ -3,7 +3,7 @@ import Invoices from './Invoices';
 
 function InvoicesWrapper() {
   return (
-    <div className='page-body px-4'>
+    <div className='page-body px-4 pb-5'>
         <Invoices/>
     </div>
   )

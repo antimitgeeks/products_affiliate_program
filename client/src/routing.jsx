@@ -3,9 +3,8 @@ import { Routes, Route, } from "react-router-dom";
 // import NoPageFound from './Pages/NoPageFound';
 // import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import EmailAuth from './Pages/ForgetPassword/EmailAuth';
-import Cookies from 'js-cookie'
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
-import { jwtDecode } from 'jwt-decode';
+
 import Header from './components/Header';
 import SignUp from './Pages/SignUp/SignUp';
 import Dashboard from './Pages/Dashboard/Dashboard'
@@ -20,6 +19,10 @@ import AnalyticsWrapper from './Pages/Analytics/AnalyticsWrapper';
 import InvoicesWrapper from './Pages/Invoices/InvoicesWrapper';
 import AffiliateLinksWrapper from './Pages/AffiliateLinks/AffiliateLinksWrapper';
 import AddAffiliateLinksWrapper from './Pages/AffiliateLinks/AddAffiliateLinks/AddAffiliateLinksWrapper';
+
+import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode';
+import AdminDashboardWrapper from './Pages/ADMIN/Dashboard/AdminDashboardWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -38,13 +41,19 @@ function Routing() {
     }, [])
 
 
+
     useEffect(() => {
-        console.log(decodedToken?.role)
-        setRole(decodedToken?.role)
+        if (userToken?.length > 1) {
+            const decodingToken = jwtDecode(userToken);
+            console.log(decodingToken?.role, 'decodedToken');
+            setRole(decodingToken?.role)
+        }
+        console.log('')
+    }, [userToken])
 
-    }, [decodedToken, userToken])
+    const windowLocation = (window.location.href);
 
-    const windowLocation = (window.location.href)
+
 
     return (
         <div className=' w-full h-full'>
@@ -56,16 +65,24 @@ function Routing() {
                 <Route path="/forgot-password/:role" element={<EmailAuth />} />
                 <Route path="/reset-password/:role/:id" element={<ForgetPassword />} />
                 {
-                    authenticateLogin &&
-                    // <Route path='/dashboard/default' element={<RouteLayout />} />
-                    <Route path='/dashboard/' element={<Layout />} >
-                        <Route path='' element={<DashboardWrapper />} />
-                        <Route path='profile' element={<ProfileWrapper />} />
-                        <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
-                        <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
-                        <Route path='invoices' element={<InvoicesWrapper />} />
-                        <Route path='analytics' element={<AnalyticsWrapper />} />
-                    </Route>
+                    authenticateLogin && role != 'admin' ?
+                        <Route path='/dashboard/' element={<Layout />} >
+                            <Route path='' element={<DashboardWrapper />} />
+                            <Route path='profile' element={<ProfileWrapper />} />
+                            <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
+                            <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
+                            <Route path='invoices' element={<InvoicesWrapper />} />
+                            <Route path='analytics' element={<AnalyticsWrapper />} />
+                        </Route>
+                        :
+                        <Route path='/dashboard/' element={<Layout />} >
+                            <Route path='' element={<AdminDashboardWrapper />} />
+                            <Route path='profile' element={<ProfileWrapper />} />
+                            {/* <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
+                            <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
+                            <Route path='invoices' element={<InvoicesWrapper />} />
+                            <Route path='analytics' element={<AnalyticsWrapper />} /> */}
+                        </Route>
                 }
             </Routes>
         </div>
