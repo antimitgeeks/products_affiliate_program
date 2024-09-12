@@ -9,7 +9,7 @@ const {authenticate} = require('../middleware/authentication.js')
 router.post('/add', authenticate,upload.single('image'),controllers.addAffiliate);
 router.post('/list',controllers.getAffiliate)
 router.get('/:id', controllers.redirectShortLink);
-
+    
 
 
 //list affiliate 

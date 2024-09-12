@@ -6,11 +6,11 @@ const {authenticate} = require('../middleware/authentication.js')
 
 router.post('/login',validation.login, controllers.login);
 router.post('/register',validation.register, controllers.register);
-router.put('/updatePassword',authenticate,validation.updatePassword,controllers.updatePassword)
-router.post('/forget-password',controllers.forgetPassword)
-router.post('/reset-password/:id',controllers.resetPassword)
+router.put('/updatePassword',validation.updatePassword,authenticate,controllers.updatePassword)
+router.post('/forget-password',validation.forgotPassword,controllers.forgetPassword)
+router.post('/reset-password/:id',validation.resetPassword,controllers.resetPassword)
 router.post('/profile', authenticate,controllers.getProfile);
-router.put('/profile-update', authenticate,controllers.updateProfile);
+router.put('/profile-update',validation.updateProfile, authenticate,controllers.updateProfile);
 
 module.exports = router;
  
