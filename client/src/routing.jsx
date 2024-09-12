@@ -23,11 +23,14 @@ import AddAffiliateLinksWrapper from './Pages/AffiliateLinks/AddAffiliateLinks/A
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import AdminDashboardWrapper from './Pages/ADMIN/Dashboard/AdminDashboardWrapper';
+import AddInvoiceWrapper from './Pages/ADMIN/Dashboard/AddInvoice/AddInvoiceWrapper';
+import ViewInvoiceWrapper from './Pages/ADMIN/ViewInvoice/ViewInvoiceWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
     const [decodedToken, setDecodedToken] = useState();
-    const [role, setRole] = useState('Admin')
+    const [role, setRole] = useState('');
+    console.log("Hello from Routing")
 
     const userToken = Cookies.get("isLogged");
     //////// Checking if user is logged or not ////////////  
@@ -38,7 +41,7 @@ function Routing() {
         else {
             setAthenticateLogin(true)
         }
-    }, [])
+    }, [userToken])
 
 
 
@@ -49,18 +52,18 @@ function Routing() {
             setRole(decodingToken?.role)
         }
         console.log('')
-    }, [userToken])
-
-    const windowLocation = (window.location.href);
+    }, [userToken, authenticateLogin])
 
 
+    console.log(role, 'ROLEaaa');
+    console.log(authenticateLogin, 'AuthenticateLoginaaa')
 
     return (
         <div className=' w-full h-full'>
             {/* <Header/> */}
             <Routes>
-                <Route path="" element={<Logins auth={setAthenticateLogin} />} />
-                <Route path="/login" element={<Logins auth={setAthenticateLogin} />} />
+                <Route path="" element={<Logins auth={setAthenticateLogin} setRole={setRole} />} />
+                <Route path="/login" element={<Logins auth={setAthenticateLogin} setRole={setRole} />} />
                 <Route path="/register" element={<SignUp auth={setAthenticateLogin} />} />
                 <Route path="/forgot-password/:role" element={<EmailAuth />} />
                 <Route path="/reset-password/:role/:id" element={<ForgetPassword />} />
@@ -78,12 +81,23 @@ function Routing() {
                         <Route path='/dashboard/' element={<Layout />} >
                             <Route path='' element={<AdminDashboardWrapper />} />
                             <Route path='profile' element={<ProfileWrapper />} />
-                            {/* <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
-                            <Route path='invoices' element={<InvoicesWrapper />} />
-                            <Route path='analytics' element={<AnalyticsWrapper />} /> */}
+                            <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
+                            <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
                         </Route>
                 }
+                {/* {console.log(role,'roleeee')}
+                {
+                    authenticateLogin &&
+                        <Route path='/dashboard/' element={ <Layout />} >
+                            <Route path='' element={ role=='admin'?<AdminDashboardWrapper/>:<DashboardWrapper />} />
+                            <Route path='profile' element={<ProfileWrapper />} />
+                            <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
+                            <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
+                            <Route path='invoices' element={<InvoicesWrapper />} />
+                            <Route path='analytics' element={<AnalyticsWrapper />} />
+                        </Route>
+                       
+                } */}
             </Routes>
         </div>
     )

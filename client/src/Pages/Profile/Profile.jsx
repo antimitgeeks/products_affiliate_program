@@ -182,16 +182,19 @@ function Profile({ listData, loading }) {
                             <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
                           </Col>
                         </Row>
-                        <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
-                          {
-                            submitLoading ?
-                              <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                <AiOutlineLoading3Quarters />
-                              </span>
-                              :
-                              "Submit"
-                          }
-                        </Btn>
+
+                        <div className="position-relative form-group mb-0 w-[120px]">
+                          <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
+                            {
+                              submitLoading ?
+                                <span className=' w-full flex py-1  items-center justify-center m-auto self-center animate-spin'>
+                                  <AiOutlineLoading3Quarters />
+                                </span>
+                                :
+                                "Save"
+                            }
+                          </button>
+                        </div>
                       </CardBody>
                     </Card>
                   </Fragment>

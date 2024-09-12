@@ -14,6 +14,7 @@ import * as yup from 'yup';
 import { Form, Formik } from "formik";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
+import { jwtDecode } from 'jwt-decode';
 
 const LoginTab = (props) => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const LoginTab = (props) => {
 
   useEffect(() => {
     if (isLogged) {
-      navigate('/dashboard/');
+      navigate('/dashboard');
     }
   }, [isLogged]);
 
@@ -53,7 +54,10 @@ const LoginTab = (props) => {
         else {
           // toast.success("Login Success...!");
           Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
+          const decodedToken =jwtDecode(res?.data?.result?.accessToken);
+          console.log("DECODEDTOKEN",decodedToken);
           props.props.auth(true);
+          props.props.setRole(decodedToken?.role)
           resetForm();
           navigate(`${process.env.PUBLIC_URL}/dashboard/`);
         }

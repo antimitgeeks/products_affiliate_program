@@ -79,14 +79,11 @@ function PasswordUpdate({ loading }) {
                                             :
                                             <Fragment>
                                                 <Card className=' w-full'>
-                                                    <CardHeader className='pb-0'>
-                                                        <H5>Password Update</H5>
-                                                        <span>
-                                                            {/* Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, voluptatibus. */}
-                                                            {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Error alias enim fugiat explicabo facere vitae culpa incidunt, vel doloremque. Illo laborum nesciunt deleniti inventore impedit! */}
+                                                    <div className='pb-0 pt-4 px-[26px]'>
+                                                        <span className='text-[20px]'>
+                                                            Password Update
                                                         </span>
-
-                                                    </CardHeader>
+                                                    </div>
                                                     <CardBody>
                                                         <Row className='g-3'>
                                                             <Col md='4'>
