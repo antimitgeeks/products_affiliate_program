@@ -10,7 +10,6 @@ exports.addAffiliate = async (req, res, shortId) => {
     try {
         const token = req.headers.authorization.split(' ')[1]
         const userId = jwt.decode(token).id
-        console.log(req.file);
         const details = { ...req.body, userId, url: req.file.originalname }
         const isAlreadyExist = await Affiliate.findOne({
             where: {
@@ -111,14 +110,6 @@ exports.getAffiliate = async (req, res) => {
         result.forEach(obj => {
 
 
-            
-            
-            // else {
-            //     console.log("/tmp/myfile does not exist!");
-            // }
-
-
-
             if (obj.dataValues.url !== null && obj.dataValues.url !== undefined){
 
                 const dir = path.join(__dirname,"..")
@@ -127,8 +118,7 @@ exports.getAffiliate = async (req, res) => {
             if (fs.existsSync(`${newpath}`)) {
 
                 obj.dataValues.url = req.hostname + '/' + obj.dataValues.url
-                console.log(obj.dataValues.url);
-                console.log("/tmp/myfile exists!");
+
                 }
 
                 

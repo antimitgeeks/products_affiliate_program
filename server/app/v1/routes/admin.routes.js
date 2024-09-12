@@ -4,6 +4,6 @@ const router = express.Router();
 const validation = require("../validations/auth.validation.js");
 const {authenticate} = require('../middleware/authentication.js')
 
-router.post('/allUsers');
+router.get('/allUsers',controllers.allUsers);
 
 module.exports = router;
