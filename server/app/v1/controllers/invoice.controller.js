@@ -16,7 +16,7 @@ exports.createInvoice = async(req,res)=>{
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR);
         }
         if (result.status == true && result.result) {
-            return sendResponse(res, statusCode.OK, true, `Invoice ${SuccessMessage.CREATED}`);
+            return sendResponse(res, statusCode.OK, true, `Invoice ${SuccessMessage.CREATED}`,result);
 
         }
         return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST);
@@ -29,4 +29,29 @@ exports.createInvoice = async(req,res)=>{
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
  
     }
+}
+
+exports.userInvoiceList=async (req,res)=>{
+
+    try{
+        const id=req.params.id
+        const result=await service.getInvoiceList(id)
+        if (result.status == false && result.result) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR);
+        }
+        if (result.status == true && result.result) {
+            return sendResponse(res, statusCode.OK, true, `Invoice list ${SuccessMessage.FETCH}`,result);
+
+        }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST);
+
+        
+        
+
+    }catch(error){
+        console.error('Error In Create Invoice', error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+ 
+    }
+
 }
