@@ -57,7 +57,6 @@ exports.redirectShortLink = async (req, res) => {
 //get affiliate
 exports.getAffiliate = async (req, res) => {
     try {
-
         const result = await service.getAffiliate(req, res);
         if (result.status && result) {
             return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.FETCH}fully`, result.result)
@@ -75,4 +74,20 @@ exports.getAffiliate = async (req, res) => {
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
 
     }
-}   
+}
+
+
+//add asign affiliate
+exports.addAssignAffiliate = async (req, res) => {
+    try {
+        const id = req.param.id
+        const details = req.body
+        const result = await service.addAssignAffiliate(id, details)
+        return sendResponse(res, statusCode.CREATED, true, SuccessMessage.CREATED, result)
+
+    } catch (error) {
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
+
+    }
+}

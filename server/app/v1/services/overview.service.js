@@ -16,7 +16,7 @@ exports.getOverviews = async (req, res, id) => {
         const last_date = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999))
 
         const paid = await Invoice.findAll({
-            attributes: [[sequelize.fn("SUM", sequelize.col("commission")),'paidSum']],
+            attributes: [[sequelize.fn("SUM", sequelize.col("commission")), 'paidSum']],
             where: {
                 [Op.and]: [
                     {
@@ -33,7 +33,7 @@ exports.getOverviews = async (req, res, id) => {
             raw: true
         });
         const pending = await Invoice.findAll({
-            attributes: [[sequelize.fn("SUM", sequelize.col("commission")),'pendingSum']],
+            attributes: [[sequelize.fn("SUM", sequelize.col("commission")), 'pendingSum']],
 
             where: {
                 [Op.and]: [
@@ -55,12 +55,11 @@ exports.getOverviews = async (req, res, id) => {
             },
             raw: true
         })
-        console.log(total, "total")
-        console.log(pending, "pending")
         return {
-            paid:paid[0].paidSum,
-            pending:pending[0].pendingSum,
-            total:total[0].sum
+            status: true,
+            paid: paid[0].paidSum,
+            pending: pending[0].pendingSum,
+            total: total[0].sum
         }
 
 
