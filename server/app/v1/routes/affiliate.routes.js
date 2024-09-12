@@ -7,7 +7,7 @@ const upload=require('../middleware/uploadMiddleware.js')
 const {authenticate} = require('../middleware/authentication.js')
 
 router.post('/add', authenticate,upload.single('image'),controllers.addAffiliate);
-router.post('/list',controllers.getAffiliate)
+router.post('/list',authenticate,controllers.getAffiliate)
 router.get('/:id', controllers.redirectShortLink);
     
 

@@ -99,6 +99,9 @@ exports.getAffiliate = async (req, res) => {
     try {
 
         const result = await Affiliate.findAll({
+            where:{
+                userId:req.currUser.id
+            },
             order: [
                 ['id', 'DESC'],
             ]
