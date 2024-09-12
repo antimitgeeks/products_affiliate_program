@@ -6,7 +6,7 @@ const SidebarCusmizer = () => {
     return (
         <Fragment>
             <LayoutType />
-            <SidebarType />
+            {/* <SidebarType /> */}
         </Fragment>
     );
 };

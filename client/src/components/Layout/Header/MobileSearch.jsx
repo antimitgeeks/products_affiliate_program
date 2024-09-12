@@ -56,7 +56,7 @@ const MobileSearch = () => {
             {/* <i className='fa fa-search' /> */}
             <IoSearch/>
           </span>
-        <Input onChange={handleSearch} className={searchMobilOpen ? 'open' : ''} type='text' placeholder='Search Here........' />
+        <Input onChange={handleSearch} className={searchMobilOpen ? 'open' : ''} type='text' placeholder='Search pages ....' />
         </div>
       </InputGroup>
       {suggestionOpen && <SearchSuggestionList setSuggestionOpen={setSuggestionOpen} suggestion={suggestion} />}

@@ -15,11 +15,13 @@ import { useNavigate } from 'react-router-dom';
 
 function AddAffiliateLinks({ listData, loading }) {
 
+    const navigate = useNavigate();
     const options = useMemo(() => countryList().getData(), []);
     const [submitLoading, setSubmitLoading] = useState(false);
     const [AddAffiliate] = useAddAffiliateLinkMutation();
-    const navigate = useNavigate();
-
+    const [FileName, setFileName] = useState('No file choosen');
+    const [ImageUrl, setImageUrl] = useState('');
+    const [ImageData, setImageData] = useState(null);
 
     console.log(submitLoading, 'SubmitLoading')
 
@@ -35,17 +37,17 @@ function AddAffiliateLinks({ listData, loading }) {
         name: '',
         link: '',
         dropboxLink: '',
-        clickCount: '0',
-        purchases: '0',
+        // clickCount: '0',
+        // purchases: '0',
         // companyNumber: listData?.companyNumber || '',
     };
 
     const validationSchema = yup.object().shape({
         name: yup.string().trim("Enter valid name").required("name is required").strict(),
         link: yup.string().trim("Enter valid link").required("link is required").strict(),
-        dropboxLink: yup.string().trim("Enter valid dropboxLink").required("dropboxLink is required").strict(),
-        clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
-        purchases: yup.string().matches(/^\d+$/, "Purchases must be a number").required("Purchases count is required").strict(),
+        dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
+        // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
+        // purchases: yup.string().matches(/^\d+$/, "Purchases must be a number").required("Purchases count is required").strict(),
         // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
     });
 
@@ -54,36 +56,20 @@ function AddAffiliateLinks({ listData, loading }) {
         setSubmitLoading(true);
 
         let DataForApi = {
-            "name":data?.name,
-            "purchases":data?.purchases,
-            "link" : data?.link,
-            "dropboxLink":data?.dropboxLink,
-            "clickCount" : data?.clickCount
+            "name": data?.name,
+            "link": data?.link,
+            "dropboxLink": data?.dropboxLink,
+            // "purchases": data?.purchases,
+            // "clickCount": data?.clickCount
         }
 
+        const formData = new FormData();
+        formData.append('image', ImageData);
+        formData.append('name', data?.name);
+        formData.append('link', data?.link);
+        formData.append('dropboxLink', data?.dropboxLink);
 
-        // console.log(DataForApi, 'submitData');
-
-        // UpdateProfile({ data: DataForApi })
-        //   .then((res) => {
-        //     if (res.error) {
-        //       console.log(res.error, 'res.error');
-        //       toast.error("Internal server error");
-        //       setSubmitLoading(false)
-        //     }
-        //     else {
-        //       console.log(res, 'res');
-        //       toast.success("Data updated successfully");
-        //       setSubmitLoading(false)
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log(err, 'err');
-        //     toast.error("Internal server error");
-        //     setSubmitLoading(false)
-        //   })
-
-        AddAffiliate({ data: DataForApi })
+        AddAffiliate({ data: formData })
             .then((res) => {
                 if (res.error) {
                     console.log(res.error, 'res.error');
@@ -103,6 +89,24 @@ function AddAffiliateLinks({ listData, loading }) {
                 setSubmitLoading(false)
             })
     };
+
+    const handleThumbnail = async (event) => {
+        const File = event.target.files[0];
+        if (File) {
+
+            setFileName(File.name);
+            setImageData(File);
+
+            // const formData = new FormData();
+            // formData.append('file', File);
+        }
+        else {
+            setFileName('No file choosen');
+            setImageUrl('');
+            setImageData(null);
+        }
+
+    }
 
 
     return (
@@ -127,54 +131,45 @@ function AddAffiliateLinks({ listData, loading }) {
                                     :
                                     <Fragment>
                                         <Card className=' w-full'>
-                                            <CardHeader className='pb-0'>
-                                                <H5>Add Links</H5>
-                                                <span>
-                                                    {/* Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, voluptatibus. */}
-                                                    {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Error alias enim fugiat explicabo facere vitae culpa incidunt, vel doloremque. Illo laborum nesciunt deleniti inventore impedit! */}
+                                            {/* <CardHeader>
+                                                <H5 className="text-black">Add Affiliate Links</H5>
+                                            </CardHeader> */}
+                                            <div className='pb-0 pt-4 px-4'>
+                                                <span className='text-[20px]'>
+                                                    Add Affiliate Links
                                                 </span>
-
-                                            </CardHeader>
+                                            </div>
                                             <CardBody>
-                                                <Row className='g-3'>
-                                                    <Col md='4'>
+                                                <Row className='g-3 pb-1'>
+                                                    <Col md='6'>
                                                         {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                                                         {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                                                         <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
                                                     </Col>
-                                                    <Col md='4'>
-                                                        {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
-                                                        {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
+                                                    {/* <Col md='4'>
                                                         <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} />
-
-
-                                                    </Col>
-                                                    <Col md='4 mb-3'>
-                                                        {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
-                                                        {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                        {/* <InputComponent label={"dropboxLink"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} /> */}
-                                                        <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} />
+                                                    </Col> */}
+                                                    <Col md='6 mb-3'>
+                                                        <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} />
 
                                                     </Col>
+                                                    {/* <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} /> */}
+                                                    <br />
+                                                    <br />
                                                 </Row>
                                                 <Row className='g-3'>
                                                     <Col md='6'>
-                                                        {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter City Name *' register={{ ...register('city', { required: 'is Required.' }) }} /> */}
-                                                        {/* City */}
-                                                        {/* <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} /> */}
-                                                        <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} />
-
+                                                        {/* <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} /> */}
+                                                        <InputComponent label={"Dropbox Link"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} />
                                                     </Col>
                                                     <Col md='6'>
                                                         {/* <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> */}
                                                         {/* State */}
-                                                        <InputComponent label={"dropboxLink"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} />
-
-
+                                                        <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} />
                                                     </Col>
                                                 </Row>
 
-                                                <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
+                                                {/* <Btn color="primary" type="submit" className="d-block mt-5  w-[120px]">
                                                     {
                                                         submitLoading ?
                                                             <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
@@ -183,7 +178,17 @@ function AddAffiliateLinks({ listData, loading }) {
                                                             :
                                                             "Submit"
                                                     }
-                                                </Btn>
+                                                </Btn> */}
+                                                <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
+                                                    {
+                                                        submitLoading ?
+                                                            <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                <AiOutlineLoading3Quarters />
+                                                            </span>
+                                                            :
+                                                            "Submit"
+                                                    }
+                                                </button>
                                             </CardBody>
                                         </Card>
                                     </Fragment>

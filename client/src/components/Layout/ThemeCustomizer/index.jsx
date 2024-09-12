@@ -12,14 +12,17 @@ const Themecustomizer = () => {
   });
 
   return (
-    <Fragment>
-      <div className={`customizer-links ${openCus ? 'open' : ''}`}>
-        <NavCustomizer callbackNav={callbackNav} selected={selected} />
-      </div>
-      <div className={`customizer-contain ${openCus ? 'open' : ''}`}>
-        <TabCustomizer selected={selected} callbackNav={callbackNav} />
-      </div>
-    </Fragment>
+    // <Fragment>
+    //   <div className={`customizer-links ${openCus ? 'open' : ''}`}>
+    //     <NavCustomizer callbackNav={callbackNav} selected={selected} />
+    //   </div>
+    //   <div className={`customizer-contain ${openCus ? 'open' : ''}`}>
+    //     <TabCustomizer selected={selected} callbackNav={callbackNav} />
+    //   </div>
+    // </Fragment>
+    <>
+    
+    </>
   );
 };
 

@@ -30,13 +30,6 @@ const ProfileboxDropdown = () => {
         </Link>
       </LI>
       <hr />
-      <LI className="border-0">
-        <Link className=' flex w-full items-center gap-3 p-1' to={`${process.env.PUBLIC_URL}/email/email-inbox`}>
-          <FiMail />
-          <span>{Inbox}</span>
-        </Link>
-      </LI>
-      <hr />
       <LI className="border-0" onClick={logout}>
         <Link className=' flex w-full items-center gap-3 p-1' >
           <FiLogIn />
