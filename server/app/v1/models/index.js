@@ -43,9 +43,6 @@ db.affiliateAssign = require('./affiliateAssign.model.js')(sequelize, Sequelize)
 db.ClickAndPurchases = require('./clicksAndPurchases.model.js')(sequelize, Sequelize)
 db.invoice = require('./invoice.model.js')(sequelize, Sequelize)
 
-db.users.hasMany(db.affiliate);
-db.affiliate.belongsTo(db.users);
-
 db.users.hasMany(db.affiliateAssign);
 db.affiliateAssign.belongsTo(db.users);
 
