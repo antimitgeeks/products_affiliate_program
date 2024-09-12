@@ -4,71 +4,42 @@ const db = require("../models");
 const Invoice = db.invoice;
 const { Op } = require('sequelize')
 const sequelize = require('sequelize')
+
+
 exports.getOverviews = async (req, res, id) => {
     try {
-
-
-        const month = parseInt(req.body.month);
-        const year = parseInt(req.body.year);
-
-        // First day of the given month
+        const { month, year } = req.body;
         const first_date = new Date(Date.UTC(year, month - 1, 1, 0, 0, 0));
-        const last_date = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999))
+        const last_date = new Date(Date.UTC(year, month, 0, 23, 59, 59, 999));
 
-        const paid = await Invoice.findAll({
-            attributes: [[sequelize.fn("SUM", sequelize.col("commission")),'paidSum']],
-            where: {
-                [Op.and]: [
-                    {
-                        createdAt: {
-                            [Op.between]: [first_date, last_date],
-                        },
-                    },
-                    {
-                        userId: id,
-                    },
-                    { [Op.not]: [{ status: 'Cancel' }] }
-                ],
-            },
-            raw: true
+        // Helper to query the sum of commissions
+        const sumCommission = async (statusCondition) => {
+            return await Invoice.findOne({
+                attributes: [[sequelize.fn("SUM", sequelize.col("commission")), 'sum']],
+                where: {
+                    userId: id,
+                    ...statusCondition
+                },
+                raw: true
+            });
+        };
+
+        const paid = await sumCommission({
+            createdAt: { [Op.between]: [first_date, last_date] },
+            status: 'Paid'
         });
-        const pending = await Invoice.findAll({
-            attributes: [[sequelize.fn("SUM", sequelize.col("commission")),'pendingSum']],
 
-            where: {
-                [Op.and]: [
-                    { userId: id },
-                    { status: "Pending" }
-                ]
-            },
-            raw: true
-        })
+        const pending = await sumCommission({ status: "Pending" });
+        const total = await sumCommission({ status: "Paid" });
 
-        const total = await Invoice.findAll({
-            attributes: [[sequelize.fn("SUM", sequelize.col("commission")), "sum"]],
-
-            where: {
-                [Op.and]: [
-                    { userId: id },
-                    { status: "Paid" }
-                ]
-            },
-            raw: true
-        })
-        console.log(total, "total")
-        console.log(pending, "pending")
         return {
-            paid:paid[0].paidSum,
-            pending:pending[0].pendingSum,
-            total:total[0].sum
-        }
-
+            paid: Number(paid?.sum || 0),
+            pending: Number(pending?.sum || 0),
+            total: Number(total?.sum || 0)
+        };
 
     } catch (error) {
-        console.log(error)
-        return {
-            status: false,
-            result: error
-        }
+        console.log(error);
+        return { status: false, result: error };
     }
-}
+};
