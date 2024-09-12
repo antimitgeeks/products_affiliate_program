@@ -59,12 +59,12 @@ function Routing() {
                     authenticateLogin &&
                     // <Route path='/dashboard/default' element={<RouteLayout />} />
                     <Route path='/dashboard/' element={<Layout />} >
-                        <Route path='' element={<DashboardWrapper/>}/>
-                        <Route path='profile' element={<ProfileWrapper/>}/>
-                        <Route path='affiliate-links' element={<AffiliateLinksWrapper/>}/>
-                        <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper/>}/>
-                        <Route path='invoices' element={<InvoicesWrapper/>}/>
-                        <Route path='analytics' element={<AnalyticsWrapper/>}/>
+                        <Route path='' element={<DashboardWrapper />} />
+                        <Route path='profile' element={<ProfileWrapper />} />
+                        <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
+                        <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
+                        <Route path='invoices' element={<InvoicesWrapper />} />
+                        <Route path='analytics' element={<AnalyticsWrapper />} />
                     </Route>
                 }
             </Routes>
@@ -72,4 +72,4 @@ function Routing() {
     )
 }
 
-export default Routing; 
+export default Routing;

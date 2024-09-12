@@ -56,7 +56,7 @@ const Layout = () => {
       <TapTop />
       <div className={`page-wrapper w-full h-full ${defaultClass ? "compact-wrapper" : sidebar_types}`}>
         <Header />
-         
+
         <div className={`page-body-wrapper h-full `}>
           <Sidebar />
           <Outlet />

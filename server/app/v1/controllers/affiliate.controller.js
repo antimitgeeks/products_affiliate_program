@@ -12,6 +12,10 @@ exports.addAffiliate = async (req, res) => {
         //short link id generate
         const shortUrl = await service.shortLink(req, res, link)
         const result = await service.addAffiliate(req, res, shortUrl)
+        if(result.status==false && result.isAlreadyExist==true){
+            return sendResponse(res, statusCode.BAD_REQUEST, false, `Affiliate With Given Name ${ErrorMessage.ALREADY_EXIST}`)
+
+        }
         if (result.status) {
             return sendResponse(res, statusCode.CREATED, true, SuccessMessage.CREATED, result)
 
