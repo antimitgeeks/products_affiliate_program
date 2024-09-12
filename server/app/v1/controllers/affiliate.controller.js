@@ -49,3 +49,26 @@ exports.redirectShortLink = async (req, res) => {
 
     }
 }
+
+//get affiliate
+exports.getAffiliate = async(req,res)=>{
+    try{
+
+        const result = await service.getAffiliate(req,res);
+        if (result.status && result) {
+           return sendResponse(res,statusCode.OK,true, `Affiliate ${SuccessMessage.FETCH}fully`, result.result)
+        }
+        else if (result.status == false && !result.result) {
+            sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+        }
+        else if (result.status == false && result.result) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
+
+        }
+    }catch(error){
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
+
+    }
+}
