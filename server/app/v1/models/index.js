@@ -39,11 +39,15 @@ db.sequelize = sequelize;
 db.users = require("./users.model.js")(sequelize, Sequelize);
 
 db.affiliate = require('./affiliate.model.js')(sequelize, Sequelize)
+db.affiliateAssign = require('./affiliateAssign.model.js')(sequelize, Sequelize)
 db.ClickAndPurchases = require('./clicksAndPurchases.model.js')(sequelize, Sequelize)
 db.invoice = require('./invoice.model.js')(sequelize, Sequelize)
 
 db.users.hasMany(db.affiliate);
 db.affiliate.belongsTo(db.users);
+
+db.users.hasMany(db.affiliateAssign);
+db.affiliateAssign.belongsTo(db.users);
 
 db.users.hasMany(db.invoice)
 db.invoice.belongsTo(db.users)
@@ -51,6 +55,9 @@ db.invoice.belongsTo(db.users)
 
 db.affiliate.hasMany(db.ClickAndPurchases)
 db.ClickAndPurchases.belongsTo(db.affiliate)
+
+db.affiliate.hasMany(db.affiliateAssign)
+db.affiliateAssign.belongsTo(db.affiliate)
 
 db.users.hasMany(db.ClickAndPurchases)
 db.ClickAndPurchases.belongsTo(db.users)
