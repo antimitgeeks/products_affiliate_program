@@ -15,12 +15,14 @@ import { Form, Formik } from "formik";
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 import { jwtDecode } from 'jwt-decode';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const LoginTab = (props) => {
   const navigate = useNavigate();
 
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState('password');
+  const [loading, setLoading] = useState(false);
 
   let isLogged = Cookies.get("isLogged");
   const [Login] = useLoginMutation();
@@ -45,27 +47,32 @@ const LoginTab = (props) => {
 
   const SimpleLoginHandle = (data, { resetForm }) => {
 
+    setLoading(true);
+
     Login({ data: data })
       .then((res) => {
         if (res.error) {
           toast.error(res.error?.data?.message || "Something went wrong");
-          console.log(res.error?.data?.message, 'err')
+          console.log(res.error?.data?.message, 'err');
+          setLoading(false);
         }
         else {
           // toast.success("Login Success...!");
           Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
-          const decodedToken =jwtDecode(res?.data?.result?.accessToken);
-          console.log("DECODEDTOKEN",decodedToken);
+          const decodedToken = jwtDecode(res?.data?.result?.accessToken);
+          console.log("DECODEDTOKEN", decodedToken);
           props.props.auth(true);
           props.props.setRole(decodedToken?.role)
           resetForm();
-          navigate(`${process.env.PUBLIC_URL}/dashboard/`);
+          navigate(`${process.env.PUBLIC_URL}/dashboard`);
+          setLoading(false);
         }
 
       })
       .catch((err) => {
         console.log(err, 'err')
         toast.error("Please Enter valid email or password...!");
+        setLoading(false)
       })
 
   };
@@ -114,8 +121,18 @@ const LoginTab = (props) => {
                 Sign In
               </Btn> */}
 
-              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
+              {/* <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
                 Sign In
+              </button> */}
+              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
+                {
+                  loading ?
+                    <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                      <AiOutlineLoading3Quarters />
+                    </span>
+                    :
+                    "Sign In"
+                }
               </button>
               <div className=" pt-3 w-full flex items-center justify-center">
                 <hr />

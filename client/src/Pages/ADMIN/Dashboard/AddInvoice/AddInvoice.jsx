@@ -101,7 +101,7 @@ function AddInvoice({ id }) {
                                             {/* <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
                                                 Submit
                                             </Btn> */}
-                                            <div className=' w-[120px]'>
+                                            <div className=' w-[120px] mt-3'>
                                                 <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
                                                     Submit
                                                 </button>

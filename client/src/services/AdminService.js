@@ -9,9 +9,9 @@ const AdminService = CreateApi.injectEndpoints(
                         providesTags: ['admin'],
                         query: ({ Id, data }) => (
                             {
-                                url:`/admin/allUsers`,
-                                method:"POST",
-                                body:data
+                                url: `/admin/allUsers`,
+                                method: "POST",
+                                body: data
                             }
                         )
                     }
@@ -21,28 +21,40 @@ const AdminService = CreateApi.injectEndpoints(
                         invalidatesTags: ['admin'],
                         query: ({ Id, data }) => (
                             {
-                                url:`/invoice/createInvoice`,
-                                method:"POST",
-                                body:data
+                                url: `/invoice/createInvoice`,
+                                method: "POST",
+                                body: data
                             }
                         )
                     }
                 ),
                 GetIndividualInvoiceList: builder.query(
                     {
-                        providesTags:["admin"],
-                        query:({Id,data})=>(
+                        providesTags: ["admin"],
+                        query: ({ Id, data }) => (
                             {
-                                url:`/invoice/userInvoiceList/${Id}`,
-                                method:"POST",
-                                body:data
+                                url: `/invoice/userInvoiceList/${Id}`,
+                                method: "POST",
+                                body: data
                             }
                         )
                     }
-                )
+                ),
+                UpdateInvoiceStatus: builder.mutation(
+                    {
+                        invalidatesTags: ['admin'],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/invoice/updateStatus/${Id}`,
+                                method: "PUT",
+                                body: data
+                            }
+                        )
+                    }
+                ),
             }
         )
     }
 );
 
-export const { useGetUserListQuery ,useAddInvoiceMutation , useGetIndividualInvoiceListQuery } = AdminService;
+export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery , useUpdateInvoiceStatusMutation } = AdminService;

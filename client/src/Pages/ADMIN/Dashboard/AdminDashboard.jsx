@@ -2,6 +2,9 @@ import React from 'react';
 import './AdminDashboard.css';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { IoEyeOutline } from "react-icons/io5";
+import { MdRemoveRedEye } from "react-icons/md";
+import { FaSquarePlus } from "react-icons/fa6";
 
 function AdminDashboard({ loading, ListData }) {
   // const invoices = [
@@ -60,49 +63,63 @@ function AdminDashboard({ loading, ListData }) {
   }
 
   return (
-    <div className='invoices-page'>
-      <div className='table-container'>
-        <table className=''>
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Country</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>Company name</th>
-              <th>Invoices</th>
-            </tr>
-          </thead>
-          <tbody>
+    <>
+      {
+        loading ?
+          <div className=' w-full flex items-center justify-center'>
+            <span className=' w-fit flex  items-center justify-center animate-spin'>
+              <AiOutlineLoading3Quarters />
+            </span>
+          </div>
+          :
+          <div className='invoices-page'>
+            <div className='table-container'>
+              <table className=''>
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Company name</th>
+                    <th>Invoices</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-            {
+                  {
 
-              ListData?.map((itm, indx) => (
-                <tr key={indx}>
-                  <td>{itm?.email}</td>
-                  <td>{itm?.country}</td>
-                  <td>{itm.city}</td>
-                  <td>{itm.address}</td>
-                  <td>{itm.companyName}</td>
-                  <td className=' flex gap-2'>
-                    <span onClick={() => { handleViewInvoice(itm?.id) }} className='cursor-pointer border rounded p-1'>
-                      View
-                    </span>
-                    <span onClick={() => { handleAddInvoice(itm?.id) }} className=' rounded cursor-pointer border p-1'>
-                      Add
-                    </span>
+                    ListData?.map((itm, indx) => (
+                      <tr key={indx}>
+                        <td>{itm?.email}</td>
+                        <td>{itm?.country}</td>
+                        <td>{itm.city}</td>
+                        <td>{itm.address}</td>
+                        <td>{itm.companyName}</td>
+                        <td className=' flex gap-2'>
+                          <span onClick={() => { handleViewInvoice(itm?.id) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
+                            {/* View */}
+                            {/* <IoEyeOutline/> */}
+                            <MdRemoveRedEye size={22} />
+                          </span>
+                          <span onClick={() => { handleAddInvoice(itm?.id) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
+                            {/* Add */}
+                            <FaSquarePlus size={20} />
+                          </span>
 
-                  </td>
-                </tr>
-              ))
-            }
-            <tr className="spacer-row">
-              <td colSpan="5"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+                        </td>
+                      </tr>
+                    ))
+                  }
+                  <tr className="spacer-row">
+                    <td colSpan="5"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      }
+    </>
   );
 }
 

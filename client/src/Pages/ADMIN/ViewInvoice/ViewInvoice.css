@@ -54,6 +54,6 @@ td {
 } */
 
   .invoices-page tbody tr.spacer-row {
-    height: 20px; /* Adjust the height for the space you need */
+    height: 32px; /* Adjust the height for the space you need */
     background-color: transparent; /* Make sure it's invisible */
 }

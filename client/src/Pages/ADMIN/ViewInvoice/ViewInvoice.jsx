@@ -2,12 +2,16 @@ import React from 'react';
 import './ViewInvoice.css';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import Select from 'react-select';
+import { useUpdateInvoiceStatusMutation } from '../../../services/AdminService';
+import toast from 'react-hot-toast';
 
 function ViewInvoice({ loading, listData }) {
 
 
   console.log(listData, 'ListDataaa')
   const navigate = useNavigate();
+  const [UpdateStatus] = useUpdateInvoiceStatusMutation();
 
 
 
@@ -15,19 +19,41 @@ function ViewInvoice({ loading, listData }) {
     navigate(`invoice/view/${id}`)
   }
 
+  const handleSelect = (e, id) => {
+    console.log(e);
+    console.log(id, 'id')
+    const dataForApi = {
+      "status": e?.label
+    }
+    UpdateStatus({ Id: id, data: dataForApi })
+      .then((res) => {
+        if (res?.error) {
+          console.log(res?.error, 'resError');
+          toast.error(res?.error?.data?.message || "Internal server error")
+        }
+        else {
+          toast.success("Invoice updated");
+        }
+      })
+      .catch((err) => {
+        console.log(err, 'catchErr')
+      })
+
+  }
+
   return (
     <>
       {
         loading ?
           <div className=' w-full flex items-center justify-center'>
-            <span className=' w-full flex  items-center justify-center animate-spin'>
+            <span className=' w-fit flex  items-center justify-center animate-spin'>
               <AiOutlineLoading3Quarters />
             </span>
           </div>
           :
           listData?.length <= 0 ?
             <div className=' w-full flex items-center justify-center'>
-              <span className=' w-full flex items-center justify-center'>
+              <span className=' w-full border bg-white py-2 rounded flex items-center justify-center'>
                 No data found
               </span>
             </div>
@@ -54,23 +80,16 @@ function ViewInvoice({ loading, listData }) {
                         <tr key={indx}>
                           <td>{itm?.themeName}</td>
                           <td>{itm?.domain}</td>
-                          <td>{itm.commission}</td>
-                          <td>{itm.status}</td>
-                          {/* <td>{itm.companyName}</td> */}
-                          {/* <td className=' flex gap-2'>
-                  <span onClick={() => { handleViewInvoice(itm?.id) }} className='cursor-pointer border rounded p-1'>
-                    View
-                    </span>
-                    <span onClick={() => { handleAddInvoice(itm?.id) }} className=' rounded cursor-pointer border p-1'>
-                    Add
-                    </span>
+                          <td style={{ paddingLeft: '30px' }}>{itm.commission}%</td>
+                          {/* <td>{itm.status}</td> */}
 
-                    </td> */}
+                          <Select onChange={(e) => handleSelect(e, itm?.id)} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
+                          {/* <td>{itm.companyName}</td> */}
                         </tr>
                       ))
                     }
                     <tr className="spacer-row">
-                      <td colSpan="5"></td>
+                      <td colSpan="3"></td>
                     </tr>
                   </tbody>
 

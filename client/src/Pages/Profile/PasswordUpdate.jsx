@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 function PasswordUpdate({ loading }) {
 
     const [UpdatePassword] = useUpdatePasswordMutation();
+    const [submitLoading, setSubmitLoading] = useState(false);
 
 
 
@@ -29,7 +30,7 @@ function PasswordUpdate({ loading }) {
     });
 
     const handleSubmit = (data, { resetForm }) => {
-
+        setSubmitLoading(true)
         let dataForApi = {
             "oldPassword": data?.oldPassword,
             "newPassword": data?.password,
@@ -39,15 +40,18 @@ function PasswordUpdate({ loading }) {
             .then((res) => {
                 if (res?.error) {
                     console.log(res?.error, 'resError');
-                    toast.error(res?.error?.data?.message || "Internal server error")
+                    toast.error(res?.error?.data?.message || "Internal server error");
+                    setSubmitLoading(false);
                 }
                 else {
                     toast.success("Password updated");
                     resetForm();
+                    setSubmitLoading(false);
                 }
             })
             .catch((err) => {
-                console.log(err, 'catchErr')
+                console.log(err, 'catchErr');
+                setSubmitLoading(false);
             })
     };
 
@@ -104,9 +108,18 @@ function PasswordUpdate({ loading }) {
                                                             </Col>
                                                         </Row>
 
-                                                        <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
-                                                            Submit
-                                                        </Btn>
+                                                        <div className=' w-[120px]'>
+                                                            <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
+                                                                {
+                                                                    submitLoading ?
+                                                                        <span className=' w-full flex py-1  items-center justify-center m-auto self-center animate-spin'>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                        </span>
+                                                                        :
+                                                                        "Update"
+                                                                }
+                                                            </button>
+                                                        </div>
                                                     </CardBody>
                                                 </Card>
                                             </Fragment>
