@@ -49,9 +49,29 @@ exports.userInvoiceList=async (req,res)=>{
         
 
     }catch(error){
-        console.error('Error In Create Invoice', error);
+        console.error('Error In Invoice List', error);
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
  
     }
 
+}
+exports.updateStatus=async (req,res)=>{
+    try {
+
+        const id=req.params.id
+        const status=req.body.status
+        const result=await service.updateStatus(id,status) 
+        if (result.status == true && result.result) {
+            return sendResponse(res, statusCode.OK, true, `Status  ${SuccessMessage.UPDATE}`,result);
+
+        }
+        if (result.status == false && result.result) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR);
+        }
+
+        
+    } catch (error) {
+        console.log('error in update status api',error);
+        return sendResponse(res,statusCode.INTERNAL_SERVER_ERROR,false,ErrorMessage.INTERNAL_SERVER_ERROR,error?.error)
+    }
 }

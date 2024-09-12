@@ -6,5 +6,6 @@ const {authenticate} = require('../middleware/authentication.js')
 
 router.post('/createInvoice',controllers.createInvoice);
 router.get('/userInvoiceList/:id',controllers.userInvoiceList);
+router.put('/updateStatus/:id',controllers.updateStatus);
 
 module.exports = router;
