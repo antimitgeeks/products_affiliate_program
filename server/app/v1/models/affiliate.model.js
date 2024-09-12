@@ -12,6 +12,7 @@
 
 const bcrypt = require('bcrypt');
 const { ENUM } = require('sequelize');
+const { toDefaultValue } = require('sequelize/lib/utils');
 
 module.exports = (sequelize, Sequelize) => {
     /**
@@ -41,10 +42,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         clickCount: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER,
+            toDefaultValue:0
+
         },
         purchases: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER,
+            toDefaultValue:0
         },
     });
 
