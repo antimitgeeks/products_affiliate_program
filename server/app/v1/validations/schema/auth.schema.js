@@ -43,6 +43,7 @@ exports.updateProfile=Joi.object({
     address:Joi.string().optional(),
     companyName:Joi.string().optional(),  
     companyNumber:Joi.number().optional(),
+    companyUrl:Joi.number().optional(),
     phone: Joi.number().max(10).optional(),
     role: Joi.string().valid('Admin', 'User').optional(),
     isActive: Joi.boolean().optional()
