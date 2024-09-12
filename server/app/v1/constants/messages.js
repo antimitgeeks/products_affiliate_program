@@ -28,6 +28,7 @@ module.exports.ErrorMessage = {
   BAD_REQUEST:"Bad Request",
   TOKEN_EXPIRE:"Token Expired",
   NOT_UPDATED:"Not Updted",
+  UNAUTHORIZED_USER:"Unauthorized User"
   
 
 };
