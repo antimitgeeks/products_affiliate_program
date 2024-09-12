@@ -43,3 +43,29 @@ exports.getInvoiceList=async (id)=>{
 
 }
 
+
+exports.updateStatus=async (id,status)=>{
+    try {
+        
+const result =await Invoice.update(
+    { status: status },
+    {
+      where: {
+        id: id,
+      },
+    },
+  );
+ 
+    return {
+        status:true,
+        result:result
+    }
+  
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+}
