@@ -5,16 +5,13 @@ const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: async function (req, file, cb) {
+
     cb(null, `./server/app/v1/utils/images`)
   },
 
   filename: async function (req, file, cb) {
     console.log(" is ");
     const extension = path.extname(file.originalname);
-    //   const fileName= req.file.filename
-    //   const baseFileName=path.parse(fileName).name;
-
-    //   console.log("from file nname",fileName);
     cb(null, file.originalname)
   }
 
