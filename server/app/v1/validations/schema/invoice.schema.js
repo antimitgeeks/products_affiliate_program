@@ -8,5 +8,5 @@ exports.createInvoiceSchema=Joi.object({
 
 
 exports.updateStatuSchema=Joi.object({
-   status:Joi.string().required().valid()
+   status:Joi.string().required().valid("Paid","Pending","Failed")
 })

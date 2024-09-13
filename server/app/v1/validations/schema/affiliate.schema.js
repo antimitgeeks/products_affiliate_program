@@ -8,6 +8,3 @@ exports.addAffiliateSchema=Joi.object({
     purchases:Joi.string().optional(),
 
 })
-exports.paramAffiliateSchema=Joi.object({
-    id:Joi.number().required()
-})

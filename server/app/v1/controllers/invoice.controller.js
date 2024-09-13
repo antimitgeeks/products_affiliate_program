@@ -43,7 +43,10 @@ exports.userInvoiceList=async (req,res)=>{
             return sendResponse(res, statusCode.OK, true, `Invoice list ${SuccessMessage.FETCH}`,result);
 
         }
-        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST);
+        if(result.status==false && !result.result){
+            return sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND,result);
+
+        }
 
         
         
@@ -67,6 +70,9 @@ exports.updateStatus=async (req,res)=>{
         }
         if (result.status == false && result.result) {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR);
+        }
+        if(result.status == false && !result.result){
+            return sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND,result);
         }
 
         
