@@ -54,7 +54,7 @@ exports.getClickAndPurchasesList = async (req, res) => {
             return sendResponse(res, statusCode.NOT_FOUND, false, `Click And Purchases  ${ErrorMessage.NOT_FOUND}`)
         }
         if (result.status == false && result.result) {
-            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR);
         }
         if (result.status == true && result.result) {
             return sendResponse(res, statusCode.OK, true, `Click And  Purchases ${SuccessMessage.LIST_FETCH}`, result.result);
