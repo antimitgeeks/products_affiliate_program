@@ -41,11 +41,11 @@ exports.addClickAndPurchases = async (req, res, type, assignId) => {
 }
 
 //get click and purchases list 
-exports.getClickAndPurchasesList = async (req, res, type, id, name) => {
+exports.getClickAndPurchasesList = async (type, id) => {
     try {
         let result;
-        if (type === 'Purchase') {
-            result = await ClickAndPurchases.findAll({ where: { userId: id, type: "Purchase" } });
+        if (type === 'purchases') {
+            result = await ClickAndPurchases.findAll({ where: { userId: id, type: "purchases" } });
         } else {
             const isAffiliateExist = await Affiliate.findOne(
                 {

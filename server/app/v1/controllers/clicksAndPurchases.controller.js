@@ -40,11 +40,9 @@ exports.addClickAndPurchases = async (req, res) => {
 
 exports.getClickAndPurchasesList = async (req, res) => {
     try {
-        const token = req.header('authorization').split(' ')[1]
-        const id = decode(token).id
+        const userId = req.params.id
         const type = req.body.type
-        const name = req.body.name
-        const result = await clickAndPurchaseServices.getClickAndPurchasesList(req, res, type, id, name)
+        const result = await clickAndPurchaseServices.getClickAndPurchasesList(type, userId)
 
         if (result.isExist == false && result.status == false) {
             return sendResponse(res, statusCode.NOT_FOUND, false, `Affiliate With Given Name  ${ErrorMessage.NOT_FOUND}`)
