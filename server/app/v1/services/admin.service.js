@@ -35,16 +35,41 @@ exports.allUsers = async () => {
     }
 }
 
-exports.notAssignedCustomers = async (affiliateId) => {
-    const affiliateDetails = await AffiliateAssign.findAll({ where: { affiliateId }, attributes: ['userId'] });
-    const assignedUserIds = affiliateDetails.map(detail => detail.userId);
+exports.affiliateListAssign = async (id) => {
+    try {
 
-    const result = await Users.findAll({
-        where: {
-            id: {
-                [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
+
+        const allAdminAffiliates = await AffiliateAssign.findAll({
+            where:
+            {
+                affiliateId: id
+            },
+            include: [
+                {
+                    model: Users,
+                }
+            ]
+        })
+
+
+        console.log(allAdminAffiliates);
+        if (allAdminAffiliates) {
+            return {
+                status: true,
+                result: allAdminAffiliates
             }
         }
-    });
-    return result;
+
+        return {
+            status: false,
+
+        }
+
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
 }

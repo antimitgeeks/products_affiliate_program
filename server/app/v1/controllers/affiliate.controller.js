@@ -93,4 +93,12 @@ exports.addAssignAffiliate = async (req, res) => {
 }
 
 //get affilaite customer
-// exports.getAffiliateCusomter
+exports.getAffiliateCusomter = async(req,res)=>{
+    try{
+
+    }catch(error){
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
+
+    }
+}
