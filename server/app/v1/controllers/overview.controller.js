@@ -10,8 +10,15 @@ exports.getOverviews = async (req, res) => {
     try {
         const token = req.header('authorization').split(' ')[1]
         const id = decode(token).id
-        const result = await overviewService.getOverviews(req,res,id)
-        return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result);
+        const result = await overviewService.getOverviews(req, res, id)
+        const { paid, pending, total } = result
+        if (result.status) {
+            return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, { paid, pending, total });
+        }
+        else{
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+        }
     } catch (error) {
         console.log(error);
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);

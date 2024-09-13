@@ -2,6 +2,7 @@ const shortid = require('shortid');
 const db = require("../models");
 const { Op } = require('sequelize')
 const Affiliate = db.affiliate;
+const AssignAffiliate = db.affiliateAssign
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
 const path = require('path')
@@ -93,11 +94,8 @@ exports.getAffiliate = async (req, res) => {
     try {
 
         const result = await Affiliate.findAll({
-            where: {
-                userId: req.currUser.id
-            },
             order: [
-                ['id', 'DESC'],
+                ['createdAt', 'DESC'],
             ]
         });
 
@@ -140,4 +138,21 @@ exports.getAffiliate = async (req, res) => {
             result: error
         }
     }
+}
+
+//add assgin affiliate service
+exports.addAssignAffiliate = async (id, details) => {
+    try {
+
+        const createdAssign = await AssignAffiliate.bulkCreate([id,[...details]])
+        console.log(createdAssign,"created assign")
+        return true
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+
 }
