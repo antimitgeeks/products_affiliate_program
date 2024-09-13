@@ -12,7 +12,7 @@ import { useAddInvoiceMutation } from '../../../../services/AdminService';
 import { useNavigate } from 'react-router-dom';
 // import { useGetPasswordUpdateDataQuery } from '../../services/AuthServices';
 
-function AddInvoice({ id }) {
+function AddInvoice({ id , email }) {
 
     // const [UpdatePassword] = useUpdatePasswordMutation();
     const navigate = useNavigate();
@@ -73,9 +73,12 @@ function AddInvoice({ id }) {
 
                                 <Fragment>
                                     <Card className=' w-full'>
-                                        <div className='pb-0 pt-4 px-[26px]'>
+                                        <div className='pb-0 pt-4 w-full flex justify-between px-[26px]'>
                                             <span className='text-[20px]'>
                                                 Add Invoice
+                                            </span>
+                                            <span className='font-semibold'>
+                                                {email || ''}
                                             </span>
                                         </div>
                                         <CardBody>

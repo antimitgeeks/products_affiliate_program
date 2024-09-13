@@ -21,7 +21,7 @@ const AffiliateService = CreateApi.injectEndpoints(
                         providesTags: ["links"],
                         query: ({ Id, data }) => (
                             {
-                                url: `/affiliate/${Id}`,
+                                url: `/admin/affiliate/user/${Id}`,
                                 method: "POST",
                                 body: data
                             }
@@ -45,4 +45,4 @@ const AffiliateService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation,useGetIndividualAffiliateListQuery } = AffiliateService;
+export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation, useGetIndividualAffiliateListQuery } = AffiliateService;
