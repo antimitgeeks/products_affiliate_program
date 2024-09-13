@@ -12,7 +12,7 @@ import { useAddInvoiceMutation } from '../../../../services/AdminService';
 import { useNavigate } from 'react-router-dom';
 // import { useGetPasswordUpdateDataQuery } from '../../services/AuthServices';
 
-function AddInvoice({ id , email }) {
+function AddInvoice({ id, email }) {
 
     // const [UpdatePassword] = useUpdatePasswordMutation();
     const navigate = useNavigate();
@@ -32,7 +32,6 @@ function AddInvoice({ id , email }) {
     });
 
     const handleSubmit = (data, { resetForm }) => {
-
         let dataForApi = {
             "userId": id,
             "themeName": data?.themeName,
