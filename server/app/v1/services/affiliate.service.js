@@ -143,10 +143,22 @@ exports.getAffiliate = async (req, res) => {
 //add assgin affiliate service
 exports.addAssignAffiliate = async (id, details) => {
     try {
+        console.log(details, "details")
+        const addedValue = await details.userId.map(async (i) => {
+            return createdAssign = await AssignAffiliate.bulkCreate([{ affilaiteId: id, userId: i }])
 
-        const createdAssign = await AssignAffiliate.bulkCreate([id,[...details]])
-        console.log(createdAssign,"created assign")
-        return true
+        })
+        const result = await Promise.all(addedValue).then((i)=>{
+            return i
+        })
+        
+        if (addedValue) {
+            return {
+                status: true,
+                result: result
+            }
+        }
+        return false
     } catch (error) {
         console.log(error)
         return {
