@@ -7,6 +7,7 @@ const AffiliateAssign = db.affiliateAssign
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
 const path = require('path')
+const { Op, where } = require('sequelize');
 
 exports.allUsers = async () => {
     try {
@@ -34,21 +35,16 @@ exports.allUsers = async () => {
     }
 }
 
-exports.affiliateListAssign = async (id) => {
-    const Users = await Users.findAll()
-//     const result = Users.map((i) => {
-//         // const allAdminAffiliates = await AffiliateAssign.findAll(
-//             // { where: { affiliateId: id },{ userId: i.id }}
-//     )
-// })
+exports.notAssignedCustomers = async (affiliateId) => {
+    const affiliateDetails = await AffiliateAssign.findAll({ where: { affiliateId }, attributes: ['userId'] });
+    const assignedUserIds = affiliateDetails.map(detail => detail.userId);
 
-const assignListData = await Users.findAll({
-    include: [
-
-        { model: Affiliate, attributes: ['name'] }
-    ]
-})
-console.log(assignListData);
-    
-    
+    const result = await Users.findAll({
+        where: {
+            id: {
+                [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
+            }
+        }
+    });
+    return result;
 }
