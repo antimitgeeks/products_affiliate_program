@@ -71,7 +71,7 @@ const MixLayoutComponent = () => {
             </UL>
           </div>
         </LI>
-        <LI
+        {/* <LI
           className={`color-layout border ${tabvalue === 3 ? 'active' : ''}`}
           dataattr='dark-only'
           onClick={() => {
@@ -87,7 +87,7 @@ const MixLayoutComponent = () => {
               <LI className='bg-dark body'> </LI>
             </UL>
           </div>
-        </LI>
+        </LI> */}
       </UL>
     </Fragment>
   );

@@ -47,8 +47,8 @@ const LayoutType = () => {
   return (
     <Fragment>
       <H6>{layoutType}</H6>
-      <UL className='simple-list main-layout layout-grid'>
-        <LI className={`${layout_type === 'ltr' ? 'active' : ''}`} dataattr='ltr' onClick={() => handleLayout('ltr')}>
+      <UL className='simple-list flex flex-col items-start gap-4 main-layout layout-grid'>
+        <LI className={` border ${layout_type === 'ltr' ? 'active' : ''}`} dataattr='ltr' onClick={() => handleLayout('ltr')}>
           <div className='header bg-light'>
             <CommenUL />
           </div>
@@ -61,7 +61,7 @@ const LayoutType = () => {
             </UL>
           </div>
         </LI>
-        <LI className={`${layout_type === 'rtl' ? 'active' : ''}`} dataattr='rtl' onClick={() => handleLayout('rtl')}>
+        {/* <LI className={` broder ${layout_type === 'rtl' ? 'active' : ''}`} dataattr='rtl' onClick={() => handleLayout('rtl')}>
           <div className='header bg-light'>
             <CommenUL />
           </div>
@@ -73,12 +73,12 @@ const LayoutType = () => {
               <LI className='bg-light sidebar'></LI>
             </UL>
           </div>
-        </LI>
-        <LI className={`px-3 ${layout_type === 'box-layout' ? 'active' : ''}`} dataattr='ltr' onClick={() => handleLayout('box-layout')}>
+        </LI> */}
+        <LI className={` border px-3 ${layout_type === 'box-layout' ? 'active' : ''}`} dataattr='ltr' onClick={() => handleLayout('box-layout')}>
           <div className='header bg-light'>
             <CommenUL />
           </div>
-          <div className='body'>
+          <div className='body border'>
             <UL className='simple-list'>
               <LI className='bg-light sidebar'></LI>
               <LI className='bg-light body'>

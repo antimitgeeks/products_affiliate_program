@@ -12,6 +12,7 @@ function InputComponent(
         label,
         required,
         defaultValue,
+        fileName,
         auto
     }
 ) {
@@ -21,26 +22,30 @@ function InputComponent(
             {
                 label && <span className=' pl-[3px] font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span>} </span>
             }
-            {/* <input
-                    autoSave='off'
-                    value={value}
-                    autoComplete={auto}
-                    defaultValue={defaultValue}
-                    name={name}
-                    onChange={onChange}
-                    className='px-2 py-2 rounded w-full border font-semibold outline-none'
-                    type={type}
-                    placeholder={placeholder}
-                /> */}
-            <Input
-                value={value}
-                autoComplete={auto}
-                defaultValue={defaultValue}
-                name={name}
-                onChange={onChange}
-                className=' py-2 w-full form-control border h-10 rounded-[10px]'
-                type={type}
-                placeholder={placeholder} />
+            {
+                type == "file" ?
+                    <div className='py-2 flex gap-3 w-full form-control border h-10 rounded-[10px]'>
+                        <label className='border-r-2 pr-3 cursor-pointer h-full w-1/4' htmlFor='filee'>Select file</label>
+                        <Input
+                            id='filee'
+                            name={name}
+                            onChange={onChange}
+                            className='display-none hidden'
+                            type='file' />
+
+                        <span className='overflow-hidden truncate .. text-ellipsis w-4/5'>{fileName}</span>
+                    </div>
+                    :
+                    <Input
+                        value={value}
+                        autoComplete={auto}
+                        defaultValue={defaultValue}
+                        name={name}
+                        onChange={onChange}
+                        className=' py-2 w-full form-control border h-10 rounded-[10px]'
+                        type={type}
+                        placeholder={placeholder} />
+            }
 
             {
                 name &&

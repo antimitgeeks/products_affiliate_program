@@ -19,13 +19,6 @@ module.exports = (sequelize, Sequelize) => {
      * @type {Model}
      */
     const Affiliate = sequelize.define("affiliate", {
-        userId: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: "users",
-                key: 'id',
-            },
-        },
         name: {
             type: Sequelize.STRING,
         },
@@ -40,14 +33,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         dropboxLink: {
             type: Sequelize.STRING
-        },
-        clickCount: {
-            type: Sequelize.INTEGER,
-            defaultValue: 0
-        },
-        purchases: {
-            type: Sequelize.INTEGER,
-            defaultValue: 0
         },
         imageUrl: {
             type: Sequelize.STRING

@@ -25,3 +25,14 @@ exports.allUsers=async (req,res)=>{
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
     }
 }
+
+exports.affiliateListAssign=async(req,res)=>{
+    try {
+        const afiliateId = req.params.id
+        const users=service.affiliateListAssign(afiliateId);
+        
+    } catch (error) {
+        console.error('Error in all affiliate  list assign api : ', error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+    }
+}

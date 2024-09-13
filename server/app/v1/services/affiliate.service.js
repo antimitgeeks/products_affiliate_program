@@ -2,25 +2,22 @@ const shortid = require('shortid');
 const db = require("../models");
 const { Op } = require('sequelize')
 const Affiliate = db.affiliate;
+const AssignAffiliate = db.affiliateAssign
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
-const path=require('path')
+const path = require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
-        const token = req.headers.authorization.split(' ')[1]
-        const userId = jwt.decode(token).id
-        const details = { ...req.body, userId, imageUrl: req.file.originalname }
+        const details = { ...req.body, imageUrl: req.file.originalname }
         const isAlreadyExist = await Affiliate.findOne({
             where: {
                 [Op.and]:
                     [
                         { name: req.body.name },
-                        { userId: userId }
                     ]
             }
         })
-        console.log(isAlreadyExist,"already exist")
         if (isAlreadyExist) {
             return {
                 status: false,
@@ -30,7 +27,6 @@ exports.addAffiliate = async (req, res, shortId) => {
         details.shortId = shortId
         const host = await req.headers.host
         details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}`
-
         const result = await Affiliate.create(details)
         if (result) {
             return {
@@ -98,11 +94,8 @@ exports.getAffiliate = async (req, res) => {
     try {
 
         const result = await Affiliate.findAll({
-            where:{
-                userId:req.currUser.id
-            },
             order: [
-                ['id', 'DESC'],
+                ['createdAt', 'DESC'],
             ]
         });
 
@@ -110,21 +103,21 @@ exports.getAffiliate = async (req, res) => {
         result.forEach(obj => {
 
 
-            if (obj.dataValues.imageUrl !== null && obj.dataValues.imageUrl !== undefined){
+            if (obj.dataValues.imageUrl !== null && obj.dataValues.imageUrl !== undefined) {
 
-                const dir = path.join(__dirname,"..")
-                const newpath=  `${dir}/utils/images/${obj.dataValues.imageUrl}`
+                const dir = path.join(__dirname, "..")
+                const newpath = `${dir}/utils/images/${obj.dataValues.imageUrl}`
 
-            if (fs.existsSync(`${newpath}`)) {
+                if (fs.existsSync(`${newpath}`)) {
 
-                obj.dataValues.imageUrl = req.hostname + '/' + obj.dataValues.imageUrl
+                    obj.dataValues.imageUrl = req.hostname + '/' + obj.dataValues.imageUrl
 
                 }
 
-                
-   
+
+
             }
-            
+
         });
 
 
@@ -145,4 +138,33 @@ exports.getAffiliate = async (req, res) => {
             result: error
         }
     }
+}
+
+//add assgin affiliate service
+exports.addAssignAffiliate = async (id, details) => {
+    try {
+        console.log(details, "details")
+        const addedValue = await details.userId.map(async (i) => {
+            return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: id, userId: i }])
+
+        })
+        const result = await Promise.all(addedValue).then((i)=>{
+            return i
+        })
+        
+        if (addedValue) {
+            return {
+                status: true,
+                result: result
+            }
+        }
+        return false
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+
 }

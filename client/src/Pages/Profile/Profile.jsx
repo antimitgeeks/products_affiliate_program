@@ -56,6 +56,7 @@ function Profile({ listData, loading }) {
   const handleSubmit = (data) => {
 
     setSubmitLoading(true);
+    console.log('Handle profile submit')
 
     let DataForApi = {
       "paypalAddress": data?.payPalAddress,
@@ -91,7 +92,7 @@ function Profile({ listData, loading }) {
 
 
   return (
-    <>
+    <div className=' pt-6'>
       <Formik
         enableReinitialize
         validationSchema={validationSchema}
@@ -112,55 +113,52 @@ function Profile({ listData, loading }) {
                   :
                   <Fragment>
                     <Card className=' w-full'>
-                      <CardHeader className='pb-0'>
+                      {/* <CardHeader className='pb-0'>
                         <H5>Profile Update</H5>
-                        <span>
-                          {/* Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, voluptatibus. */}
-                          {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Error alias enim fugiat explicabo facere vitae culpa incidunt, vel doloremque. Illo laborum nesciunt deleniti inventore impedit! */}
+                      </CardHeader> */}
+                      <div className='pb-0 pt-4 px-[26px]'>
+                        <span className='text-[20px]'>
+                          Profile Update
                         </span>
-
-                      </CardHeader>
+                      </div>
                       <CardBody>
-                        <Row className='g-3'>
-                          <Col md='4'>
+                        <Row className='g-3 pb-3'>
+                          <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                             <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Name, email, address' onChange={profileProps.handleChange} />
                           </Col>
-                          <Col md='4'>
+                          <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                             {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
                             <InputComponent label={"City"} type={"text"} value={profileProps.values.city} name='city' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
 
                           </Col>
-                          <Col md='4 mb-3'>
-                            {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
-                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
+                          {/* <Col md='4 mb-3'>
                             <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
-                          </Col>
+                          </Col> */}
                         </Row>
-                        <Row className='g-3'>
+                        <Row className='g-3 pb-3'>
                           <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter City Name *' register={{ ...register('city', { required: 'is Required.' }) }} /> */}
                             {/* City */}
                             <InputComponent label={"Company name"} type={"text"} value={profileProps.values.companyName} name='companyName' onChange={profileProps.handleChange} placeholder={"Enter company name"} />
 
                           </Col>
-                          <Col md='3'>
+                          <Col md='6'>
                             {/* <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> */}
                             {/* State */}
                             <InputComponent label={"Company number"} type={"text"} value={profileProps.values.companyNumber} name='companyNumber' onChange={profileProps.handleChange} placeholder={"Enter company number"} />
 
                           </Col>
-                          <Col md='3' className='mb-3'>
-                            {/* <InputControl controlInput='input' className='form-control' type='number' errors={errors} placeholder='Enter Zip Code *' register={{ ...register('zip', { required: 'is Required.', minLength: '6', maxLength: '6' }) }} /> */}
-                            {/* Zip */}
-                            <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
 
-                          </Col>
+
                         </Row>
                         <Row className='g-3'>
-                          <Col md='4'>
+                          <Col md='6 mb-3'>
+                            <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
+                          </Col>
+                          <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                             {/* <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={profileProps.handleChange} /> */}
@@ -179,16 +177,24 @@ function Profile({ listData, loading }) {
                           </Col>
 
                         </Row>
-                        <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
-                          {
-                            submitLoading ?
-                              <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                <AiOutlineLoading3Quarters />
-                              </span>
-                              :
-                              "Submit"
-                          }
-                        </Btn>
+                        <Row className='g-3'>
+                          <Col md='12' className='mb-3'>
+                            <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
+                          </Col>
+                        </Row>
+
+                        <div className="position-relative form-group mb-0 w-[120px]">
+                          <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
+                            {
+                              submitLoading ?
+                                <span className=' w-full flex py-1  items-center justify-center m-auto self-center animate-spin'>
+                                  <AiOutlineLoading3Quarters />
+                                </span>
+                                :
+                                "Save"
+                            }
+                          </button>
+                        </div>
                       </CardBody>
                     </Card>
                   </Fragment>
@@ -200,8 +206,8 @@ function Profile({ listData, loading }) {
         }
         {/* Profile Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt veniam velit porro fugit nulla eligendi iusto veritatis nemo quod! Veniam quia aperiam omnis repellendus, pariatur molestias inventore perferendis ullam magni consequuntur amet repudiandae. Porro debitis perspiciatis modi excepturi ipsa soluta odio cumque provident sapiente sint fugit temporibus, culpa, harum dolor. */}
       </Formik>
-      <PasswordUpdate loading={loading}/>
-    </>
+      <PasswordUpdate loading={loading} />
+    </div>
   )
 }
 

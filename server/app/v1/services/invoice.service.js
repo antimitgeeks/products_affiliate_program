@@ -23,27 +23,15 @@ exports.createInvoice = async (body) => {
 exports.getInvoiceList = async (id) => {
 
     try {
-
-        const result = await Invoice.findAll({
-            where: {
-                userId: id
-            }
-        })
-
-        if (result.length > 0) {
-            return {
-                status: true,
-                result: result
-            }
+        
+        const result=await Invoice.findAll({where:{
+            userId:id
+        }})
+        return {
+            status:true,
+            result:result
         }
-        else {
-            return {
-                status: false,
-
-            }
         }
-
-    }
 
     catch (error) {
         console.log(error)
@@ -58,32 +46,21 @@ exports.getInvoiceList = async (id) => {
 
 exports.updateStatus = async (id, status) => {
     try {
-
-        const isExist = await Invoice.findByPk(id)
-        if (isExist) {
-
-            const result = await Invoice.update(
-                { status: status },
-                {
-                    where: {
-                        id: id,
-                    },
-                },
-            );
-
-            return {
-                status: true,
-                result: result
-            }
-        }
-        else {
-            return {
-                status: false,
-
-            }
-        }
-
-
+        
+const result =await Invoice.update(
+    { status: status },
+    {
+      where: {
+        id: id,
+      },
+    },
+  );
+ 
+    return {
+        status:true,
+        result:result
+    }
+  
     } catch (error) {
         console.log(error)
         return {

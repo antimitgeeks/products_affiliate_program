@@ -9,7 +9,7 @@ const ConfigDB = {
   },
   color: {
     primary_color: localStorage.getItem('default_color') ?? '#3e5fce',
-    secondary_color: localStorage.getItem('secondary_color') ?? '#ffce00',
+    secondary_color: localStorage.getItem('secondary_color') ?? 'white',
     mix_background_layout: 'light-only',
   },
   router_animation: 'fadeIn',

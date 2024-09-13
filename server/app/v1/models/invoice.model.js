@@ -28,6 +28,7 @@ module.exports = (sequelize, Sequelize) => {
         ,
         themeName: {
             type: Sequelize.STRING,
+            unique: false
         },
         domain: {
             type: Sequelize.STRING
@@ -37,8 +38,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         status: {
             type: Sequelize.ENUM,
-            values: ['Pending','Paid','Failed'],
-            defaultValue:"Pending"
+            values: ['Pending', 'Paid', 'Failed'],
+            defaultValue: "Pending"
         },
     });
 

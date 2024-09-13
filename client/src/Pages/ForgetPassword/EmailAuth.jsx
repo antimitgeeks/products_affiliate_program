@@ -241,8 +241,8 @@ function EmailAuth() {
         ForgotPassword({ data: registerData })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error.data.message, 'forgot err')
-                    toast.error(res.error.data.message || "Something went wrong");
+                    console.log(res?.error?.data?.message, 'forgot err')
+                    toast.error(res?.error?.data?.message || "Something went wrong");
                     setShowMessage(false);
                     setLoading(false)
                 }
@@ -257,6 +257,7 @@ function EmailAuth() {
             })
             .catch((err) => {
                 console.log(err, 'forgot error');
+                toast.error(err?.data?.message || "Something went wrong");
                 setLoading(false);
             })
 
@@ -278,38 +279,52 @@ function EmailAuth() {
                             <Row>
                                 <Col xs="12">
                                     <div className="login-card flex-column">
-                                        <div className="logo">
-                                            <Image
+                                        {/* <Image
                                                 className="img-fluid for-light mx-auto h-[65px] w-[65px]"
                                                 src={require("../../Assets/logo/itg_logo.webp")}
-                                            />
-                                        </div>
+                                            /> */}
                                         <div className=" w-full flex items-center justify-center login-tab">
                                             <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
                                                 <div className=" w-full md:w-[45%]">
 
                                                     <div className="theme-form flex flex-col gap-3 p-2">
-                                                        <H4 className="text-center font-semibold text-2xl">Forgot password</H4>
+                                                        <div className=' flex flex-col gap-3'>
+                                                            <Image
+                                                                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
+                                                                src={require("../../Assets/logo/itg_logo.webp")}
+                                                            />
+                                                            <H4 className="text-center font-semibold text-2xl">Forgot password</H4>
+                                                        </div>
                                                         <P className="text-center">{"Enter your email to get reset link"}</P>
                                                         {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
                                                         <div className=' w-full flex flex-col gap-6 pb-4'>
                                                             <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} />
                                                         </div>
                                                         <div className="position-relative form-group mb-0">
-                                                            <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
+                                                            {/* <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
                                                                 {
                                                                     loading ?
-                                                                    <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                                                        <AiOutlineLoading3Quarters />
-                                                                    </span>
+                                                                        <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                        </span>
                                                                         :
                                                                         "Submit"
                                                                 }
-                                                            </Btn>
+                                                            </Btn> */}
+                                                            <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
+                                                                {
+                                                                    loading ?
+                                                                        <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                        </span>
+                                                                        :
+                                                                        "Submit"
+                                                                }
+                                                            </button>
                                                         </div>
                                                         <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
                                                             Remember your password ?
-                                                            <Link className='ms-2 text-[#3E5FCE]' to={`${process.env.PUBLIC_URL}/login`}>
+                                                            <Link className='ms-2 text-black' to={`${process.env.PUBLIC_URL}/login`}>
                                                                 Sign in
                                                             </Link>
                                                         </P>
