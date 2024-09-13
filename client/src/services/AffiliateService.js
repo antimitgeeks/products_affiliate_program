@@ -16,6 +16,18 @@ const AffiliateService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
+                GetIndividualAffiliateList: builder.query(
+                    {
+                        providesTags: ["links"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
                 AddAffiliateLink: builder.mutation(
                     {
                         invalidatesTags: ["links"],
@@ -33,4 +45,4 @@ const AffiliateService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation } = AffiliateService;
+export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation,useGetIndividualAffiliateListQuery } = AffiliateService;

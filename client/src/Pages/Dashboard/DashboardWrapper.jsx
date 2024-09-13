@@ -9,8 +9,8 @@ function DashboardWrapper() {
 
   const [loading, setLoading] = useState(false);
   const [ListData, setListData] = useState([]);
-  const [OverViewData,setOverViewData] = useState([]);
-  const [overviewLoading,setOverViewLoading]= useState(false);
+  const [OverViewData, setOverViewData] = useState([]);
+  const [overviewLoading, setOverViewLoading] = useState(false);
 
   const userToken = Cookies.get("isLogged");
   const [userId, setUserId] = useState('')
@@ -43,26 +43,24 @@ function DashboardWrapper() {
   //////// fetching monthly analysis ////////
 
 
-  const { data: analysisData, isFetching: isAnalysisFetching, isLoading: isAnalysisLoading } = useGetMonthlyAnalysisQuery(
-    {
+  const { data: analysisData, isFetching: isAnalysisFetching, isLoading: isAnalysisLoading } = useGetMonthlyAnalysisQuery({
+    data: {
       "month": "09",
       "year": "2024"
     }
+  }
   )
 
-  useEffect(()=>
-  {
-    if(isAnalysisFetching || isAnalysisLoading)
-    {
+  useEffect(() => {
+    if (isAnalysisFetching || isAnalysisLoading) {
       setOverViewLoading(true);
     }
-    else
-    {
+    else {
       setOverViewLoading(false);
       setOverViewData(analysisData?.result)
     }
 
-  },[analysisData,isAnalysisFetching,isAnalysisLoading])
+  }, [analysisData, isAnalysisFetching, isAnalysisLoading])
 
 
   return (

@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Btn, H5 } from '../../components/AbstractElements';
 import { FaLink } from "react-icons/fa6";
 
-function AffiliateLinks({ listData }) {
+function AdminAffiliateLinks({ listData }) {
 
   console.log(listData, 'ListDataa');
 
@@ -22,9 +21,9 @@ function AffiliateLinks({ listData }) {
           {/* <Btn className="bg-white text-black" onClick={() => navigate('add')}>
             Create Links
           </Btn> */}
-          {/* <span onClick={() => navigate('add')} className=' cursor-pointer p-2 bg-black text-white rounded'>
+          <span onClick={() => navigate('add')} className=' cursor-pointer p-2 bg-black text-white rounded'>
             Create Links
-          </span> */}
+          </span>
         </div>
         <div className='w-full flex flex-col h-full items-center gap-8 mt-3 '>
 
@@ -63,11 +62,11 @@ function AffiliateLinks({ listData }) {
                       </div>
                     </div>
                     <div className=' flex gap-6'>
-                      <div className='border rounded px-2 py-1'>
-                        {itm?.clickCount || '0'} Click
+                      <div className='border rounded px-2 py-1 cursor-pointer'>
+                        Assign 
                       </div>
-                      <div className='border rounded px-2 py-1'>
-                        {itm?.purchases || '0'} Purchases
+                      <div className='border rounded px-2 py-1 cursor-pointer'>
+                        Assigned list
                       </div>
                     </div>
                   </div>
@@ -81,4 +80,4 @@ function AffiliateLinks({ listData }) {
   )
 }
 
-export default AffiliateLinks;
+export default AdminAffiliateLinks;

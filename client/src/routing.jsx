@@ -25,6 +25,8 @@ import { jwtDecode } from 'jwt-decode';
 import AdminDashboardWrapper from './Pages/ADMIN/Dashboard/AdminDashboardWrapper';
 import AddInvoiceWrapper from './Pages/ADMIN/Dashboard/AddInvoice/AddInvoiceWrapper';
 import ViewInvoiceWrapper from './Pages/ADMIN/ViewInvoice/ViewInvoiceWrapper';
+import AdminAffiliateLinksWrapper from './Pages/ADMIN/Affiliate/AdminAffiliateLinksWrapper';
+import AdminAddAffiliateLinksWrapper from './Pages/ADMIN/Affiliate/AddAffiliate/AddAffiliateLinksWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -73,7 +75,7 @@ function Routing() {
                             <Route path='' element={<DashboardWrapper />} />
                             <Route path='profile' element={<ProfileWrapper />} />
                             <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
+                            {/* <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} /> */}
                             <Route path='invoices' element={<InvoicesWrapper />} />
                             <Route path='analytics' element={<AnalyticsWrapper />} />
                         </Route>
@@ -83,21 +85,10 @@ function Routing() {
                             <Route path='profile' element={<ProfileWrapper />} />
                             <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
                             <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
+                            <Route path='affiliate-links' element={<AdminAffiliateLinksWrapper />} />
+                            <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper/>} />
                         </Route>
                 }
-                {/* {console.log(role,'roleeee')}
-                {
-                    authenticateLogin &&
-                        <Route path='/dashboard/' element={ <Layout />} >
-                            <Route path='' element={ role=='admin'?<AdminDashboardWrapper/>:<DashboardWrapper />} />
-                            <Route path='profile' element={<ProfileWrapper />} />
-                            <Route path='affiliate-links' element={<AffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} />
-                            <Route path='invoices' element={<InvoicesWrapper />} />
-                            <Route path='analytics' element={<AnalyticsWrapper />} />
-                        </Route>
-                       
-                } */}
             </Routes>
         </div>
     )

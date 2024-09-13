@@ -13,7 +13,7 @@ export const MENU = [
       {
         title: 'Affiliate Links',
         icon: <FiGitPullRequest />,
-        url: `affiliate-links`,
+        url: `/dashboard/affiliate-links`,
         bookmark: true
       },
       {
@@ -24,7 +24,7 @@ export const MENU = [
       {
         title: 'Analytics',
         icon: <FiList />,
-        url: `analytics`,
+        url: `/dashboard/analytics`,
         bookmark: true
       }
     ],
