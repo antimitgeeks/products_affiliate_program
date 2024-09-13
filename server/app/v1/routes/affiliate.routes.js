@@ -10,6 +10,7 @@ router.post('/add', authenticate, upload.single('image'), controllers.addAffilia
 router.post('/list', authenticate, controllers.getAffiliate)
 router.get('/:id', controllers.redirectShortLink);
 router.post('/assign-affiliate/add/:id',controllers.addAssignAffiliate)
+// router.get('/assigned-affiliate/get',controllers) //get affiliate customer
 
 module.exports = router;
 

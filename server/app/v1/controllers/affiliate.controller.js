@@ -80,7 +80,7 @@ exports.getAffiliate = async (req, res) => {
 //add asign affiliate
 exports.addAssignAffiliate = async (req, res) => {
     try {
-        const id = req.param.id
+        const id = req.params.id
         const details = req.body
         const result = await service.addAssignAffiliate(id, details)
         return sendResponse(res, statusCode.CREATED, true, SuccessMessage.CREATED, result)
@@ -91,3 +91,6 @@ exports.addAssignAffiliate = async (req, res) => {
 
     }
 }
+
+//get affilaite customer
+// exports.getAffiliateCusomter
