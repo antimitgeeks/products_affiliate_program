@@ -25,16 +25,16 @@ module.exports = (sequelize, Sequelize) => {
                 key: 'id',
             },
         },
-        affiliateId: {
+        assignAffiliateId: {
             type: Sequelize.INTEGER,
             references: {
-                model: "affiliate",
+                model: "affiliateAssign",
                 key: 'id',
             },
         },
         type: {
             type: Sequelize.ENUM,
-            values: ['Click', 'Purchase'],
+            values: ['clicks', 'purchases'],
 
         },
 

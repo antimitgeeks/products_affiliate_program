@@ -12,9 +12,9 @@ const { decode } = require('jsonwebtoken');
 //add click and purchases controllers
 exports.addClickAndPurchases = async (req, res) => {
     try {
-        const affiliateId = req.params.id
+        const assignId = req.params.id
         const type = req.body.type
-        const result = await clickAndPurchaseServices.addClickAndPurchases(req, res, type, affiliateId)
+        const result = await clickAndPurchaseServices.addClickAndPurchases(req, res, type, assignId)
         if (result.status == false && result.isExist == false) {
             return sendResponse(res, statusCode.NOT_FOUND, false, `Affiliate ${ErrorMessage.NOT_FOUND}`)
         }
@@ -22,7 +22,7 @@ exports.addClickAndPurchases = async (req, res) => {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
         }
         if (result.status == true && result.result) {
-            const updatedResult = await clickAndPurchaseServices.updateClickAndPurhcases(req, res, affiliateId, type)
+            const updatedResult = await clickAndPurchaseServices.updateClickAndPurhcases(req, res, assignId, type)
             if (updatedResult == false) {
                 return sendResponse(res, statusCode.BAD_REQUEST, false, `Click Count Or Purchase Count ${ErrorMessage.NOT_UPDATED}`)
             }
