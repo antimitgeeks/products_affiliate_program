@@ -71,7 +71,16 @@ function AdminDashboard({ loading, ListData }) {
               <AiOutlineLoading3Quarters />
             </span>
           </div>
+          
           :
+          ListData?.length<=0 ?
+          <div className=' w-full flex items-center justify-center'>
+          <span className=' w-fit flex  items-center justify-center'>
+            {/* <AiOutlineLoading3Quarters /> */}
+            No data found
+          </span>
+        </div>
+        :
           <div className='invoices-page'>
             <div className='table-container'>
               <table className=''>

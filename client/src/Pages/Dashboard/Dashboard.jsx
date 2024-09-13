@@ -2,115 +2,90 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-function Dashboard() {
+function Dashboard({ loading, listData, overviewLoading, overviewData }) {
 
   const navigate = useNavigate();
 
-  // const [chartState, setChartState] = useState({
-  //   series: [
-  //     {
-  //       name: 'Themes',
-  //       data: [10, 41, 35, 51, 49, 62, 69, 95],
-  //     },
-  //   ],
-  //   options: {
-  //     chart: {
-  //       height: 350,
-  //       type: 'line',
-  //       zoom: {
-  //         enabled: false,
-  //       },
-  //     },
-  //     dataLabels: {
-  //       enabled: false,
-  //     },
-  //     stroke: {
-  //       curve: 'straight',
-  //     },
-  //     title: {
-  //       text: 'Purchases',
-  //       align: 'left',
-  //     },
-  //     grid: {
-  //       row: {
-  //         colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-  //         opacity: 0.5,
-  //       },
-  //     },
-  //     xaxis: {
-  //       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-  //     },
-  //   },
-  // });
-
-  // const [chartStateTwo, setChartStateTwo] = useState({
-  //   series: [{
-  //     data: [34, 44, 54, 21, 12, 43, 33, 23, 66, 66, 58]
-  //   }],
-  //   options: {
-  //     chart: {
-  //       type: 'line',
-  //       height: 350
-  //     },
-  //     stroke: {
-  //       curve: 'stepline',
-  //     },
-  //     dataLabels: {
-  //       enabled: false
-  //     },
-  //     title: {
-  //       text: 'Stepline Chart',
-  //       align: 'left'
-  //     },
-  //     markers: {
-  //       hover: {
-  //         sizeOffset: 4
-  //       }
-  //     }
-  //   }
-  // });
-
+  console.log(overviewData, 'overViewData')
 
 
   return (
-    <div className=' w-full flex flex-col gap-12 pt-6'>
-      {/* <div className='w-full px-5 py-4 rounded border bg-white'>
+    <>
+      {
+        loading || overviewLoading ?
+          <div className=' w-full flex items-center justify-center'>
+            <span className=' w-fit flex  items-center justify-center animate-spin'>
+              <AiOutlineLoading3Quarters />
+            </span>
+          </div>
 
-        <ReactApexChart
-          options={chartState?.options}
-          series={chartState?.series}
-          type="line"
-          height={350}
-
-          className="px-2 w-full max-w-full"
-        />
-
-      </div>
-      <div className='flex w-full gap-10'>
-        <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
-
-          <ReactApexChart
-            options={chartStateTwo.options}
-            series={chartStateTwo.series}
-            type="bar"
-            height={325}
-          />
-
-        </div>
-        <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
-
-          <ReactApexChart
-            options={chartStateTwo.options}
-            series={chartStateTwo.series}
-            type="bar"
-            height={325}
-          />
-
-        </div>
-      </div> */}
-      Dashboard
-    </div>
+          :
+          listData?.length <= 0 ?
+            <div className=' w-full flex items-center justify-center'>
+              <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                No data found
+              </span>
+            </div>
+            :
+            <div>
+              <div className='flex flex-col gap-3 mt-4'>
+                <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                      Current Month Paid
+                    </div>
+                    {overviewData?.paid} $
+                  </div>
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                      Total Pending
+                    </div>
+                    {overviewData?.pending} $
+                  </div>
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                      Total Paid
+                    </div>
+                    {overviewData?.total} $
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <br />
+              <div className='w-full h-full invoices-page'>
+                <div className='table-container'>
+                  <table className='shadow'>
+                    <thead className=' py-2'>
+                      <tr className='py-2'>
+                        <th>Theme name</th>
+                        <th>Domain</th>
+                        <th>Date</th>
+                        <th>Commission</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {listData?.map(invoice => (
+                        <tr key={invoice?.id}>
+                          <td>{invoice?.themeName}</td>
+                          <td>{invoice?.domain}</td>
+                          <td>{invoice?.createdAt?.split('T')[0]}</td>
+                          <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
+                          <td>{invoice?.status}</td>
+                        </tr>
+                      ))}
+                      <tr className="spacer-row">
+                        <td colSpan="5"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+      }
+    </>
   )
 }
 
