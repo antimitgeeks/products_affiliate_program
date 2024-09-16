@@ -29,9 +29,15 @@ exports.notAssignedCustomers = async (req, res) => {
     try {
         const affiliateId = req.params.id
         const result = await service.notAssignedCustomers(affiliateId);
-        return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result)
+        if (result.status && result.result) {
+            return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result)
+        }
+        if (result.status == false && result.result) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, result.result);
+        }
+
     } catch (error) {
-        console.error(error);
+        console.error("Error in notAssignedCustomers : ",error);
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
     }
 }
@@ -44,10 +50,16 @@ exports.affiliateListAssign = async (req, res) => {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
 
         }
-        return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, users?.result)
+        if (result.status == false && !result.result) {
+            return sendResponse(res, statusCode.NOT_FOUND, true, ErrorMessage.NOT_FOUND, result)
+        }
+        if (result.status && result.result) {
+            return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, users?.result)
+        }
+
 
     } catch (error) {
-        console.error(error);
+        console.error("Error in affiliateListAssign api : ",error);
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
     }
 }
@@ -56,10 +68,20 @@ exports.userAffiliates = async (req, res) => {
     try {
         const userId = req.params.id
         const result = await service.userAffiliates(userId);
-        return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result)
+        if (result.status && result.result) {
+            return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result)
+        }
+        if(result.status==false && !result.result){
+            return sendResponse(res,statusCode.NOT_FOUND,false,ErrorMessage.NOT_FOUND,result)
+        }
+        if(result.status==false && result.result){
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR,result);
+
+        }
+
 
     } catch (error) {
-        console.error('Error in all affiliate  list assign api : ', error);
+        console.error('Error in user affiliate  api : ', error);
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
     }
 }
