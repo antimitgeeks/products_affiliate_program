@@ -21,9 +21,9 @@ const LogoWrapper = () => {
         S
       </div> */}
       {/* <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[24px] border toggle-sidebar hover:none text-black'> */}
-        {/* <IoSettingsSharp color='white' stroke='white' size={24} /> */}
-        {/* <RiSettings5Fill color='white' stroke='white' size={24} /> */}
-        {/* <FaArrowRightArrowLeft className=' text-sm' size={22} /> */}
+      {/* <IoSettingsSharp color='white' stroke='white' size={24} /> */}
+      {/* <RiSettings5Fill color='white' stroke='white' size={24} /> */}
+      {/* <FaArrowRightArrowLeft className=' text-sm' size={22} /> */}
       {/* </div> */}
     </div>
   );
