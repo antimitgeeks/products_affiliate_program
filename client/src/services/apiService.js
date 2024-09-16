@@ -16,7 +16,7 @@ const CreateApi = createApi({
         mode: 'cors', // Ensure mode is set to 'cors'
     }),
     endpoints: () => ({}),
-    tagTypes: ["adminPanel", "links","adminAffiliate"]
+    tagTypes: ["adminPanel", "links", "adminAffiliate"]
 });
 
 export default CreateApi;
