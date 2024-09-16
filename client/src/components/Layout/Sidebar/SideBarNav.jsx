@@ -139,7 +139,7 @@ const SideBarNav = () => {
           backgroundColor: 'transparent',
           height: '10px',
           zIndex: '100000',
-          width:'30px'
+          width: '30px'
         }}
       >
         <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[22px] bg-transparent toggle-sidebar hover:border duration-100 transition-all ease-linear text-black'>
