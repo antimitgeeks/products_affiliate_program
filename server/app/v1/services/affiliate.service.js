@@ -69,9 +69,9 @@ exports.shortLink = async (req, res, link) => {
 // redirect short url link
 exports.redirectShortLink = async (req, res) => {
     try {
-        const shortId = req.params.id
+        const shortId = req.params.shortLinkId
         const result = await Affiliate.findOne({ where: { shortId: shortId } });
-        const url = result.link
+        const url = result?.link
         if (result) {
             return {
                 status: true,
