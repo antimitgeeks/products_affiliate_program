@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
@@ -6,14 +6,11 @@ import ReactApexChart from 'react-apexcharts';
 function Analytics() {
 
   const navigate = useNavigate();
+  const [purchasesData, setPurchasesData] = useState([]);
+  const [ClicksData, setClicksData] = useState([]);
+
 
   const [chartState, setChartState] = useState({
-    series: [
-      {
-        name: 'Themes',
-        data: [10, 41, 35, 51, 49, 62, 69, 95],
-      },
-    ],
     options: {
       chart: {
         height: 350,
@@ -34,12 +31,13 @@ function Analytics() {
       },
       grid: {
         row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          colors: ['#f3f3f3', 'transparent'],
           opacity: 0.5,
         },
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+
       },
     },
   });
@@ -71,6 +69,90 @@ function Analytics() {
     }
   });
 
+  const purchases = [
+    { createAt: "2024-08-2 08:06:32" },
+    { createAt: "2024-08-14 08:06:32" },
+    { createAt: "2024-08-6 08:06:32" },
+    { createAt: "2024-08-6 08:06:32" },
+    { createAt: "2024-08-18 08:06:32" },
+    { createAt: "2024-08-09 08:06:32" },
+    { createAt: "2024-08-09 08:06:32" }
+  ];
+
+  useEffect(() => {
+    const Clicks = [
+      {
+        theme: "Theme one",
+        data: [
+          { createAt: "2024-08-2 08:06:32" },
+          { createAt: "2024-08-14 08:06:32" },
+          { createAt: "2024-08-6 08:06:32" },
+          { createAt: "2024-08-6 08:06:32" },
+          { createAt: "2024-08-18 08:06:32" },
+          { createAt: "2024-08-09 08:06:32" },
+          { createAt: "2024-08-09 08:06:32" },
+          { createAt: "2024-08-29 08:06:32" },
+          { createAt: "2024-08-29 08:06:32" },
+        ]
+      },
+      {
+        theme: "Theme Two",
+        data: [
+          { createAt: "2024-08-1 08:06:32" },
+          { createAt: "2024-08-5 08:06:32" },
+          { createAt: "2024-08-6 08:06:32" },
+          { createAt: "2024-08-6 08:06:32" },
+          { createAt: "2024-08-6 08:06:32" },
+          { createAt: "2024-08-15 08:06:32" },
+          { createAt: "2024-08-09 08:06:32" },
+          { createAt: "2024-08-09 08:06:32" },
+          { createAt: "2024-08-30 08:06:32" },
+        ]
+      }
+    ];
+
+    // Function to process the data
+    const result = Clicks.map(theme => {
+      // Initialize an array of 30 zeros for each day of the month
+      const dayCounts = Array(30).fill(0);
+
+      // Count the occurrences of each day in the theme's data
+      theme.data.forEach(item => {
+        const day = new Date(item.createAt).getDate(); // Get the day from the date
+        dayCounts[day - 1]++; // Increment the count for that day
+      });
+
+      return {
+        theme: theme.theme,
+        data: dayCounts
+      };
+    });
+
+    console.log(result);
+    setClicksData(result)
+
+  }, [])
+
+
+  useEffect(() => {
+
+    // Get day from the date string
+    const getDay = (dateString) => new Date(dateString).getDate();
+
+    // Initialize an array for days 1 to 30
+    const daysOfMonth = Array.from({ length: 30 }, (_, i) => i + 1);
+
+    // Create a result array with only counts for each day
+    const counts = daysOfMonth.map(day => {
+      const count = purchases.filter(purchase => getDay(purchase.createAt) === day).length;
+      return count;
+    });
+
+    // Output the result in the desired format
+    console.log(counts, 'PURCHASE COUNT');
+    setPurchasesData(counts)
+
+  }, [])
 
 
   return (
@@ -79,7 +161,13 @@ function Analytics() {
 
         <ReactApexChart
           options={chartState?.options}
-          series={chartState?.series}
+          // series={chartState?.series}
+          series={[
+            {
+              name: 'Themes',
+              data: purchasesData,
+            },
+          ]}
           type="line"
           height={350}
 
@@ -87,28 +175,69 @@ function Analytics() {
         />
 
       </div>
-      <div className='flex w-full gap-10'>
-        <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
+      <div className='grid grid-cols-1 w-full gap-10'>
+        {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
+        CLICKS
+        {
+          ClicksData?.map((itm) => {
+            return <div className='border bg-white p-4'>
+              <ReactApexChart
+                options={{
+                  chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                      enabled: false,
+                    },
+                  },
+                  dataLabels: {
+                    enabled: false,
+                  },
+                  stroke: {
+                    curve: 'straight',
+                  },
+                  title: {
+                    text: itm?.theme,
+                    align: 'left',
+                  },
+                  grid: {
+                    row: {
+                      colors: ['#f3f3f3', 'transparent'],
+                      opacity: 0.5,
+                    },
+                  },
+                  xaxis: {
+                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
 
-          <ReactApexChart
-            options={chartStateTwo.options}
-            series={chartStateTwo.series}
-            type="bar"
-            height={325}
-          />
+                  },
+                }}
+                series={
+                  [
+                    {
+                      name: 'Themes',
+                      data: itm?.data,
+                    }
+                  ]
+                }
+                type="line"
+                height={325}
+              />
+            </div>
 
-        </div>
-        <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
+          })
+        }
 
-          <ReactApexChart
-            options={chartStateTwo.options}
-            series={chartStateTwo.series}
-            type="bar"
-            height={325}
-          />
-
-        </div>
       </div>
+      {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
+
+        <ReactApexChart
+          options={chartStateTwo.options}
+          series={chartStateTwo.series}
+          type="bar"
+          height={325}
+        /> 
+
+      </div> */}
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { FaLink } from "react-icons/fa6";
 
 function AffiliateLinks({ listData }) {
 
-  console.log(listData, 'ListDataa');
+  console.log(listData, 'ListDataaaa');
 
   const navigate = useNavigate();
 
@@ -22,9 +22,9 @@ function AffiliateLinks({ listData }) {
           {/* <Btn className="bg-white text-black" onClick={() => navigate('add')}>
             Create Links
           </Btn> */}
-          <span onClick={() => navigate('add')} className=' cursor-pointer p-2 bg-black text-white rounded'>
+          {/* <span onClick={() => navigate('add')} className=' cursor-pointer p-2 bg-black text-white rounded'>
             Create Links
-          </span>
+          </span> */}
         </div>
         <div className='w-full flex flex-col h-full items-center gap-8 mt-3 '>
 
@@ -40,22 +40,22 @@ function AffiliateLinks({ listData }) {
                   </div>
                   <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                     <div className=' flex flex-col gap-5'>
-                      <span className='font-semibold text-lg'>{itm?.name}</span>
+                      <span className='font-semibold text-lg'>{itm?.affiliate?.name}</span>
                       <div className='flex flex-col gap-3'>
 
                         <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
                           <FaLink />
-                          {console.log(itm?.shortUrl)}
-                          <a target='_blank' href={itm?.shortUrl}>
-                            {itm?.shortUrl}
+                          {console.log(itm?.affiliate?.shortUrl)}
+                          <a target='_blank' href={itm?.affiliate?.shortUrl}>
+                            {itm?.affiliate?.shortUrl}
                           </a>
                         </span>
                         <div className=' w-full flex justify-between gap-4'>
-                          <span onClick={() => { navigator.clipboard.writeText(itm?.shortUrl) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                          <span onClick={() => { navigator.clipboard.writeText(itm?.affiliate?.shortUrl) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                             Copy link
                           </span>
                           <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                            <a href={itm?.link} target='_blank'>
+                            <a href={itm?.affiliate?.link} target='_blank'>
                               Visit link
                             </a>
                           </span>
@@ -64,7 +64,7 @@ function AffiliateLinks({ listData }) {
                     </div>
                     <div className=' flex gap-6'>
                       <div className='border rounded px-2 py-1'>
-                        {itm?.clickCount || '0'} Click
+                        {itm?.clicks || '0'} Click
                       </div>
                       <div className='border rounded px-2 py-1'>
                         {itm?.purchases || '0'} Purchases

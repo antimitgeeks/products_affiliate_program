@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 
 function AddInvoiceWrapper() {
 
-    const URLData = useParams();
-    console.log(URLData?.id,'ParamData');
+  const URLData = useParams();
+  console.log(URLData?.id, 'ParamData');
 
   return (
     <div className='page-body'>
-        <AddInvoice id={URLData?.id}/>
+      <AddInvoice id={URLData?.id} email={URLData?.email} />
     </div>
   )
 }

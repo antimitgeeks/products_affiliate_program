@@ -52,9 +52,46 @@ const AdminService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
+                GetAffiliateAvailableUsers: builder.query(
+                    {
+                        providesTags: ["adminAffiliate"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/admin/affiliate/not-assigned-customers-list/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
+                AssignAffiliate: builder.mutation(
+                    {
+                        invalidatesTags: ["adminAffiliate"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/assign-affiliate/add/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
+                GetAssignedCustomerList: builder.query(
+                    {
+                        providesTags: ["adminAffiliate"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/admin/assigned-customers-list/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
+
             }
         )
     }
 );
 
-export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery , useUpdateInvoiceStatusMutation } = AdminService;
+export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation , useGetAssignedCustomerListQuery} = AdminService;

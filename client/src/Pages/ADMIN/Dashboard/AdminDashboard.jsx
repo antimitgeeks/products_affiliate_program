@@ -54,8 +54,9 @@ function AdminDashboard({ loading, ListData }) {
 
   console.log(ListData, 'ListDataaa')
 
-  const handleAddInvoice = (id) => {
-    navigate(`invoice/add/${id}`)
+  const handleAddInvoice = (itm) => {
+    console.log(itm, 'itm')
+    navigate(`invoice/add/${itm?.id}/${itm?.email}`)
   }
 
   const handleViewInvoice = (id) => {
@@ -71,53 +72,62 @@ function AdminDashboard({ loading, ListData }) {
               <AiOutlineLoading3Quarters />
             </span>
           </div>
+
           :
-          <div className='invoices-page'>
-            <div className='table-container'>
-              <table className=''>
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>Country</th>
-                    <th>City</th>
-                    <th>Address</th>
-                    <th>Company name</th>
-                    <th>Invoices</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  {
-
-                    ListData?.map((itm, indx) => (
-                      <tr key={indx}>
-                        <td>{itm?.email}</td>
-                        <td>{itm?.country}</td>
-                        <td>{itm.city}</td>
-                        <td>{itm.address}</td>
-                        <td>{itm.companyName}</td>
-                        <td className=' flex gap-2'>
-                          <span onClick={() => { handleViewInvoice(itm?.id) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
-                            {/* View */}
-                            {/* <IoEyeOutline/> */}
-                            <MdRemoveRedEye size={22} />
-                          </span>
-                          <span onClick={() => { handleAddInvoice(itm?.id) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
-                            {/* Add */}
-                            <FaSquarePlus size={20} />
-                          </span>
-
-                        </td>
-                      </tr>
-                    ))
-                  }
-                  <tr className="spacer-row">
-                    <td colSpan="5"></td>
-                  </tr>
-                </tbody>
-              </table>
+          ListData?.length <= 0 ?
+            <div className=' w-full flex items-center justify-center'>
+              <span className=' w-fit flex  items-center justify-center'>
+                {/* <AiOutlineLoading3Quarters /> */}
+                No data found
+              </span>
             </div>
-          </div>
+            :
+            <div className='invoices-page'>
+              <div className='table-container'>
+                <table className=''>
+                  <thead>
+                    <tr>
+                      <th>Email</th>
+                      <th>Country</th>
+                      <th>City</th>
+                      <th>Address</th>
+                      <th>Company name</th>
+                      <th>Invoices</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {
+
+                      ListData?.map((itm, indx) => (
+                        <tr key={indx}>
+                          <td>{itm?.email}</td>
+                          <td>{itm?.country}</td>
+                          <td>{itm.city}</td>
+                          <td>{itm.address}</td>
+                          <td>{itm.companyName}</td>
+                          <td className=' flex gap-2'>
+                            <span onClick={() => { handleViewInvoice(itm?.id) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
+                              {/* View */}
+                              {/* <IoEyeOutline/> */}
+                              <MdRemoveRedEye size={22} />
+                            </span>
+                            <span onClick={() => { handleAddInvoice(itm) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
+                              {/* Add */}
+                              <FaSquarePlus size={20} />
+                            </span>
+
+                          </td>
+                        </tr>
+                      ))
+                    }
+                    <tr className="spacer-row">
+                      <td colSpan="5"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
       }
     </>
   );
