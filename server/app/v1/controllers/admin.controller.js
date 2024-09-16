@@ -25,6 +25,17 @@ exports.allUsers = async (req, res) => {
     }
 }
 
+exports.notAssignedCustomers = async (req, res) => {
+    try {
+        const affiliateId = req.params.id
+        const result = await service.notAssignedCustomers(affiliateId);
+        return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result)
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+    }
+}
+
 exports.affiliateListAssign = async (req, res) => {
     try {
         const afiliateId = req.params.id
@@ -37,6 +48,18 @@ exports.affiliateListAssign = async (req, res) => {
 
     } catch (error) {
         console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+    }
+}
+
+exports.userAffiliates = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const result = await service.userAffiliates(userId);
+        return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result)
+
+    } catch (error) {
+        console.error('Error in all affiliate  list assign api : ', error);
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
     }
 }

@@ -3,21 +3,22 @@ const shortid = require('shortid');
 const db = require("../models");
 const { Op, where } = require('sequelize');
 const ClickAndPurchases = db.ClickAndPurchases;
+const AffiliateAssign = db.affiliateAssign;
 const Affiliate = db.affiliate;
 
 
 
 //add click and purchases services
-exports.addClickAndPurchases = async (req, res, type, affiliateId) => {
+exports.addClickAndPurchases = async (req, res, type, assignId) => {
     try {
-        const isExistAffiliate = await Affiliate.findOne({ where: { id: affiliateId } })
-        if (!isExistAffiliate) {
+        const isExistAssignIdAffiliate = await AffiliateAssign.findOne({ where: { id: assignId } })
+        if (!isExistAssignIdAffiliate) {
             return {
                 status: false,
                 isExist: false
             }
         }
-        const result = await ClickAndPurchases.create({ type: type, userId: isExistAffiliate.userId, affiliateId: affiliateId })
+        const result = await ClickAndPurchases.create({ type: type, userId: isExistAssignIdAffiliate.userId, assignAffiliateId: assignId })
         if (result) {
             return {
                 status: true,
@@ -40,11 +41,11 @@ exports.addClickAndPurchases = async (req, res, type, affiliateId) => {
 }
 
 //get click and purchases list 
-exports.getClickAndPurchasesList = async (req, res, type, id, name) => {
+exports.getClickAndPurchasesList = async (type, id) => {
     try {
         let result;
-        if (type === 'Purchase') {
-            result = await ClickAndPurchases.findAll({ where: { userId: id, type: "Purchase" } });
+        if (type === 'purchases') {
+            result = await ClickAndPurchases.findAll({ where: { userId: id, type: "purchases" } });
         } else {
             const isAffiliateExist = await Affiliate.findOne(
                 {
@@ -102,27 +103,27 @@ exports.getClickAndPurchasesList = async (req, res, type, id, name) => {
     }
 }
 
-exports.updateClickAndPurhcases = async (req, res, affiliateId, type) => {
+exports.updateClickAndPurhcases = async (req, res, assignId, type) => {
     try {
-        const affiliate = await Affiliate.findOne({ where: { id: affiliateId } });
-        if (type == "Click") {
-            const clickToUpdate = affiliate.clickCount + 1
-            const updatedResult = await Affiliate.update(
-                { clickCount: clickToUpdate },
+        const assign = await AffiliateAssign.findOne({ where: { id: assignId } });
+        if (type == "clicks") {
+            const clickToUpdate = assign.clicks + 1
+            const updatedResult = await AffiliateAssign.update(
+                { clicks: clickToUpdate },
                 {
                     where: {
-                        id: affiliate.id,
+                        id: assignId,
                     },
                 }
             );
             return updatedResult
         } else {
-            const purchaseToUpdate = affiliate.purchases + 1
-            const updatedResult = await Affiliate.update(
+            const purchaseToUpdate = assign.purchases + 1
+            const updatedResult = await AffiliateAssign.update(
                 { purchases: purchaseToUpdate },
                 {
                     where: {
-                        id: affiliate.id,
+                        id: assignId,
                     },
                 }
             );
