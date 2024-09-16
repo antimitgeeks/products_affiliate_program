@@ -36,7 +36,7 @@ function AffiliateLinks({ listData, loading }) {
             Create Links
           </span> */}
               </div>
-              <div className='w-full flex flex-col h-full items-center gap-8 mt-3 '>
+              <div className='w-full flex flex-col h-full items-center gap-8 mt-1 '>
 
                 {
                   listData?.result?.map((itm) => {

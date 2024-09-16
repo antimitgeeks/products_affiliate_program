@@ -23,7 +23,8 @@ const SideBarNav = () => {
 
 
   return (
-    <ul className='sidebar-links' id='simple-bar'>
+    <ul className='sidebar-links relative' id='simple-bar'>
+
       {
         role == 'admin' ?
           AdminMenu?.map((item, i) => (
@@ -52,6 +53,9 @@ const SideBarNav = () => {
               </li>
             </Fragment>
           ))}
+      {/* <div style={{ color: 'black' }} className='absolute'>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, at.
+      </div> */}
 
     </ul>
   );
