@@ -9,9 +9,9 @@ const path = require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
-       const imageUrl= await req.file ? req.file.originalname :null
-       
-        const details = { ...req.body, imageUrl:imageUrl }
+        const imageUrl = await req.file ? req.file.originalname : null
+
+        const details = { ...req.body, imageUrl: imageUrl }
         const isAlreadyExist = await Affiliate.findOne({
             where: {
                 [Op.and]:
@@ -69,9 +69,9 @@ exports.shortLink = async (req, res, link) => {
 // redirect short url link
 exports.redirectShortLink = async (req, res) => {
     try {
-        const shortId = req.params.id
+        const shortId = req.params.shortLinkId
         const result = await Affiliate.findOne({ where: { shortId: shortId } });
-        const url = result.link
+        const url = result?.link
         if (result) {
             return {
                 status: true,
@@ -95,7 +95,13 @@ exports.redirectShortLink = async (req, res) => {
 exports.getAffiliate = async (req, res) => {
     try {
 
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+
         const result = await Affiliate.findAll({
+            limit: limit,
+            offset: offset,
             order: [
                 ['createdAt', 'DESC'],
             ]
@@ -149,10 +155,10 @@ exports.addAssignAffiliate = async (id, details) => {
             return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: id, userId: i }])
 
         })
-        const result = await Promise.all(addedValue).then((i)=>{
+        const result = await Promise.all(addedValue).then((i) => {
             return i
         })
-        
+
         if (addedValue) {
             return {
                 status: true,

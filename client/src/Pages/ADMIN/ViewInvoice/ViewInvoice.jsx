@@ -67,10 +67,12 @@ function ViewInvoice({ loading, listData }) {
                 <table className=''>
                   <thead>
                     <tr>
+                      <th>Source Id</th>
                       <th>Theme name</th>
                       <th>Domain</th>
                       <th>Commission</th>
                       <th>Status</th>
+                      <th>Date</th>
                       {/* <th>Company name</th> */}
                       {/* <th>Invoices</th> */}
                     </tr>
@@ -81,6 +83,7 @@ function ViewInvoice({ loading, listData }) {
 
                       listData?.map((itm, indx) => (
                         <tr key={indx}>
+                          <td>{itm?.sourceId || "N/A"}</td>
                           <td>{itm?.themeName}</td>
                           <td>{itm?.domain}</td>
                           <td style={{ paddingLeft: '30px' }}>{itm?.commission || '0'} $ </td>
@@ -88,6 +91,7 @@ function ViewInvoice({ loading, listData }) {
 
                           <Select onChange={(e) => handleSelect(e, itm?.id)} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
                           {/* <td>{itm.companyName}</td> */}
+                          <td>{itm?.createdAt?.split('T')[0]}</td>
                         </tr>
                       ))
                     }

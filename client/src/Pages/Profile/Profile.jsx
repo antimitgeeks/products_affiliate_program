@@ -31,6 +31,7 @@ function Profile({ listData, loading }) {
 
 
   const initialValues = {
+    email: listData?.email,
     payPalAddress: listData?.paypalAddress,
     country: PreviousCountryData?.label != undefined ? PreviousCountryData : null,
     city: listData?.city || '',
@@ -126,38 +127,47 @@ function Profile({ listData, loading }) {
                           <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                            <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Name, email, address' onChange={profileProps.handleChange} />
+                            <InputComponent label={"Email"} type="text" name='email' value={profileProps.values.email} placeholder='email' disabled="true" />
                           </Col>
                           <Col md='6'>
-                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
-                            {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                            <InputComponent label={"City"} type={"text"} value={profileProps.values.city} name='city' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
-
+                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
+                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
+                            <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Name, email, address' onChange={profileProps.handleChange} />
                           </Col>
+
                           {/* <Col md='4 mb-3'>
                             <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
                           </Col> */}
                         </Row>
                         <Row className='g-3 pb-3'>
                           <Col md='6'>
+                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
+                            {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
+                            <InputComponent label={"City"} type={"text"} value={profileProps.values.city} name='city' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
+
+                          </Col>
+                          <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter City Name *' register={{ ...register('city', { required: 'is Required.' }) }} /> */}
                             {/* City */}
                             <InputComponent label={"Company name"} type={"text"} value={profileProps.values.companyName} name='companyName' onChange={profileProps.handleChange} placeholder={"Enter company name"} />
 
                           </Col>
+
+
+
+                        </Row>
+                        <Row className='g-3'>
                           <Col md='6'>
                             {/* <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> */}
                             {/* State */}
                             <InputComponent label={"Company number"} type={"text"} value={profileProps.values.companyNumber} name='companyNumber' onChange={profileProps.handleChange} placeholder={"Enter company number"} />
 
                           </Col>
-
-
-                        </Row>
-                        <Row className='g-3'>
                           <Col md='6 mb-3'>
                             <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
                           </Col>
+                        </Row>
+                        <Row className='g-3'>
                           <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
@@ -175,10 +185,7 @@ function Profile({ listData, loading }) {
                               <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
                             </div>
                           </Col>
-
-                        </Row>
-                        <Row className='g-3'>
-                          <Col md='12' className='mb-3'>
+                          <Col md='6'>
                             <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
                           </Col>
                         </Row>

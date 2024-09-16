@@ -4,6 +4,7 @@ import { useGetDashboardInvoiceListQuery, useGetMonthlyAnalysisQuery } from '../
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useGetIndividualInvoiceListQuery } from '../../services/AdminService';
+import { useGetProfileQuery } from '../../services/ProfileService';
 
 function DashboardWrapper() {
 
@@ -14,6 +15,14 @@ function DashboardWrapper() {
 
   const userToken = Cookies.get("isLogged");
   const [userId, setUserId] = useState('')
+
+
+  const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
+
+  useEffect(() => {
+    Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+  }, [profileData, listLoading, listFetching])
+
 
   useEffect(() => {
     if (userToken) {

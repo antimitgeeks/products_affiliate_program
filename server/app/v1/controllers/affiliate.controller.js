@@ -43,7 +43,7 @@ exports.redirectShortLink = async (req, res) => {
             res.redirect(result.result)
         }
         else if (result.status == false && !result.result) {
-            sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+            sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND)
 
         }
         else if (result.status == false && result.result) {

@@ -7,7 +7,7 @@ const serveStatic = require("serve-static");
 const { readFileSync } = require("fs");
 const { join } = require("path");
 const path = require("path");
-
+const { redirectShortLink } = require('./server/app/v1/controllers/affiliate.controller')
 const app = express();
 
 app.use(cors());
@@ -53,7 +53,7 @@ const data = () => {
 
 // app.use(express.static(path.join(STATIC_PATH, 'build')));
 
-const parentDirectory = path.join(__dirname,"server/app/v1/utils")
+const parentDirectory = path.join(__dirname, "server/app/v1/utils")
 
 //important to server the static file 
 // app.use(express.static(path.join(parentDirectory)));
@@ -62,6 +62,7 @@ app.use('/', express.static(path.join(parentDirectory, 'images')));
 
 app.use(process.env.BASE_URL, routes);
 
+app.get('/:shortLinkId', redirectShortLink)
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));

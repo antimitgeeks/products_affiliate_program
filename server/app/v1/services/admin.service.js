@@ -9,9 +9,17 @@ const fs = require('fs')
 const path = require('path')
 const { Op, where } = require('sequelize');
 
-exports.allUsers = async () => {
+exports.allUsers = async (req) => {
     try {
+
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+
         const result = await Users.findAll({
+            limit: limit,
+            offset: offset,
+
             order: [['createdAt', 'DESC']],
             attributes: ["id", "email", "country", "city", "address", "companyName", "companyNumber"]
         });
@@ -37,13 +45,23 @@ exports.allUsers = async () => {
 }
 
 
-exports.notAssignedCustomers = async (affiliateId) => {
+exports.notAssignedCustomers = async (affiliateId, req) => {
     try {
 
-        const affiliateDetails = await AffiliateAssign.findAll({ where: { affiliateId }, attributes: ['userId'] });
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 2;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+
+        const affiliateDetails = await AffiliateAssign.findAll({
+
+            where: { affiliateId }, attributes: ['userId']
+
+        });
         const assignedUserIds = affiliateDetails.map(detail => detail.userId);
 
         const result = await Users.findAll({
+            limit: limit,
+            offset: offset,
             where: {
                 id: {
                     [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
@@ -70,9 +88,16 @@ exports.notAssignedCustomers = async (affiliateId) => {
 }
 
 
-exports.affiliateListAssign = async (id) => {
+exports.affiliateListAssign = async (id, req) => {
     try {
+
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+
         const allAdminAffiliates = await AffiliateAssign.findAll({
+            limit: limit,
+            offset: offset,
             where:
             {
                 affiliateId: id
@@ -104,9 +129,10 @@ exports.affiliateListAssign = async (id) => {
     }
 }
 
-exports.userAffiliates = async (userId) => {
+exports.userAffiliates = async (userId, req) => {
     try {
         const assignAffiliateDetails = await AffiliateAssign.findAll({
+
             where: { userId }, include: [
                 {
                     model: Affiliate,
@@ -116,6 +142,28 @@ exports.userAffiliates = async (userId) => {
             order: [
                 ['createdAt', 'DESC'],
             ]
+        });
+
+
+
+        assignAffiliateDetails.forEach(obj => {
+
+
+            if (obj.dataValues.affiliate.imageUrl !== null && obj.dataValues.affiliate.imageUrl !== undefined) {
+
+                const dir = path.join(__dirname, "..")
+                const newpath = `${dir}/utils/images/${obj.dataValues.affiliate.imageUrl}`
+
+                if (fs.existsSync(`${newpath}`)) {
+
+                    obj.dataValues.affiliate.imageUrl = req.hostname + '/' + obj.dataValues.affiliate.imageUrl
+
+                }
+
+
+
+            }
+
         });
         if (assignAffiliateDetails) {
             return {

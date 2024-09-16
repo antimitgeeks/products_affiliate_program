@@ -15,7 +15,7 @@ const ProfileService = CreateApi.injectEndpoints(
                             }
                         )
                     }
-                ),
+                ), 
                 UpdateProfile: builder.mutation(
                     {
                         providesTags: ['profile'],
