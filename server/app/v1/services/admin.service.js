@@ -45,7 +45,7 @@ exports.allUsers = async (req) => {
 }
 
 
-exports.notAssignedCustomers = async (affiliateId,req) => {
+exports.notAssignedCustomers = async (affiliateId, req) => {
     try {
 
         const page = parseInt(req.body.page) || 1;  // Default to page 1
@@ -129,9 +129,10 @@ exports.affiliateListAssign = async (id, req) => {
     }
 }
 
-exports.userAffiliates = async (userId) => {
+exports.userAffiliates = async (userId, req) => {
     try {
         const assignAffiliateDetails = await AffiliateAssign.findAll({
+
             where: { userId }, include: [
                 {
                     model: Affiliate,
@@ -141,6 +142,28 @@ exports.userAffiliates = async (userId) => {
             order: [
                 ['createdAt', 'DESC'],
             ]
+        });
+
+
+
+        assignAffiliateDetails.forEach(obj => {
+
+
+            if (obj.dataValues.affiliate.imageUrl !== null && obj.dataValues.affiliate.imageUrl !== undefined) {
+
+                const dir = path.join(__dirname, "..")
+                const newpath = `${dir}/utils/images/${obj.dataValues.affiliate.imageUrl}`
+
+                if (fs.existsSync(`${newpath}`)) {
+
+                    obj.dataValues.affiliate.imageUrl = req.hostname + '/' + obj.dataValues.affiliate.imageUrl
+
+                }
+
+
+
+            }
+
         });
         if (assignAffiliateDetails) {
             return {
