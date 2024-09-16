@@ -42,16 +42,35 @@ exports.login = async (details) => {
 
 //  register service
 exports.register = async (details, userId) => {
-    const data = { ...details, userId }
-    const userDetails = await Users.create(data);
-    // remove password
-    delete userDetails.dataValues.password;
-    return userDetails;
+
+    const exist=await this.ifIdAlreadyExist(userId)
+    
+    if(exist.status==false){
+        const data = { ...details, userId:exist.userId }
+        const userDetails = await Users.create(data);
+        // remove password
+        delete userDetails.dataValues.password;
+        return userDetails;
+    }
+   
 }
 
 exports.generateId = async () => {
     const uid = new ShortUniqueId({ length: 10 })
     return uid.rnd()
+}
+exports.ifIdAlreadyExist=async (userId)=>{
+    const isExist=await Users.findOne({where:{userId}})
+    if(isExist){
+        userId=await  this.generateId()
+       
+       this.ifIdAlreadyExist(userId)
+      
+    }
+   
+        return {status:false,userId:userId}
+    
+
 }
 
 
