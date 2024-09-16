@@ -18,7 +18,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-//Static file path
+//Static file path 
 const STATIC_PATH =
   // eslint-disable-next-line no-undef
   process.env.NODE_ENV === "production"
@@ -39,7 +39,7 @@ db.sequelize.sync()
     console.log("Synced db.");
   })
   .catch((err) => {
-    console.log("Failed to sync db:errrrrrrrrrrrrrrrrrr " + err.message);
+    console.log(err, "Failed to sync db ");
   });
 
 // // drop the table if it already exists
@@ -52,6 +52,13 @@ const data = () => {
 }
 
 // app.use(express.static(path.join(STATIC_PATH, 'build')));
+
+const parentDirectory = path.join(__dirname,"server/app/v1/utils")
+
+//important to server the static file 
+// app.use(express.static(path.join(parentDirectory)));
+
+app.use('/', express.static(path.join(parentDirectory, 'images')));
 
 app.use(process.env.BASE_URL, routes);
 

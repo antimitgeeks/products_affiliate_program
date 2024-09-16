@@ -21,6 +21,9 @@ module.exports = (sequelize, Sequelize) => {
         userId:{
             type:Sequelize.STRING
         },
+        companyUrl:{
+            type:Sequelize.STRING
+        },
         email: {
             type: Sequelize.STRING,
             unique: true
@@ -41,21 +44,19 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         companyNumber: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
         },
         password: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        phone: {
-            type: Sequelize.STRING,
-            unique: true
-        },
         role: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            defaultValue:"customer"
         },
         isActive: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.BOOLEAN,
+            defaultValue:true
         }
     });
 

@@ -54,7 +54,7 @@ function AffiliateLinks({ listData }) {
                             <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
                               <FaLink />
                               {console.log(itm?.affiliate?.shortUrl)}
-                              <a target='_blank' href={itm?.affiliate?.shortUrl}>
+                              <a href={itm?.affiliate?.link} target='_blank'>
                                 {itm?.affiliate?.shortUrl}
                               </a>
                             </span>
@@ -72,7 +72,7 @@ function AffiliateLinks({ listData }) {
                         </div>
                         <div className=' flex gap-6'>
                           <div className='border rounded px-2 py-1'>
-                            {itm?.clickCount || '0'} Click
+                            {itm?.clicks || '0'} Click
                           </div>
                           <div className='border rounded px-2 py-1'>
                             {itm?.purchases || '0'} Purchases

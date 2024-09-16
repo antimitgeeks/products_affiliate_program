@@ -2,7 +2,7 @@
 module.exports.SuccessMessage = {
   LOGIN: "Login Success.",
   CREATED: "Created Success.",
-  RESET_PASSWORD: "Check Your Mail For Reset Password Link.",
+  RESET_PASSWORD: "Password Reset Successfully.",
   FORGOT_PASSWORD: "Forgot Password Success.",
   EMAIL_SEND: "Email Send Success.",
   LIST_FETCH: "List Fetch Success.",
@@ -11,6 +11,7 @@ module.exports.SuccessMessage = {
   DELETE: "Delete Success.",
   UPLOADED: "Uploaded Success.",
   SAVED: "Saved Success.",
+
 };
 //Error messages
 module.exports.ErrorMessage = {
@@ -25,5 +26,9 @@ module.exports.ErrorMessage = {
   FILE_NOT_UPLOAD: "File Not Upload.",
   NOT_CREATED: "Not Created.",
   BAD_REQUEST:"Bad Request",
+  TOKEN_EXPIRE:"Token Expired",
+  NOT_UPDATED:"Not Updted",
+  UNAUTHORIZED_USER:"Unauthorized User"
   
+
 };

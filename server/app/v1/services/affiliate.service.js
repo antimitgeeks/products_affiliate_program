@@ -1,14 +1,32 @@
 const shortid = require('shortid');
 const db = require("../models");
+const { Op } = require('sequelize')
 const Affiliate = db.affiliate;
-
+const AssignAffiliate = db.affiliateAssign
+const jwt = require('jsonwebtoken');
+const fs = require('fs')
+const path = require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
-        const details = { ...req.body }
+        const details = { ...req.body, imageUrl: req.file.originalname }
+        const isAlreadyExist = await Affiliate.findOne({
+            where: {
+                [Op.and]:
+                    [
+                        { name: req.body.name },
+                    ]
+            }
+        })
+        if (isAlreadyExist) {
+            return {
+                status: false,
+                isAlreadyExist: true
+            }
+        }
         details.shortId = shortId
-        details.shortUrl = `${process.env.AFFILIATE_LINK}:${process.env.PORT}${process.env.BASE_URL}/affiliate/${shortId}`
-
+        const host = await req.headers.host
+        details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}`
         const result = await Affiliate.create(details)
         if (result) {
             return {
@@ -69,4 +87,83 @@ exports.redirectShortLink = async (req, res) => {
             result: error
         }
     }
+}
+
+//get affiliate services
+exports.getAffiliate = async (req, res) => {
+    try {
+
+        const result = await Affiliate.findAll({
+            order: [
+                ['createdAt', 'DESC'],
+            ]
+        });
+
+
+        result.forEach(obj => {
+
+
+            if (obj.dataValues.imageUrl !== null && obj.dataValues.imageUrl !== undefined) {
+
+                const dir = path.join(__dirname, "..")
+                const newpath = `${dir}/utils/images/${obj.dataValues.imageUrl}`
+
+                if (fs.existsSync(`${newpath}`)) {
+
+                    obj.dataValues.imageUrl = req.hostname + '/' + obj.dataValues.imageUrl
+
+                }
+
+
+
+            }
+
+        });
+
+
+        if (result) {
+            return {
+                status: true,
+                result: result
+            }
+        } else {
+            return {
+                status: false
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+}
+
+//add assgin affiliate service
+exports.addAssignAffiliate = async (id, details) => {
+    try {
+        const addedValue = await details.userId.map(async (i) => {
+            return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: id, userId: i }])
+
+        })
+        const result = await Promise.all(addedValue).then((i)=>{
+            return i
+        })
+        
+        if (addedValue) {
+            return {
+                status: true,
+                result: result
+            }
+        }
+        return false
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
+
 }

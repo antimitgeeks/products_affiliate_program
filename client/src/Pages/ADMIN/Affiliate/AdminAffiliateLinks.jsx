@@ -8,8 +8,7 @@ function AdminAffiliateLinks({ listData }) {
 
     const navigate = useNavigate();
 
-    const ManageAssignClick = (id) => 
-    {
+    const ManageAssignClick = (id) => {
         // console.log(id,'affiliate id')
         navigate(`assign/${id}`)
     }
@@ -50,7 +49,8 @@ function AdminAffiliateLinks({ listData }) {
                                                 <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
                                                     <FaLink />
                                                     {console.log(itm?.shortUrl)}
-                                                    <a target='_blank' href={itm?.shortUrl}>
+                                                    <a href={itm?.link} target='_blank'>
+                                                        {/* Visit link */}
                                                         {itm?.shortUrl}
                                                     </a>
                                                 </span>

@@ -55,15 +55,15 @@ function ViewInvoice({ loading, listData }) {
               </span>
             </div>
             :
-            <div className='invoices-page'>
+            <div className='view-invoices-page'>
+              <div className='flex w-full justify-end px-4 py-2'>
+                <span className='font-semibold pt-0'>
 
+                  {paramData?.email}
+                </span>
+              </div>
               <div className='table-container'>
-                <div className='flex w-full justify-end px-4 py-2'>
-                  <span className='font-semibold pt-2'>
 
-                {paramData?.email}
-                  </span>
-                </div>
                 <table className=''>
                   <thead>
                     <tr>
@@ -92,7 +92,7 @@ function ViewInvoice({ loading, listData }) {
                       ))
                     }
                     <tr className="spacer-row">
-                      <td colSpan="3"></td>
+                      <td colSpan="6"></td>
                     </tr>
                   </tbody>
 

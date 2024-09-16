@@ -12,35 +12,39 @@
 
 const bcrypt = require('bcrypt');
 const { ENUM } = require('sequelize');
-const { toDefaultValue } = require('sequelize/lib/utils');
 
 module.exports = (sequelize, Sequelize) => {
     /**
      * @type {Model}
      */
-    const Affiliate = sequelize.define("affiliate", {
-        name: {
-            type: Sequelize.STRING,
-        },
-        shortId: {
-            type: Sequelize.STRING
-        },
-        shortUrl: {
-            type: Sequelize.STRING
-        },
-        link: {
-            type: Sequelize.STRING
-        },
-        dropboxLink: {
-            type: Sequelize.STRING
-        },
-        imageUrl: {
-            type: Sequelize.STRING
+    const Invoice = sequelize.define("invoice", {
+        userId: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: "users",
+                key: 'id',
+            },
         }
+        ,
+        themeName: {
+            type: Sequelize.STRING,
+            unique: false
+        },
+        domain: {
+            type: Sequelize.STRING
+        },
+        commission: {
+            type: Sequelize.INTEGER
+        },
+        status: {
+            type: Sequelize.ENUM,
+            values: ['Pending', 'Paid', 'Failed'],
+            defaultValue: "Pending"
+        },
     });
 
 
-    return Affiliate;
+    return Invoice;
 };
 
 
