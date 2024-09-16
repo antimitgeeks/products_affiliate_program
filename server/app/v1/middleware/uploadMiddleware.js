@@ -10,7 +10,6 @@ const storage = multer.diskStorage({
   },
 
   filename: async function (req, file, cb) {
-    console.log(" is ");
     const extension = path.extname(file.originalname);
     cb(null, file.originalname)
   }
@@ -25,7 +24,8 @@ const upload = multer({
   fileFilter: async function (req, file, callback) {
     var ext = path.extname(file.originalname);
     if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-      return callback(new Error('Only images are allowed'))
+      req.checkImage = "Only images are allowed"
+      return callback(null,'Only images are allowed')
     }
     callback(null, true)
   },
