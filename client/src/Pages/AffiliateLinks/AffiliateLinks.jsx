@@ -4,7 +4,7 @@ import { Btn, H5 } from '../../components/AbstractElements';
 import { FaLink } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-function AffiliateLinks({ listData, loading }) {
+function AffiliateLinks({ uniqueId, listData, loading }) {
 
   console.log(listData, 'ListDataaaa 12');
 
@@ -55,17 +55,17 @@ function AffiliateLinks({ listData, loading }) {
 
                               <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
                                 <FaLink />
-                                {console.log(itm?.affiliate?.shortUrl)}
-                                <a href={itm?.affiliate?.link} target='_blank'>
-                                  {itm?.affiliate?.shortUrl}
+
+                                <a href={`${itm?.affiliate?.link}?utm_campaign=${uniqueId}`} target='_blank'>
+                                  {`${itm?.affiliate?.shortUrl}?utm_campaign=${uniqueId}`}
                                 </a>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
-                                <span onClick={() => { navigator.clipboard.writeText(itm?.affiliate?.shortUrl) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${uniqueId}`) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
                                 <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                  <a href={itm?.affiliate?.link} target='_blank'>
+                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${uniqueId}`} target='_blank'>
                                     Visit link
                                   </a>
                                 </span>
