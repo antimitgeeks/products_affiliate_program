@@ -5,7 +5,7 @@ import { FaLink } from "react-icons/fa6";
 
 function AffiliateLinks({ listData }) {
 
-  console.log(listData, 'ListDataaaa');
+  console.log(listData, 'ListDataaaa 12');
 
   const navigate = useNavigate();
 
@@ -37,9 +37,8 @@ function AffiliateLinks({ listData }) {
             <div className='w-full flex flex-col h-full items-center gap-8 mt-3 '>
 
               {
-                listData?.map((itm) => {
+                listData?.length > 0 && listData?.map((itm) => {
                   return <>
-
                     <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                       <div className=' w-1/2 shadow-sm rounded-xl  p-2 bg-slate-100'>
                         <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" />

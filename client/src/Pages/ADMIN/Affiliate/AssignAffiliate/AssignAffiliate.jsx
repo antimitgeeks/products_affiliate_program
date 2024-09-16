@@ -195,7 +195,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
                                                 {
 
-                                                    NotAssignedlistData?.map((itm, indx) => (
+                                                    NotAssignedlistData?.result?.map((itm, indx) => (
                                                         <tr key={indx}>
                                                             <td>{itm?.email}</td>
                                                             <td>{itm?.country}</td>

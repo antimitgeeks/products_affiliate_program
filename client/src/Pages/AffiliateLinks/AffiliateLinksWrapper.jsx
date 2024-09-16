@@ -28,7 +28,7 @@ function AffiliateLinksWrapper() {
     }
     else {
       setLoading(false);
-      setListData(data?.result)
+      setListData(data?.result || [])
     }
   }, [listLoading, data, listFetching])
 
