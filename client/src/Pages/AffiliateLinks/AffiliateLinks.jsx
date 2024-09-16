@@ -64,7 +64,7 @@ function AffiliateLinks({ listData }) {
                     </div>
                     <div className=' flex gap-6'>
                       <div className='border rounded px-2 py-1'>
-                        {itm?.clickCount || '0'} Click
+                        {itm?.clicks || '0'} Click
                       </div>
                       <div className='border rounded px-2 py-1'>
                         {itm?.purchases || '0'} Purchases
