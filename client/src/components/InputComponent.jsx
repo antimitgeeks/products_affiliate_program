@@ -13,7 +13,8 @@ function InputComponent(
         required,
         defaultValue,
         fileName,
-        auto
+        auto,
+        disabled
     }
 ) {
     return (
@@ -44,7 +45,9 @@ function InputComponent(
                         onChange={onChange}
                         className=' py-2 w-full form-control border h-10 rounded-[10px]'
                         type={type}
-                        placeholder={placeholder} />
+                        placeholder={placeholder}
+                        disabled={disabled}
+                    />
             }
 
             {
