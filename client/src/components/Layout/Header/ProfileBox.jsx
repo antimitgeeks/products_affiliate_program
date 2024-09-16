@@ -24,7 +24,6 @@ const ProfileBox = () => {
 
   return (
     <div className='d-flex flex gap-3'>
-      {/* <Image className=' rounded-full' src={Avatar} alt='avatar' /> */}
       <span className=' bg-slate-200 w-[50px] h-[50px] rounded-full flex items-center font-semibold justify-center'>{userEmail?.toUpperCase()}</span>
       <div className=' flex flex-col gap-0'>
         <span className=' m-0 p-0'>{EmayWalter}</span>

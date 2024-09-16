@@ -12,8 +12,9 @@ const { Op, where } = require('sequelize');
 exports.allUsers = async () => {
     try {
         const result = await Users.findAll({
+            order: [['createdAt', 'DESC']],
             attributes: ["id", "email", "country", "city", "address", "companyName", "companyNumber"]
-        })
+        });
         if (result) {
             return {
                 status: true,
@@ -37,17 +38,35 @@ exports.allUsers = async () => {
 
 
 exports.notAssignedCustomers = async (affiliateId) => {
-    const affiliateDetails = await AffiliateAssign.findAll({ where: { affiliateId }, attributes: ['userId'] });
-    const assignedUserIds = affiliateDetails.map(detail => detail.userId);
+    try {
 
-    const result = await Users.findAll({
-        where: {
-            id: {
-                [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
+        const affiliateDetails = await AffiliateAssign.findAll({ where: { affiliateId }, attributes: ['userId'] });
+        const assignedUserIds = affiliateDetails.map(detail => detail.userId);
+
+        const result = await Users.findAll({
+            where: {
+                id: {
+                    [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
+                }
+            },
+            order: [['createdAt', 'DESC']],
+        });
+        if (result) {
+            return {
+                status: true,
+                result: result
             }
         }
-    });
-    return result;
+
+
+
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+    }
 }
 
 
@@ -62,7 +81,7 @@ exports.affiliateListAssign = async (id) => {
                 {
                     model: Users,
                 }
-            ]
+            ],
         })
         if (allAdminAffiliates) {
             return {
@@ -86,13 +105,35 @@ exports.affiliateListAssign = async (id) => {
 }
 
 exports.userAffiliates = async (userId) => {
-    const assignAffiliateDetails = await AffiliateAssign.findAll({
-        where: { userId }, include: [
-            {
-                model: Affiliate,
-                require: true
+    try {
+        const assignAffiliateDetails = await AffiliateAssign.findAll({
+            where: { userId }, include: [
+                {
+                    model: Affiliate,
+                    require: true
+                }
+            ],
+            order: [
+                ['createdAt', 'DESC'],
+            ]
+        });
+        if (assignAffiliateDetails) {
+            return {
+                status: true,
+                result: assignAffiliateDetails
             }
-        ]
-    });
-    return assignAffiliateDetails;
+        }
+        return {
+            status: false
+        }
+
+
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+
+    }
 }

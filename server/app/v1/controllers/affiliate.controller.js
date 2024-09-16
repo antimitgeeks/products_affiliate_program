@@ -8,6 +8,9 @@ const Affiliate = db.affiliate;
 //add affiliate link
 exports.addAffiliate = async (req, res) => {
     try {
+        if (req.checkImage === "Only images are allowed") {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, `Only Images Are Allowed`)
+        }
         const link = req.body.link
         //short link id generate
         const shortUrl = await service.shortLink(req, res, link)
@@ -93,10 +96,10 @@ exports.addAssignAffiliate = async (req, res) => {
 }
 
 //get affilaite customer
-exports.getAffiliateCusomter = async(req,res)=>{
-    try{
+exports.getAffiliateCusomter = async (req, res) => {
+    try {
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
 

@@ -132,7 +132,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                     </div>
 
                     :
-                    NotAssignedlistData?.length <= 0 ?
+                    NotAssignedlistData?.result?.length <= 0 ?
                         <div className=' w-full flex items-center justify-center'>
                             <span className=' w-fit flex  items-center justify-center'>
                                 {/* <AiOutlineLoading3Quarters /> */}
