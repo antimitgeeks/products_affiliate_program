@@ -10,6 +10,12 @@ export const AdminMenu = [
         url: `/dashboard`,
         bookmark: true
       },
+      {
+        title: 'Affiliate Links',
+        icon: <FiGitPullRequest />,
+        url: `/dashboard/affiliate-links`,
+        bookmark: true
+      },
     //   {
     //     title: 'Affiliate Links',
     //     icon: <FiGitPullRequest />,

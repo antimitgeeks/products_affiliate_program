@@ -118,7 +118,7 @@ function Invoices({listData,  loading }) {
                         <td>{invoice?.themeName}</td>
                         <td>{invoice?.domain}</td>
                         <td>{invoice?.createdAt?.split('T')[0]}</td>
-                        <td style={{ paddingLeft: '40px' }}>{invoice?.commission} % </td>
+                        <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                         <td>{invoice?.status}</td>
                       </tr>
                     ))}

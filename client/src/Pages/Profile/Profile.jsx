@@ -106,7 +106,7 @@ function Profile({ listData, loading }) {
               {
                 loading ?
                   <div className=' w-full flex items-center justify-center'>
-                    <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                    <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
                       <AiOutlineLoading3Quarters />
                     </span>
                   </div>
