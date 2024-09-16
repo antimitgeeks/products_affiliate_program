@@ -9,7 +9,7 @@ const Affiliate = db.affiliate;
 exports.addAffiliate = async (req, res) => {
     try {
         if (req.checkImage === "Only images are allowed") {
-            return sendResponse(res, statusCode.BAD_REQUEST, false, `Only Images With png/gif/jpg/jpeg Are Allowed`)
+            return sendResponse(res, statusCode.BAD_REQUEST, false, `Only Images Are Allowed`)
         }
         const link = req.body.link
         //short link id generate

@@ -72,8 +72,10 @@ function AddAffiliateLinks({ listData, loading }) {
         AddAffiliate({ data: formData })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
-                    toast.error("Internal server error");
+                    console.log(res.error, 'res.error-------------------------');
+                    console.log(res?.error?.data?.message, '-------------------------------res?.error?.data?.message');
+
+                    toast.error(res?.error?.data?.message);
                     setSubmitLoading(false)
                 }
                 else {

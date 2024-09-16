@@ -43,9 +43,9 @@ exports.resetPasswordSchema = Joi.object({
 exports.forgotPasswordSchema = Joi.object({
     email: emailSchema.required(),
 })
-exports.updateProfile = Joi.object({
+exports.updateProfile = Joi.object({ 
 
-    password: passwordSchema,
+    // password: passwordSchema,
     paypalAddress: Joi.string().optional(),
     country: Joi.string().optional(),
     city: Joi.string().optional(),

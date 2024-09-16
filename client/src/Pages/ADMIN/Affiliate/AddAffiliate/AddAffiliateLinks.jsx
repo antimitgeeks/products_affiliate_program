@@ -75,7 +75,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
             .then((res) => {
                 if (res.error) {
                     console.log(res.error, 'res.error');
-                    toast.error("Internal server error");
+                    toast.error(res?.error?.data?.message);
                     setSubmitLoading(false)
                 }
                 else {

@@ -37,7 +37,7 @@ function AffiliateLinks({ listData }) {
             <div className='w-full flex flex-col h-full items-center gap-8 mt-3 '>
 
               {
-                listData?.map((itm) => {
+                listData?.result?.map((itm) => {
                   return <>
 
                     <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>

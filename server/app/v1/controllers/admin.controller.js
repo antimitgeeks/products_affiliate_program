@@ -50,10 +50,10 @@ exports.affiliateListAssign = async (req, res) => {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
 
         }
-        if (result.status == false && !result.result) {
-            return sendResponse(res, statusCode.NOT_FOUND, true, ErrorMessage.NOT_FOUND, result)
+        if (users.status == false && !users.result) {
+            return sendResponse(res, statusCode.NOT_FOUND, true, ErrorMessage.NOT_FOUND)
         }
-        if (result.status && result.result) {
+        if (users.status && users.result) {
             return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, users?.result)
         }
 
