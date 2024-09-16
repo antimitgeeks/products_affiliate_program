@@ -36,6 +36,9 @@ module.exports = (sequelize, Sequelize) => {
         commission: {
             type: Sequelize.INTEGER
         },
+        sourceId: {
+            type: Sequelize.STRING
+        },
         status: {
             type: Sequelize.ENUM,
             values: ['Pending', 'Paid', 'Failed'],

@@ -80,6 +80,10 @@ function Invoices({ listData, loading }) {
     // Add more invoice records as needed
   ];
 
+  console.log(
+
+    listData?.result,'listdataaaaaaaaaa'
+  )
 
 
   return (
@@ -87,13 +91,13 @@ function Invoices({ listData, loading }) {
       {
         loading ?
           <div className=' w-full flex items-center justify-center'>
-            <span className=' w-full flex  items-center justify-center animate-spin'>
+            <span className=' w-fit flex  items-center justify-center animate-spin'>
               <AiOutlineLoading3Quarters />
             </span>
           </div>
 
           :
-          listData?.length <= 0 ?
+          listData?.result?.length <= 0 ?
             <div className=' w-full flex items-center justify-center'>
               <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                 No data found

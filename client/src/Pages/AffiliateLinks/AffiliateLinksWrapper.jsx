@@ -7,12 +7,15 @@ import { jwtDecode } from 'jwt-decode';
 function AffiliateLinksWrapper() {
 
   const UserToken = Cookies.get("isLogged");
-  const [UserId, setUserId] = useState(0)
+  const [UserId, setUserId] = useState(0);
+  const [uniqueId,setUniqueId] = useState('')
   useEffect(() => {
     if (UserToken) {
       const decodedToken = jwtDecode(UserToken);
       console.log(decodedToken?.id, 'decodedTOKEN')
       setUserId(decodedToken?.id)
+      console.log(decodedToken?.uniqueId,'UID')
+      setUniqueId(decodedToken?.uniqueId)
     }
   }, [UserToken])
 
@@ -28,7 +31,7 @@ function AffiliateLinksWrapper() {
     }
     else {
       setLoading(false);
-      setListData(data?.result)
+      setListData(data?.result || [])
     }
   }, [listLoading, data, listFetching])
 
@@ -36,7 +39,7 @@ function AffiliateLinksWrapper() {
   return (
     <>
       <div className='page-body px-4 h-full pb-5 '>
-        <AffiliateLinks listData={listData} loading={loading} />
+        <AffiliateLinks uniqueId={uniqueId} listData={listData} loading={loading} />
       </div>
     </>
   )

@@ -1,9 +1,5 @@
 import React, { Fragment, useState, useMemo, useEffect } from 'react';
 import { Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Row } from 'reactstrap';
-// import { Btn, H5 } from '../../../components/AbstractElements';
-import { Btn, H5 } from '../../../../components/AbstractElements';
-
-import { and, CustomStyles, CustomstyleText, CustomstyleText2, CustomstyleText3, CustomstyleText4, CustomstyleText5, form, invalid, novalidate, SubmitForm, TermsText, valid } from '../../../../Constant/index';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import InputComponent from '../../../../components/InputComponent';
@@ -171,16 +167,6 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                     </Col>
                                                 </Row>
 
-                                                {/* <Btn color="primary" type="submit" className="d-block mt-5  w-[120px]">
-                                                    {
-                                                        submitLoading ?
-                                                            <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                                                <AiOutlineLoading3Quarters />
-                                                            </span>
-                                                            :
-                                                            "Submit"
-                                                    }
-                                                </Btn> */}
                                                 <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
                                                     {
                                                         submitLoading ?

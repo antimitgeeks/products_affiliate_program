@@ -45,4 +45,4 @@ const AffiliateService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation, useGetIndividualAffiliateListQuery } = AffiliateService;
+export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation, useGetIndividualAffiliateListQuery } = AffiliateService; 
