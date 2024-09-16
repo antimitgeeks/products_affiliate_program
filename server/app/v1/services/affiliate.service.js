@@ -95,7 +95,13 @@ exports.redirectShortLink = async (req, res) => {
 exports.getAffiliate = async (req, res) => {
     try {
 
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+
         const result = await Affiliate.findAll({
+            limit: limit,
+            offset: offset,
             order: [
                 ['createdAt', 'DESC'],
             ]
