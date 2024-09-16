@@ -2,20 +2,28 @@ const Joi = require("joi");
 const { NPO_TYPE } = require('../../constants/enum')
 
 const emailSchema = Joi.string().email().required()
+const passwordSchema = Joi.string()
+  .pattern(/(?=.*[a-z])/, 'lowercase letter') 
+  .pattern(/(?=.*[A-Z])/, 'uppercase letter') 
+  .pattern(/(?=.*[\W_])/, 'special character') 
+  .min(8) 
+  .max(20)
+  .required(); 
+
 
 exports.loginSchema = Joi.object({
     email: emailSchema.required(),
-    password: Joi.string().min(6).required(),
+    password: passwordSchema
 
 });
 exports.updatePassword = Joi.object({
-    oldPassword: Joi.string().min(6).required(),
-    newPassword: Joi.string().min(6).required()
+    oldPassword: passwordSchema,
+    newPassword: passwordSchema
 })
 
 exports.registerSchema = Joi.object({
     email: emailSchema.required(),
-    password: Joi.string().min(6).required(),
+    password:passwordSchema,
     paypalAddress: Joi.string().optional(),
     country: Joi.string().optional(),
     city: Joi.string().optional(),
@@ -24,12 +32,12 @@ exports.registerSchema = Joi.object({
     companyNumber: Joi.number().optional(),
     companyUrl: Joi.string().optional(),
     phone: Joi.number().max(10).optional(),
-    role: Joi.string().valid('Admin', 'User').optional(),
+    role: Joi.string().valid('admin', 'customer').optional(),
     isActive: Joi.boolean().optional()
 });
 
 exports.resetPasswordSchema = Joi.object({
-    password: Joi.string().min(6).required(),
+    password: passwordSchema
 });
 
 exports.forgotPasswordSchema = Joi.object({
@@ -37,7 +45,7 @@ exports.forgotPasswordSchema = Joi.object({
 })
 exports.updateProfile = Joi.object({
 
-    password: Joi.string().min(6).optional(),
+    password: passwordSchema,
     paypalAddress: Joi.string().optional(),
     country: Joi.string().optional(),
     city: Joi.string().optional(),
@@ -46,7 +54,7 @@ exports.updateProfile = Joi.object({
     companyNumber: Joi.number().optional(),
     companyUrl: Joi.string().optional(),
     phone: Joi.number().max(10).optional(),
-    role: Joi.string().valid('Admin', 'User').optional(),
+    role: Joi.string().valid('admin', 'customer').optional(),
     isActive: Joi.boolean().optional()
 })
 
