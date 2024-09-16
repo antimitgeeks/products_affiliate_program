@@ -3,10 +3,10 @@ const { NPO_TYPE } = require('../../constants/enum')
 
 const emailSchema = Joi.string().email().required()
 const passwordSchema = Joi.string()
-  .pattern(/(?=.*[a-z])/, 'lowercase letter') 
-  .pattern(/(?=.*[A-Z])/, 'uppercase letter') 
-  .pattern(/(?=.*[\W_])/, 'special character') 
-  .min(8) 
+//   .pattern(/(?=.*[a-z])/, 'lowercase letter') 
+//   .pattern(/(?=.*[A-Z])/, 'uppercase letter') 
+//   .pattern(/(?=.*[\W_])/, 'special character') 
+  .min(6) 
   .max(20)
   .required(); 
 
