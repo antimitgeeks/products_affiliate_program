@@ -37,6 +37,8 @@ exports.allUsers = async () => {
 
 
 exports.notAssignedCustomers = async (affiliateId) => {
+   try {
+
     const affiliateDetails = await AffiliateAssign.findAll({ where: { affiliateId }, attributes: ['userId'] });
     const assignedUserIds = affiliateDetails.map(detail => detail.userId);
 
@@ -47,7 +49,22 @@ exports.notAssignedCustomers = async (affiliateId) => {
             }
         }
     });
-    return result;
+    if(result){
+        return {
+            status:true,
+            result:result
+        }
+    }
+  
+    
+    
+   } catch (error) {
+    console.log(error)
+    return {
+        status: false,
+        result: error
+    }
+   }
 }
 
 
@@ -86,6 +103,7 @@ exports.affiliateListAssign = async (id) => {
 }
 
 exports.userAffiliates = async (userId) => {
+   try {
     const assignAffiliateDetails = await AffiliateAssign.findAll({
         where: { userId }, include: [
             {
@@ -94,5 +112,23 @@ exports.userAffiliates = async (userId) => {
             }
         ]
     });
-    return assignAffiliateDetails;
+    if(assignAffiliateDetails){
+        return {
+            status:true,
+            result:assignAffiliateDetails
+        }
+    }
+    return {
+        status:false
+    }
+   
+    
+   } catch (error) {
+    console.log(error)
+    return {
+        status: false,
+        result: error
+    }
+    
+   }
 }

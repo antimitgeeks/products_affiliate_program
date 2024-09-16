@@ -1,6 +1,6 @@
 import React from 'react';
 import './ViewInvoice.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import Select from 'react-select';
 import { useUpdateInvoiceStatusMutation } from '../../../services/AdminService';
@@ -13,11 +13,8 @@ function ViewInvoice({ loading, listData }) {
   const navigate = useNavigate();
   const [UpdateStatus] = useUpdateInvoiceStatusMutation();
 
+  const paramData = useParams();
 
-
-  const handleViewInvoice = (id) => {
-    navigate(`invoice/view/${id}`)
-  }
 
   const handleSelect = (e, id) => {
     console.log(e);
@@ -58,8 +55,15 @@ function ViewInvoice({ loading, listData }) {
               </span>
             </div>
             :
-            <div className='invoices-page'>
+            <div className='view-invoices-page'>
+              <div className='flex w-full justify-end px-4 py-2'>
+                <span className='font-semibold pt-0'>
+
+                  {paramData?.email}
+                </span>
+              </div>
               <div className='table-container'>
+
                 <table className=''>
                   <thead>
                     <tr>
@@ -88,7 +92,7 @@ function ViewInvoice({ loading, listData }) {
                       ))
                     }
                     <tr className="spacer-row">
-                      <td colSpan="3"></td>
+                      <td colSpan="6"></td>
                     </tr>
                   </tbody>
 

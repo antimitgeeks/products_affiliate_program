@@ -2,7 +2,7 @@ import React from 'react';
 import './Invoices.css';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-function Invoices({listData,  loading }) {
+function Invoices({ listData, loading }) {
 
   const invoices = [
     {
