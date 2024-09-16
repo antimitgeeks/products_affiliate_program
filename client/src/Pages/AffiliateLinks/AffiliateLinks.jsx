@@ -43,7 +43,8 @@ function AffiliateLinks({ listData, loading }) {
                     return <>
                       <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' w-1/2 shadow-sm rounded-xl  p-2 bg-slate-100'>
-                          <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" />
+                          {/* <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" /> */}
+                          <img src={`https://${itm?.imageUrl}`} alt="" />
                           {/* {console.log(itm.url,'IMG URL')} */}
                           {/* <img height={"full"} width={"full"} src={itm?.url} alt="IMG" /> */}
                         </div>
@@ -72,12 +73,12 @@ function AffiliateLinks({ listData, loading }) {
                             </div>
                           </div>
                           <div className=' flex gap-6'>
-                            <div className='border rounded px-2 py-1'>
+                            {/* <div className='border rounded px-2 py-1'>
                               {itm?.clicks || '0'} Click
                             </div>
                             <div className='border rounded px-2 py-1'>
                               {itm?.purchases || '0'} Purchases
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
