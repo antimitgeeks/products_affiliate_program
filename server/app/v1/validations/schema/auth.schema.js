@@ -3,12 +3,12 @@ const { NPO_TYPE } = require('../../constants/enum')
 
 const emailSchema = Joi.string().email().required()
 const passwordSchema = Joi.string()
-//   .pattern(/(?=.*[a-z])/, 'lowercase letter') 
-//   .pattern(/(?=.*[A-Z])/, 'uppercase letter') 
-//   .pattern(/(?=.*[\W_])/, 'special character') 
-  .min(6) 
-  .max(20)
-  .required(); 
+    //   .pattern(/(?=.*[a-z])/, 'lowercase letter') 
+    //   .pattern(/(?=.*[A-Z])/, 'uppercase letter') 
+    //   .pattern(/(?=.*[\W_])/, 'special character') 
+    .min(6)
+    .max(20)
+    .required();
 
 
 exports.loginSchema = Joi.object({
@@ -23,7 +23,7 @@ exports.updatePassword = Joi.object({
 
 exports.registerSchema = Joi.object({
     email: emailSchema.required(),
-    password:passwordSchema,
+    password: passwordSchema,
     paypalAddress: Joi.string().optional(),
     country: Joi.string().optional(),
     city: Joi.string().optional(),
@@ -43,7 +43,7 @@ exports.resetPasswordSchema = Joi.object({
 exports.forgotPasswordSchema = Joi.object({
     email: emailSchema.required(),
 })
-exports.updateProfile = Joi.object({ 
+exports.updateProfile = Joi.object({
 
     // password: passwordSchema,
     paypalAddress: Joi.string().optional(),

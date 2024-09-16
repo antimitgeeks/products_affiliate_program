@@ -25,10 +25,8 @@ module.exports.ErrorMessage = {
   FILE_REQUIRED: "File Required.",
   FILE_NOT_UPLOAD: "File Not Upload.",
   NOT_CREATED: "Not Created.",
-  BAD_REQUEST:"Bad Request",
-  TOKEN_EXPIRE:"Token Expired",
-  NOT_UPDATED:"Not Updted",
-  UNAUTHORIZED_USER:"Unauthorized User"
-  
-
+  BAD_REQUEST: "Bad Request",
+  TOKEN_EXPIRE: "Token Expired",
+  NOT_UPDATED: "Not Updted",
+  UNAUTHORIZED_USER: "Unauthorized User"
 };

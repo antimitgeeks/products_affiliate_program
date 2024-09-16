@@ -9,9 +9,9 @@ const path = require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
-       const imageUrl= await req.file ? req.file.originalname :null
-       
-        const details = { ...req.body, imageUrl:imageUrl }
+        const imageUrl = await req.file ? req.file.originalname : null
+
+        const details = { ...req.body, imageUrl: imageUrl }
         const isAlreadyExist = await Affiliate.findOne({
             where: {
                 [Op.and]:
@@ -69,9 +69,9 @@ exports.shortLink = async (req, res, link) => {
 // redirect short url link
 exports.redirectShortLink = async (req, res) => {
     try {
-        const shortId = req.params.id
+        const shortId = req.params.shortLinkId
         const result = await Affiliate.findOne({ where: { shortId: shortId } });
-        const url = result.link
+        const url = result?.link
         if (result) {
             return {
                 status: true,
@@ -149,10 +149,10 @@ exports.addAssignAffiliate = async (id, details) => {
             return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: id, userId: i }])
 
         })
-        const result = await Promise.all(addedValue).then((i)=>{
+        const result = await Promise.all(addedValue).then((i) => {
             return i
         })
-        
+
         if (addedValue) {
             return {
                 status: true,
