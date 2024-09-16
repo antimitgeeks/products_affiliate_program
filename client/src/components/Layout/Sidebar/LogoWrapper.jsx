@@ -14,17 +14,17 @@ const LogoWrapper = () => {
 
   return (
     <div className='logo-wrapper'>
-      <Link to={`${process.env.PUBLIC_URL}/dashboard/`}>
+      <Link to={`${process.env.PUBLIC_URL}/dashboard`}>
         <Image className='img-fluid for-light w-[140px] h-[50px]' src={logo} alt='logo' />
       </Link>
       {/* <div onClick={() => setTogglSidebar(!togglSidebar)} className='back-btn'>
         S
       </div> */}
-      <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[24px] border toggle-sidebar hover:none text-black'>
+      {/* <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[24px] border toggle-sidebar hover:none text-black'> */}
         {/* <IoSettingsSharp color='white' stroke='white' size={24} /> */}
         {/* <RiSettings5Fill color='white' stroke='white' size={24} /> */}
-            <FaArrowRightArrowLeft className=' text-sm' size={22}/>
-      </div>
+        {/* <FaArrowRightArrowLeft className=' text-sm' size={22} /> */}
+      {/* </div> */}
     </div>
   );
 };
