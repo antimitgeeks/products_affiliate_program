@@ -54,7 +54,7 @@ function AffiliateLinks({ listData }) {
                             <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
                               <FaLink />
                               {console.log(itm?.affiliate?.shortUrl)}
-                              <a target='_blank' href={itm?.affiliate?.shortUrl}>
+                              <a href={itm?.affiliate?.link} target='_blank'>
                                 {itm?.affiliate?.shortUrl}
                               </a>
                             </span>
