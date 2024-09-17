@@ -42,7 +42,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 UpdateInvoiceStatus: builder.mutation(
                     {
-                        invalidatesTags: ['admin'],
+                        invalidatesTags: ['admin',"overvieww"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/invoice/updateStatus/${Id}`,
