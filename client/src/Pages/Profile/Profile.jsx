@@ -74,8 +74,7 @@ function Profile({ listData, loading }) {
     UpdateProfile({ data: DataForApi })
       .then((res) => {
         if (res.error) {
-          console.log(res.error, 'res.error');
-          toast.error("Internal server error");
+          toast.error(res?.error?.data?.error || "Internal server error");
           setSubmitLoading(false)
         }
         else {

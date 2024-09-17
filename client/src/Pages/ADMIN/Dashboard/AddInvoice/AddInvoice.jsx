@@ -57,6 +57,7 @@ function AddInvoice({ id, email }) {
         }).nullable().required("themeName is required"),
         domain: yup.string().trim("Enter valid domain").required("domain is required").strict(),
         commission: yup.string().matches(/^\d+$/, "Click count must be a number").trim("Enter valid commission").required("commission is required").strict(),
+        sourceId:yup.string().trim("Enter valid sourceId").required("sourceId is required").strict(),
     });
 
     const handleSubmit = (data, { resetForm }) => {
