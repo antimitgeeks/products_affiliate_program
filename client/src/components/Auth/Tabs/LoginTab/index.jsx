@@ -97,7 +97,7 @@ const LoginTab = (props) => {
                 />
                 <H4 className="text-center font-semibold text-2xl"> Sign In</H4>
               </div>
-              <P className="text-center">{"Enter your email & password to SignIn"}</P>
+              {/* <P className="text-center">{"Enter your email & password to SignIn"}</P> */}
               <FormGroup className=" flex flex-col gap-5">
                 <InputComponent label={"Email"} placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
                 <div className=" relative flex gap-1 justify-between">

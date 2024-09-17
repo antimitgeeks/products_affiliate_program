@@ -36,7 +36,13 @@ module.exports = (sequelize, Sequelize) => {
         commission: {
             type: Sequelize.INTEGER
         },
-        sourceId: {
+        paymentMethod: {
+            type: Sequelize.STRING
+        },
+        transactionId: {
+            type: Sequelize.STRING
+        },
+        invoiceId: {
             type: Sequelize.STRING
         },
         status: {
