@@ -20,7 +20,7 @@ function InvoicesWrapper() {
     }
   },[userToken])
 
-  const { data, isLoading: listLoading, isFetching: listFetching } = useGetIndividualInvoiceListQuery({Id:userId});
+  const { data, isLoading: listLoading, isFetching: listFetching } = useGetIndividualInvoiceListQuery({Id:userId || 0});
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(false);
 

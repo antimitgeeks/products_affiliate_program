@@ -28,7 +28,7 @@ function Analytics({ loading, analyticsData }) {
         curve: 'straight',
       },
       title: {
-        text: 'Purchases',
+        text: '',
         align: 'left',
       },
       grid: {
@@ -166,7 +166,6 @@ function Analytics({ loading, analyticsData }) {
 
   return (
     <>
-      <h3>Total : {purchaseCount}</h3>
       {loading ? <div className=' w-full flex h-[70vh] items-center justify-center'>
         <span className=' w-fit flex  items-center justify-center animate-spin'>
           <AiOutlineLoading3Quarters />
@@ -174,88 +173,97 @@ function Analytics({ loading, analyticsData }) {
       </div> : <>
         <p className='text-[20px] font-semibold'>Analytics Details</p>
 
-        <div className=' w-full flex flex-col gap-12 pt-6'>
-          <div className='w-full px-5 py-4 rounded border bg-white'>
 
-            <ReactApexChart
-              options={chartState?.options}
-              // series={chartState?.series}
-              series={[
-                {
-                  name: 'Counts',
-                  data: purchasesData,
-                },
-              ]}
-              type="line"
-              height={350}
+        <div className='w-full'>
 
-              className="px-2 w-full max-w-full"
-            />
+          <div className=' w-full flex flex-col gap-12 pt-6'>
+            <div className='w-full px-5 py-4 rounded border bg-white'>
+              <div className='w-full flex justify-between'>
+                <span className='font-semibold text-[17.5px]'>Purchases</span>
+                {/* <span>TOtal</span> */}
+                <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3>
 
-          </div>
-          <div className='grid grid-cols-1 w-full gap-10'>
-            {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
-            CLICKS
-            {
-              ClicksData?.map((itm) => {
-                return <div className='border bg-white p-4'>
-                  <ReactApexChart
-                    options={{
-                      chart: {
-                        height: 350,
-                        type: 'line',
-                        zoom: {
+              </div>
+              <ReactApexChart
+                options={chartState?.options}
+                // series={chartState?.series}
+                series={[
+                  {
+                    name: 'Counts',
+                    data: purchasesData,
+                  },
+                ]}
+                type="line"
+                height={350}
+
+                className="px-2 w-full max-w-full"
+              />
+
+            </div>
+            <div className='grid grid-cols-1 w-full gap-10'>
+              {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
+              CLICKS
+              {
+                ClicksData?.map((itm) => {
+                  return <div className='border bg-white p-4'>
+                    <ReactApexChart
+                      options={{
+                        chart: {
+                          height: 350,
+                          type: 'line',
+                          zoom: {
+                            enabled: false,
+                          },
+                        },
+                        dataLabels: {
                           enabled: false,
                         },
-                      },
-                      dataLabels: {
-                        enabled: false,
-                      },
-                      stroke: {
-                        curve: 'straight',
-                      },
-                      title: {
-                        text: itm?.theme,
-                        align: 'left',
-                      },
-                      grid: {
-                        row: {
-                          colors: ['#f3f3f3', 'transparent'],
-                          opacity: 0.5,
+                        stroke: {
+                          curve: 'straight',
                         },
-                      },
-                      xaxis: {
-                        categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+                        title: {
+                          text: itm?.theme,
+                          align: 'left',
+                        },
+                        grid: {
+                          row: {
+                            colors: ['#f3f3f3', 'transparent'],
+                            opacity: 0.5,
+                          },
+                        },
+                        xaxis: {
+                          categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
 
-                      },
-                    }}
-                    series={
-                      [
-                        {
-                          name: 'Themes',
-                          data: itm?.data,
-                        }
-                      ]
-                    }
-                    type="line"
-                    height={325}
-                  />
-                </div>
+                        },
+                      }}
+                      series={
+                        [
+                          {
+                            name: 'Themes',
+                            data: itm?.data,
+                          }
+                        ]
+                      }
+                      type="line"
+                      height={325}
+                    />
+                  </div>
 
-              })
-            }
+                })
+              }
 
-          </div>
-          {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
+            </div>
+            {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
 
-        <ReactApexChart
-          options={chartStateTwo.options}
-          series={chartStateTwo.series}
-          type="bar"
-          height={325}
+<ReactApexChart
+options={chartStateTwo.options}
+series={chartStateTwo.series}
+type="bar"
+height={325}
         /> 
-
-      </div> */}
+        
+        </div> */}
+          </div>
         </div>
       </>}
 
