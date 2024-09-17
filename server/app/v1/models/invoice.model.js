@@ -43,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.ENUM,
             values: ['Pending', 'Paid', 'Failed'],
             defaultValue: "Pending"
-        },
+        }, 
     });
 
 

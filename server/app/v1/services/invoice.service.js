@@ -37,9 +37,21 @@ exports.getInvoiceList = async (id, req) => {
                 ['createdAt', 'DESC'],
             ],
         })
+        const paidAmount = await Invoice.findAll({
+          
+            where: {
+                userId: id,
+                status: 'Paid'
+            },
+            attributes:[[db.sequelize.fn('SUM', db.sequelize.col('commission')), 'totalCommissionPaid']],
+            group:['commission']
+           
+        })
+     
         return {
             status: true,
-            result: result
+            result: result,
+            paidAmount:paidAmount
         }
     }
 
