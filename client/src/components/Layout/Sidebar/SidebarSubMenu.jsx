@@ -35,7 +35,7 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
       {menu.map((item, i) => (
         <li key={i} className={`${className ? '' : 'sidebar-list'} ${(item.menu ? item.menu.map((innerItem) => ActiveNavLinkUrl(innerItem.url)).includes(true) : ActiveNavLinkUrl(item.url)) || isOpen[level] === item.title ? 'active' : ''} `}>
           <Link
-          style={{textDecoration:'none'}}
+            style={{ textDecoration: 'none' }}
             className={`${className ? '' : 'sidebar-link sidebar-title'}  ${(item.menu ? item.menu.map((innerItem) => ActiveNavLinkUrl(innerItem.url)).includes(true) : ActiveNavLinkUrl(item.url)) || isOpen[level] === item.title ? 'active' : ''}`}
             to={item.url ? item.url : '#javascript'}
             onClick={() => {
@@ -45,7 +45,7 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
             }}>
             <div className='d-flex align-items-center' >
               {item.icon && item.icon}
-              <span style={{color:'black'}} className='sidebar-title-alignment border-none text-black'>{item.title}</span>
+              <span style={{ color: 'black' }} className='sidebar-title-alignment border-none text-black'>{item.title}</span>
             </div>
             {item.menu && (
               <span className='sub-arrow'>

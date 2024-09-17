@@ -8,8 +8,7 @@ const { decode } = require('jsonwebtoken')
 
 exports.getOverviews = async (req, res) => {
     try {
-        const token = req.header('authorization').split(' ')[1]
-        const id = decode(token).id
+        const id = req.params.id
         const result = await overviewService.getOverviews(req, res, id)
         return sendResponse(res, statusCode.OK, true, SuccessMessage.FETCH, result);
 

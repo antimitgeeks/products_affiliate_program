@@ -72,7 +72,7 @@ exports.updateStatus = async (id, status) => {
 
         return {
             status: true,
-            result: result
+            result: result 
         }
 
     } catch (error) {

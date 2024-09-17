@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3000/api/v1",
+        baseUrl: "https://48f9-2401-4900-1ca2-1a1d-acf8-7676-4504-e8f4.ngrok-free.app/api/v1",
         prepareHeaders: (headers) => {
             const user = Cookies.get('isLogged');
             if (user) {

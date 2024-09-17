@@ -56,7 +56,8 @@ function DashboardWrapper() {
     data: {
       "month": "09",
       "year": "2024"
-    }
+    },
+    Id: userId
   }
   )
 
