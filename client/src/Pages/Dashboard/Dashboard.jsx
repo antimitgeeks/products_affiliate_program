@@ -63,7 +63,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData }) {
                   <table className='shadow'>
                     <thead className=' py-2'>
                       <tr className='py-2'>
-                        <th>Source Id</th>
+                        <th>Transaction Id</th>
                         <th>Theme name</th>
                         <th>Domain</th>
                         <th>Commission</th>
@@ -74,7 +74,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData }) {
                     <tbody>
                       {listData?.map(invoice => (
                         <tr key={invoice?.id}>
-                          <td>{invoice?.sourceId || 'N/A'}</td>
+                          <td>{invoice?.transactionId || 'N/A'}</td>
                           <td>{invoice?.themeName}</td>
                           <td>{invoice?.domain}</td>
                           <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>

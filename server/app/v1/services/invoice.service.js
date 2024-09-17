@@ -3,6 +3,7 @@ const Invoice = db.invoice;
 
 exports.createInvoice = async (body) => {
     try {
+        console.log(body, '--------------------------------body');
 
         const result = await Invoice.create({ ...body })
         return {
@@ -37,21 +38,12 @@ exports.getInvoiceList = async (id, req) => {
                 ['createdAt', 'DESC'],
             ],
         })
-        const paidAmount = await Invoice.findAll({
-
-            where: {
-                userId: id,
-                status: 'Paid'
-            },
-            attributes: [[db.sequelize.fn('SUM', db.sequelize.col('commission')), 'totalCommissionPaid']],
-            group: ['commission']
-
-        })
+       
 
         return {
             status: true,
             result: result,
-            paidAmount: paidAmount
+         
         }
     }
 
