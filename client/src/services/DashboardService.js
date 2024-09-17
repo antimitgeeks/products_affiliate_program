@@ -22,7 +22,7 @@ const DashboardService = CreateApi.injectEndpoints(
                         providesTags: ["dashboard"],
                         query: ({ Id, data }) => (
                             {
-                                url: `/overview/get`,
+                                url: `/overview/get/${Id}`,
                                 method: "POST",
                                 body: data
                             }
