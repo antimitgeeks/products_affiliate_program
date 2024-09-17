@@ -9,11 +9,11 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 // import { useUpdatePasswordMutation } from '../../services/AuthServices';
 import toast from 'react-hot-toast';
 import { useAddInvoiceMutation } from '../../../../services/AdminService';
-import { useGetAffiliateListQuery } from '../../../../services/AffiliateService';
 
 import { useNavigate } from 'react-router-dom';
 // import { useGetPasswordUpdateDataQuery } from '../../services/AuthServices';
 import Select from 'react-select';
+import { useGetAffiliateListQuery, useGetIndividualAffiliateListQuery } from '../../../../services/AffiliateService';
 
 function AddInvoice({ id, email }) {
 
@@ -23,7 +23,13 @@ function AddInvoice({ id, email }) {
     // const [UpdatePassword] = useUpdatePasswordMutation();
     const navigate = useNavigate();
     const [AddInvoice] = useAddInvoiceMutation();
-    const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateListQuery({})
+
+    const { data, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({ Id: id })
+
+    const paymentMethodsDetails = [{
+        label: "PayPal",
+        value: "payPal"
+    }]
 
     useEffect(() => {
         if (listLoading || listFetching) {
@@ -31,9 +37,9 @@ function AddInvoice({ id, email }) {
         }
         else {
             setLoading(false);
-            const transformedData = data?.result?.map(item => ({
+            const transformedData = data?.result?.result?.map(item => ({
                 value: item.id,
-                label: item.name,
+                label: item.affiliate.name,
             }));
             setListData(transformedData);
         }
@@ -46,7 +52,9 @@ function AddInvoice({ id, email }) {
         themeName: null,
         domain: '',
         commission: '',
-        sourceId: ''
+        paymentMethod: null,
+        transactionId: '',
+        invoiceId: ''
     };
 
     const validationSchema = yup.object().shape({
@@ -57,16 +65,27 @@ function AddInvoice({ id, email }) {
         }).nullable().required("themeName is required"),
         domain: yup.string().trim("Enter valid domain").required("domain is required").strict(),
         commission: yup.string().matches(/^\d+$/, "Click count must be a number").trim("Enter valid commission").required("commission is required").strict(),
-        sourceId: yup.string().trim("Enter valid sourceId").required("sourceId is required").strict(),
+        paymentMethod: yup.object().shape({
+            label: yup.string().required("paymentMethod is required"),
+            value: yup.string().required("paymentMethod is required")
+        }).nullable().required("themeName is required"),
+        transactionId: yup.string().required("transactionId is required").trim("Enter valid transactionId"),
+        invoiceId: yup.string().trim("Enter valid invoiceId"),
     });
 
     const handleSubmit = (data, { resetForm }) => {
+
+        console.log('---------------------------------submit');
+
+
         let dataForApi = {
             "userId": id,
             "themeName": data?.themeName?.label,
             "domain": data?.domain,
             "commission": data?.commission,
-            "sourceId": data?.sourceId
+            "paymentMethod": data?.paymentMethod?.value,
+            "transactionId": data?.transactionId,
+            "invoiceId": data?.invoiceId,
         }
         console.log(dataForApi, 'dataforAPI')
         AddInvoice({ data: dataForApi })
@@ -143,7 +162,7 @@ function AddInvoice({ id, email }) {
                                                     {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                                                     {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
                                                     <InputComponent label={"Domain"} type={"text"} value={profileProps.values.domain} name='domain' onChange={profileProps.handleChange} placeholder={"Enter domain"} />
-
+                                                    <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"domain"} component='div' />
                                                 </Col>
                                             </Row >
                                             <br></br>
@@ -151,28 +170,60 @@ function AddInvoice({ id, email }) {
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Pay Pal Source Id"} type={"text"} value={profileProps.values.sourceId} name='sourceId' onChange={profileProps.handleChange} placeholder={"Enter Source Id"} />
+                                                    {/* <InputComponent label={"Payment Method"} type={"text"} value={profileProps.values.paymentMethod} name='paymentMethod' onChange={profileProps.handleChange} placeholder={"Enter Source Id"} /> */}
+
+
+                                                    <div className=' relative'>
+                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Payment Method"}</span>
+                                                        <Select
+                                                            placeholder="Select Payment"
+                                                            options={paymentMethodsDetails}
+                                                            name="paymentMethod"
+                                                            value={profileProps.values.paymentMethod}
+                                                            // value={[{value:"IN",label:'India'}]}
+                                                            onChange={value => profileProps.setFieldValue('paymentMethod', value)}
+                                                        />
+                                                        <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"paymentMethod"} component='div' />
+                                                    </div>
+
+
                                                 </Col>
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Commission"} type={"text"} value={profileProps.values.commission} name='commission' onChange={profileProps.handleChange} placeholder={"Enter commission"} />
+                                                    <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter Transaction Id"} />
+                                                    <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"transactionId"} component='div' />
                                                 </Col>
                                             </Row>
+                                            <br></br>
+                                            <Row className='g-3'>
+                                                <Col md='6'>
+                                                    {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
+                                                    {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
+                                                    <InputComponent label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter Invoice Id"} />
+                                                    <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"invoiceId"} component='div' />
+                                                </Col >
+                                                <Col md='6'>
+                                                    {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
+                                                    {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
+                                                    <InputComponent label={"Commission"} type={"text"} value={profileProps.values.commission} name='commission' onChange={profileProps.handleChange} placeholder={"Enter commission"} />
+                                                    <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"commission"} component='div' />
+                                                </Col>
+                                            </Row >
                                             {/* <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
                                                 Submit
                                             </Btn> */}
-                                            <div className=' w-[120px] mt-3'>
+                                            < div className=' w-[120px] mt-3' >
                                                 <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
                                                     Submit
                                                 </button>
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </Fragment>
+                                            </div >
+                                        </CardBody >
+                                    </Card >
+                                </Fragment >
 
 
-                            </Form>
+                            </Form >
                         )
                     }
                     {/* Profile Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt veniam velit porro fugit nulla eligendi iusto veritatis nemo quod! Veniam quia aperiam omnis repellendus, pariatur molestias inventore perferendis ullam magni consequuntur amet repudiandae. Porro debitis perspiciatis modi excepturi ipsa soluta odio cumque provident sapiente sint fugit temporibus, culpa, harum dolor. */}

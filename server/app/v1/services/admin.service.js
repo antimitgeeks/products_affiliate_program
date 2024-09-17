@@ -19,16 +19,42 @@ exports.allUsers = async (req) => {
         const result = await Users.findAll({
             limit: limit,
             offset: offset,
+            include:
+            {
+                model: AffiliateAssign,
+                attributes: ['affiliateId']
+            },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "companyName", "companyNumber"]
+            attributes: ["id", "email", "country", "city", "address", "companyName", "companyNumber",'createdAt'],
+
+
+
         });
-        if (result) {
+
+
+        if(result){
+            const usersAffiliateCounts = result.map(user => {
+                const affiliateCount = user.affiliateAssigns.length;
+                return {
+                    id: user.id,
+                    email: user.email,
+                    country: user.country,
+                    city: user.city,
+                    address: user.address,
+                    companyName: user.companyName,
+                    companyNumber: user.companyNumber,
+                    affiliateCount: affiliateCount 
+                };
+            });
+
             return {
                 status: true,
-                result: result
+                result: usersAffiliateCounts
             }
+
         }
+
         else {
             return {
                 status: false

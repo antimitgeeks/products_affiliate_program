@@ -10,7 +10,7 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
   console.log(listData, 'ListDataaaa 12');
 
   const navigate = useNavigate();
-  const profileDetails = JSON.parse(Cookies.get('profileData'));
+  const profileDetails = JSON.parse(Cookies.get('profileData') || null);
 
 
   return (
