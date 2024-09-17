@@ -15,6 +15,7 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
 
   return (
     <>
+      <p className='text-[20px] font-semibold'>Affiliate Links</p>
       {
         loading ?
           <>
@@ -32,13 +33,13 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
               </span>
             </div>
             :
-            <div className=' w-full flex flex-col h-full items-center gap-8 '>
+            <div className=' w-full flex flex-col h-full items-center gap-6 '>
               <div className=' w-full flex items-center justify-between'>
                 {/* <span onClick={() => navigate('add')} className=' cursor-pointer p-2 bg-black text-white rounded'>
             Create Links
           </span> */}
               </div>
-              <div className='w-full flex flex-col h-full items-center gap-8 mt-1 '>
+              <div className='w-full flex flex-col h-full items-center gap-8 '>
 
                 {
                   listData?.result?.map((itm) => {
@@ -54,7 +55,7 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
                             <span className='font-semibold text-lg'>{itm?.affiliate?.name}</span>
                             <div className='flex flex-col gap-3'>
 
-                              <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
+                              <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                 <FaLink />
 
                                 <a href={`${itm?.affiliate?.link}?utm_campaign=${profileDetails?.userId}`} target='_blank'>

@@ -5,6 +5,8 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import Select from 'react-select';
 import { useUpdateInvoiceStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
+import { IoArrowBack } from "react-icons/io5";
+
 
 function ViewInvoice({ loading, listData }) {
 
@@ -56,9 +58,11 @@ function ViewInvoice({ loading, listData }) {
             </div>
             :
             <div className='view-invoices-page'>
-              <div className='flex w-full justify-end px-4 py-2'>
+              <div className='flex w-full justify-between px-4 py-2 mb-3'>
+                <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                  <IoArrowBack size={20} />
+                </span>
                 <span className='font-semibold pt-0'>
-
                   {paramData?.email}
                 </span>
               </div>

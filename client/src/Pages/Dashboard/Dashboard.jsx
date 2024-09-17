@@ -13,6 +13,8 @@ function Dashboard({ loading, listData, overviewLoading, overviewData }) {
 
   return (
     <>
+      <p className='text-[20px] font-semibold'>Overview Details</p>
+
       {
         loading || overviewLoading ?
           <div className=' w-full flex items-center justify-center'>
@@ -54,26 +56,30 @@ function Dashboard({ loading, listData, overviewLoading, overviewData }) {
               </div>
               <hr />
               <br />
+              <p className='text-[20px] font-semibold'>Invoice Details</p>
+
               <div className='w-full h-full invoices-page'>
                 <div className='table-container'>
                   <table className='shadow'>
                     <thead className=' py-2'>
                       <tr className='py-2'>
+                        <th>Source Id</th>
                         <th>Theme name</th>
                         <th>Domain</th>
-                        <th>Date</th>
                         <th>Commission</th>
                         <th>Status</th>
+                        <th>Date</th>
                       </tr>
                     </thead>
                     <tbody>
                       {listData?.map(invoice => (
                         <tr key={invoice?.id}>
+                          <td>{invoice?.sourceId || 'N/A'}</td>
                           <td>{invoice?.themeName}</td>
                           <td>{invoice?.domain}</td>
-                          <td>{invoice?.createdAt?.split('T')[0]}</td>
                           <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                           <td>{invoice?.status}</td>
+                          <td>{invoice?.createdAt?.split('T')[0]}</td>
                         </tr>
                       ))}
                       <tr className="spacer-row">
