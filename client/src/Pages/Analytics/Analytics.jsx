@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-function Analytics() {
+function Analytics({ loading, analyticsData }) {
 
   const navigate = useNavigate();
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
+  const [purchaseCount, setPurchaseCount] = useState(0);
 
 
   const [chartState, setChartState] = useState({
@@ -79,6 +81,7 @@ function Analytics() {
     { createAt: "2024-08-09 08:06:32" }
   ];
 
+
   useEffect(() => {
     const Clicks = [
       {
@@ -144,7 +147,7 @@ function Analytics() {
 
     // Create a result array with only counts for each day
     const counts = daysOfMonth.map(day => {
-      const count = purchases.filter(purchase => getDay(purchase.createAt) === day).length;
+      const count = analyticsData?.filter(purchase => getDay(purchase.createdAt) === day).length;
       return count;
     });
 
@@ -152,83 +155,98 @@ function Analytics() {
     console.log(counts, 'PURCHASE COUNT');
     setPurchasesData(counts)
 
-  }, [])
+    const totalPurchases = counts.reduce((total, count) => total + count, 0);
+    setPurchaseCount(totalPurchases)
 
+
+
+  }, [analyticsData])
+
+  console.log(purchaseCount, '---------------------purchaseCount');
 
   return (
-    <div className=' w-full flex flex-col gap-12 pt-6'>
-      <div className='w-full px-5 py-4 rounded border bg-white'>
+    <>
+      <h3>Total : {purchaseCount}</h3>
+      {loading ? <div className=' w-full flex h-[70vh] items-center justify-center'>
+        <span className=' w-fit flex  items-center justify-center animate-spin'>
+          <AiOutlineLoading3Quarters />
+        </span>
+      </div> : <>
+        <p className='text-[20px] font-semibold'>Analytics Details</p>
 
-        <ReactApexChart
-          options={chartState?.options}
-          // series={chartState?.series}
-          series={[
+        <div className=' w-full flex flex-col gap-12 pt-6'>
+          <div className='w-full px-5 py-4 rounded border bg-white'>
+
+            <ReactApexChart
+              options={chartState?.options}
+              // series={chartState?.series}
+              series={[
+                {
+                  name: 'Counts',
+                  data: purchasesData,
+                },
+              ]}
+              type="line"
+              height={350}
+
+              className="px-2 w-full max-w-full"
+            />
+
+          </div>
+          <div className='grid grid-cols-1 w-full gap-10'>
+            {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
+            CLICKS
             {
-              name: 'Themes',
-              data: purchasesData,
-            },
-          ]}
-          type="line"
-          height={350}
+              ClicksData?.map((itm) => {
+                return <div className='border bg-white p-4'>
+                  <ReactApexChart
+                    options={{
+                      chart: {
+                        height: 350,
+                        type: 'line',
+                        zoom: {
+                          enabled: false,
+                        },
+                      },
+                      dataLabels: {
+                        enabled: false,
+                      },
+                      stroke: {
+                        curve: 'straight',
+                      },
+                      title: {
+                        text: itm?.theme,
+                        align: 'left',
+                      },
+                      grid: {
+                        row: {
+                          colors: ['#f3f3f3', 'transparent'],
+                          opacity: 0.5,
+                        },
+                      },
+                      xaxis: {
+                        categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
 
-          className="px-2 w-full max-w-full"
-        />
-
-      </div>
-      <div className='grid grid-cols-1 w-full gap-10'>
-        {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
-        CLICKS
-        {
-          ClicksData?.map((itm) => {
-            return <div className='border bg-white p-4'>
-              <ReactApexChart
-                options={{
-                  chart: {
-                    height: 350,
-                    type: 'line',
-                    zoom: {
-                      enabled: false,
-                    },
-                  },
-                  dataLabels: {
-                    enabled: false,
-                  },
-                  stroke: {
-                    curve: 'straight',
-                  },
-                  title: {
-                    text: itm?.theme,
-                    align: 'left',
-                  },
-                  grid: {
-                    row: {
-                      colors: ['#f3f3f3', 'transparent'],
-                      opacity: 0.5,
-                    },
-                  },
-                  xaxis: {
-                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
-
-                  },
-                }}
-                series={
-                  [
-                    {
-                      name: 'Themes',
-                      data: itm?.data,
+                      },
+                    }}
+                    series={
+                      [
+                        {
+                          name: 'Themes',
+                          data: itm?.data,
+                        }
+                      ]
                     }
-                  ]
-                }
-                type="line"
-                height={325}
-              />
-            </div>
+                    type="line"
+                    height={325}
+                  />
+                </div>
 
-          })
-        }
+              })
+            }
 
-      </div>
-      {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
+          </div>
+          {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
 
         <ReactApexChart
           options={chartStateTwo.options}
@@ -238,7 +256,12 @@ function Analytics() {
         /> 
 
       </div> */}
-    </div>
+        </div>
+      </>}
+
+
+    </>
+
   )
 }
 
