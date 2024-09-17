@@ -12,6 +12,14 @@ function ViewInvoice({ loading, listData }) {
 
 
   console.log(listData, 'ListDataaa')
+
+  const totalPaidCommission = listData
+    ?.filter(item => item.status === "Paid")
+    ?.reduce((total, item) => total + item.commission, 0);
+
+  console.log(totalPaidCommission, ';-----------------------totalPaidCommission');
+
+
   const navigate = useNavigate();
   const [UpdateStatus] = useUpdateInvoiceStatusMutation();
 
@@ -63,6 +71,12 @@ function ViewInvoice({ loading, listData }) {
                   <IoArrowBack size={20} />
                 </span>
                 <span className='font-semibold pt-0'>
+                  Paid Amount : {totalPaidCommission}
+                </span>
+              </div>
+              <div className='flex w-full justify-end px-4 py-2'>
+                <span className='font-semibold pt-0'>
+
                   {paramData?.email}
                 </span>
               </div>
@@ -71,9 +85,8 @@ function ViewInvoice({ loading, listData }) {
                 <table className=''>
                   <thead>
                     <tr>
-                      <th>Source Id</th>
+                      <th>Transaction Id</th>
                       <th>Theme name</th>
-                      <th>Domain</th>
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Date</th>
@@ -87,9 +100,8 @@ function ViewInvoice({ loading, listData }) {
 
                       listData?.map((itm, indx) => (
                         <tr key={indx}>
-                          <td>{itm?.sourceId || "N/A"}</td>
+                          <td>{itm?.transactionId || "N/A"}</td>
                           <td>{itm?.themeName}</td>
-                          <td>{itm?.domain}</td>
                           <td style={{ paddingLeft: '30px' }}>{itm?.commission || '0'} $ </td>
                           {/* <td>{itm.status}</td> */}
 

@@ -49,7 +49,7 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
     try {
 
         const page = parseInt(req.body.page) || 1;  // Default to page 1
-        const limit = parseInt(req.body.limit) || 2;  // Default to 10 items per page
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
 
         const affiliateDetails = await AffiliateAssign.findAll({

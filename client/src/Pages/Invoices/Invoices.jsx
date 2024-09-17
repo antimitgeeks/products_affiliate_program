@@ -29,22 +29,20 @@ function Invoices({ listData, loading }) {
                 <table className='shadow'>
                   <thead className=' py-2'>
                     <tr className='py-2'>
+                      <th>Transaction Id</th>
                       <th>Theme name</th>
-                      <th>Domain</th>
                       <th>Commission</th>
                       <th>Status</th>
-                      <th>Source Id</th>
                       <th>Date</th>
                     </tr>
                   </thead>
                   <tbody>
                     {listData?.map(invoice => (
                       <tr key={invoice?.id}>
+                        <td>{invoice?.transactionId}</td>
                         <td>{invoice?.themeName}</td>
-                        <td>{invoice?.domain}</td>
                         <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                         <td>{invoice?.status}</td>
-                        <td>{invoice?.sourceId || 'N/A'} </td>
                         <td>{invoice?.createdAt?.split('T')[0]}</td>
                       </tr>
                     ))}
