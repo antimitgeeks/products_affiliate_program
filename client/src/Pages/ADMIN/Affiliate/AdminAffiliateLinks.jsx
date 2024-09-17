@@ -81,7 +81,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                                                                 {console.log(itm?.shortUrl)}
                                                                 <a href={itm?.link} target='_blank'>
                                                                     {/* Visit link */}
-                                                                    {itm?.shortUrl}
+                                                                    {itm?.shortUrl}s
                                                                 </a>
                                                             </span>
                                                             <div className=' w-full flex justify-between gap-4'>
