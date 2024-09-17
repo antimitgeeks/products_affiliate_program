@@ -60,7 +60,7 @@ const Sidebar = () => {
         <LogoWrapper />
         <div className='logo-icon-wrapper flex items-center justify-center'>
           <Link to={`${process.env.PUBLIC_URL}/dashboard/`}>
-            <Image className='img-fluid h-[50px] w-[50px] ' src={itgLogo} alt='logo' />
+            <Image className='img-fluid h-[50px] w-[50px] ml-[12px] ' src={itgLogo} alt='logo' />
             {/* <Image className='img-fluid' src={logoSmall} alt='logo' /> */}
           </Link>
         </div>

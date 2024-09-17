@@ -48,7 +48,6 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
                           <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" />
                           {/* <img src={`https://${itm?.imageUrl}`} alt="" /> */}
                           {/* {console.log(itm.url,'IMG URL')} */}
-                          {/* <img height={"full"} width={"full"} src={itm?.url} alt="IMG" /> */}
                         </div>
                         <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                           <div className=' flex flex-col gap-5'>
