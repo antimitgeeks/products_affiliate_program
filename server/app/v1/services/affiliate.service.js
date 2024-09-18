@@ -99,16 +99,17 @@ exports.getAffiliate = async (req, res) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
 
-        const result = await Affiliate.findAll({
+        const result = await Affiliate.findAndCountAll({
             limit: limit,
             offset: offset,
             order: [
                 ['createdAt', 'DESC'],
-            ]
+            ],
+            distinct: true
         });
 
 
-        result.forEach(obj => {
+        result?.rows.forEach(obj => {
 
 
             if (obj.dataValues.imageUrl !== null && obj.dataValues.imageUrl !== undefined) {
