@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import AdminDashboard from './AdminDashboard';
 import { useGetUserListQuery } from '../../../services/AdminService';
+import { useGetProfileQuery } from '../../../services/ProfileService';
+import Cookies from 'js-cookie';
+
 
 function AdminDashboardWrapper() {
 
@@ -23,6 +26,15 @@ function AdminDashboardWrapper() {
   },[isLoading,isFetching])
 
   console.log(data?.result,'userList')
+
+  const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
+
+  useEffect(() => {
+    Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+  }, [profileData, listLoading, listFetching])
+
+
+
 
   return (
     <div className="page-body px-4  h-full">

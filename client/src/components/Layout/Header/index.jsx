@@ -16,7 +16,7 @@ const Header = () => {
     <>
      <div className={`page-header w-full jub ${togglSidebar ? "close_icon" : ""}`}>
         <Row className=' row m-0 py-4 px-5 w-full justify-between'>
-          <div className='header-logo-wrapper p-0 w-2/5'>
+          <div className='header-logo-wrapper p-0 w-3/4'>
             {/* <div className=' logo-wrapper absolute z-[10000] left-2'>
               <Link to={`${process.env.PUBLIC_URL}/dashboard/default`}>
                 <Image className='img-fluid' src={login} alt='' />

@@ -50,13 +50,13 @@ const MobileSearch = () => {
   };
   return (
     <>
-      <InputGroup className='input-group'>
-        <div className='input-group-prepend flex items-center'>
+      <InputGroup className='input-group w-full'>
+        <div className='input-group-prepend w-full flex items-center'>
           <span onClick={() => {setSearchMobilOpen(!searchMobilOpen);setSuggestionOpen(!suggestionOpen  ) }} className='input-group-text mobile-search'>
             {/* <i className='fa fa-search' /> */}
             <IoSearch/>
           </span>
-        <Input onChange={handleSearch} className={searchMobilOpen ? 'open' : ''} type='text' placeholder='Search pages ....' />
+        <Input onChange={handleSearch} className={searchMobilOpen ? 'open w-full' : ' w-full'} type='text' placeholder='Search pages ....' />
         </div>
       </InputGroup>
       {suggestionOpen && <SearchSuggestionList setSuggestionOpen={setSuggestionOpen} suggestion={suggestion} />}
