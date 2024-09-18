@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:3000/api/v1",
-        prepareHeaders: (headers) => {
+        prepareHeaders: (headers) => { 
             const user = Cookies.get('isLogged');
             if (user) {
                 headers.set("Authorization", `Bearer ${user}`);

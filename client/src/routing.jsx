@@ -28,6 +28,7 @@ import ViewInvoiceWrapper from './Pages/ADMIN/ViewInvoice/ViewInvoiceWrapper';
 import AdminAffiliateLinksWrapper from './Pages/ADMIN/Affiliate/AdminAffiliateLinksWrapper';
 import AdminAddAffiliateLinksWrapper from './Pages/ADMIN/Affiliate/AddAffiliate/AddAffiliateLinksWrapper';
 import AssignAffiliateWrapper from './Pages/ADMIN/Affiliate/AssignAffiliate/AssignAffiliateWrapper';
+import AnalyticsGraphWrapper from './Pages/AnalyticsGraph/AnalyticsGraphWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(true);
@@ -79,6 +80,7 @@ function Routing() {
                             {/* <Route path='affiliate-links/add' element={<AddAffiliateLinksWrapper />} /> */}
                             <Route path='invoices' element={<InvoicesWrapper />} />
                             <Route path='analytics' element={<AnalyticsWrapper />} />
+                            <Route path='analytics/:id' element={<AnalyticsGraphWrapper />} />
                         </Route>
                         :
                         <Route path='/dashboard/' element={<Layout />} >

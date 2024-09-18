@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-function Analytics({ loading, analyticsData }) {
+function Analytics({ loading, analyticsData, affiliatesData }) {
 
   const navigate = useNavigate();
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
   const [purchaseCount, setPurchaseCount] = useState(0);
+
+
+  console.log(affiliatesData, '----------------------------------------------------------affiliatesData');
 
 
   const [chartState, setChartState] = useState({
@@ -164,6 +167,13 @@ function Analytics({ loading, analyticsData }) {
 
   console.log(purchaseCount, '---------------------purchaseCount');
 
+
+  const viewGraphHandle = (id) => {
+    console.log(id, '----------------------------------------------affiliate id ');
+    navigate(`${id}`);
+    return;
+  }
+
   return (
     <>
       {loading ? <div className=' w-full flex h-[70vh] items-center justify-center'>
@@ -202,8 +212,52 @@ function Analytics({ loading, analyticsData }) {
             </div>
             <div className='grid grid-cols-1 w-full gap-10'>
               {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
-              CLICKS
+              <p className='text-[20px] font-semibold'>CLICKS</p>
               {
+                loading ?
+                  <div className=' w-full flex items-center justify-center'>
+                    <span className=' w-fit flex  items-center justify-center animate-spin'>
+                      <AiOutlineLoading3Quarters />
+                    </span>
+                  </div>
+
+                  :
+                  affiliatesData?.result?.length <= 0 ?
+                    <div className=' w-full flex items-center justify-center'>
+                      <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                        No data found
+                      </span>
+                    </div>
+                    :
+                    <div className='w-full h-full invoices-page'>
+                      <div className='table-container'>
+                        <table className='shadow'>
+                          <thead className=' py-2'>
+                            <tr className='py-2'>
+                              <th>Theme name</th>
+                              <th>Total Clicks</th>
+                              <th>View Graph</th>
+                              <th>Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {affiliatesData?.result?.map(affiliate => (
+                              <tr key={affiliate?.id}>
+                                <td>{affiliate.affiliate?.name}</td>
+                                <td>{affiliate?.clicks}</td>
+                                <td onClick={() => viewGraphHandle(affiliate?.affiliate?.id)}>view</td>
+                                <td>{affiliate?.createdAt?.split('T')[0]}</td>
+                              </tr>
+                            ))}
+                            <tr className="spacer-row">
+                              <td colSpan="5"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+              }
+              {/* {
                 ClicksData?.map((itm) => {
                   return <div className='border bg-white p-4'>
                     <ReactApexChart
@@ -250,7 +304,7 @@ function Analytics({ loading, analyticsData }) {
                   </div>
 
                 })
-              }
+              } */}
 
             </div>
             {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
