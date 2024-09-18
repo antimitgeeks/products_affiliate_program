@@ -18,7 +18,10 @@ exports.getClickAndPurchasesList = Joi.object({
         is: 'clicks',
         then: Joi.string().required(),
         otherwise: Joi.string().optional()
-    })
+    }),
+    month:Joi.string().required(),
+    year:Joi.string().required(),
+
 
    
 
