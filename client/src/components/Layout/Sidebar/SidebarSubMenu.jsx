@@ -3,8 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { ActiveNavLinkUrl } from '../../../Utils/helper/ActioveNavUrl';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie'
+
 const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
   const { pathname } = useLocation();
+  const testToken = Cookies.get("test")
 
   function shouldSetActive({ item }) {
     var returnValue = false;
@@ -28,7 +31,7 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
         setIsOpen(temp);
       }
     });
-  }, []);
+  }, [testToken]);
 
   return (
     <ul className={`${className ? className : ''}`}>

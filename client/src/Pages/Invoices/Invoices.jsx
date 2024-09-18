@@ -37,7 +37,7 @@ function Invoices({ listData, loading }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {listData?.map(invoice => (
+                    {listData?.rows?.map(invoice => (
                       <tr key={invoice?.id}>
                         <td>{invoice?.transactionId}</td>
                         <td>{invoice?.themeName}</td>

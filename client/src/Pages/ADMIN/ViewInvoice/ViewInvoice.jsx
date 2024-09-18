@@ -13,7 +13,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
 
   console.log(listData, 'ListDataaa')
 
-  const totalPaidCommission = listData
+  const totalPaidCommission = listData?.rows
     ?.filter(item => item.status === "Paid")
     ?.reduce((total, item) => total + item.commission, 0);
 
@@ -66,41 +66,40 @@ function ViewInvoice({ loading, listData, OverViewData }) {
             </div>
             :
             <div className='view-invoices-page'>
-              <div className='flex w-full justify-between px-4 py-1 mb-1'>
+              <div className='flex w-full justify-between px-1 py-0 mb-0'>
                 <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                   <IoArrowBack size={20} />
                 </span>
-
-              </div>
-              <div className='flex flex-col gap-3 mt-4'>
-                <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
-                  
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
-                    <div className='font-semibold'>
-                       Pending
-                    </div>
-                    {OverViewData?.pending} $
-                  </div>
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
-                    <div className='font-semibold'>
-                       Paid
-                    </div>
-                    {OverViewData?.total} $
-                  </div>
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
-                    <div className='font-semibold'>
-                       Total
-                    </div>
-                    {OverViewData?.pending + OverViewData?.total} $
-                  </div>
-                </div>
-              </div>
-              <div className='flex w-full justify-end px-4 py-2'>
                 <span className='font-semibold pt-0'>
 
                   {paramData?.email}
                 </span>
               </div>
+              <div className='flex flex-col gap-3 mt-4'>
+                <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
+
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                      Pending
+                    </div>
+                    {OverViewData?.pending} $
+                  </div>
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                      Paid
+                    </div>
+                    {OverViewData?.total} $
+                  </div>
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                      Total
+                    </div>
+                    {OverViewData?.pending + OverViewData?.total} $
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <br />
               <div className='table-container'>
 
                 <table className=''>
@@ -119,7 +118,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
                   <tbody>
                     {
 
-                      listData?.map((itm, indx) => (
+                      listData?.rows?.map((itm, indx) => (
                         <tr key={indx}>
                           <td>{itm?.transactionId || "N/A"}</td>
                           <td>{itm?.themeName}</td>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './AssignAffiliate.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { IoEyeOutline } from "react-icons/io5";
+import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
 import { MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { useAssignAffiliateMutation } from '../../../../services/AdminService';
@@ -132,7 +132,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                     </div>
 
                     :
-                    NotAssignedlistData?.result?.length <= 0 ?
+                    NotAssignedlistData?.result?.rows?.length <= 0 ?
                         <div className=' w-full flex items-center justify-center'>
                             <span className=' w-fit flex  items-center justify-center'>
                                 {/* <AiOutlineLoading3Quarters /> */}
@@ -142,9 +142,15 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                         :
                         <div className=' flex flex-col gap-3'>
 
-                            <div>
-                                <span className=' font-semibold text-[20px]'>
+                            <div className='mb-3'>
+                                <div className='flex w-full justify-between px-1 py-2 mb-2'>
+                                    <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                                        <IoArrowBack size={20} />
+                                    </span>
+                                </div>
+                                <hr className='mb-2' />
 
+                                <span className=' font-semibold text-[20px]'>
                                     Assigned Users
                                 </span>
                                 <div className='invoices-page'>
@@ -160,7 +166,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
                                                 {
 
-                                                    AssignedListData?.map((itm, indx) => (
+                                                    AssignedListData?.rows?.map((itm, indx) => (
                                                         <tr key={indx}>
                                                             <td>{itm?.user?.email}</td>
                                                             <td>{itm?.user?.country}</td>
@@ -176,6 +182,8 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                     </div>
                                 </div>
                             </div>
+
+                            <hr />
                             <div className=' mt-2'>
                                 <span className='font-semibold text-[20px]'>
 
@@ -195,7 +203,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
                                                 {
 
-                                                    NotAssignedlistData?.result?.map((itm, indx) => (
+                                                    NotAssignedlistData?.result?.rows?.map((itm, indx) => (
                                                         <tr key={indx}>
                                                             <td>{itm?.email}</td>
                                                             <td>{itm?.country}</td>

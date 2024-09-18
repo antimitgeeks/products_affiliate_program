@@ -15,6 +15,10 @@ function PasswordUpdate({ loading }) {
     const [UpdatePassword] = useUpdatePasswordMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
 
+    const [showOldPassword,setShowOldPassword] =useState('password');
+    const [showNewPassword,setShowNewPassword] =useState('password');
+    const [showConfirmPassword,setShowConfirmPassword] =useState('password');
+
 
 
     const initialValues = {
@@ -93,7 +97,10 @@ function PasswordUpdate({ loading }) {
                                                             <Col md='4'>
                                                                 {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                                                                 {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
+                                                                <div className='relative flex justify-between'>
+
                                                                 <InputComponent label={"Old password"} type="text" name='oldPassword' value={profileProps.values.oldPassword} placeholder='Enter your old password ' onChange={profileProps.handleChange} />
+                                                                </div>
                                                             </Col>
                                                             <Col md='4'>
                                                                 {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}

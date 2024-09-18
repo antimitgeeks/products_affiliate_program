@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useGetIndividualInvoiceListQuery } from '../../services/AdminService';
 import { useGetProfileQuery } from '../../services/ProfileService';
+import { useNavigate } from 'react-router-dom';
 
 function DashboardWrapper() {
 
@@ -12,6 +13,7 @@ function DashboardWrapper() {
   const [ListData, setListData] = useState([]);
   const [OverViewData, setOverViewData] = useState([]);
   const [overviewLoading, setOverViewLoading] = useState(false);
+  const navigate=useNavigate()
 
   const userToken = Cookies.get("isLogged");
   const [userId, setUserId] = useState('')
@@ -20,7 +22,14 @@ function DashboardWrapper() {
   const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
 
   useEffect(() => {
-    Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+    const prevData = Cookies.get("profileData");
+
+    if (prevData?.length > 10) {
+      console.log("")
+    }
+    else {
+      Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+    }
   }, [profileData, listLoading, listFetching])
 
 
@@ -28,8 +37,15 @@ function DashboardWrapper() {
     if (userToken) {
       const token = jwtDecode(userToken);
       console.log(token?.id, 'tokenn');
-      setUserId(token?.id)
+      setUserId(token?.id);
     }
+    if(!userToken || userToken === null)
+    {
+      navigate('/');
+      console.log('navigating')
+    }
+    console.log('navigating!')
+
   }, [userToken])
 
   // const { data, isLoading, isFetching } = useGetDashboardInvoiceListQuery({});

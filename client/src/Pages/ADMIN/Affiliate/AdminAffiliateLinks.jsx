@@ -31,7 +31,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                         </div>
                     </>
                     :
-                    listData?.result?.length <= 0 ?
+                    listData?.result?.rows?.length <= 0 ?
                         <div className=' w-full flex items-center justify-center'>
                             <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                 No data found
@@ -55,7 +55,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                             <div className='w-full flex flex-col h-full items-center gap-8 mt-3 '>
 
                                 {
-                                    listData?.map((itm) => {
+                                    listData?.rows?.map((itm) => {
                                         return <>
 
                                             <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
