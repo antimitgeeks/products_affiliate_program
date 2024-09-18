@@ -176,3 +176,48 @@ exports.addAssignAffiliate = async (id, details) => {
     }
 
 }
+
+exports.updateAffiliate=async (id,body,req)=>{
+
+    try {
+
+        const isExist=await Affiliate.findByPk(id)
+        if(isExist){
+            const result=await Affiliate.update(
+               {
+                ...body,
+                imageUrl:req?.file?.filename
+               },
+               {
+                where:{
+                    id:id
+                }
+               }
+        )
+        if(result){
+            return {
+                status :true,
+                result:result
+            }
+
+        }
+        else{
+            return {
+                status :false,
+             
+            }
+        }
+      
+    
+    }
+        
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+        
+    }
+
+}
