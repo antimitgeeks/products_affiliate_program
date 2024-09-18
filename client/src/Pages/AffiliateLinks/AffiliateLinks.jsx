@@ -15,13 +15,13 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
   const [profileDetails, setProfileDetails] = useState([]);
 
   useEffect(() => {
-    console.log(profileJson, '---------------------------profileDetails');
+    console.log(JSON.parse(profileJson), '---------------------------profileDetails2');
     if (profileJson == 'undefined' || profileJson == null) {
       Cookies.remove("isLogged"); 
       Cookies.remove("profileData"); 
       navigate('/')
     }
-    setProfileDetails(profileJson)
+    setProfileDetails(JSON.parse(profileJson))
   }, [profileJson])
 
 
