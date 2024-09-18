@@ -201,14 +201,15 @@ exports.updateAffiliate=async (id,body,req)=>{
             }
 
         }
-        else{
-            return {
-                status :false,
-             
-            }
-        }
+      
       
     
+    }
+    else{
+        return {
+            status :false,
+         
+        }
     }
         
     } catch (error) {
