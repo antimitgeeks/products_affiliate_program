@@ -20,7 +20,14 @@ function DashboardWrapper() {
   const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
 
   useEffect(() => {
-    Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+    const prevData = Cookies.get("profileData");
+
+    if (prevData?.length > 10) {
+      console.log("")
+    }
+    else {
+      Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+    }
   }, [profileData, listLoading, listFetching])
 
 

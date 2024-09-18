@@ -20,7 +20,7 @@ const SearchSuggestionList = ({ setSuggestionOpen, suggestion }) => {
           ))}
         </UL>
       )}
-      {!suggestion.length && <P>There is nothing find..</P>}
+      {!suggestion.length && <P>No page found</P>}
     </div>
   );
 };

@@ -7,30 +7,34 @@ import Cookies from 'js-cookie';
 
 function AdminDashboardWrapper() {
 
-  const [loading,setLoading] = useState(false);
-  const [ListData,setListData] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [ListData, setListData] = useState([])
 
-  const {data, isLoading ,isFetching}=useGetUserListQuery({});
+  const { data, isLoading, isFetching } = useGetUserListQuery({});
 
-  useEffect(()=>
-  {
-    if(isLoading || isFetching)
-    {
+  useEffect(() => {
+    if (isLoading || isFetching) {
       setLoading(true);
     }
-    else
-    {
+    else {
       setLoading(false);
       setListData(data?.result)
     }
-  },[isLoading,isFetching])
+  }, [isLoading, isFetching])
 
-  console.log(data?.result,'userList')
+  console.log(data?.result, 'userList')
 
   const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
 
   useEffect(() => {
-    Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+    const prevData = Cookies.get("profileData");
+
+    if (prevData?.length > 10) {
+      console.log("")
+    }
+    else {
+      Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
+    }
   }, [profileData, listLoading, listFetching])
 
 
@@ -38,7 +42,7 @@ function AdminDashboardWrapper() {
 
   return (
     <div className="page-body px-4  h-full">
-        <AdminDashboard loading={loading} ListData={ListData?.result} />
+      <AdminDashboard loading={loading} ListData={ListData?.result} />
     </div>
   )
 }
