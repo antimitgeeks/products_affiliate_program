@@ -17,8 +17,8 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
   useEffect(() => {
     console.log(JSON.parse(profileJson), '---------------------------profileDetails2');
     if (profileJson == 'undefined' || profileJson == null) {
-      Cookies.remove("isLogged"); 
-      Cookies.remove("profileData"); 
+      Cookies.remove("isLogged");
+      Cookies.remove("profileData");
       navigate('/')
     }
     setProfileDetails(JSON.parse(profileJson))

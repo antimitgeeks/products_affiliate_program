@@ -63,11 +63,24 @@ function AnalyticsWrapper() {
         { label: "December", value: 12 }
     ];
 
+    const currentYear = new Date().getFullYear();
+
+    const YearList = [
+        { label: (currentYear - 3).toString(), value: currentYear - 3 },
+        { label: (currentYear - 2).toString(), value: currentYear - 2 },
+        { label: (currentYear - 1).toString(), value: currentYear - 1 },
+        { label: currentYear.toString(), value: currentYear },
+        { label: (currentYear + 1).toString(), value: currentYear + 1 },
+        { label: (currentYear + 2).toString(), value: currentYear + 2 },
+        { label: (currentYear + 3).toString(), value: currentYear + 3 }
+    ];
+
+
 
     return (
         <>
             <div className='page-body px-4 pb-5'>
-                <Analytics setSelectedYear={setSelectedYear} MonthList={MonthList} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} />
+                <Analytics YearList={YearList} selectedYear={selectedYear} setSelectedYear={setSelectedYear} MonthList={MonthList} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} />
             </div>
         </>
     )

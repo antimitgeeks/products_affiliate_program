@@ -6,7 +6,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack } from 'react-icons/io5';
 import Select from 'react-select';
 
-function AnalyticsGraph({ loading, analyticsData, themeName, setSelectedMonth, selectedMonth }) {
+function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, MonthList, analyticsData, themeName, setSelectedMonth, selectedMonth }) {
   const [clicksData, setClicksData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -56,7 +56,7 @@ function AnalyticsGraph({ loading, analyticsData, themeName, setSelectedMonth, s
 
     // Create a result array with counts for each day
     const counts = daysOfMonth.map(day => {
-      const count = filteredData!=undefined && filteredData?.filter(click => getDay(click.createdAt) === day).length;
+      const count = filteredData != undefined && filteredData?.filter(click => getDay(click.createdAt) === day).length;
       return count;
     });
 
@@ -65,28 +65,19 @@ function AnalyticsGraph({ loading, analyticsData, themeName, setSelectedMonth, s
 
     const totalPurchases = counts.reduce((total, count) => total + count, 0);
     setTotalCount(totalPurchases);
-  }, [analyticsData, selectedMonth]);
+  }, [analyticsData, selectedMonth, selectedYear]);
 
-  // Month list options with corresponding month numbers
-  const MonthList = [
-    { label: "January", value: 1 },
-    { label: "February", value: 2 },
-    { label: "March", value: 3 },
-    { label: "April", value: 4 },
-    { label: "May", value: 5 },
-    { label: "June", value: 6 },
-    { label: "July", value: 7 },
-    { label: "August", value: 8 },
-    { label: "September", value: 9 },
-    { label: "October", value: 10 },
-    { label: "November", value: 11 },
-    { label: "December", value: 12 }
-  ];
 
-  // Handle month selection
+
   const handleMonthChange = (selectedOption) => {
     setSelectedMonth(selectedOption.value);
   };
+
+  const handleYearChange = (selectedOp) => {
+    setSelectedYear(selectedOp.value)
+  }
+
+
 
   return (
     <>
@@ -102,9 +93,16 @@ function AnalyticsGraph({ loading, analyticsData, themeName, setSelectedMonth, s
             <span onClick={() => { navigate('/dashboard/analytics') }} className='w-[30px] font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
               <IoArrowBack size={20} />
             </span>
-            <span className='w-1/4'>
+            <span className='w-1/2 flex gap-4'>
               <Select
-                className='rounded'
+                className='rounded w-full'
+                options={YearList}
+                onChange={handleYearChange}
+                defaultValue={YearList.find(month => month.value === selectedYear)}
+              />
+
+              <Select
+                className='rounded w-full'
                 options={MonthList}
                 onChange={handleMonthChange}
                 defaultValue={MonthList.find(month => month.value === selectedMonth)}

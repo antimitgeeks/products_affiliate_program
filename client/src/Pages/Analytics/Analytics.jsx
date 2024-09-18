@@ -7,7 +7,7 @@ import { MdRemoveRedEye } from "react-icons/md";
 import Select from 'react-select';
 
 
-function Analytics({ MonthList, loading, analyticsData, affiliatesData, selectedMonth, setSelectedMonth }) {
+function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading, analyticsData, affiliatesData, selectedMonth, setSelectedMonth }) {
 
   const navigate = useNavigate();
   const [purchasesData, setPurchasesData] = useState([]);
@@ -18,6 +18,9 @@ function Analytics({ MonthList, loading, analyticsData, affiliatesData, selected
     setSelectedMonth(selectedOption.value);
   };
 
+  const handleYearChange = (selectedOp) => {
+    setSelectedYear(selectedOp.value)
+  }
 
 
 
@@ -132,7 +135,7 @@ function Analytics({ MonthList, loading, analyticsData, affiliatesData, selected
 
 
 
-  }, [analyticsData , selectedMonth])
+  }, [analyticsData, selectedMonth ,selectedYear])
 
   console.log(purchaseCount, '---------------------purchaseCount');
   console.log(affiliatesData?.result, 'purdata')
@@ -155,13 +158,23 @@ function Analytics({ MonthList, loading, analyticsData, affiliatesData, selected
 
           <p className='text-[20px] font-semibold'>Analytics Details</p>
 
-          <div className='w-1/4 justify-end'>
-            <Select
-              className='rounded'
-              options={MonthList}
-              onChange={handleMonthChange}
-              defaultValue={MonthList.find(month => month.value === selectedMonth)}
-            />
+          <div className='w-1/2 justify-end'>
+            <div className='flex w-full gap-4'>
+
+              <Select
+                className='rounded w-full'
+                options={YearList}
+                onChange={handleYearChange}
+                defaultValue={YearList.find(month => month.value === selectedYear)}
+              />
+
+              <Select
+                className='rounded w-full'
+                options={MonthList}
+                onChange={handleMonthChange}
+                defaultValue={MonthList.find(month => month.value === selectedMonth)}
+              />
+            </div>
           </div>
         </div>
         <div className='w-full'>
@@ -194,7 +207,7 @@ function Analytics({ MonthList, loading, analyticsData, affiliatesData, selected
 
 
             </div>
-                <hr />
+            <hr />
             <div className='grid grid-cols-1 w-full gap-2'>
               {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
               <p className='text-[20px] font-semibold'>CLICKS</p>
