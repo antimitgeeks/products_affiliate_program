@@ -4,6 +4,7 @@ import { useGetAnalyticsDetailsQuery } from '../../services/AnalyticsService';
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useGetIndividualAffiliateListQuery } from '../../services/AffiliateService';
+import { useParams } from 'react-router-dom';
 
 function AnalyticsGraphWrapper() {
 
@@ -11,7 +12,9 @@ function AnalyticsGraphWrapper() {
     const [analyticsData, setAnalyticsData] = useState([]);
 
     const UserToken = Cookies.get("isLogged");
+    const affiliateId = useParams();
     const [UserId, setUserId] = useState(0);
+    
     useEffect(() => {
         if (UserToken) {
             const decodedToken = jwtDecode(UserToken);
@@ -19,7 +22,7 @@ function AnalyticsGraphWrapper() {
         }
     }, [UserToken])
 
-    const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({ Id: UserId, data: { "type": "purchases" } })
+    const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({ Id: UserId, data: { "type": "clicks", assignAffiliateId: affiliateId?.id } })
 
     useEffect(() => {
         if (isLoading || isFetching) {

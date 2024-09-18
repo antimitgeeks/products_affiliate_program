@@ -210,7 +210,8 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
               />
 
             </div>
-            <div className='grid grid-cols-1 w-full gap-10'>
+
+            <div className='grid grid-cols-1 w-full gap-2'>
               {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
               <p className='text-[20px] font-semibold'>CLICKS</p>
               {
@@ -236,8 +237,8 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
                             <tr className='py-2'>
                               <th>Theme name</th>
                               <th>Total Clicks</th>
-                              <th>View Graph</th>
                               <th>Date</th>
+                              <th>View Graph</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -245,8 +246,8 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
                               <tr key={affiliate?.id}>
                                 <td>{affiliate.affiliate?.name}</td>
                                 <td>{affiliate?.clicks}</td>
-                                <td onClick={() => viewGraphHandle(affiliate?.affiliate?.id)}>view</td>
                                 <td>{affiliate?.createdAt?.split('T')[0]}</td>
+                                <td onClick={() => viewGraphHandle(affiliate?.id)}>view</td>
                               </tr>
                             ))}
                             <tr className="spacer-row">
