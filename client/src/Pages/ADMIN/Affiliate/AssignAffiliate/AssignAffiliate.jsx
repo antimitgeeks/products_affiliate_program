@@ -132,7 +132,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                     </div>
 
                     :
-                    NotAssignedlistData?.result?.length <= 0 ?
+                    NotAssignedlistData?.result?.rows?.length <= 0 ?
                         <div className=' w-full flex items-center justify-center'>
                             <span className=' w-fit flex  items-center justify-center'>
                                 {/* <AiOutlineLoading3Quarters /> */}
@@ -166,7 +166,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
                                                 {
 
-                                                    AssignedListData?.map((itm, indx) => (
+                                                    AssignedListData?.rows?.map((itm, indx) => (
                                                         <tr key={indx}>
                                                             <td>{itm?.user?.email}</td>
                                                             <td>{itm?.user?.country}</td>
@@ -203,7 +203,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
                                                 {
 
-                                                    NotAssignedlistData?.result?.map((itm, indx) => (
+                                                    NotAssignedlistData?.result?.rows?.map((itm, indx) => (
                                                         <tr key={indx}>
                                                             <td>{itm?.email}</td>
                                                             <td>{itm?.country}</td>

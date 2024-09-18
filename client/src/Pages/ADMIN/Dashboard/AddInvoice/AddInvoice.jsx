@@ -38,7 +38,7 @@ function AddInvoice({ id, email }) {
         }
         else {
             setLoading(false);
-            const transformedData = data?.result?.result?.map(item => ({
+            const transformedData = data?.result?.result?.rows?.map(item => ({
                 value: item.id,
                 label: item.affiliate.name,
             }));

@@ -226,7 +226,7 @@ function Analytics({ MonthList, loading, analyticsData, affiliatesData, selected
                             </tr>
                           </thead>
                           <tbody>
-                            {affiliatesData?.result?.map(affiliate => (
+                            {affiliatesData?.result?.rows?.map(affiliate => (
                               <tr key={affiliate?.id}>
                                 <td>{affiliate.affiliate?.name}</td>
                                 <td className='pl-[30px]'>{affiliate?.clicks}</td>

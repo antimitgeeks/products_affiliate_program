@@ -10,7 +10,10 @@ function AnalyticsWrapper() {
     const [loading, setLoading] = useState(false);
     const [analyticsData, setAnalyticsData] = useState([]);
     const [affiliatesData, setAffiliatesData] = useState([]);
-    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
+    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+
+    console.log(selectedYear, 'seleyear')
 
     const UserToken = Cookies.get("isLogged");
     const [UserId, setUserId] = useState(0);
@@ -26,7 +29,7 @@ function AnalyticsWrapper() {
         Id: UserId, data: {
             "type": "purchases",
             "month": String(selectedMonth),
-            "year": "2024"
+            "year": String(selectedYear)
         }
     })
 
@@ -58,13 +61,13 @@ function AnalyticsWrapper() {
         { label: "October", value: 10 },
         { label: "November", value: 11 },
         { label: "December", value: 12 }
-      ];
-    
+    ];
+
 
     return (
         <>
             <div className='page-body px-4 pb-5'>
-                <Analytics MonthList={MonthList} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} />
+                <Analytics setSelectedYear={setSelectedYear} MonthList={MonthList} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} />
             </div>
         </>
     )

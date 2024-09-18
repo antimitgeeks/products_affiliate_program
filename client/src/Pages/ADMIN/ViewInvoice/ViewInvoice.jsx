@@ -13,7 +13,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
 
   console.log(listData, 'ListDataaa')
 
-  const totalPaidCommission = listData
+  const totalPaidCommission = listData?.rows
     ?.filter(item => item.status === "Paid")
     ?.reduce((total, item) => total + item.commission, 0);
 
@@ -77,29 +77,29 @@ function ViewInvoice({ loading, listData, OverViewData }) {
               </div>
               <div className='flex flex-col gap-3 mt-4'>
                 <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
-                  
+
                   <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
-                       Pending
+                      Pending
                     </div>
                     {OverViewData?.pending} $
                   </div>
                   <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
-                       Paid
+                      Paid
                     </div>
                     {OverViewData?.total} $
                   </div>
                   <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
-                       Total
+                      Total
                     </div>
                     {OverViewData?.pending + OverViewData?.total} $
                   </div>
                 </div>
               </div>
-                <hr />
-                <br />
+              <hr />
+              <br />
               <div className='table-container'>
 
                 <table className=''>
@@ -118,7 +118,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
                   <tbody>
                     {
 
-                      listData?.map((itm, indx) => (
+                      listData?.rows?.map((itm, indx) => (
                         <tr key={indx}>
                           <td>{itm?.transactionId || "N/A"}</td>
                           <td>{itm?.themeName}</td>

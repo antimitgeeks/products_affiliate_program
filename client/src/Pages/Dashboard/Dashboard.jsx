@@ -72,7 +72,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {listData?.map(invoice => (
+                      {listData?.rows?.map(invoice => (
                         <tr key={invoice?.id}>
                           <td>{invoice?.transactionId || 'N/A'}</td>
                           <td>{invoice?.themeName}</td>
