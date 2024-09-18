@@ -98,7 +98,8 @@ function ViewInvoice({ loading, listData, OverViewData }) {
                   </div>
                 </div>
               </div>
-              
+                <hr />
+                <br />
               <div className='table-container'>
 
                 <table className=''>

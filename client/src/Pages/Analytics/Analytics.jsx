@@ -4,17 +4,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { MdRemoveRedEye } from "react-icons/md";
+import Select from 'react-select';
 
 
-function Analytics({ loading, analyticsData, affiliatesData }) {
+function Analytics({ MonthList, loading, analyticsData, affiliatesData, selectedMonth, setSelectedMonth }) {
 
   const navigate = useNavigate();
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
   const [purchaseCount, setPurchaseCount] = useState(0);
 
+  const handleMonthChange = (selectedOption) => {
+    setSelectedMonth(selectedOption.value);
+  };
 
-  console.log(affiliatesData, '----------------------------------------------------------affiliatesData');
+
 
 
   const [chartState, setChartState] = useState({
@@ -49,16 +53,6 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
     },
   });
 
-
-  const purchases = [
-    { createAt: "2024-08-2 08:06:32" },
-    { createAt: "2024-08-14 08:06:32" },
-    { createAt: "2024-08-6 08:06:32" },
-    { createAt: "2024-08-6 08:06:32" },
-    { createAt: "2024-08-18 08:06:32" },
-    { createAt: "2024-08-09 08:06:32" },
-    { createAt: "2024-08-09 08:06:32" }
-  ];
 
 
   useEffect(() => {
@@ -138,17 +132,17 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
 
 
 
-  }, [analyticsData])
+  }, [analyticsData , selectedMonth])
 
   console.log(purchaseCount, '---------------------purchaseCount');
   console.log(affiliatesData?.result, 'purdata')
 
 
-  const viewGraphHandle = (id,name) => {
-    console.log(id, '----------------------------------------------affiliate id ');
+  const viewGraphHandle = (id, name) => {
     navigate(`${id}/${name}`);
     return;
   }
+
 
   return (
     <>
@@ -157,12 +151,23 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
           <AiOutlineLoading3Quarters />
         </span>
       </div> : <>
-        <p className='text-[20px] font-semibold'>Analytics Details</p>
+        <div className=' flex justify-between w-full'>
 
+          <p className='text-[20px] font-semibold'>Analytics Details</p>
 
+          <div className='w-1/4 justify-end'>
+            <Select
+              className='rounded'
+              options={MonthList}
+              onChange={handleMonthChange}
+              defaultValue={MonthList.find(month => month.value === selectedMonth)}
+            />
+          </div>
+        </div>
         <div className='w-full'>
 
           <div className=' w-full flex flex-col gap-12 pt-6'>
+
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
                 <span className='font-semibold text-[17.5px]'>Purchases</span>
@@ -189,7 +194,7 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
 
 
             </div>
-
+                <hr />
             <div className='grid grid-cols-1 w-full gap-2'>
               {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
               <p className='text-[20px] font-semibold'>CLICKS</p>
@@ -202,7 +207,7 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
                   </div>
 
                   :
-                  affiliatesData?.result?.length  <= 0 || affiliatesData?.result==undefined  ?
+                  affiliatesData?.result?.length <= 0 || affiliatesData?.result == undefined ?
                     <div className=' w-full flex items-center justify-center'>
                       <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                         No data found
@@ -226,7 +231,7 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
                                 <td>{affiliate.affiliate?.name}</td>
                                 <td className='pl-[30px]'>{affiliate?.clicks}</td>
                                 <td>{affiliate?.createdAt?.split('T')[0]}</td>
-                                <td style={{ width: '40px' }} className='pl-[30px] w-fit '><MdRemoveRedEye onClick={() => viewGraphHandle(affiliate?.id,affiliate.affiliate?.name)} className='w-fit cursor-pointer hover:opacity-90' size={20} /></td>
+                                <td style={{ width: '40px' }} className='pl-[30px] w-fit '><MdRemoveRedEye onClick={() => viewGraphHandle(affiliate?.id, affiliate.affiliate?.name)} className='w-fit cursor-pointer hover:opacity-90' size={20} /></td>
                               </tr>
                             ))}
                             <tr className="spacer-row">
@@ -239,16 +244,6 @@ function Analytics({ loading, analyticsData, affiliatesData }) {
               }
 
             </div>
-            {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' >
-
-<ReactApexChart
-options={chartStateTwo.options}
-series={chartStateTwo.series}
-type="bar"
-height={325}
-        /> 
-        
-        </div> */}
           </div>
         </div>
       </>}

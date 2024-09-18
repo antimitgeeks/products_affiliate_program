@@ -18,7 +18,10 @@ function AnalyticsGraphWrapper() {
     const [UserId, setUserId] = useState(0);
 
     const [monthData,setMonthData] = useState("9");
-    const [yearData,setYearData]= useState("2024")
+    const [yearData,setYearData]= useState("2024");
+
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1); // Store the month number
+
 
 
     useEffect(() => {
@@ -33,7 +36,7 @@ function AnalyticsGraphWrapper() {
         Id: UserId, data: {
             "type": "clicks",
             assignAffiliateId: affiliateId?.id,
-            "month": monthData,
+            "month": String(selectedMonth),
             "year": yearData
         }
     })
@@ -51,7 +54,7 @@ function AnalyticsGraphWrapper() {
     return (
         <>
             <div className='page-body px-4'>
-                <AnalyticsGraph themeName={paramData?.name} loading={loading} analyticsData={analyticsData} />
+                <AnalyticsGraph selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} themeName={paramData?.name} loading={loading} analyticsData={analyticsData} />
             </div>
         </>
     )

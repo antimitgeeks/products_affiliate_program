@@ -45,6 +45,11 @@ function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}
               </span>
             </div>
             :
+            <div> 
+              <span className='font-semibold text-[20px]'>
+                Users List
+              </span>
+
             <div className='invoices-page'>
               <div className='table-container'>
                 <table className=''>
@@ -101,6 +106,8 @@ function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}
                 />
               </div>
             </div>
+            </div>
+
       }
     </>
   );

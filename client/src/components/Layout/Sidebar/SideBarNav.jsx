@@ -134,16 +134,16 @@ const SideBarNav = () => {
         className='absolute w-full text-center logo-wrapper h-[12px]'
         style={{
           top: '30%',
-          right: '-7%',
+          right: '-7.7%',
           transform: 'translateY(-50%)',
           color: 'black',
           backgroundColor: 'transparent',
-          height: '21px',
+          height: '23px',
           zIndex: '100000',
-          width: '21px'
+          width: '23px'
         }}
       >
-        <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[36px] bg-transparent toggle-sidebar  border hover:shadow duration-100 transition-all ease-linear text-black'>
+        <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[36px] bg-white toggle-sidebar  border hover:shadow duration-100 transition-all ease-linear text-black'>
           {
             togglSidebar ?
 
