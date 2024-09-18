@@ -34,27 +34,17 @@ exports.allUsers = async (req) => {
 
 
         if (result) {
-            // const usersAffiliateCounts = result?.rows?.map(user => {
-            //     const affiliateCount = user.affiliateAssigns.length;
-            //     return {
-            //         id: user.id,
-            //         email: user.email,
-            //         country: user.country,
-            //         city: user.city,
-            //         address: user.address,
-            //         companyName: user.companyName,
-            //         companyNumber: user.companyNumber,
-            //         affiliateCount: affiliateCount 
-            //     };
-            // });
+            await result?.rows?.map(user => {
+                const affiliateCount = user.affiliateAssigns.length;
+                user.dataValues.affiliateCount = affiliateCount;
+                delete user.dataValues.affiliateAssigns
+            });
 
             return {
                 status: true,
                 result: result
             }
-
         }
-
         else {
             return {
                 status: false
