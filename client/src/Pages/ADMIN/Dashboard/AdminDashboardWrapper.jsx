@@ -3,6 +3,7 @@ import AdminDashboard from './AdminDashboard';
 import { useGetUserListQuery } from '../../../services/AdminService';
 import { useGetProfileQuery } from '../../../services/ProfileService';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 function AdminDashboardWrapper() {
@@ -11,7 +12,16 @@ function AdminDashboardWrapper() {
   const [ListData, setListData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(1);
-
+  const navigate = useNavigate()
+  const userToken = Cookies.get("isLogged");
+  useEffect(()=>
+  {
+    if(!userToken || userToken==null || userToken=='')
+    {
+      navigate('/');
+      
+    }
+  },[userToken])
 
   const dataPerPage = 6;
 

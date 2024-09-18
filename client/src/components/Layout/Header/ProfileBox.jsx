@@ -28,7 +28,8 @@ const ProfileBox = () => {
 
   useEffect(() => {
     if (ProfileData != 'undefined') {
-      const dataa = JSON.parse(ProfileData);
+
+      const dataa = ProfileData && JSON.parse(ProfileData);
 
       // const decodedProfileData = '';
       console.log(dataa, 'DECODED PROFILE DATA')

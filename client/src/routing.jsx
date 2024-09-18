@@ -31,7 +31,7 @@ import AssignAffiliateWrapper from './Pages/ADMIN/Affiliate/AssignAffiliate/Assi
 import AnalyticsGraphWrapper from './Pages/AnalyticsGraph/AnalyticsGraphWrapper';
 
 function Routing() {
-    const [authenticateLogin, setAthenticateLogin] = useState(true);
+    const [authenticateLogin, setAthenticateLogin] = useState(false);
     const [decodedToken, setDecodedToken] = useState();
     const [role, setRole] = useState('');
     console.log("Hello from Routing")
