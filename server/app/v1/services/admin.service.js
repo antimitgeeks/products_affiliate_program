@@ -16,7 +16,7 @@ exports.allUsers = async (req) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
 
-        const result = await Users.findAll({
+        const result = await Users.findAndCountAll({
             limit: limit,
             offset: offset,
             include:
@@ -26,35 +26,25 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "companyName", "companyNumber",'createdAt'],
-
+            attributes: ["id", "email", "country", "city", "address", "companyName", "companyNumber", 'createdAt'],
+            distinct: true
 
 
         });
 
 
-        if(result){
-            const usersAffiliateCounts = result.map(user => {
+        if (result) {
+            await result?.rows?.map(user => {
                 const affiliateCount = user.affiliateAssigns.length;
-                return {
-                    id: user.id,
-                    email: user.email,
-                    country: user.country,
-                    city: user.city,
-                    address: user.address,
-                    companyName: user.companyName,
-                    companyNumber: user.companyNumber,
-                    affiliateCount: affiliateCount 
-                };
+                user.dataValues.affiliateCount = affiliateCount;
+                delete user.dataValues.affiliateAssigns
             });
 
             return {
                 status: true,
-                result: usersAffiliateCounts
+                result: result
             }
-
         }
-
         else {
             return {
                 status: false

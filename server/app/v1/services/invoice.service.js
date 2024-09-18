@@ -38,9 +38,12 @@ exports.getInvoiceList = async (id, req) => {
                 ['createdAt', 'DESC'],
             ],
         })
+       
+
         return {
             status: true,
-            result: result
+            result: result,
+         
         }
     }
 
@@ -69,7 +72,7 @@ exports.updateStatus = async (id, status) => {
 
         return {
             status: true,
-            result: result
+            result: result 
         }
 
     } catch (error) {

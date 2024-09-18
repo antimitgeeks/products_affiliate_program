@@ -12,7 +12,19 @@ exports.addClickAndPurchases = Joi.object({
 exports.getClickAndPurchasesList = Joi.object({
 
     type: Joi.string().required().valid('clicks', 'purchases'),
-    name: Joi.string().optional()
+    assignAffiliateId: Joi.string()
+    .optional()
+    .when(Joi.ref('type'), {
+        is: 'clicks',
+        then: Joi.string().required(),
+        otherwise: Joi.string().optional()
+    }),
+    month:Joi.string().required(),
+    year:Joi.string().required(),
+
+
+   
+
 
 
 });

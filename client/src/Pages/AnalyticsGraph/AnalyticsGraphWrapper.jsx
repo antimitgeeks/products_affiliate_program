@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import Analytics from './Analytics';
+import AnalyticsGraph from './AnalyticsGraph'
 import { useGetAnalyticsDetailsQuery } from '../../services/AnalyticsService';
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useGetIndividualAffiliateListQuery } from '../../services/AffiliateService';
+import { useParams } from 'react-router-dom';
 
-function AnalyticsWrapper() {
+function AnalyticsGraphWrapper() {
+
+    const paramData = useParams()
 
     const [loading, setLoading] = useState(false);
     const [analyticsData, setAnalyticsData] = useState([]);
-    const [affiliatesData, setAffiliatesData] = useState([]);
 
     const UserToken = Cookies.get("isLogged");
+    const affiliateId = useParams();
     const [UserId, setUserId] = useState(0);
+
+    const [monthData,setMonthData] = useState("9");
+    const [yearData,setYearData]= useState("2024")
+
+
     useEffect(() => {
         if (UserToken) {
             const decodedToken = jwtDecode(UserToken);
@@ -21,43 +29,32 @@ function AnalyticsWrapper() {
     }, [UserToken])
 
 
-
     const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({
         Id: UserId, data: {
-            "type": "purchases", 
-            "month": "9",
-            "year": "2024"
+            "type": "clicks",
+            assignAffiliateId: affiliateId?.id,
+            "month": monthData,
+            "year": yearData
         }
     })
 
-    const { data: affiliateData, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({ Id: UserId })
-
-    // useEffect(() => {
-    //     console.log(data, '-----------------------------------------analyticsDetail');
-
-    // }, [data, isLoading, isFetching])
-
-    console.log(analyticsData, '-----------------------------analyticsDetail');
-
-
     useEffect(() => {
-        if (isLoading || isFetching || listLoading || listFetching) {
+        if (isLoading || isFetching) {
             setLoading(true);
         }
         else {
             setLoading(false);
             setAnalyticsData(data?.result)
-            setAffiliatesData(affiliateData?.result)
         }
-    }, [data, isLoading, isFetching, listLoading, listFetching])
+    }, [data, isLoading, isFetching])
 
     return (
         <>
-            <div className='page-body px-4 pb-5'>
-                <Analytics loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} />
+            <div className='page-body px-4'>
+                <AnalyticsGraph themeName={paramData?.name} loading={loading} analyticsData={analyticsData} />
             </div>
         </>
     )
 }
 
-export default AnalyticsWrapper;
+export default AnalyticsGraphWrapper;

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { MdRemoveRedEye } from "react-icons/md";
 
-function Analytics({ loading, analyticsData }) {
+
+function Analytics({ loading, analyticsData, affiliatesData }) {
 
   const navigate = useNavigate();
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
   const [purchaseCount, setPurchaseCount] = useState(0);
+
+
+  console.log(affiliatesData, '----------------------------------------------------------affiliatesData');
 
 
   const [chartState, setChartState] = useState({
@@ -44,32 +49,6 @@ function Analytics({ loading, analyticsData }) {
     },
   });
 
-  const [chartStateTwo, setChartStateTwo] = useState({
-    series: [{
-      data: [34, 44, 54, 21, 12, 43, 33, 23, 66, 66, 58]
-    }],
-    options: {
-      chart: {
-        type: 'line',
-        height: 350
-      },
-      stroke: {
-        curve: 'stepline',
-      },
-      dataLabels: {
-        enabled: false
-      },
-      title: {
-        text: 'Stepline Chart',
-        align: 'left'
-      },
-      markers: {
-        hover: {
-          sizeOffset: 4
-        }
-      }
-    }
-  });
 
   const purchases = [
     { createAt: "2024-08-2 08:06:32" },
@@ -144,10 +123,9 @@ function Analytics({ loading, analyticsData }) {
 
     // Initialize an array for days 1 to 30
     const daysOfMonth = Array.from({ length: 30 }, (_, i) => i + 1);
-
     // Create a result array with only counts for each day
     const counts = daysOfMonth.map(day => {
-      const count = analyticsData?.filter(purchase => getDay(purchase.createdAt) === day).length;
+      const count = analyticsData != undefined && analyticsData?.filter(purchase => getDay(purchase.createdAt) === day).length;
       return count;
     });
 
@@ -163,6 +141,14 @@ function Analytics({ loading, analyticsData }) {
   }, [analyticsData])
 
   console.log(purchaseCount, '---------------------purchaseCount');
+  console.log(affiliatesData?.result, 'purdata')
+
+
+  const viewGraphHandle = (id,name) => {
+    console.log(id, '----------------------------------------------affiliate id ');
+    navigate(`${id}/${name}`);
+    return;
+  }
 
   return (
     <>
@@ -184,6 +170,8 @@ function Analytics({ loading, analyticsData }) {
                 <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3>
 
               </div>
+
+
               <ReactApexChart
                 options={chartState?.options}
                 // series={chartState?.series}
@@ -199,57 +187,55 @@ function Analytics({ loading, analyticsData }) {
                 className="px-2 w-full max-w-full"
               />
 
-            </div>
-            <div className='grid grid-cols-1 w-full gap-10'>
-              {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
-              CLICKS
-              {
-                ClicksData?.map((itm) => {
-                  return <div className='border bg-white p-4'>
-                    <ReactApexChart
-                      options={{
-                        chart: {
-                          height: 350,
-                          type: 'line',
-                          zoom: {
-                            enabled: false,
-                          },
-                        },
-                        dataLabels: {
-                          enabled: false,
-                        },
-                        stroke: {
-                          curve: 'straight',
-                        },
-                        title: {
-                          text: itm?.theme,
-                          align: 'left',
-                        },
-                        grid: {
-                          row: {
-                            colors: ['#f3f3f3', 'transparent'],
-                            opacity: 0.5,
-                          },
-                        },
-                        xaxis: {
-                          categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
 
-                        },
-                      }}
-                      series={
-                        [
-                          {
-                            name: 'Themes',
-                            data: itm?.data,
-                          }
-                        ]
-                      }
-                      type="line"
-                      height={325}
-                    />
+            </div>
+
+            <div className='grid grid-cols-1 w-full gap-2'>
+              {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
+              <p className='text-[20px] font-semibold'>CLICKS</p>
+              {
+                loading ?
+                  <div className=' w-full flex items-center justify-center'>
+                    <span className=' w-fit flex  items-center justify-center animate-spin'>
+                      <AiOutlineLoading3Quarters />
+                    </span>
                   </div>
 
-                })
+                  :
+                  affiliatesData?.result?.length  <= 0 || affiliatesData?.result==undefined  ?
+                    <div className=' w-full flex items-center justify-center'>
+                      <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                        No data found
+                      </span>
+                    </div>
+                    :
+                    <div className='w-full h-full invoices-page'>
+                      <div className='table-container'>
+                        <table className='shadow'>
+                          <thead className=' py-2'>
+                            <tr className='py-2'>
+                              <th>Theme name</th>
+                              <th>Total Clicks</th>
+                              <th>Date</th>
+                              <th>View Graph</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {affiliatesData?.result?.map(affiliate => (
+                              <tr key={affiliate?.id}>
+                                <td>{affiliate.affiliate?.name}</td>
+                                <td className='pl-[30px]'>{affiliate?.clicks}</td>
+                                <td>{affiliate?.createdAt?.split('T')[0]}</td>
+                                <td style={{ width: '40px' }} className='pl-[30px] w-fit '><MdRemoveRedEye onClick={() => viewGraphHandle(affiliate?.id,affiliate.affiliate?.name)} className='w-fit cursor-pointer hover:opacity-90' size={20} /></td>
+                              </tr>
+                            ))}
+                            <tr className="spacer-row">
+                              <td colSpan="5"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
               }
 
             </div>
