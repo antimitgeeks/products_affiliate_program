@@ -12,3 +12,13 @@ else{
 }
 }
  
+exports.updateAffiliate=async (req,res,next)=>{
+const {error}=schema.updateAffiliateSchema.validate(req.body)
+if(error){
+    res.status(statusCode.BAD_REQUEST).json({error:error.details[0].message});
+}
+else{
+    next();
+}
+}
+ 
