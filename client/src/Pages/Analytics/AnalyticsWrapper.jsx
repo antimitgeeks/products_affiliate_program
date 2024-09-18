@@ -22,7 +22,13 @@ function AnalyticsWrapper() {
 
 
 
-    const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({ Id: UserId, data: { "type": "purchases" } })
+    const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({
+        Id: UserId, data: {
+            "type": "purchases", 
+            "month": "9",
+            "year": "2024"
+        }
+    })
 
     const { data: affiliateData, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({ Id: UserId })
 

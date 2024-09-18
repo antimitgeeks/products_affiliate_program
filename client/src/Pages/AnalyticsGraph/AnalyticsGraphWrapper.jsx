@@ -14,7 +14,7 @@ function AnalyticsGraphWrapper() {
     const UserToken = Cookies.get("isLogged");
     const affiliateId = useParams();
     const [UserId, setUserId] = useState(0);
-    
+
     useEffect(() => {
         if (UserToken) {
             const decodedToken = jwtDecode(UserToken);
@@ -22,7 +22,15 @@ function AnalyticsGraphWrapper() {
         }
     }, [UserToken])
 
-    const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({ Id: UserId, data: { "type": "clicks", assignAffiliateId: affiliateId?.id } })
+
+    const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({
+        Id: UserId, data: {
+            "type": "clicks",
+            assignAffiliateId: affiliateId?.id,
+            "month": "9",
+            "year": "2024"
+        }
+    })
 
     useEffect(() => {
         if (isLoading || isFetching) {
