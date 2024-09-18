@@ -41,7 +41,7 @@ exports.addClickAndPurchases = async (req, res, type, assignId) => {
 }
 
 //get click and purchases list 
-exports.getClickAndPurchasesList = async (type, id) => {
+exports.getClickAndPurchasesList = async (type, name, id) => {
     try {
         let result;
         if (type === 'purchases') {

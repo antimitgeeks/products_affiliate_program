@@ -6,7 +6,7 @@ const AdminService = CreateApi.injectEndpoints(
             {
                 GetUserList: builder.query(
                     {
-                        providesTags: ['admin'],
+                        providesTags: ['admin', 'assignCustomer'],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/allUsers`,
@@ -42,7 +42,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 UpdateInvoiceStatus: builder.mutation(
                     {
-                        invalidatesTags: ['admin',"overvieww"],
+                        invalidatesTags: ['admin', "overvieww"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/invoice/updateStatus/${Id}`,
@@ -66,7 +66,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 AssignAffiliate: builder.mutation(
                     {
-                        invalidatesTags: ["adminAffiliate"],
+                        invalidatesTags: ["adminAffiliate", "assignCustomer"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/affiliate/assign-affiliate/add/${Id}`,
@@ -94,4 +94,4 @@ const AdminService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation , useGetAssignedCustomerListQuery} = AdminService;
+export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery } = AdminService;

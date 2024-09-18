@@ -82,6 +82,7 @@ import { IoIosArrowBack } from "react-icons/io";
 const SideBarNav = () => {
 
   const { togglSidebar, setTogglSidebar } = useContext(CustomizerContext);
+  const testToken = Cookies.get("test")
 
   const [isOpen, setIsOpen] = useState([]);
   const [role, setRole] = useState('');
@@ -94,7 +95,7 @@ const SideBarNav = () => {
       console.log(decodingToken?.role, 'decodedToken');
       setRole(decodingToken?.role)
     }
-  }, [TokenData]);
+  }, [TokenData,testToken]);
 
   return (
     <div className='relative h-screen'>
@@ -133,23 +134,23 @@ const SideBarNav = () => {
         className='absolute w-full text-center logo-wrapper h-[12px]'
         style={{
           top: '30%',
-          right: '-9%',
+          right: '-7%',
           transform: 'translateY(-50%)',
           color: 'black',
           backgroundColor: 'transparent',
-          height: '10px',
+          height: '21px',
           zIndex: '100000',
-          width: '10px'
+          width: '21px'
         }}
       >
-        <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[22px] bg-transparent toggle-sidebar hover:border duration-100 transition-all ease-linear text-black'>
+        <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[36px] bg-transparent toggle-sidebar  border hover:shadow duration-100 transition-all ease-linear text-black'>
           {
             togglSidebar ?
 
               // <FaArrowRightArrowLeft className=' text-sm' size={22} />
-              <IoIosArrowForward />
+              <IoIosArrowForward  size={32} />
               :
-              <IoIosArrowBack />
+              <IoIosArrowBack size={32} />
 
           }
         </div>

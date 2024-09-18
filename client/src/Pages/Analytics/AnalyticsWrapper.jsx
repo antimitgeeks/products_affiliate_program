@@ -22,10 +22,10 @@ function AnalyticsWrapper() {
 
     const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({ Id: UserId, data: { "type": "purchases" } })
 
-    useEffect(() => {
-        console.log(data, '-----------------------------------------analyticsDetail');
+    // useEffect(() => {
+    //     console.log(data, '-----------------------------------------analyticsDetail');
 
-    }, [data, isLoading, isFetching])
+    // }, [data, isLoading, isFetching])
 
     console.log(analyticsData, '-----------------------------analyticsDetail');
 
@@ -38,7 +38,7 @@ function AnalyticsWrapper() {
             setLoading(false);
             setAnalyticsData(data?.result)
         }
-    }, [isLoading, isFetching])
+    }, [data,isLoading, isFetching])
 
     return (
         <>

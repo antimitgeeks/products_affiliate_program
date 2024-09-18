@@ -39,7 +39,6 @@ function AdminDashboardWrapper() {
 
 
 
-
   return (
     <div className="page-body px-4  h-full">
       <AdminDashboard loading={loading} ListData={ListData?.result} />

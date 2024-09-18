@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 // import { useGetPasswordUpdateDataQuery } from '../../services/AuthServices';
 import Select from 'react-select';
 import { useGetAffiliateListQuery, useGetIndividualAffiliateListQuery } from '../../../../services/AffiliateService';
+import { IoArrowBack } from 'react-icons/io5';
 
 function AddInvoice({ id, email }) {
 
@@ -118,7 +119,12 @@ function AddInvoice({ id, email }) {
                         (profileProps) =>
                         (
                             <Form>
-
+                                    <div className='flex w-full justify-between px-1 py-2 mb-1'>
+                                        <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                                            <IoArrowBack size={20} />
+                                        </span>
+                                    
+                                    </div>
                                 <Fragment>
                                     <Card className=' w-full'>
                                         <div className='pb-0 pt-4 w-full flex justify-between px-[26px]'>

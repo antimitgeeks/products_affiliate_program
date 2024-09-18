@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { UL, LI, P } from '../../AbstractElements';
+import Cookies from 'js-cookie'
 
 const SearchSuggestionList = ({ setSuggestionOpen, suggestion }) => {
   const handleLinkClick = () => {
@@ -12,7 +13,7 @@ const SearchSuggestionList = ({ setSuggestionOpen, suggestion }) => {
         <UL className='custom-scrollbar '>
           {suggestion.map((item, i) => (
             <LI key={i}>
-              <Link onClick={handleLinkClick} to={item.url} className='d-flex align-items-center gap-1'>
+              <Link style={{textDecoration:'none'}} onClick={()=>{handleLinkClick(); Cookies.set("test",'')}} to={item.url} className='d-flex align-items-center gap-1'>
                 {item.icon}
                 <span>{item.title}</span>
               </Link>
