@@ -8,9 +8,20 @@ import Cookies from 'js-cookie';
 function AdminDashboardWrapper() {
 
   const [loading, setLoading] = useState(false);
-  const [ListData, setListData] = useState([])
+  const [ListData, setListData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [count, setCount] = useState(1);
 
-  const { data, isLoading, isFetching } = useGetUserListQuery({});
+
+  const dataPerPage = 6;
+
+
+  const { data, isLoading, isFetching } = useGetUserListQuery(
+    {
+      data:
+        { limit: dataPerPage, page: currentPage }
+    }
+  );
 
   useEffect(() => {
     if (isLoading || isFetching) {
@@ -18,9 +29,11 @@ function AdminDashboardWrapper() {
     }
     else {
       setLoading(false);
-      setListData(data?.result)
+      setListData(data?.result);
+      console.log(data?.result?.result?.count, 'count')
+      setCount(Math.ceil(data?.result?.result?.count/dataPerPage))
     }
-  }, [isLoading, isFetching])
+  }, [isLoading, isFetching, data])
 
   console.log(data?.result, 'userList')
 
@@ -41,7 +54,7 @@ function AdminDashboardWrapper() {
 
   return (
     <div className="page-body px-4  h-full">
-      <AdminDashboard loading={loading} ListData={ListData?.result} />
+      <AdminDashboard count={count} loading={loading} ListData={ListData?.result} setCurrentPage={setCurrentPage} currentPage={currentPage} />
     </div>
   )
 }
