@@ -41,41 +41,56 @@ exports.addClickAndPurchases = async (req, res, type, assignId) => {
 }
 
 //get click and purchases list 
-exports.getClickAndPurchasesList = async (type, id) => {
+exports.getClickAndPurchasesList = async (type, assignAffiliateId, id) => {
     try {
         let result;
         if (type === 'purchases') {
-            result = await ClickAndPurchases.findAll({ where: { userId: id, type: "purchases" } });
-        } else {
-            const isAffiliateExist = await Affiliate.findOne(
-                {
-                    where:
-                    {
-                        [Op.and]: [
-                            { userId: id },
-                            { name: name }
-                        ]
-                    }
-                })
+            result = await ClickAndPurchases.findAll({
 
-            if (isAffiliateExist == null) {
-                return {
-                    status: false,
-                    isExist: false
-                }
-            }
-            result = await ClickAndPurchases.findAll(
-                {
-                    where:
-                    {
-                        [Op.and]: [
-                            { affiliateId: isAffiliateExist.id },
-                            { type: type }
-                        ]
-                    }
-                }
-            )
+                where: { userId: id, type: "purchases" },
+                attributes: ['id', 'userId', 'assignAffiliateId', 'type', 'createdAt', 'updatedAt']
+
+            });
         }
+
+        if (type === "clicks") {
+            result = await ClickAndPurchases.findAll({
+
+                where: { userId: id, type: "clicks", assignAffiliateId: assignAffiliateId },
+                attributes: ['id', 'userId', 'assignAffiliateId', 'type', 'createdAt', 'updatedAt']
+
+            });
+        }
+        // else {
+        //     const isAffiliateExist = await Affiliate.findOne(
+        //         {
+        //             where:
+        //             {
+        //                 [Op.and]: [
+        //                     { userId: id },
+        //                     { name: name }
+        //                 ]
+        //             }
+        //         })
+
+        //     if (isAffiliateExist == null) {
+        //         return {
+        //             status: false,
+        //             isExist: false
+        //         }
+        //     }
+        //     result = await ClickAndPurchases.findAll(
+        //         {
+        //             where:
+        //             {
+        //                 [Op.and]: [
+        //                     { affiliateId: isAffiliateExist.id },
+        //                     { type: type }
+        //                 ]
+        //             }
+        //         }
+        //     )
+        // }
         if (!result) {
             return {
                 status: false,

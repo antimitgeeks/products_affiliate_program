@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { IoArrowBack } from "react-icons/io5";
 
 
-function ViewInvoice({ loading, listData }) {
+function ViewInvoice({ loading, listData, OverViewData }) {
 
 
   console.log(listData, 'ListDataaa')
@@ -70,9 +70,30 @@ function ViewInvoice({ loading, listData }) {
                 <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                   <IoArrowBack size={20} />
                 </span>
-                <span className='font-semibold pt-0'>
-                  Paid Amount : {totalPaidCommission}
-                </span>
+
+              </div>
+              <div className='flex flex-col gap-3 mt-4'>
+                <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
+                  
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                       Pending
+                    </div>
+                    {OverViewData?.pending} $
+                  </div>
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                       Paid
+                    </div>
+                    {OverViewData?.total} $
+                  </div>
+                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                    <div className='font-semibold'>
+                       Total
+                    </div>
+                    {OverViewData?.pending + OverViewData?.total} $
+                  </div>
+                </div>
               </div>
               <div className='flex w-full justify-end px-4 py-2'>
                 <span className='font-semibold pt-0'>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Btn, H5 } from '../../components/AbstractElements';
 import { FaLink } from "react-icons/fa6";
@@ -10,7 +10,19 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
   console.log(listData, 'ListDataaaa 12');
 
   const navigate = useNavigate();
-  const profileDetails = JSON.parse(Cookies.get('profileData') || null);
+  const profileJson = Cookies.get('profileData')
+
+  const [profileDetails, setProfileDetails] = useState([]);
+
+  useEffect(() => {
+    console.log(profileJson, '---------------------------profileDetails');
+    if (profileJson == 'undefined' || profileJson == null) {
+      Cookies.remove("isLogged"); 
+      Cookies.remove("profileData"); 
+      navigate('/')
+    }
+    setProfileDetails(profileJson)
+  }, [profileJson])
 
 
   return (

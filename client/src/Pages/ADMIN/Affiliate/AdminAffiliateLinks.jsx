@@ -76,7 +76,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                                                         <span className='font-semibold text-lg'>{itm?.name}</span>
                                                         <div className='flex flex-col gap-3'>
 
-                                                            <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full flex items-center justify-center  cursor-pointer'>
+                                                            <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                                                 <FaLink />
                                                                 {console.log(itm?.shortUrl)}
                                                                 <a href={itm?.link} target='_blank'>
