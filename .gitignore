@@ -112,6 +112,7 @@ node_modules/
 client/dist/
 server/dist/
 dist/
+client/src/services/apiService.js
 
 #Ignore tscommand text file generated during compilation
 /*.txt
