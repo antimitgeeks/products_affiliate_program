@@ -8,6 +8,7 @@ const { authenticate } = require('../middleware/authentication.js')
 
 router.post('/add', authenticate, upload.single('image'), controllers.addAffiliate);
 router.post('/updateAffiliate/:id',upload.single('image'),controllers.updateAffiliate)
+router.post('/getAffiliateById/:id',controllers.getAffiliateById)
 router.post('/list', authenticate, controllers.getAffiliate)
 router.get('/:id', controllers.redirectShortLink);
 router.post('/assign-affiliate/add/:id',controllers.addAssignAffiliate)
