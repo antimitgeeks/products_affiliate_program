@@ -28,7 +28,7 @@ exports.addAffiliate = async (req, res, shortId) => {
         }
         details.shortId = shortId
         const host = await req.headers.host
-        details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}`
+        details.shortUrl = `${host}/affiliate/${shortId}`
         const result = await Affiliate.create(details)
         if (result) {
             return {
@@ -177,48 +177,48 @@ exports.addAssignAffiliate = async (id, details) => {
 
 }
 
-exports.updateAffiliate=async (id,body,req)=>{
+exports.updateAffiliate = async (id, body, req) => {
 
     try {
 
-        const isExist=await Affiliate.findByPk(id)
-        if(isExist){
-            const result=await Affiliate.update(
-               {
-                ...body,
-                imageUrl:req?.file?.filename
-               },
-               {
-                where:{
-                    id:id
+        const isExist = await Affiliate.findByPk(id)
+        if (isExist) {
+            const result = await Affiliate.update(
+                {
+                    ...body,
+                    imageUrl: req?.file?.filename
+                },
+                {
+                    where: {
+                        id: id
+                    }
                 }
-               }
-        )
-        if(result){
-            return {
-                status :true,
-                result:result
+            )
+            if (result) {
+                return {
+                    status: true,
+                    result: result
+                }
+
             }
 
+
+
         }
-      
-      
-    
-    }
-    else{
-        return {
-            status :false,
-         
+        else {
+            return {
+                status: false,
+
+            }
         }
-    }
-        
+
     } catch (error) {
         console.log(error)
         return {
             status: false,
             result: error
         }
-        
+
     }
 
 }
