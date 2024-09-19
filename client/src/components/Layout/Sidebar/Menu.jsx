@@ -19,7 +19,7 @@ export const MENU = [
       {
         title: 'Invoices',
         icon: <FiFileText />,
-        url: `${process.env.PUBLIC_URL}invoices`,
+        url: `/dashboard/invoices`,
       },
       {
         title: 'Analytics',

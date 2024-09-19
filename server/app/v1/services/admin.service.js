@@ -19,6 +19,7 @@ exports.allUsers = async (req) => {
         const result = await Users.findAndCountAll({
             limit: limit,
             offset: offset,
+            where: { role: 'customer' },
             include:
             {
                 model: AffiliateAssign,
@@ -26,7 +27,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "companyName", "companyNumber", 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", "companyNumber", 'createdAt'],
             distinct: true
 
 
@@ -81,7 +82,8 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
             where: {
                 id: {
                     [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
-                }
+                },
+                role: 'customer'
             },
             order: [['createdAt', 'DESC']],
             distinct: true

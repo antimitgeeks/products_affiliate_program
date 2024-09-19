@@ -190,7 +190,7 @@ function Profile({ listData, loading }) {
                         </Row>
 
                         <div className="position-relative form-group mb-0 w-[120px]">
-                          <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
+                          <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-4 rounded-full" type="submit">
                             {
                               submitLoading ?
                                 <span className=' w-full flex py-1  items-center justify-center m-auto self-center animate-spin'>

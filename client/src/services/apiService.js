@@ -3,8 +3,8 @@ import Cookies from 'js-cookie';
 
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3000/api/v1",
-        prepareHeaders: (headers) => { 
+        baseUrl: "https://product-affiliate-program-jz6xc.ondigitalocean.app/api/v1",
+        prepareHeaders: (headers) => {
             const user = Cookies.get('isLogged');
             if (user) {
                 headers.set("Authorization", `Bearer ${user}`);
@@ -16,7 +16,7 @@ const CreateApi = createApi({
         mode: 'cors', // Ensure mode is set to 'cors'
     }),
     endpoints: () => ({}),
-    tagTypes: ["adminPanel", "links", "adminAffiliate", "assignCustomer"]
+    tagTypes: ["adminPanel", "links", "adminAffiliate", "assignCustomer","profile"]
 });
 
 export default CreateApi;

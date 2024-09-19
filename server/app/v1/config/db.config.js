@@ -12,27 +12,3 @@ module.exports = {
     idle: 10000
   }
 };
-
-// module.exports = {
-//   HOST: "db-mysql-nyc1-59311-do-user-16992257-0.c.db.ondigitalocean.com",
-//   USER: "doadmin",
-//   PASSWORD: "AVNS_uzhr339TCWdgsY517mA",
-//   DB: "defaultdb",
-//   PORT: 25060,
-//   dialect: "mysql",
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle: 10000
-//   }
-// };
-
-
-
-// host : bktm4rjw7yvng5wterml-mysql.services.clever-cloud.com
-// dbname : bktm4rjw7yvng5wterml
-// user : unlcdiovbnjvg0lj
-// password : nzdXBdivmDdPPZ9mAhlY
-// port : 3306
-// connection url : mysql://unlcdiovbnjvg0lj:nzdXBdivmDdPPZ9mAhlY@bktm4rjw7yvng5wterml-mysql.services.clever-cloud.com:3306/bktm4rjw7yvng5wterml

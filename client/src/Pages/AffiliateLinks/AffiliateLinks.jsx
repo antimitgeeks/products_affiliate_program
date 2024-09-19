@@ -15,13 +15,13 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
   const [profileDetails, setProfileDetails] = useState([]);
 
   useEffect(() => {
-    console.log(profileJson, '---------------------------profileDetails');
+    console.log(JSON.parse(profileJson), '---------------------------profileDetails2');
     if (profileJson == 'undefined' || profileJson == null) {
-      Cookies.remove("isLogged"); 
-      Cookies.remove("profileData"); 
+      Cookies.remove("isLogged");
+      Cookies.remove("profileData");
       navigate('/')
     }
-    setProfileDetails(profileJson)
+    setProfileDetails(JSON.parse(profileJson))
   }, [profileJson])
 
 
@@ -54,13 +54,13 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
               <div className='w-full flex flex-col h-full items-center gap-8 '>
 
                 {
-                  listData?.result?.map((itm) => {
+                  listData?.result?.rows?.map((itm) => {
                     return <>
                       <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' object-contain w-1/2 shadow-sm rounded-xl h-[220px]  p-2 bg-slate-100'>
                           {/* <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" /> */}
 
-                          <img className='object-fit h-full w-full' src={`https://${itm?.affiliate?.imageUrl}`} alt="IMG" />
+                          <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" />
                         </div>
                         <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                           <div className=' flex flex-col gap-5'>
