@@ -55,8 +55,8 @@ function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}
                 <table className=''>
                   <thead>
                     <tr>
+                      <th>Utm Id</th>
                       <th>Email</th>
-                      <th>Address</th>
                       <th>Company name</th>
                       <th>Themes</th>
                       <th>Invoices</th>
@@ -68,8 +68,9 @@ function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}
 
                       ListData?.rows?.map((itm, indx) => (
                         <tr key={indx}>
+                          {console.log(itm,'User list item')}
+                          <td>{itm?.userId}</td>
                           <td>{itm?.email}</td>
-                          <td>{itm?.address}</td>
                           <td>{itm?.companyName}</td>
                           <td>{itm?.affiliateCount}</td>
                           <td className=' flex gap-2'>
