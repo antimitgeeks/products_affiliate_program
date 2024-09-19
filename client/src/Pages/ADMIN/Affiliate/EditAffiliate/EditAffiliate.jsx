@@ -108,6 +108,8 @@ function EditAffiliate({ listData, loading }) {
         //         setSubmitLoading(false)
         //     })
 
+        
+
     };
 
     const handleThumbnail = async (event) => {
