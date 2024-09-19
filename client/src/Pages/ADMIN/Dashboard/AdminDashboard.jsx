@@ -68,6 +68,7 @@ function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}
 
                       ListData?.rows?.map((itm, indx) => (
                         <tr key={indx}>
+                          {console.log(itm,'User list item')}
                           <td>{itm?.email}</td>
                           <td>{itm?.address}</td>
                           <td>{itm?.companyName}</td>
