@@ -19,6 +19,7 @@ exports.allUsers = async (req) => {
         const result = await Users.findAndCountAll({
             limit: limit,
             offset: offset,
+            where: { role: 'customer' },
             include:
             {
                 model: AffiliateAssign,
@@ -75,15 +76,17 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
         });
         const assignedUserIds = affiliateDetails.map(detail => detail.userId);
 
-        const result = await Users.findAll({
+        const result = await Users.findAndCountAll({
             limit: limit,
             offset: offset,
             where: {
                 id: {
                     [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
-                }
+                },
+                role: 'customer'
             },
             order: [['createdAt', 'DESC']],
+            distinct: true
         });
         if (result) {
             return {
@@ -111,7 +114,7 @@ exports.affiliateListAssign = async (id, req) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
 
-        const allAdminAffiliates = await AffiliateAssign.findAll({
+        const allAdminAffiliates = await AffiliateAssign.findAndCountAll({
             limit: limit,
             offset: offset,
             where:
@@ -123,6 +126,7 @@ exports.affiliateListAssign = async (id, req) => {
                     model: Users,
                 }
             ],
+            distinct: true
         })
         if (allAdminAffiliates) {
             return {
@@ -147,9 +151,18 @@ exports.affiliateListAssign = async (id, req) => {
 
 exports.userAffiliates = async (userId, req) => {
     try {
-        const assignAffiliateDetails = await AffiliateAssign.findAll({
 
-            where: { userId }, include: [
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+
+        const assignAffiliateDetails = await AffiliateAssign.findAndCountAll({
+
+            limit: limit,
+            offset: offset,
+
+            where: { userId },
+            include: [
                 {
                     model: Affiliate,
                     require: true
@@ -157,12 +170,13 @@ exports.userAffiliates = async (userId, req) => {
             ],
             order: [
                 ['createdAt', 'DESC'],
-            ]
+            ],
+            distinct: true
         });
 
 
 
-        assignAffiliateDetails.forEach(obj => {
+        assignAffiliateDetails?.rows.forEach(obj => {
 
 
             if (obj.dataValues.affiliate.imageUrl !== null && obj.dataValues.affiliate.imageUrl !== undefined) {

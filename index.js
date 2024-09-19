@@ -51,7 +51,7 @@ const data = () => {
   console.log('test');
 }
 
-// app.use(express.static(path.join(STATIC_PATH, 'build')));
+app.use(express.static(path.join(STATIC_PATH, 'build')));
 
 const parentDirectory = path.join(__dirname, "server/app/v1/utils")
 
@@ -64,9 +64,9 @@ app.use(process.env.BASE_URL, routes);
 
 app.get('/:shortLinkId', redirectShortLink)
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

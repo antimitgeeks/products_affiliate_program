@@ -9,7 +9,7 @@ const path = require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
-        const imageUrl = await req.file ? req.file.originalname : null
+        const imageUrl = req.body.imageUrl
 
         const details = { ...req.body, imageUrl: imageUrl }
         const isAlreadyExist = await Affiliate.findOne({
@@ -28,7 +28,7 @@ exports.addAffiliate = async (req, res, shortId) => {
         }
         details.shortId = shortId
         const host = await req.headers.host
-        details.shortUrl = `${host}${process.env.BASE_URL}/affiliate/${shortId}`
+        details.shortUrl = `${host}/affiliate/${shortId}`
         const result = await Affiliate.create(details)
         if (result) {
             return {
@@ -99,16 +99,17 @@ exports.getAffiliate = async (req, res) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
 
-        const result = await Affiliate.findAll({
+        const result = await Affiliate.findAndCountAll({
             limit: limit,
             offset: offset,
             order: [
                 ['createdAt', 'DESC'],
-            ]
+            ],
+            distinct: true
         });
 
 
-        result.forEach(obj => {
+        result?.rows.forEach(obj => {
 
 
             if (obj.dataValues.imageUrl !== null && obj.dataValues.imageUrl !== undefined) {
@@ -172,6 +173,52 @@ exports.addAssignAffiliate = async (id, details) => {
             status: false,
             result: error
         }
+    }
+
+}
+
+exports.updateAffiliate = async (id, body, req) => {
+
+    try {
+
+        const isExist = await Affiliate.findByPk(id)
+        if (isExist) {
+            const result = await Affiliate.update(
+                {
+                    ...body,
+                    imageUrl: req?.file?.filename
+                },
+                {
+                    where: {
+                        id: id
+                    }
+                }
+            )
+            if (result) {
+                return {
+                    status: true,
+                    result: result
+                }
+
+            }
+
+
+
+        }
+        else {
+            return {
+                status: false,
+
+            }
+        }
+
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false,
+            result: error
+        }
+
     }
 
 }

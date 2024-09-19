@@ -8,3 +8,7 @@ exports.addAffiliateSchema=Joi.object({
     purchases:Joi.string().optional(),
 
 })
+exports.updateAffiliateSchema=Joi.object({
+    name:Joi.string().optional(),
+   image:Joi.string().optional()
+})

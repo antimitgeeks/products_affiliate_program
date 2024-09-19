@@ -3,7 +3,7 @@ const Invoice = db.invoice;
 
 exports.createInvoice = async (body) => {
     try {
-        console.log(body, '--------------------------------body');
+
 
         const result = await Invoice.create({ ...body })
         return {
@@ -28,7 +28,7 @@ exports.getInvoiceList = async (id, req) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
 
-        const result = await Invoice.findAll({
+        const result = await Invoice.findAndCountAll({
             limit: limit,
             offset: offset,
             where: {
@@ -37,13 +37,14 @@ exports.getInvoiceList = async (id, req) => {
             order: [
                 ['createdAt', 'DESC'],
             ],
+            distinct: true
         })
-       
+
 
         return {
             status: true,
             result: result,
-         
+
         }
     }
 
@@ -72,7 +73,7 @@ exports.updateStatus = async (id, status) => {
 
         return {
             status: true,
-            result: result 
+            result: result
         }
 
     } catch (error) {
