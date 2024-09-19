@@ -9,7 +9,7 @@ const path = require('path')
 //add affiliate 
 exports.addAffiliate = async (req, res, shortId) => {
     try {
-        const imageUrl = await req.file ? req.file.originalname : null
+        const imageUrl = req.body.imageUrl
 
         const details = { ...req.body, imageUrl: imageUrl }
         const isAlreadyExist = await Affiliate.findOne({
