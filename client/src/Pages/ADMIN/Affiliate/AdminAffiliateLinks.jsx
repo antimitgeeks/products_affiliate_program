@@ -78,9 +78,9 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                                                     <div className=' flex flex-col gap-5'>
                                                         <div className='flex items-center justify-between relative'>
                                                             <span className='font-semibold text-lg'>{itm?.name}</span>
-                                                            {/* <span onClick={() => { handleEdit(itm?.id,itm?.name) }} className=' pl-[20px] cursor-pointer hover:opacity-90 absolute right-[-15px] top-[-16px]'>
+                                                            <span onClick={() => { handleEdit(itm?.id,itm?.name) }} className=' pl-[20px] cursor-pointer hover:opacity-90 absolute right-[-15px] top-[-16px]'>
                                                                 <FaEdit size={18} />
-                                                            </span> */}
+                                                            </span>
                                                         </div>
                                                         <div className='flex flex-col gap-3'>
 
