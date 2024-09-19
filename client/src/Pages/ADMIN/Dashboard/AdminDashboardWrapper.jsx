@@ -50,7 +50,7 @@ function AdminDashboardWrapper() {
   useEffect(() => {
     const prevData = Cookies.get("profileData");
 
-    if (prevData?.length > 10) {
+    if (prevData ==undefined || prevData =='undefined') {
       console.log("")
     }
     else {
