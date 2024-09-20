@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://2eac-49-249-2-6.ngrok-free.app/api/v1",
+        baseUrl: "https://d70b-2401-4900-1ca3-37db-540d-5295-1064-fde3.ngrok-free.app/api/v1",
         prepareHeaders: (headers) => {
             const user = Cookies.get('isLogged');
             if (user) {
@@ -16,7 +16,7 @@ const CreateApi = createApi({
         mode: 'cors', // Ensure mode is set to 'cors'
     }),
     endpoints: () => ({}),
-    tagTypes: ["adminPanel", "links", "adminAffiliate", "assignCustomer","profile"]
+    tagTypes: ["adminPanel", "links", "adminAffiliate", "assignCustomer", "profile"]
 });
 
 export default CreateApi;
