@@ -126,7 +126,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 DeleteAffiliate: builder.mutation(
                     {
-                        providesTags: ["adminAffiliate"],
+                        invalidatesTags: ["adminAffiliate"],
                         query: ({ Id, data }) =>(
                             {
                                 url: `/admin/affiliate/${Id}`,
