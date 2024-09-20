@@ -95,9 +95,9 @@ function EmailAuth() {
                                             /> */}
                                         <div className=" w-full flex items-center justify-center login-tab">
                                             <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-14">
-                                                <div className=" w-full md:w-[48%] mt-5">
+                                                <div className=" w-full md:w-[48.6%] mt-5">
 
-                                                    <div className="theme-form flex flex-col gap-3 p-2">
+                                                    <div className="theme-form flex flex-col gap-3 p-3">
                                                         <div className=' flex flex-col gap-3'>
                                                             {/* <Image
                                                                 className="img-fluid for-light mx-auto h-[65px] w-[65px]"
@@ -148,7 +148,7 @@ function EmailAuth() {
                                                         }
                                                     </div>
                                                 </div>
-                                                <div className=" w-full p-2 md:w-[46%] object-contain md:object-cover h-[200px]  md:h-[460px]">
+                                                <div className=" w-full  md:w-[520px] object-contain md:object-cover h-[200px]  md:h-[460px]">
                                                     <img src={banner} className="border shadow-xl object-fit w-full h-full rounded-[16px]" alt="" />
                                                 </div>
                                             </div>
