@@ -8,5 +8,6 @@ router.post('/allUsers', authAdmin, controllers.allUsers);
 router.post('/affiliate/not-assigned-customers-list/:id', controllers.notAssignedCustomers)
 router.post('/affiliate/user/:id', controllers.userAffiliates)
 router.post('/assigned-customers-list/:id',controllers.affiliateListAssign)
+router.delete('/affiliate/:id',authAdmin,controllers.deleteAffiliate)
 
 module.exports = router;
