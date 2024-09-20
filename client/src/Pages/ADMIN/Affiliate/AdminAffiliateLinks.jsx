@@ -105,12 +105,6 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                         </div>
                                                     </div>
                                                     <div className=' flex gap-6'>
-                                                        {/* <div className='border rounded px-2 py-1 cursor-pointer'>
-                                                Assign 
-                                            </div>
-                                            <div className='border rounded px-2 py-1 cursor-pointer'>
-                                                Assigned list
-                                            </div> */}
                                                         <div onClick={() => ManageAssignClick(itm?.id)} className='border rounded px-2 py-1 cursor-pointer'>
                                                             Manage Assign
                                                         </div>
