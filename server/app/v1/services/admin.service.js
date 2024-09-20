@@ -27,7 +27,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", "companyNumber", 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'createdAt'],
             distinct: true
 
 
@@ -253,4 +253,15 @@ exports.deleteAffiliate = async (affiliateId, req) => {
             status: false
         }
     }
+}
+
+
+//
+exports.userDetails = async (userId) => {
+    const result = await Users.findOne(
+        {
+             where: { id: userId },
+             attributes:{exclude:["password"]}
+            })
+    return result
 }

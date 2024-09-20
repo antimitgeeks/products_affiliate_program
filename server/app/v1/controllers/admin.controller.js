@@ -109,3 +109,17 @@ exports.deleteAffiliate = async (req, res) => {
     }
 
 }
+
+//userDetails
+exports.userDetails = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const result = await service.userDetails(userId)
+        return sendResponse(res, statusCode.OK, true, `User Details ${SuccessMessage.FETCH}`, result)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
