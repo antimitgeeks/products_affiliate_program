@@ -29,7 +29,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import toast from 'react-hot-toast';
 import { useAddAffiliateLinkMutation } from '../../../../services/AffiliateService';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useUploadImageMutation } from '../../../../services/AdminService';
+import { useEditAffiliateMutation, useUploadImageMutation } from '../../../../services/AdminService';
 import { IoArrowBack } from 'react-icons/io5';
 // import { useGetProfileDataQuery } from '../../services/AuthServices';
 
@@ -37,14 +37,17 @@ function EditAffiliate({ listData, loading }) {
 
     const navigate = useNavigate();
     const [submitLoading, setSubmitLoading] = useState(false);
-    const [imageUploadLoading,setImageUploadLoading] = useState(false)
+    const [imageUploadLoading, setImageUploadLoading] = useState(false)
     const [AddAffiliate] = useAddAffiliateLinkMutation();
     const [FileName, setFileName] = useState('No file choosen');
     const [ImageUrl, setImageUrl] = useState('');
     const [ImageData, setImageData] = useState(null);
+    const paramData = useParams();
+     const AffiliateId = paramData?.id
 
 
     const [UploadImage] = useUploadImageMutation();
+    const [EditAffilaite] =useEditAffiliateMutation();
 
     console.log(listData, 'listDataa');
 
@@ -76,11 +79,31 @@ function EditAffiliate({ listData, loading }) {
 
         let DataForApi = {
             "name": data?.name,
+            "imageUrl":ImageUrl
             // "link": data?.link,
             // "dropboxLink": data?.dropboxLink,
             // "purchases": data?.purchases,
             // "clickCount": data?.clickCount
         }
+        EditAffilaite({Id:AffiliateId, data:DataForApi})
+        .then((res) => {
+                    if (res.error) {
+                        console.log(res.error, 'res.error');
+                        toast.error(res?.error?.data?.message || "Internal server erro" );
+                        setSubmitLoading(false)
+                    }
+                    else {
+                        console.log(res, 'res');
+                        //   toast.success("Data updated successfully");
+                        navigate('/dashboard/affiliate-links')
+                        setSubmitLoading(false)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err, 'err');
+                    toast.error("Internal server error");
+                    setSubmitLoading(false)
+                })
 
         const formData = new FormData();
         formData.append('image', ImageData);
@@ -108,13 +131,13 @@ function EditAffiliate({ listData, loading }) {
         //         setSubmitLoading(false)
         //     })
 
-        
+
 
     };
 
     const handleThumbnail = async (event) => {
         setImageUploadLoading(true)
-        const File = event.target.files[0]; 
+        const File = event.target.files[0];
         if (File) {
 
             const formData = new FormData()
@@ -144,7 +167,6 @@ function EditAffiliate({ listData, loading }) {
             setFileName('No file choosen');
             // setImageUrl('');
             setImageUploadLoading(false)
-
             setImageData(null);
         }
 
@@ -215,7 +237,16 @@ function EditAffiliate({ listData, loading }) {
                                                                         <span className='hidden w-0 h-0'>
                                                                             <input type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
                                                                         </span>
-                                                                        <label htmlFor="thumbnail" className='border py-[8px] rounded px-4 bg-slate-200 mt-2'>Change</label>
+                                                                        <label htmlFor="thumbnail" className='border py-[8px] rounded px-4 bg-slate-200 mt-2'>
+                                                                            {
+                                                                                imageUploadLoading ?
+                                                                                    <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                                        <AiOutlineLoading3Quarters />
+                                                                                    </span>
+                                                                                    :
+                                                                            "Change"
+                                                                            }
+                                                                        </label>
                                                                     </span>
                                                                 </span>
 

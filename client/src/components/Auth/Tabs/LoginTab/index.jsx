@@ -89,7 +89,7 @@ const LoginTab = (props) => {
         (
           <Form>
 
-            <div className="theme-form flex flex-col gap-2 px-2 pt-4 w-full">
+            <div className="theme-form flex flex-col gap-2 px-3 pt-4 w-full">
               <div className=" flex flex-col gap-3">
                 {/* <Image
                   className="img-fluid for-light mx-auto h-[65px] w-[65px]"

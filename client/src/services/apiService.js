@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const CreateApi = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://product-affiliate-program-jz6xc.ondigitalocean.app/api/v1",
+        baseUrl: "https://934b-2401-4900-1ca3-37db-540d-5295-1064-fde3.ngrok-free.app/api/v1",
         prepareHeaders: (headers) => {
             const user = Cookies.get('isLogged');
             if (user) {

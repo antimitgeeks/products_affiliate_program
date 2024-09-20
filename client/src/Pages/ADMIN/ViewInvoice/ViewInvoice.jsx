@@ -58,7 +58,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
             </span>
           </div>
           :
-          listData?.length <= 0 ?
+          listData?.rows?.length <= 0 ?
             <div className=' w-full flex items-center justify-center'>
               <span className=' w-full border bg-white py-2 rounded flex items-center justify-center'>
                 No data found
@@ -125,7 +125,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
                           <td style={{ paddingLeft: '30px' }}>{itm?.commission || '0'} $ </td>
                           {/* <td>{itm.status}</td> */}
 
-                          <Select onChange={(e) =>{e?.label==itm?.status?console.log(""): handleSelect(e, itm?.id)} } placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
+                          <Select onChange={(e) => { e?.label == itm?.status ? console.log("") : handleSelect(e, itm?.id) }} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
                           {/* <td>{itm.companyName}</td> */}
                           <td>{itm?.createdAt?.split('T')[0]}</td>
                         </tr>

@@ -93,8 +93,8 @@ const AdminService = CreateApi.injectEndpoints(
                         invalidatesTags: ["adminAffiliate"],
                         query: ({ Id, data }) => (
                             {
-                                url: `/admin/affiliate/${Id}`,
-                                method: "POST",
+                                url: `/affiliate/updateAffiliate/${Id}`,
+                                method: "PUT",
                                 body: data
                             }
                         )
