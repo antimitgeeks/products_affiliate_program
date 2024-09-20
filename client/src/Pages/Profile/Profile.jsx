@@ -159,8 +159,6 @@ function Profile({ listData, loading }) {
                           <Col md='6 mb-3'>
                             <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
                           </Col>
-                        </Row>
-                        <Row className='g-3'>
                           <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
@@ -178,6 +176,8 @@ function Profile({ listData, loading }) {
                               <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
                             </div>
                           </Col>
+                        </Row>
+                        <Row className='g-3'>
                           <Col md='6'>
                             <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
                           </Col>
