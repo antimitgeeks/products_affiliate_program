@@ -37,7 +37,7 @@ function Profile({ listData, loading }) {
     city: listData?.city || '',
     address: listData?.address || '',
     companyName: listData?.companyName || '',
-    companyNumber: listData?.companyNumber || '',
+    // companyNumber: listData?.companyNumber || '',
     companyUrl: listData?.companyUrl || '',
   };
 
@@ -51,7 +51,7 @@ function Profile({ listData, loading }) {
     address: yup.string().trim("Enter valid address").required("address is required").strict(),
     companyName: yup.string().trim("Enter valid companyName").required("company name is required").strict(),
     companyUrl: yup.string().trim("Enter valid company url").required("company url is required").strict(),
-    companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
+    // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
   });
 
   const handleSubmit = (data) => {
@@ -65,7 +65,7 @@ function Profile({ listData, loading }) {
       "city": data?.city,
       "address": data?.address,
       "companyName": data?.companyName,
-      "companyNumber": data?.companyNumber,
+      // "companyNumber": data?.companyNumber,
       "companyUrl": data?.companyUrl,
     }
 
@@ -156,12 +156,6 @@ function Profile({ listData, loading }) {
 
                         </Row>
                         <Row className='g-3'>
-                          <Col md='6'>
-                            {/* <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> */}
-                            {/* State */}
-                            <InputComponent label={"Company number"} type={"text"} value={profileProps.values.companyNumber} name='companyNumber' onChange={profileProps.handleChange} placeholder={"Enter company number"} />
-
-                          </Col>
                           <Col md='6 mb-3'>
                             <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
                           </Col>
