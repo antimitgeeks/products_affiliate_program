@@ -15,12 +15,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
   console.log(ListData?.rows, 'ListDataaa')
 
   const handleAddInvoice = (itm) => {
-    console.log(itm, 'itm')
-    navigate(`invoice/add/${itm?.id}/${itm?.email}`)
+    const data = { email: itm?.email }
+    navigate(`invoice/add/${itm?.id}`, { state: data })
   }
 
   const handleViewInvoice = (itm) => {
-    navigate(`invoice/view/${itm?.id}/${itm?.email}`)
+    // navigate(`invoice/view/${itm?.id}/${itm?.email}`);
+    const data = { email: itm?.email };
+    navigate(`invoice/view/${itm?.id}`, { state: data });
   }
   const handlePageChange = (e, page) => {
     setCurrentPage(page)
