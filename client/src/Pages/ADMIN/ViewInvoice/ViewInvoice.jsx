@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { IoArrowBack } from "react-icons/io5";
 
 
-function ViewInvoice({ loading, listData, OverViewData }) {
+function ViewInvoice({ loading, listData, OverViewData ,email }) {
 
 
   console.log(listData, 'ListDataaa')
@@ -23,7 +23,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
   const navigate = useNavigate();
   const [UpdateStatus] = useUpdateInvoiceStatusMutation();
 
-  const paramData = useParams();
+  // const paramData = useParams();
 
 
   const handleSelect = (e, id) => {
@@ -71,8 +71,7 @@ function ViewInvoice({ loading, listData, OverViewData }) {
                   <IoArrowBack size={20} />
                 </span>
                 <span className='font-semibold pt-0'>
-
-                  {paramData?.email}
+                  {email || ''}
                 </span>
               </div>
               <div className='flex flex-col gap-3 mt-4'>
