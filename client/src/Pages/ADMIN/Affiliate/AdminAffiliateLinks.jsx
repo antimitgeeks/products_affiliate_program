@@ -12,8 +12,6 @@ import toast from 'react-hot-toast';
 function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, count }) {
 
     console.log(listData, 'ListDataa');
-    const [selectedAffiliate, setSelectedAffiliate] = useState(null)
-
     const navigate = useNavigate();
 
     const [DeleteAffiliate] = useDeleteAffiliateMutation()
@@ -32,9 +30,9 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
         navigate(`edit/${id}`)
     }
 
-    const handleDeleteYes = () => {
+    const handleDeleteYes = (id) => {
         // console.log(selectedAffiliate,'DELETED'),
-        DeleteAffiliate({ Id: selectedAffiliate })
+        DeleteAffiliate({ Id: id })
             .then((res) => {
                 if (res?.error) {
                     toast.error(res?.error?.data?.message || "Internal server error");
@@ -50,8 +48,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
     }
 
     const handleDeleteClick = (id) => {
-        setSelectedAffiliate(id)
-        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes })
+        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(id) })
     }
 
     return (

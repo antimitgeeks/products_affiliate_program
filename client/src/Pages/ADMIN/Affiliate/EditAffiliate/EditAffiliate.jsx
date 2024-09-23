@@ -199,7 +199,14 @@ function EditAffiliate({ listData, loading }) {
                                                                 <span className=' font-semibold text-[13px]'>Thumbnail Image</span>
                                                                 <span className=' w-full flex gap-2 items-center '>
                                                                     <div className='relative flex justify-between'>
-                                                                        <img className='w-fit max-w-[450px] min-h-[300px] min-w-[400px] max-h-[350px]' src={ImageUrl} alt="" />
+                                                                        {
+                                                                            ImageUrl?.includes("image")?
+                                                                            <img className='w-fit max-w-[450px] min-h-[300px] min-w-[400px] max-h-[350px]' src={ImageUrl} alt="" />
+                                                                            :
+                                                                            <span>
+                                                                                No image found
+                                                                            </span>
+                                                                        }
                                                                         <span className='absolute right-[-8px] top-[-8px]'>
                                                                             <span className=' w-0 h-0'>
                                                                                     
