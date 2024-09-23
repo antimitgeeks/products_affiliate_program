@@ -45,14 +45,9 @@ const LogoWrapper = () => {
           </span>
         </Link>
       </div>
-      {/* <div onClick={() => setTogglSidebar(!togglSidebar)} className='back-btn'>
-        S
-      </div> */}
-      {/* <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[24px] border toggle-sidebar hover:none text-black'> */}
-      {/* <IoSettingsSharp color='white' stroke='white' size={24} /> */}
-      {/* <RiSettings5Fill color='white' stroke='white' size={24} /> */}
-      {/* <FaArrowRightArrowLeft className=' text-sm' size={22} /> */}
-      {/* </div> */}
+    
+      <hr className='w-4/5 m-auto text-black' />
+
     </div>
   );
 };
