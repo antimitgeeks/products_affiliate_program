@@ -51,21 +51,25 @@ const Sidebar = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
   const handleResize = () => {
     setWidth(window.innerWidth - 500);
   };
+
   return (
     <div className={`sidebar-wrapper ${togglSidebar ? "close_icon" : ""} `} id="sidebar-wrapper">
       <div>
         <LogoWrapper />
+        <hr className='w-4/5 m-auto' />
         <div className='logo-icon-wrapper flex items-center justify-center'>
           {/* <Link to={`${process.env.PUBLIC_URL}/dashboard/`}> */}
-            {/* <Image className='img-fluid h-[50px] w-[50px] ml-[12px] ' src={itgLogo} alt='logo' /> */}
-            {/* <Image className='img-fluid' src={logoSmall} alt='logo' /> */}
-            
-            <span className=' m-auto h-[50px] w-[50px] bg-orange flex items-center justify-center text-[20px] font-semibold mt-3 pt-3 ml-[12px]'>Hi !</span>
+          {/* <Image className='img-fluid h-[50px] w-[50px] ml-[12px] ' src={itgLogo} alt='logo' /> */}
+          {/* <Image className='img-fluid' src={logoSmall} alt='logo' /> */}
+
+          <span className=' m-auto h-[50px] w-[50px] bg-orange flex items-center justify-center text-[20px] font-semibold mt-3 pt-3 ml-[12px]'>Hi !</span>
           {/* </Link> */}
         </div>
+
         <nav className='sidebar-main'>
           <div className='left-arrow' id='left-arrow' onClick={scrollToLeft}>
             <FiArrowLeft />
