@@ -195,7 +195,7 @@ function SignUp() {
                               </div> */}
                               <div className='relative'>
                                 <span className='pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
-                                <Select
+                                {/* <Select
                                   placeholder="Select Country"
                                   options={options}
                                   name="country"
@@ -208,7 +208,28 @@ function SignUp() {
                                       border: '1px solid rgb(222, 226, 230)', // You can add custom borders here if needed
                                     }),
                                   }}
+                                /> */}
+                                <Select
+                                  placeholder="Select Country"
+                                  options={options}
+                                  name="country"
+                                  value={signupProps.values.country}
+                                  onChange={value => signupProps.setFieldValue('country', value)}
+                                  styles={{
+                                    control: (baseStyles, state) => ({
+                                      ...baseStyles,
+                                      borderRadius: '8px', // Add border-radius
+                                      border: '1px solid rgb(222, 226, 230)', // Default border color
+                                      boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
+                                      borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                                      '&:hover': {
+                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                      },
+                                    }),
+                                  }}
                                 />
+
+
                                 <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px] mt-0' name={"country"} component='div' />
                               </div>
 
