@@ -44,9 +44,9 @@ function AdminAddAffiliateLinks({ listData, loading }) {
     };
 
     const validationSchema = yup.object().shape({
-        name: yup.string().trim("Enter valid name").required("name is required").strict(),
-        link: yup.string().trim("Enter valid link").required("link is required").strict(),
-        dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
+        name: yup.string().trim("Enter valid name").required("Name is required").strict(),
+        link: yup.string().trim("Enter valid link").required("Link is required").strict(),
+        dropboxLink: yup.string().trim("Enter valid dropbox link").required("Dropbox link is required").strict(),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
         // purchases: yup.string().matches(/^\d+$/, "Purchases must be a number").required("Purchases count is required").strict(),
         // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
