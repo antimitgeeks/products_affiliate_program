@@ -260,8 +260,8 @@ exports.deleteAffiliate = async (affiliateId, req) => {
 exports.userDetails = async (userId) => {
     const result = await Users.findOne(
         {
-             where: { id: userId },
-             attributes:{exclude:["password"]}
-            })
+            where: { id: userId },
+            attributes: { exclude: ["password"] }
+        })
     return result
 }
