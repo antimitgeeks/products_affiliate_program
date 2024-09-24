@@ -94,9 +94,14 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
       ) : (
         <div className='w-full'>
           <div className='flex w-full justify-between items-center px-4 py-2 mb-2'>
-            <span onClick={() => { navigate('/dashboard/analytics') }} className='w-[30px] font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-              <IoArrowBack size={20} />
-            </span>
+            <div className='flex gap-4 items-center'>
+              <span onClick={() => { navigate('/dashboard/analytics') }} className='w-[30px] font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                <IoArrowBack size={20} />
+              </span>
+              <span className=' font-semibold'>
+                {themeName}
+              </span>
+            </div>
             <span className='w-1/2 flex gap-4'>
               <Select
                 className='rounded w-full'

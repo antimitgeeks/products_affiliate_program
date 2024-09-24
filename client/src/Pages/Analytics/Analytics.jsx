@@ -257,7 +257,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                 className="px-2 w-full max-w-full"
               />
 
-
+              <span className=' pl-[40px] font-semibold m-auto'>Days</span>
             </div>
             <hr />
             <div className='grid grid-cols-1 w-full gap-2'>

@@ -11,7 +11,7 @@ import { Pagination } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
 
 
-function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
+function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assignedcount, AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
     const invoices = [
         {
             id: 1,
@@ -189,6 +189,11 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
         setCurrentPage(page)
     }
 
+    const handleAssignedPageChange=(e,page)=>
+    {
+        setAssignedCurrentPage(page)
+    }
+
     const handleDeleteYes = (id) => {
         DeAssign({ Id: id })
             .then((res) => {
@@ -289,9 +294,20 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
-                                            Submit
-                                        </button>
+                                        <div className=' w-full flex justify-between items-center mt-3'>
+
+                                            <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 '>
+                                                Submit
+                                            </button>
+                                            <Pagination
+                                                shape="rounded"
+                                                variant="outlined"
+                                                color="standard"
+                                                page={AssignedcurrentPage}
+                                                count={Assignedcount}
+                                                onChange={handleAssignedPageChange}
+                                            />
+                                        </div>
                                     </div>
                             }
                         </div>
