@@ -123,3 +123,14 @@ exports.userDetails = async (req, res) => {
 
     }
 }
+
+exports.deleteAffiliateAssign=async (req,res)=>{
+    try {
+        const userId=req.body.userId
+        const affiliateId=req.params.id
+       
+        const result=await service.deleteAffiliateAssign(affiliateId,userId)
+    } catch (error) {
+        
+    }
+}

@@ -3,6 +3,7 @@ const db = require("../models");
 const Affiliate = db.affiliate;
 const Users = db.users
 const AffiliateAssign = db.affiliateAssign
+const ClickAndPurchases = db.ClickAndPurchases
 // const Users
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
@@ -260,8 +261,31 @@ exports.deleteAffiliate = async (affiliateId, req) => {
 exports.userDetails = async (userId) => {
     const result = await Users.findOne(
         {
-             where: { id: userId },
-             attributes:{exclude:["password"]}
-            })
+            where: { id: userId },
+            attributes: { exclude: ["password"] }
+        })
     return result
+}
+exports.deleteAffiliateAssign = async (affiliateId, userId) => {
+    const assignedAffiliate = await AffiliateAssign.findOne({
+        where: {
+            userId,
+            affiliateId
+        }
+
+    })
+
+    if (assignedAffiliate) {
+        console.log(assignedAffiliate, '------------------>')
+        const assignAffiliateId = assignedAffiliate.dataValues.id
+        console.log(assignAffiliateId);
+        console.log(typeof (assignAffiliateId));
+        const result = await ClickAndPurchases.findOne({where:{id:3}})
+        const findClickAndPurchases = await ClickAndPurchases.findAll({
+            where:{
+                assignAffiliateId:assignAffiliateId
+            }
+        });
+        console.log("------------", 1);
+    }
 }
