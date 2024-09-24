@@ -3,6 +3,7 @@ const db = require("../models");
 const { Op } = require('sequelize')
 const Affiliate = db.affiliate;
 const AssignAffiliate = db.affiliateAssign
+const ClickAndPurchases = db.ClickAndPurchases
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
 const path = require('path')
@@ -67,12 +68,21 @@ exports.shortLink = async (req, res, link) => {
 }
 
 // redirect short url link
-exports.redirectShortLink = async (req, res) => {
+exports.redirectShortLink = async (req, res, userId) => {
     try {
         const shortId = req.params.shortLinkId
         const result = await Affiliate.findOne({ where: { shortId: shortId } });
         const url = result?.link
         if (result) {
+            await AssignAffiliate.update({ click: sequelize.literal('seq + 1') },
+                {
+                    where: {
+                        userId: userId,
+                        affiliateId: result.affiliateId
+                    }
+                }
+            )
+            await ClickAndPurchases.create({ userId: userId, affiliateId: result.affiliateId })
             return {
                 status: true,
                 result: url
