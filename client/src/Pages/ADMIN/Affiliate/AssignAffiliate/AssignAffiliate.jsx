@@ -273,7 +273,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                                 <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
 
                                                                     {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
-                                                                    <span onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20}/></span>
+                                                                    <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20}/></span>
 
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>

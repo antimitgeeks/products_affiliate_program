@@ -14,16 +14,21 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
   const [purchaseCount, setPurchaseCount] = useState(0);
+  const [selectedMonthLable,setSelectedMonthLable] = useState(new Date().getMonth() + 1)
 
   const handleMonthChange = (selectedOption) => {
     setSelectedMonth(selectedOption.value);
+    setSelectedMonthLable(selectedOption?.label)
   };
 
   const handleYearChange = (selectedOp) => {
     setSelectedYear(selectedOp.value)
   }
 
-
+  const monthNames = [
+    "","January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December"
+  ];
 
   const [chartState, setChartState] = useState({
     options: {
@@ -230,7 +235,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
-                <span className='font-semibold text-[17.5px]'>{purchaseCount} Purchases</span>
+                <span className='font-semibold text-[17.5px]'>{purchaseCount} Purchases on {monthNames[selectedMonth]}</span>
                 {/* <span>TOtal</span> */}
                 {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
 
