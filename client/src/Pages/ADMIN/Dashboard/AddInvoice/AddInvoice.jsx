@@ -143,7 +143,7 @@ function AddInvoice({ id, email }) {
 
                                                     {/* <Col md="12"> */}
                                                     <div className=' relative'>
-                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Theme name"}</span>
+                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Product Name"}</span>
                                                         <Select
                                                             placeholder="Select product"
                                                             options={listData}
@@ -231,7 +231,7 @@ function AddInvoice({ id, email }) {
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter Transaction Id"} />
+                                                    <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter transaction Id"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"transactionId"} component='div' />
                                                 </Col>
                                             </Row>
