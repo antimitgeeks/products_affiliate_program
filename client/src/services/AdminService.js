@@ -18,7 +18,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 AddInvoice: builder.mutation(
                     {
-                        invalidatesTags: ['admin',"analysis"],
+                        invalidatesTags: ['admin', "analysis"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/invoice/createInvoice`,
@@ -81,8 +81,8 @@ const AdminService = CreateApi.injectEndpoints(
                         invalidatesTags: ["adminAffiliate", "assignCustomer"],
                         query: ({ Id, data }) => (
                             {
-                                url: `/affiliate/Assign-affiliate/remove/${Id}`,
-                                method: "POST",
+                                url: `/admin/affiliate/assign-delete/${Id}`,
+                                method: "DELETE",
                                 body: data
                             }
                         )
@@ -139,7 +139,7 @@ const AdminService = CreateApi.injectEndpoints(
                 DeleteAffiliate: builder.mutation(
                     {
                         invalidatesTags: ["adminAffiliate"],
-                        query: ({ Id, data }) =>(
+                        query: ({ Id, data }) => (
                             {
                                 url: `/admin/affiliate/${Id}`,
                                 method: "DELETE",
@@ -155,4 +155,4 @@ const AdminService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation , useDeleteAffiliateMutation , useDeAssignAffiliateMutation} = AdminService;
+export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation, useDeleteAffiliateMutation, useDeAssignAffiliateMutation } = AdminService;

@@ -3,11 +3,12 @@ import './AssignAffiliate.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
-import { MdRemoveRedEye } from "react-icons/md";
+import { MdDelete, MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
-import { useAssignAffiliateMutation } from '../../../../services/AdminService';
+import { useAssignAffiliateMutation, useDeAssignAffiliateMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { Pagination } from '@mui/material';
+import AlertComponent from '../../../../components/AlertComponent.jsx';
 
 
 function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
@@ -59,6 +60,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
     const [DeSelectedUsers, setDeSelectedUsers] = useState([])
     const [AssignAffiliate] = useAssignAffiliateMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
+    const [DeAssign] = useDeAssignAffiliateMutation()
 
     const paramData = useParams();
     console.log(paramData, 'paramdta');
@@ -155,25 +157,25 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
             let dataForApi = {
                 "userId": DeSelectedUsers
             }
-            // AssignAffiliate({ Id: paramData?.id, data: dataForApi })
-            //     .then((res) => {
-            //         if (res.error) {
-            //             console.log(res.error, 'res.error');
-            //             toast.error("Internal server error");
-            //             setSubmitLoading(false)
-            //         }
-            //         else {
-            //             console.log(res, 'res');
-            //             toast.success("Affiliate assigned successfull")
-            //             setSubmitLoading(false);
-            //             setSelectedUsers([])
-            //         }
-            //     })
-            //     .catch((err) => {
-            //         console.log(err, 'err');
-            //         toast.error("Internal server error");
-            //         setSubmitLoading(false)
-            //     })
+            DeAssign({ Id: paramData?.id, data: dataForApi })
+                .then((res) => {
+                    if (res.error) {
+                        console.log(res.error, 'res.error');
+                        toast.error("Internal server error");
+                        setSubmitLoading(false)
+                    }
+                    else {
+                        console.log(res, 'res');
+                        toast.success("Affiliate assigned successfull")
+                        setSubmitLoading(false);
+                        setSelectedUsers([])
+                    }
+                })
+                .catch((err) => {
+                    console.log(err, 'err');
+                    toast.error("Internal server error");
+                    setSubmitLoading(false)
+                })
         }
 
 
@@ -187,6 +189,33 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
         setCurrentPage(page)
     }
 
+    const handleDeleteYes = (id) => {
+        DeAssign({ Id: id })
+            .then((res) => {
+                if (res.error) {
+                    console.log(res.error, 'res.error');
+                    toast.error("Internal server error");
+                    setSubmitLoading(false)
+                }
+                else {
+                    console.log(res, 'res');
+                    toast.success("Affiliate Unassigned successfull")
+                    setSubmitLoading(false);
+                    setSelectedUsers([])
+                }
+            })
+            .catch((err) => {
+                console.log(err, 'err');
+                toast.error("Internal server error");
+                setSubmitLoading(false)
+            })
+
+    }
+
+    const handleDeAssignCLick = (id) => {
+        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(id) })
+
+    }
 
 
     return (
@@ -243,7 +272,8 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                             <tr key={indx}>
                                                                 <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
 
-                                                                    <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" />
+                                                                    {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
+                                                                    <span onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20}/></span>
 
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
@@ -267,7 +297,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                         </div>
 
                         <br />
-                        <hr /> 
+                        <hr />
 
                         <div className=' mt-2'>
                             <span className='font-semibold text-[20px]'>
