@@ -59,10 +59,10 @@ const parentDirectory = path.join(__dirname, "server/app/v1/utils")
 // app.use(express.static(path.join(parentDirectory)));
 
 app.use('/', express.static(path.join(parentDirectory, 'images')));
+app.get('/:shortLinkId', redirectShortLink)
 
 app.use(process.env.BASE_URL, routes);
 
-app.get('/:shortLinkId', redirectShortLink)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
@@ -74,3 +74,4 @@ console.log(PORT)
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+ 
