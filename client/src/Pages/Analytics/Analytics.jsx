@@ -187,6 +187,10 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                   indicatorSeparator: () => ({
                     display: 'none', // Hide the line near the arrow button
                   }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
+                  }),
                 }}
               />
 
@@ -210,6 +214,10 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                   }),
                   indicatorSeparator: () => ({
                     display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />

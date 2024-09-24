@@ -115,6 +115,10 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                   indicatorSeparator: () => ({
                     display: 'none', // Hide the line near the arrow button
                   }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
+                  }),
                 }}
               />
 
@@ -138,6 +142,10 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                   }),
                   indicatorSeparator: () => ({
                     display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />
