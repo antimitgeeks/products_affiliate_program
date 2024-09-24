@@ -223,34 +223,34 @@ exports.updateAffiliate = async (id, body, req) => {
 
 }
 
-exports.getAffiliateById=async (id)=>{
+exports.getAffiliateById = async (id) => {
 
     try {
 
-        const result=await Affiliate.findByPk(id)
-      if(result){
+        const result = await Affiliate.findByPk(id)
+        if (result) {
 
-        return {
-            status:true,
-            result:result
+            return {
+                status: true,
+                result: result
+            }
+
+
+        }
+        else {
+            return {
+                status: false,
+
+            }
         }
 
-
-      }
-    else{
-        return {
-            status :false,
-         
-        }
-    }
-        
     } catch (error) {
         console.log(error)
         return {
             status: false,
             result: error
         }
-        
+
     }
 
 }
