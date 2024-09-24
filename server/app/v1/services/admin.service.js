@@ -1,4 +1,6 @@
 const shortid = require('shortid');
+const { Sequelize } = require('sequelize');
+
 const db = require("../models");
 const Affiliate = db.affiliate;
 const Users = db.users
@@ -266,26 +268,24 @@ exports.userDetails = async (userId) => {
         })
     return result
 }
-exports.deleteAffiliateAssign = async (affiliateId, userId) => {
-    const assignedAffiliate = await AffiliateAssign.findOne({
-        where: {
-            userId,
-            affiliateId
-        }
 
+
+exports.deleteAffiliateAssign = async (assignedAffilaiteId) => {
+
+    
+    const deletedClickAndPurchases = await ClickAndPurchases.destroy({
+        where: { assignAffiliateId: assignedAffilaiteId }
     })
 
-    if (assignedAffiliate) {
-        console.log(assignedAffiliate, '------------------>')
-        const assignAffiliateId = assignedAffiliate.dataValues.id
-        console.log(assignAffiliateId);
-        console.log(typeof (assignAffiliateId));
-        const result = await ClickAndPurchases.findOne({where:{id:3}})
-        const findClickAndPurchases = await ClickAndPurchases.findAll({
-            where:{
-                assignAffiliateId:assignAffiliateId
-            }
-        });
-        console.log("------------", 1);
+    const deletedAssigned = await AffiliateAssign.destroy({
+        where: { id: assignedAffilaiteId }
+    })
+
+    if (deletedAssigned) {
+        return true
     }
+
+    return false
+
+
 }
