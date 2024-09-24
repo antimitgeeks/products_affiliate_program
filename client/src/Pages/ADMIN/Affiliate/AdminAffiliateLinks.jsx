@@ -73,9 +73,9 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                         <div className=' w-full flex flex-col h-full items-center gap-8 '>
                             <div className=' w-full flex items-center justify-between'>
                                 <span>
-                                    {/* <H5 className="text-[#547f96] font-semibold">
-                                  Affiliate Links
-                                    </H5> */}
+                                    <span className='font-semibold text-[20px]'>
+                                        Affiliate Links
+                                    </span>
                                 </span>
                                 <span onClick={() => navigate('add')} className=' hover:opacity-90 cursor-pointer p-2 bg-black text-white rounded'>
                                     Create Links
@@ -118,7 +118,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                             <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                                                 <FaLink />
                                                                 {console.log(itm?.shortUrl)}
-                                                                <a href={itm?.link} target='_blank'>
+                                                                <a className='text-black hover:text-black' href={itm?.link} target='_blank'>
                                                                     {/* Visit link */}
                                                                     {itm?.shortUrl}s
                                                                 </a>
@@ -127,8 +127,8 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                 <span onClick={() => { navigator.clipboard.writeText(itm?.shortUrl) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                                                     Copy link
                                                                 </span>
-                                                                <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                                                    <a href={itm?.link} target='_blank'>
+                                                                <span className=' border hover:text-black p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                                                    <a className='hover:text-black' href={itm?.link} target='_blank'>
                                                                         Visit link
                                                                     </a>
                                                                 </span>

@@ -40,7 +40,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                 <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
                   <div className='w-full flex-col hover:shadow-md  duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
-                      Current Month Paid
+                      Paid for Current Month
                     </div>
                     {overviewData?.paid} $
                   </div>
@@ -60,7 +60,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
               </div>
               <hr />
               <br />
-              <p className='text-[20px] font-semibold'>Invoice</p>
+              <p className='text-[20px] font-semibold'>Invoice History</p>
 
               <div className='w-full h-full invoices-page'>
                 <div className='table-container '>

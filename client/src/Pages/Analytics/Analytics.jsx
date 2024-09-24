@@ -249,7 +249,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
             <hr />
             <div className='grid grid-cols-1 w-full gap-2'>
               {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
-              <p className='text-[20px] font-semibold'>CLICKS</p>
+              <p className='text-[20px] font-semibold'> Total Clicks</p>
               {
                 loading ?
                   <div className=' w-full flex items-center justify-center'>

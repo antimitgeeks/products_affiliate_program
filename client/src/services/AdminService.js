@@ -76,6 +76,18 @@ const AdminService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
+                DeAssignAffiliate: builder.mutation(
+                    {
+                        invalidatesTags: ["adminAffiliate", "assignCustomer"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/Assign-affiliate/remove/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
                 GetAssignedCustomerList: builder.query(
                     {
                         providesTags: ["adminAffiliate"],
@@ -143,4 +155,4 @@ const AdminService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation , useDeleteAffiliateMutation} = AdminService;
+export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation , useDeleteAffiliateMutation , useDeAssignAffiliateMutation} = AdminService;

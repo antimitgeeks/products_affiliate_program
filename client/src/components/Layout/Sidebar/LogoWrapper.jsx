@@ -45,7 +45,7 @@ const LogoWrapper = () => {
     }
   }, [listLoading, data, listFetching])
 
-  console.log(decodedData,'decodedData')
+  console.log(decodedData?.role,'decodedData')
 
   return (
     <div className='logo-wrapper p-3'>

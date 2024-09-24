@@ -56,6 +56,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
     const navigate = useNavigate();
     const [SelectedUsers, setSelectedUsers] = useState([]);
+    const [DeSelectedUsers, setDeSelectedUsers] = useState([])
     const [AssignAffiliate] = useAssignAffiliateMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
 
@@ -73,6 +74,24 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
         }
         else {
             setSelectedUsers((prev) => {
+
+                return prev?.filter((id) => {
+                    return id !== value;
+                }
+                )
+            })
+        }
+    }
+
+    const handleDeSelectCheckboxChange = (e) => {
+        const isChecked = e.target.checked;
+        const value = parseInt(e.target.value);
+
+        if (isChecked) {
+            setDeSelectedUsers([...DeSelectedUsers, value])
+        }
+        else {
+            setDeSelectedUsers((prev) => {
 
                 return prev?.filter((id) => {
                     return id !== value;
@@ -127,6 +146,43 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
         AssignedListData
     )
 
+    const handleDeAssignSubmit = () => {
+        if (DeSelectedUsers?.length <= 0) {
+            toast.error("Select at least one user")
+        }
+        else {
+
+            let dataForApi = {
+                "userId": DeSelectedUsers
+            }
+            // AssignAffiliate({ Id: paramData?.id, data: dataForApi })
+            //     .then((res) => {
+            //         if (res.error) {
+            //             console.log(res.error, 'res.error');
+            //             toast.error("Internal server error");
+            //             setSubmitLoading(false)
+            //         }
+            //         else {
+            //             console.log(res, 'res');
+            //             toast.success("Affiliate assigned successfull")
+            //             setSubmitLoading(false);
+            //             setSelectedUsers([])
+            //         }
+            //     })
+            //     .catch((err) => {
+            //         console.log(err, 'err');
+            //         toast.error("Internal server error");
+            //         setSubmitLoading(false)
+            //     })
+        }
+
+
+
+
+        console.log(DeSelectedUsers, 'DeselectedUsers');
+
+    }
+
     const handlePageChange = (e, page) => {
         setCurrentPage(page)
     }
@@ -173,8 +229,10 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                             <table className=''>
                                                 <thead>
                                                     <tr>
+                                                        <th>Action</th>
                                                         <th>User Email</th>
-                                                        <th>Country</th>
+                                                        <th>Location</th>
+                                                        <th>City</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -183,8 +241,14 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
                                                         AssignedListData?.rows?.map((itm, indx) => (
                                                             <tr key={indx}>
-                                                                <td>{itm?.user?.email}</td>
-                                                                <td>{itm?.user?.country}</td>
+                                                                <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
+
+                                                                    <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" />
+
+                                                                </td>
+                                                                <td>{itm?.user?.email || "N/A"}</td>
+                                                                <td>{itm?.user?.country || "N/A"}</td>
+                                                                <td>{itm?.user?.city || "N/A"}</td>
 
                                                             </tr>
                                                         ))
@@ -195,11 +259,15 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
+                                            Submit
+                                        </button>
                                     </div>
                             }
                         </div>
 
-                        <hr />
+                        <br />
+                        <hr /> 
 
                         <div className=' mt-2'>
                             <span className='font-semibold text-[20px]'>
@@ -221,9 +289,10 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                 <table className=''>
                                                     <thead>
                                                         <tr>
-                                                            <th>User Email</th>
-                                                            <th>Country</th>
                                                             <th>Action</th>
+                                                            <th>User Email</th>
+                                                            <th>Location</th>
+                                                            <th>City</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -232,13 +301,14 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
                                                             NotAssignedlistData?.result?.rows?.map((itm, indx) => (
                                                                 <tr key={indx}>
-                                                                    <td>{itm?.email}</td>
-                                                                    <td>{itm?.country}</td>
                                                                     <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
 
                                                                         <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
 
                                                                     </td>
+                                                                    <td>{itm?.email || "N/A"}</td>
+                                                                    <td>{itm?.country || "N/A"}</td>
+                                                                    <td>{itm?.city || "N/A"}</td>
                                                                 </tr>
                                                             ))
                                                         }
@@ -249,7 +319,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                 </table>
                                             </div>
                                         </div>
-                                        <div className='w-full flex justify-between px-4'>
+                                        <div className='w-full flex justify-between px-2'>
                                             <button onClick={() => handleSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
                                                 Submit
                                             </button>
