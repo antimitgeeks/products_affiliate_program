@@ -161,7 +161,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
       </div> : <>
         <div className=' flex justify-between w-full'>
 
-          <p className='text-[20px] font-semibold'>Analytics Details</p>
+          <p className='text-[20px] font-semibold'>Analytics</p>
 
           <div className='w-1/2 justify-end'>
             <div className='flex w-full gap-4'>
@@ -176,11 +176,16 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
                   }),
                 }}
               />
@@ -195,11 +200,16 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
                   }),
                 }}
               />
@@ -261,7 +271,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                         <table className='shadow'>
                           <thead className=' py-2'>
                             <tr className='py-2'>
-                              <th>Theme name</th>
+                              <th>Product name</th>
                               <th>Total Clicks</th>
                               <th>Date</th>
                               <th>View Graph</th>
@@ -272,7 +282,9 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                               <tr key={affiliate?.id}>
                                 <td>{affiliate.affiliate?.name}</td>
                                 <td className='pl-[30px]'>{affiliate?.clicks}</td>
-                                <td>{affiliate?.createdAt?.split('T')[0]}</td>
+                                <td>{affiliate?.createdAt
+                                  ? new Date(affiliate?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                  : 'N/A'}</td>
                                 <td style={{ width: '40px' }} className='pl-[30px] w-fit '><MdRemoveRedEye onClick={() => viewGraphHandle(affiliate?.id, affiliate.affiliate?.name)} className='w-fit cursor-pointer hover:opacity-90' size={20} /></td>
                               </tr>
                             ))}

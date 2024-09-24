@@ -105,7 +105,7 @@ function ViewInvoice({ loading, listData, OverViewData, email }) {
                   <thead>
                     <tr>
                       <th>Transaction Id</th>
-                      <th>Theme name</th>
+                      <th>Product name</th>
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Date</th>
@@ -126,7 +126,9 @@ function ViewInvoice({ loading, listData, OverViewData, email }) {
 
                           <Select onChange={(e) => { e?.label == itm?.status ? console.log("") : handleSelect(e, itm?.id) }} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
                           {/* <td>{itm.companyName}</td> */}
-                          <td>{itm?.createdAt?.split('T')[0]}</td>
+                          <td> {itm?.createdAt
+                            ? new Date(itm?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                            : 'N/A'}</td>
                         </tr>
                       ))
                     }

@@ -17,7 +17,16 @@ import { jwtDecode } from 'jwt-decode';
 const LogoWrapper = () => {
   const { togglSidebar, setTogglSidebar } = useContext(CustomizerContext);
 
+  const [decodedData,setDecodedData] = useState('');
+
   const userToken = Cookies.get("isLogged");
+
+  useEffect(()=>
+  {
+    const decodedToken = jwtDecode(userToken);
+    setDecodedData(decodedToken);
+
+  },[userToken])
 
   const { data, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
   const [listData, setListData] = useState([]);
@@ -36,6 +45,7 @@ const LogoWrapper = () => {
     }
   }, [listLoading, data, listFetching])
 
+  console.log(decodedData,'decodedData')
 
   return (
     <div className='logo-wrapper p-3'>
@@ -44,7 +54,7 @@ const LogoWrapper = () => {
         <Link style={{ border: 'none', textDecoration: 'none' }} to={`/dashboard`}>
           {/* <Image className='img-fluid for-light w-[140px] h-[50px] ml-[10px] mt-[10px]' src={logo} alt='logo' /> */}
           <span className=' flex capitalize text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
-            Hello, {companyName?.split(' ')[0]}
+            Hello, { decodedData?.role=='admin'?"Admin": companyName?.split(' ')[0]}
           </span>
         </Link>
       </div>
