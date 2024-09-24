@@ -77,6 +77,10 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
     setSelectedYear(selectedOp.value)
   }
 
+  const monthNames = [
+    "", "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
 
 
   return (
@@ -155,7 +159,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
           <div className='w-full flex flex-col gap-12 pt-6'>
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between py-2'>
-                <span className='font-semibold text-[17.5px] capitalize'>{themeName}</span>
+                <span className='font-semibold text-[17.5px] capitalize'> {totalCount} Purchases on  {monthNames[selectedMonth]}</span>
                 <span className='font-semibold text-[17px]'>
                   Total: {totalCount}
                 </span>

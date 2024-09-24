@@ -14,7 +14,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
   const [purchaseCount, setPurchaseCount] = useState(0);
-  const [selectedMonthLable,setSelectedMonthLable] = useState(new Date().getMonth() + 1)
+  const [selectedMonthLable, setSelectedMonthLable] = useState(new Date().getMonth() + 1)
 
   const handleMonthChange = (selectedOption) => {
     setSelectedMonth(selectedOption.value);
@@ -26,7 +26,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
   }
 
   const monthNames = [
-    "","January", "February", "March", "April", "May", "June", 
+    "", "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
 
@@ -313,15 +313,20 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
             </div>
 
             <div className='w-full flex justify-end pb-4'>
+              {
+                affiliatesData?.result?.length <= 0 || affiliatesData?.result == undefined ?
+                  ""
+                  :
+                  <Pagination
+                    shape="rounded"
+                    variant="outlined"
+                    color="standard"
+                    page={currentPage}
+                    count={count}
+                    onChange={handlePageChange}
+                  />
+              }
 
-              <Pagination
-                shape="rounded"
-                variant="outlined"
-                color="standard"
-                page={currentPage}
-                count={count}
-                onChange={handlePageChange}
-              />
             </div>
 
 
