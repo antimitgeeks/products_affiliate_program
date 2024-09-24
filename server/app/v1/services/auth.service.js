@@ -60,18 +60,19 @@ exports.register = async (details, userId) => {
 
 //bulk assign 
 const bulkAssign = async function (id) {
-    const affilates = await Affiliate.findAll()
-    const addedValue = await affilates.map(async (i) => {
-        return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: i.id, userId: id }])
-
-    })
-
-    await Promise.all(addedValue).then((i) => {
-        return i
-    })
-
-    if (addedValue) {
-        return true
+    const affiliates = await Affiliate.findAll()
+    // Prepare data for bulkCreate
+    const bulkData = [];
+    for (const affiliate of affiliates) {
+        bulkData.push({
+            affiliateId: affiliate.id,
+            userId: id
+        });
+    }
+    // Perform bulkCreate once with all data
+    const createdAssign = await AssignAffiliate.bulkCreate(bulkData);
+    if (createdAssign) {
+        return true;
     }
     return false
 }
