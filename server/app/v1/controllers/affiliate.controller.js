@@ -54,11 +54,13 @@ exports.addAffiliate = async (req, res) => {
 // redirect short link 
 exports.redirectShortLink = async (req, res) => {
     try {
-        const token  = req.headers['authorization']
+        const token = req.headers['authorization']
         const decoded = jwtDecode(token)
-        const result = await service.redirectShortLink(req, res,decoded.id)
+        const result = await service.redirectShortLink(req, res, decoded.id)
         if (result.status && result) {
-            res.redirect(result.result)
+            // res.redirect(result.result)
+            sendResponse(res, statusCode.OK, true, result)
+
         }
         else if (result.status == false && !result.result) {
             sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND)
@@ -78,7 +80,7 @@ exports.redirectShortLink = async (req, res) => {
 //get affiliate
 exports.getAffiliate = async (req, res) => {
     try {
-       
+
         const result = await service.getAffiliate(req, res);
         if (result.status && result) {
             return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.FETCH}fully`, result.result)
