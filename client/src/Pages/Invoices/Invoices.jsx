@@ -21,7 +21,7 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
           </div>
 
           :
-          listData?.result?.rows?.length <= 0 || listData?.result?.rows==undefined ?
+          listData?.rows?.length <= 0 || listData?.rows == undefined ?
             <div className=' w-full flex items-center justify-center mt-2'>
               <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                 No data found
@@ -48,8 +48,8 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                         <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                         <td>{invoice?.status}</td>
                         <td>{invoice?.createdAt
-                            ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-                            : 'N/A'}</td>
+                          ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                          : 'N/A'}</td>
                       </tr>
                     ))}
                     <tr className="spacer-row">
@@ -58,18 +58,18 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                   </tbody>
                 </table>
 
-                  </div>
-                <div className='w-full flex justify-end py-4'>
+              </div>
+              <div className='w-full flex justify-end py-4'>
 
-                  <Pagination
-                    shape="rounded"
-                    variant="outlined"
-                    color="standard"
-                    page={currentPage}
-                    count={count}
-                    onChange={handlePageChange}
-                  />
-                </div>
+                <Pagination
+                  shape="rounded"
+                  variant="outlined"
+                  color="standard"
+                  page={currentPage}
+                  count={count}
+                  onChange={handlePageChange}
+                />
+              </div>
             </div>
       }
     </>
