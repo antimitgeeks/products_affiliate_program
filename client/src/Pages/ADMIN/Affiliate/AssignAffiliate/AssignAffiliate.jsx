@@ -189,8 +189,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
         setCurrentPage(page)
     }
 
-    const handleAssignedPageChange=(e,page)=>
-    {
+    const handleAssignedPageChange = (e, page) => {
         setAssignedCurrentPage(page)
     }
 
@@ -251,8 +250,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             {
                                 AssignedListData?.result?.rows?.length <= 0 ?
                                     <div className=' w-full flex items-center justify-center'>
-                                        <span className=' w-fit flex  items-center justify-center'>
-                                            {/* <AiOutlineLoading3Quarters /> */}
+                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>
@@ -323,8 +321,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             {
                                 NotAssignedlistData?.result?.rows?.length <= 0 ?
                                     <div className=' w-full flex items-center justify-center'>
-                                        <span className=' w-fit flex  items-center justify-center'>
-                                            {/* <AiOutlineLoading3Quarters /> */}
+                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>
