@@ -235,29 +235,33 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
-                <span className='font-semibold text-[17.5px]'>{purchaseCount} Purchases on {monthNames[selectedMonth]}</span>
+                <span className='font-semibold text-[17.5px] pl-5'>{purchaseCount} Purchases on {monthNames[selectedMonth]}</span>
                 {/* <span>TOtal</span> */}
                 {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
 
               </div>
 
+              <div className='relative w-full flex items-center '>
 
-              <ReactApexChart
-                options={chartState?.options}
-                // series={chartState?.series}
-                series={[
-                  {
-                    name: 'Counts',
-                    data: purchasesData,
-                  },
-                ]}
-                type="line"
-                height={350}
+                <ReactApexChart
+                  options={chartState?.options}
+                  // series={chartState?.series}
+                  series={[
+                    {
+                      name: 'Counts',
+                      data: purchasesData,
+                    },
+                  ]}
+                  type="line"
+                  height={350}
 
-                className="px-2 w-full max-w-full"
-              />
-
-              <span className=' pl-[40px] font-semibold m-auto'>Days</span>
+                  className="px-3 w-full max-w-full"
+                />
+                <span className='absolute left-[-38px] text-[14px] top-[150px]'>Purchases</span>
+              </div>
+              <div className='w-full flex justify-center'>
+                <span className=' pl-[0px] m-auto text-[14px]'>Days</span>
+              </div>
             </div>
             <hr />
             <div className='grid grid-cols-1 w-full gap-2'>
@@ -272,7 +276,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                   </div>
 
                   :
-                  affiliatesData?.result?.length <= 0 || affiliatesData?.result == undefined ?
+                  affiliatesData?.result?.rows?.length <= 0 || affiliatesData?.result?.rows == undefined ?
                     <div className=' w-full flex items-center justify-center'>
                       <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                         No data found

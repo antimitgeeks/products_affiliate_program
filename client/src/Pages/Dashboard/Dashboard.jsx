@@ -63,7 +63,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
               <p className='text-[20px] font-semibold'>Invoice History</p>
               {
                 listData?.rows?.length <= 0 || listData?.rows==undefined ?
-                  <div className=' w-full flex items-center justify-center'>
+                  <div className=' w-full mt-2 flex items-center justify-center'>
                     <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                       No data found
                     </span>

@@ -248,8 +248,8 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                 Assigned Users
                             </span>
                             {
-                                AssignedListData?.result?.rows?.length <= 0 ?
-                                    <div className=' w-full flex items-center justify-center'>
+                                AssignedListData?.rows?.length <= 0 || AssignedListData?.rows==undefined ?
+                                    <div className=' w-full flex items-center justify-center mt-2'>
                                         <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
@@ -319,7 +319,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                 Not Assigned Users
                             </span>
                             {
-                                NotAssignedlistData?.result?.rows?.length <= 0 ?
+                                NotAssignedlistData?.result?.rows?.length <= 0 || NotAssignedlistData?.result?.rows==undefined ?
                                     <div className=' w-full flex items-center justify-center'>
                                         <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found

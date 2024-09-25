@@ -208,7 +208,7 @@ function Profile({ listData, loading }) {
                                   <AiOutlineLoading3Quarters />
                                 </span>
                                 :
-                                "Save"
+                                "Update"
                             }
                           </button>
                         </div>

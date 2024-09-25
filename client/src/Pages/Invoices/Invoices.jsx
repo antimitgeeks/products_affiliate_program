@@ -21,8 +21,8 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
           </div>
 
           :
-          listData?.result?.length <= 0 ?
-            <div className=' w-full flex items-center justify-center'>
+          listData?.result?.rows?.length <= 0 || listData?.result?.rows==undefined ?
+            <div className=' w-full flex items-center justify-center mt-2'>
               <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                 No data found
               </span>

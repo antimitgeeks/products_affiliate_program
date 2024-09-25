@@ -169,18 +169,26 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                   Total: {totalCount}
                 </span>
               </div>
-              <ReactApexChart
-                options={chartState?.options}
-                series={[
-                  {
-                    name: 'Counts',
-                    data: clicksData,
-                  },
-                ]}
-                type="line"
-                height={350}
-                className="px-2 w-full max-w-full"
-              />
+              <div className=' flex w-full relative items-center'>
+
+                <ReactApexChart
+                  options={chartState?.options}
+                  series={[
+                    {
+                      name: 'Counts',
+                      data: clicksData,
+                    },
+                  ]}
+                  type="line"
+                  height={350}
+                  className="px-3 w-full max-w-full"
+                />
+                <span className='absolute left-[-38px] text-[14px] top-[150px]'>Purchases</span>
+
+              </div>
+              <div className='w-full flex justify-center'>
+                <span className=' pl-[0px] m-auto text-[14px]'>Days</span>
+              </div>
             </div>
           </div>
         </div>
