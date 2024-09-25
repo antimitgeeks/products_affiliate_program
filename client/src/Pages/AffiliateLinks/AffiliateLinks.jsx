@@ -38,7 +38,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
       const apiUrl = `https://f876-49-249-2-6.ngrok-free.app/${item}`; // Replace with your API URL
 
       // Make the API call
-      const response = await axios.post(apiUrl, { id: id  },
+      const response = await axios.post(apiUrl, { id: id },
         {
           headers: {
             Authorization: `Bearer ${token}`, // If authorization is required
@@ -78,8 +78,8 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
             </div>
           </>
           :
-          listData?.result?.length <= 0 ?
-            <div className=' w-full flex items-center justify-center'>
+          listData?.result?.rows?.length <= 0 || listData?.result?.rows == undefined ?
+            <div className=' w-full flex items-center justify-center mt-2'>
               <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                 No data found
               </span>
