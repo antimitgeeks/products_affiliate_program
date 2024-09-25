@@ -235,7 +235,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
-                <span className='font-semibold text-[17.5px] pl-5'>{purchaseCount} Purchases on {monthNames[selectedMonth]}</span>
+                <span className='font-semibold text-[17.5px] pl-5'>Total Purchases on {monthNames[selectedMonth]} : {purchaseCount}</span>
                 {/* <span>TOtal</span> */}
                 {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
 
