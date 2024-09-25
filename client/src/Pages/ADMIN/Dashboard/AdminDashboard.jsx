@@ -15,13 +15,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
   console.log(ListData?.rows, 'ListDataaa')
 
   const handleAddInvoice = (itm) => {
-    const data = { email: itm?.email }
+    const data = { email: itm?.email, }
     navigate(`invoice/add/${itm?.id}`, { state: data })
   }
 
   const handleViewInvoice = (itm) => {
     // navigate(`invoice/view/${itm?.id}/${itm?.email}`);
-    const data = { email: itm?.email };
+    console.log(itm?.companyName, 'ITMMMMMMMMMMMMMMMMMMMMMMMMMMM')
+    const data = { email: itm?.email, companyName: itm?.companyName };
     navigate(`invoice/view/${itm?.id}`, { state: data });
   }
   const handlePageChange = (e, page) => {
@@ -45,8 +46,8 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
           :
 
-          <div>
-            <span className='font-semibold text-[20px]'>
+          <div className='mt-[5px]'>
+            <span className='font-semibold text-[20px] mb-2 pb-2'>
               Partners List
             </span>
             {

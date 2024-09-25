@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { IoArrowBack } from "react-icons/io5";
 
 
-function ViewInvoice({ loading, listData, OverViewData, email }) {
+function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
 
 
   console.log(listData, 'ListDataaa')
@@ -71,10 +71,18 @@ function ViewInvoice({ loading, listData, OverViewData, email }) {
                 :
                 <div className='view-invoices-page'>
                   <div className='flex w-full justify-between px-1 py-0 mb-0'>
-                    <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+
+                    {/* <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                       <IoArrowBack size={20} />
-                    </span>
-                    <span className='font-semibold pt-0'>
+                    </span> */}
+                    <div className=' flex gap-2 items-center'>
+                      <span onClick={() => { navigate('/dashboard') }} className=' w-fit font-semibold underline text-[16px]  px-1 py-1 bg-white border rounded cursor-pointer'>
+                        <IoArrowBack size={20} />
+                      </span>
+                      {companyName}
+                    </div>
+
+                    <span className=' pt-0'>
                       {email || ''}
                     </span>
                   </div>
@@ -128,10 +136,28 @@ function ViewInvoice({ loading, listData, OverViewData, email }) {
                               <td style={{ paddingLeft: '30px' }}>{itm?.commission || '0'} $ </td>
                               {/* <td>{itm.status}</td> */}
 
-                              <Select onChange={(e) => { e?.label == itm?.status ? console.log("") : handleSelect(e, itm?.id) }} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
+                              <Select
+                               styles={{
+                                control: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: '8px', // Add border-radius
+                                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                                    fontSize: '15px',
+                                    letterSpacing: '.8px',
+                                    boxShadow: 'none', // Remove box-shadow entirely
+                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
+                                    '&:hover': {
+                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                    },
+                                }),
+                                indicatorSeparator: () => ({
+                                    display: 'none', // Hide the line near the arrow button
+                                }),
+                            }}
+                              onChange={(e) => { e?.label == itm?.status ? console.log("") : handleSelect(e, itm?.id) }} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
                               {/* <td>{itm.companyName}</td> */}
                               <td> {itm?.createdAt
-                                ? new Date(itm?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                ? new Date(itm?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
                                 : 'N/A'}</td>
                             </tr>
                           ))

@@ -92,7 +92,7 @@ function Profile({ listData, loading }) {
 
 
   return (
-    <div className=' pt-2'>
+    <div className=' pt-1'>
       <Formik
         enableReinitialize
         validationSchema={validationSchema}
@@ -112,7 +112,7 @@ function Profile({ listData, loading }) {
                   </div>
                   :
                   <>
-                    <p className='text-[20px] font-semibold mb-3 pb-3'>Profile</p>
+                    <p className='text-[20px] font-semibold mb-3 pb-2'>Profile</p>
                     <Fragment>
                       <Card className=' w-full'>
                         {/* <CardHeader className='pb-0'>

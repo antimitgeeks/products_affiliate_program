@@ -48,7 +48,7 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                         <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                         <td>{invoice?.status}</td>
                         <td>{invoice?.createdAt
-                          ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                          ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
                           : 'N/A'}</td>
                       </tr>
                     ))}
