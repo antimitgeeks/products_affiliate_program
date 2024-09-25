@@ -1,13 +1,18 @@
-const service = require("../services/affiliate.service.js");
-const { sendResponse } = require("../utils/sendResponse.js");
-const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
-const statusCode = require("../constants/statusCodes.js");
-const db = require("../models");
-const Affiliate = db.affiliate;
 //aws 
 const aws = require("aws-sdk");
 const { v4: uuidv4 } = require("uuid");
 const path = require("path");
+const { jwtDecode } = require('jwt-decode');
+const service = require("../services/affiliate.service.js");
+const { sendResponse } = require("../utils/sendResponse.js");
+const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
+const statusCode = require("../constants/statusCodes.js");
+const useragent = require('useragent');
+const requestIp = require('request-ip');
+//db
+const db = require("../models");
+const Affiliate = db.affiliate;
+
 
 const spacesEndpoint = new aws.Endpoint(process.env.S3_ENDPOINT);
 const s3 = new aws.S3({
@@ -49,10 +54,16 @@ exports.addAffiliate = async (req, res) => {
 // redirect short link 
 exports.redirectShortLink = async (req, res) => {
     try {
-        const result = await service.redirectShortLink(req, res)
-        if (result.status && result) {
-            res.redirect(result.result)
+        const token = req.headers['authorization']
+        const decoded = jwtDecode(token)
+        const assignAffiliateId = req.body.id
+        const deviceId = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const result = await service.redirectShortLink(req, res, decoded.id, assignAffiliateId, deviceId)
+        if (result.isExistClickAndPurchase || result.result) {
+            return sendResponse(res, statusCode.OK, true, result)
+
         }
+
         else if (result.status == false && !result.result) {
             sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND)
 
@@ -61,6 +72,7 @@ exports.redirectShortLink = async (req, res) => {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
 
         }
+
     } catch (error) {
         console.log(error)
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
@@ -71,6 +83,7 @@ exports.redirectShortLink = async (req, res) => {
 //get affiliate
 exports.getAffiliate = async (req, res) => {
     try {
+
         const result = await service.getAffiliate(req, res);
         if (result.status && result) {
             return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.FETCH}fully`, result.result)

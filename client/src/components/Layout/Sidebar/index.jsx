@@ -60,22 +60,27 @@ const Sidebar = () => {
     <div className={`sidebar-wrapper ${togglSidebar ? "close_icon" : ""} `} id="sidebar-wrapper">
       <div>
         <LogoWrapper />
-        <div className='logo-icon-wrapper flex items-center gap-1 justify-center'>
+        <div className='logo-icon-wrapper flex items-center gap-y-1 justify-center'>
           {/* <Link to={`${process.env.PUBLIC_URL}/dashboard/`}> */}
           {/* <Image className='img-fluid h-[50px] w-[50px] ml-[12px] ' src={itgLogo} alt='logo' /> */}
           {/* <Image className='img-fluid' src={logoSmall} alt='logo' /> */}
+          {
+            togglSidebar && (
+              <span className='m-auto h-[55px] w-[65px] my-3 mb-4 flex items-center tracking-wider justify-center text-[19.5px] font-semibold mt-3 pt-[19.2px] ml-[11px]'>
+                Hello !
+              </span>
+            )
+          }
 
-          <span className=' m-auto h-[50px] w-[50px] bg-orange my-3 mb-4 flex items-center justify-center text-[20px] font-semibold mt-3 pt-3 ml-[12px]'>Hi !</span>
           {/* </Link> */}
 
-          <hr className='w-4/5 m-auto mt-2 ' />
+          {/* <hr className='w-4/5 m-auto mt-[2px] ' /> */}
         </div>
-
         <nav className='sidebar-main'>
           <div className='left-arrow' id='left-arrow' onClick={scrollToLeft}>
             <FiArrowLeft />
           </div>
-          <div id='sidebar-menu' style={horizontalSidebar ? { marginLeft: margin + 'px' } : { margin: '0px' }}>
+          <div id='sidebar-menu' style={horizontalSidebar ? { marginLeft: margin + 'px' } : { margin: '6px' }}>
             <SideBarNav />
           </div>
           <div className='right-arrow' id='right-arrow' onClick={scrollToRight}>

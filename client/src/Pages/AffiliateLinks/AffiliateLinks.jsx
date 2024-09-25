@@ -5,6 +5,8 @@ import { FaLink } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import Cookies from 'js-cookie';
 import { Pagination } from '@mui/material';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, currentPage }) {
 
@@ -29,6 +31,40 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     setCurrentPage(page)
   }
 
+
+  const HandleRedirectClick = async (item, id) => {
+    try {
+      const token = Cookies.get('isLogged'); // Assuming you store a token in cookies
+      const apiUrl = `https://f876-49-249-2-6.ngrok-free.app/${item}`; // Replace with your API URL
+
+      // Make the API call
+      const response = await axios.post(apiUrl, { id: id  },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // If authorization is required
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      console.log('API response:', response?.data?.message?.result);
+
+      const redirectUrl = response?.data?.message?.result;
+
+      // Check if the URL exists in the response
+      if (redirectUrl) {
+        // Redirect the user to the URL
+        window.open(redirectUrl, '_blank');
+      } else {
+        console.error('No URL found in the response.');
+      }
+
+
+      // Perform further actions like navigating or showing a message
+    } catch (error) {
+      console.error('Error calling API:', error);
+      toast.error('Internal server error')
+    }
+  };
   return (
     <>
       <p className='text-[20px] font-semibold'>Affiliate Links</p>
@@ -81,18 +117,24 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                               <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                 <FaLink />
 
-                                <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
+                                {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
-                                </a>
+                                </a> */}
+                                <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id) }} className='hover:text-black hover:underline'>
+                                  {`${itm?.affiliate?.shortUrl}`}
+                                </span>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
-                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
                                 <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
+                                  {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
-                                  </a>
+                                  </a> */}
+                                  <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId) }} className='hover:text-black hover:underline' >
+                                    Visit link
+                                  </span>
                                 </span>
                               </div>
                             </div>

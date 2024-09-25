@@ -31,7 +31,8 @@ function SignUp() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState("password");
   const [showConfirmPassword, setShowConfirmPassword] = useState("password");
-  const [toasterMessage, setToasterMessage] = useState('')
+  const [toasterMessage, setToasterMessage] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
 
 
 
@@ -81,40 +82,49 @@ function SignUp() {
   });
 
   const handleSubmit = (data, { resetForm }) => {
-    setLoading(true);
-    console.log(data, 'register data');
-    let registerData = {
-      "email": data?.email,
-      "paypalAddress": data?.payPalAddress,
-      "country": data?.country.label,
-      "city": data?.city,
-      "address": data?.address,
-      "companyName": data?.companyName,
-      // "companyNumber": data?.companyNumber,
-      "companyUrl": data?.companyUrl,
-      "password": data?.password,
-      // "role":"admin"
+    if (!isChecked) {
+      console.log('Unchecked');
+      setToasterMessage('Please accept terms & conditon')
     }
-    setToasterMessage('')
-    Register({ data: registerData })
-      .then((res) => {
-        if (res.error) {
-          console.log(res.error, 'register err')
-          setToasterMessage(res?.error?.data?.error || res.error?.data?.message)
-          // toast.error(res.error?.data?.message);
-        }
-        else {
-          resetForm();
-          toast.success("User Registered Successfully");
-          navigate('/login');
-          console.log(res.data?.result, 'register res');
-          setToasterMessage('')
-        }
-      })
-      .catch((err) => {
-        console.log(err, 'catch err');
-        setToasterMessage("Something went Wrong")
-      })
+    else {
+      console.log('checked')
+      setToasterMessage('')
+      console.log(data, 'register data');
+      let registerData = {
+        "email": data?.email,
+        "paypalAddress": data?.payPalAddress,
+        "country": data?.country.label,
+        "city": data?.city,
+        "address": data?.address,
+        "companyName": data?.companyName,
+        // "companyNumber": data?.companyNumber,
+        "companyUrl": data?.companyUrl,
+        "password": data?.password,
+        // "role":"admin"
+      }
+      setToasterMessage('')
+      Register({ data: registerData })
+        .then((res) => {
+          if (res.error) {
+            console.log(res.error, 'register err')
+            setToasterMessage(res?.error?.data?.error || res.error?.data?.message)
+            // toast.error(res.error?.data?.message);
+          }
+          else {
+            resetForm();
+            toast.success("User Registered Successfully");
+            navigate('/login');
+            console.log(res.data?.result, 'register res');
+            setToasterMessage('')
+          }
+        })
+        .catch((err) => {
+          console.log(err, 'catch err');
+          setToasterMessage("Something went Wrong")
+        })
+    }
+    setLoading(true);
+
 
 
     // LoginUser({ data: loginData })
@@ -178,8 +188,8 @@ function SignUp() {
                             {/* <span className='m-auto'>Join our affiliate program now and <br /> turn your referrals into rewards</span> */}
                             <div className=' w-full flex flex-col gap-6 pb-4'>
 
-                              <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} />
-                              <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={signupProps.handleChange} />
+                              <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter email address"} />
+                              <InputComponent label={"PayPal Address"} type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter paypal address' onChange={signupProps.handleChange} />
                               {/* <Select options={options} name='country' value={value} onChange={changeHandler} /> */}
                               {/* <div className=' relative'>
                                 <span className=' pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
@@ -244,14 +254,14 @@ function SignUp() {
 
                               {/* <InputComponent type={"text"} value={signupProps.values.country} name='country' onChange={signupProps.handleChange} placeholder={"Enter country name"} /> */}
                               <InputComponent label={"City"} type={"text"} value={signupProps.values.city} name='city' onChange={signupProps.handleChange} placeholder={"Enter city name"} />
-                              <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter your address"} />
-                              <InputComponent label={"Company name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
+                              <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter address"} />
+                              <InputComponent label={"Company Name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
                               {/* <InputComponent label={"Company number"} type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} /> */}
                               <InputComponent label={"Website URL"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={signupProps.handleChange} placeholder={"Enter website URL"} />
                               <div className='mt-4 flex flex-col gap-5'>
 
                                 <div className='relative w-full flex gap-1'>
-                                  <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
+                                  <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter password"} />
                                   <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
                                     {
                                       showPassword == "password" ?
@@ -274,7 +284,7 @@ function SignUp() {
                                 </div>
                               </div>
                               <div className=' flex gap-1 mt-[-9.0px] items-center'>
-                                <input className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
+                                <input onChange={(e) => { e.target.checked ? setIsChecked(true) : setIsChecked(false) }} className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
                                 <label className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black' href="https://partners.krownthemes.com/terms-and-conditions">Accept terms and condition</a></label>
                               </div>
                             </div>

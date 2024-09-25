@@ -77,6 +77,10 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
     setSelectedYear(selectedOp.value)
   }
 
+  const monthNames = [
+    "", "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
 
 
   return (
@@ -90,9 +94,14 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
       ) : (
         <div className='w-full'>
           <div className='flex w-full justify-between items-center px-4 py-2 mb-2'>
-            <span onClick={() => { navigate('/dashboard/analytics') }} className='w-[30px] font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-              <IoArrowBack size={20} />
-            </span>
+            <div className='flex gap-4 items-center'>
+              <span onClick={() => { navigate('/dashboard/analytics') }} className='w-[30px] font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                <IoArrowBack size={20} />
+              </span>
+              <span className=' font-semibold'>
+                {themeName}
+              </span>
+            </div>
             <span className='w-1/2 flex gap-4'>
               <Select
                 className='rounded w-full'
@@ -104,11 +113,20 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />
@@ -123,11 +141,20 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />
@@ -137,7 +164,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
           <div className='w-full flex flex-col gap-12 pt-6'>
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between py-2'>
-                <span className='font-semibold text-[17.5px] capitalize'>{themeName}</span>
+                <span className='font-semibold text-[17.5px] capitalize'> {totalCount} Purchases on  {monthNames[selectedMonth]}</span>
                 <span className='font-semibold text-[17px]'>
                   Total: {totalCount}
                 </span>
