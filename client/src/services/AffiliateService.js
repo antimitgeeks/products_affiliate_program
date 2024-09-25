@@ -40,6 +40,18 @@ const AffiliateService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
+                LinkRedirect: builder.mutation(
+                    {
+                        invalidatesTags: ["redirect"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/redirect`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
                 
 
             }
@@ -47,4 +59,4 @@ const AffiliateService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation, useGetIndividualAffiliateListQuery } = AffiliateService; 
+export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation, useGetIndividualAffiliateListQuery , useLinkRedirectMutation} = AffiliateService; 

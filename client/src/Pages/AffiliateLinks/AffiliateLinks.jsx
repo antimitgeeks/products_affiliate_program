@@ -29,6 +29,10 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     setCurrentPage(page)
   }
 
+  const HandleRedirectClick = () => {
+
+  }
+
   return (
     <>
       <p className='text-[20px] font-semibold'>Affiliate Links</p>
@@ -81,9 +85,12 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                               <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                 <FaLink />
 
-                                <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
+                                {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
-                                </a>
+                                </a> */}
+                                <span onClick={() => { HandleRedirectClick(itm) }} className='hover:text-black hover:underline'>
+                                  {`${itm?.affiliate?.shortUrl}`}
+                                </span>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
                                 <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
