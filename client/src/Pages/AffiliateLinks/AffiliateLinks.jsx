@@ -5,6 +5,7 @@ import { FaLink } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import Cookies from 'js-cookie';
 import { Pagination } from '@mui/material';
+import axios from 'axios';
 
 function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, currentPage }) {
 
@@ -29,10 +30,39 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     setCurrentPage(page)
   }
 
-  const HandleRedirectClick = () => {
 
-  }
+  const HandleRedirectClick = async (item) => {
+    try {
+      const token = Cookies.get('isLogged'); // Assuming you store a token in cookies
+      const apiUrl = `https://f876-49-249-2-6.ngrok-free.app/${item}`; // Replace with your API URL
 
+      // Make the API call
+      const response = await axios.post(apiUrl, {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // If authorization is required
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      console.log('API response:', response?.data?.message?.result);
+
+      const redirectUrl = response?.data?.message?.result;
+
+      // Check if the URL exists in the response
+      if (redirectUrl) {
+        // Redirect the user to the URL
+        window.open(redirectUrl, '_blank');
+      } else {
+        console.error('No URL found in the response.');
+      }
+
+
+      // Perform further actions like navigating or showing a message
+    } catch (error) {
+      console.error('Error calling API:', error);
+    }
+  };
   return (
     <>
       <p className='text-[20px] font-semibold'>Affiliate Links</p>
@@ -88,7 +118,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
                                 </a> */}
-                                <span onClick={() => { HandleRedirectClick(itm) }} className='hover:text-black hover:underline'>
+                                <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId) }} className='hover:text-black hover:underline'>
                                   {`${itm?.affiliate?.shortUrl}`}
                                 </span>
                               </span>

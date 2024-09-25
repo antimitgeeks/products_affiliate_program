@@ -2,9 +2,30 @@ const service = require("../services/auth.service");
 const { sendResponse } = require("../utils/sendResponse.js");
 const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
 const statusCode = require("../constants/statusCodes.js");
+const useragent = require('useragent');
+const requestIp = require('request-ip');
+
 
 // login controller
 exports.login = async (req, res) => {
+    console.log(req.ip,"------------------req")
+    // console.log(req.cookies.deviceId,"---------------------->cookie")
+    console.log(req.headers['user-agent'],"------------------>")
+    const userAgentString = req.headers['user-agent'];
+    const userAgent = useragent.parse(userAgentString);
+    
+    // Get the client's IP address
+    const clientIp = req.clientIp;
+    console.log(clientIp,"-------------------client ipsssssssssssssssss")
+    const userInfo = {
+        device: userAgent.device.toString(),
+        os: userAgent.os.toString(),
+        browser: userAgent.toString(),
+        ip: clientIp,
+        // location: geoData.city || 'Unknown',
+        // country: geoData.country_name || 'Unknown'
+    };
+    console.log(userInfo,"user info")
     console.info('***************************************************Login Api************************************************');
     try {
         const details = req.body;

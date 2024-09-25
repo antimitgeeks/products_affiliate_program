@@ -1,13 +1,18 @@
-const service = require("../services/affiliate.service.js");
-const { sendResponse } = require("../utils/sendResponse.js");
-const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
-const statusCode = require("../constants/statusCodes.js");
-const db = require("../models");
-const Affiliate = db.affiliate;
 //aws 
 const aws = require("aws-sdk");
 const { v4: uuidv4 } = require("uuid");
 const path = require("path");
+const { jwtDecode } = require('jwt-decode');
+const service = require("../services/affiliate.service.js");
+const { sendResponse } = require("../utils/sendResponse.js");
+const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
+const statusCode = require("../constants/statusCodes.js");
+const useragent = require('useragent');
+const requestIp = require('request-ip');
+//db
+const db = require("../models");
+const Affiliate = db.affiliate;
+
 
 const spacesEndpoint = new aws.Endpoint(process.env.S3_ENDPOINT);
 const s3 = new aws.S3({
@@ -49,9 +54,13 @@ exports.addAffiliate = async (req, res) => {
 // redirect short link 
 exports.redirectShortLink = async (req, res) => {
     try {
-        const result = await service.redirectShortLink(req, res)
+        const token = req.headers['authorization']
+        const decoded = jwtDecode(token)
+        const result = await service.redirectShortLink(req, res, decoded.id)
         if (result.status && result) {
-            res.redirect(result.result)
+            // res.redirect(result.result)
+            sendResponse(res, statusCode.OK, true, result)
+
         }
         else if (result.status == false && !result.result) {
             sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND)
@@ -71,6 +80,7 @@ exports.redirectShortLink = async (req, res) => {
 //get affiliate
 exports.getAffiliate = async (req, res) => {
     try {
+
         const result = await service.getAffiliate(req, res);
         if (result.status && result) {
             return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.FETCH}fully`, result.result)
@@ -122,17 +132,17 @@ exports.updateAffiliate = async (req, res) => {
     try {
         const id = req.params.id
         const details = req.body
-        const result = await service.updateAffiliate(id, details,req)
-        if(result.status && result.result){
+        const result = await service.updateAffiliate(id, details, req)
+        if (result.status && result.result) {
             return sendResponse(res, statusCode.CREATED, true, SuccessMessage.UPDATE, result)
         }
-        if(result.status==false && !result.result){
+        if (result.status == false && !result.result) {
             return sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND)
         }
-        if(result.status==false && result.result){
+        if (result.status == false && result.result) {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
         }
-       
+
 
     } catch (error) {
         console.log(error)
@@ -140,10 +150,10 @@ exports.updateAffiliate = async (req, res) => {
     }
 }
 
-exports.getAffiliateById=async (req,res)=>{
+exports.getAffiliateById = async (req, res) => {
 
     try {
-        const id=req.params.id
+        const id = req.params.id
         const result = await service.getAffiliateById(id);
         if (result.status && result) {
             return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.FETCH}fully`, result.result)
@@ -165,7 +175,7 @@ exports.getAffiliateById=async (req,res)=>{
 }
 exports.fileUpload = async (request, response) => {
     try {
-       
+
         const shop = "images"
         let uploadPromises = {}
         const file = request.file
