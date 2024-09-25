@@ -363,7 +363,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                             </div>
                                         </div>
                                         <div className='w-full flex justify-between px-2'>
-                                            <button onClick={() => handleSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
+                                            <button onClick={() => handleSubmit()} disabled={SelectedUsers.length<0} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
                                                 Submit
                                             </button>
                                             <div className='w-full flex justify-end mt-3'>

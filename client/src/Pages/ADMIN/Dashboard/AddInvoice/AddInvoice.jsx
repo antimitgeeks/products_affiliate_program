@@ -16,8 +16,8 @@ import Select from 'react-select';
 import { useGetAffiliateListQuery, useGetIndividualAffiliateListQuery } from '../../../../services/AffiliateService';
 import { IoArrowBack } from 'react-icons/io5';
 
-function AddInvoice({ id, email }) {
-
+function AddInvoice({ id, email, companyName }) {
+    console.log(companyName)
     const [listData, setListData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -119,17 +119,20 @@ function AddInvoice({ id, email }) {
                         (profileProps) =>
                         (
                             <Form>
-                                <div className='flex w-full justify-between px-1 py-2 mb-1'>
+                                <div className='flex w-full items-center  px-1 gap-2 py-2 mb-1'>
                                     <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                         <IoArrowBack size={20} />
                                     </span>
-
+                                    <span className='text-[20px]'>
+                                        Add Invoice
+                                    </span>
                                 </div>
                                 <Fragment>
                                     <Card className=' w-full'>
                                         <div className='pb-0 pt-4 w-full flex justify-between px-[26px]'>
-                                            <span className='text-[20px]'>
-                                                Add Invoice
+                                            {/* add invoice */}
+                                            <span className='font-semibold'>
+                                                {companyName || ''}
                                             </span>
                                             <span className='font-semibold'>
                                                 {email || ''}
@@ -254,7 +257,7 @@ function AddInvoice({ id, email }) {
                                                 Submit
                                             </Btn> */}
                                             < div className=' w-[120px] mt-3' >
-                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
+                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded" type="submit">
                                                     Submit
                                                 </button>
                                             </div >

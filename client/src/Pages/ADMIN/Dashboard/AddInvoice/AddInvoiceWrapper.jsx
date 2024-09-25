@@ -7,11 +7,12 @@ function AddInvoiceWrapper() {
   const URLData = useParams();
 
   const location = useLocation();
-  const { email } = location.state;
+  console.log(location.state)
+  const { email,companyName } = location.state;
 
   return (
     <div className='page-body'>
-      <AddInvoice id={URLData?.id} email={email} />
+      <AddInvoice id={URLData?.id} email={email} companyName={companyName} />
     </div>
   )
 }

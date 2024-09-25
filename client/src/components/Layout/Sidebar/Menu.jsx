@@ -1,4 +1,5 @@
 import { FiAirplay, FiBarChart, FiBox, FiCalendar, FiCheckSquare, FiClock, FiCloud, FiCommand, FiEdit, FiFileText, FiFilm, FiFolderPlus, FiGitPullRequest, FiHeart, FiHelpCircle, FiHome, FiImage, FiLayers, FiList, FiMail, FiMap, FiMessageCircle, FiMonitor, FiPackage, FiRadio, FiSearch, FiServer, FiShoppingBag, FiSunrise, FiUsers, FiZap } from 'react-icons/fi';
+import { SiSimpleanalytics } from "react-icons/si";
 export const MENU = [
 
   {
@@ -23,7 +24,7 @@ export const MENU = [
       },
       {
         title: 'Analytics',
-        icon: <FiList />,
+        icon: <SiSimpleanalytics />,
         url: `/dashboard/analytics`,
         bookmark: true
       }

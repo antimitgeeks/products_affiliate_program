@@ -201,9 +201,14 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                         {/* State */}
                                                         {
                                                             handleImageUploadloading ?
-                                                                <span className=' w-full flex py-2 items-center justify-center m-auto self-center animate-spin'>
-                                                                    <AiOutlineLoading3Quarters />
-                                                                </span>
+                                                                <div  >
+                                                                    <span className=' pl-[3px] font-semibold text-[13px]'>Thumnail Image</span>
+                                                                    <div className='border rounded-[10px]'>
+                                                                        <span className='w-full  h-10  flex items-center justify-center m-auto self-center animate-spin'>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                                 :
                                                                 <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} />
                                                         }
