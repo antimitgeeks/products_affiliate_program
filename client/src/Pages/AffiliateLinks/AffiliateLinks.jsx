@@ -6,6 +6,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import Cookies from 'js-cookie';
 import { Pagination } from '@mui/material';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, currentPage }) {
 
@@ -123,13 +124,16 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 </span>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
-                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`) ; toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
                                 <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                  <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
+                                  {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
-                                  </a>
+                                  </a> */}
+                                  <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId) }} className='hover:text-black hover:underline' >
+                                    Visit link
+                                  </span>
                                 </span>
                               </div>
                             </div>
