@@ -170,65 +170,73 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                 {/* <CardHeader>
                                                 <H5 className="text-black">Add Affiliate Links</H5>
                                             </CardHeader> */}
-
-                                                <CardBody>
-                                                    <Row className='g-3 pb-1'>
-                                                        <Col md='6'>
-                                                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
-                                                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                                                            <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
-                                                        </Col>
-                                                        {/* <Col md='4'>
+                                                   <CardBody>
+                                                <Row className='g-3 pb-1'>
+                                                    <Col md='6'>
+                                                        
+                                                        {/* {/ Inp/utControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! /} */}
+                                                        <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
+                                                    </Col>
+                                                    {/* <Col md='4'>
                                                         <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} />
                                                     </Col> */}
-                                                        <Col md='6 mb-3'>
-                                                            <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter link"} />
+                                                    <Col md='6 mb-3'>
+                                                        <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} />
 
-                                                        </Col>
-                                                        {/* <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} /> */}
-                                                        <br />
-                                                        <br />
-                                                    </Row>
-                                                    <Row className='g-3'>
-                                                        <Col md='6'>
-                                                            {/* <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} /> */}
-                                                            <InputComponent label={"Dropbox Link"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} />
-                                                        </Col>
-                                                        <Col md='6'>
-                                                            {/* <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> */}
-                                                            {/* State */}
-                                                            {
-                                                                handleImageUploadloading ?
-                                                                    <span className=' w-full flex py-2 items-center justify-center m-auto self-center animate-spin'>
-                                                                        <AiOutlineLoading3Quarters />
-                                                                    </span>
-                                                                    :
-                                                                    <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} />
-                                                            }
-                                                        </Col>
-                                                    </Row>
+                                                    </Col>
+                                                    {/* {/ <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} /> /} */}
+                                                    <br />
+                                                    <br />
+                                                </Row>
+                                                <Row className='g-3'>
+                                                    <Col md='6'>
+                                                        {/* {/ <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} /> /} */}
+                                                        <InputComponent label={"Dropbox Link"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} />
+                                                    </Col>
+                                                    <Col md='6'>
+                                                        {/* {/ <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> /} */}
+                                                        {/* {/ State /} */}
+                                                        {
+                                                            handleImageUploadloading ?
+                                                                <div  >
+                                                                    <span className=' pl-[3px] font-semibold text-[13px]'>Thumnail Image</span>
+                                                                    <div className='border rounded-[10px]'>
+                                                                        <span className='w-fit  h-10  flex items-center justify-center m-auto self-center animate-spin'>
+                                                                            <span className='w-fit'>
 
-                                                    <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded-full'>
-                                                        {
-                                                            submitLoading ?
-                                                                <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                                                    <AiOutlineLoading3Quarters />
-                                                                </span>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                                 :
-                                                                "Submit"
+                                                                <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} />
                                                         }
-                                                    </button>
-                                                    {/* <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-4 rounded-full" type="submit">
-                                                        {
-                                                            submitLoading ?
-                                                                <span className=' w-full flex py-1  items-center justify-center m-auto self-center animate-spin'>
-                                                                    <AiOutlineLoading3Quarters />
-                                                                </span>
-                                                                :
-                                                                "Submit"
-                                                        }
-                                                    </button> */}
-                                                </CardBody>
+                                                    </Col>
+                                                </Row>
+
+                                                {/* <Btn color="primary" type="submit" className="d-block mt-5  w-[120px]">
+                                                    {
+                                                        submitLoading ?
+                                                            <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                <AiOutlineLoading3Quarters />
+                                                            </span>
+                                                            :
+                                                            "Submit"
+                                                    }
+                                                </Btn> */}
+                                                <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
+                                                    {
+                                                        submitLoading ?
+                                                            <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                <AiOutlineLoading3Quarters />
+                                                            </span>
+                                                            :
+                                                            "Submit"
+                                                    }
+                                                </button>
+                                            </CardBody>  
+
                                             </Card>
                                         </Fragment>
                                     </>

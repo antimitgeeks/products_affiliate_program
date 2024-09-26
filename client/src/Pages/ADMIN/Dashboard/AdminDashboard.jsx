@@ -15,7 +15,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
   console.log(ListData?.rows, 'ListDataaa')
 
   const handleAddInvoice = (itm) => {
-    const data = { email: itm?.email, }
+    const data = { email: itm?.email,companyName:itm?.companyName }
     navigate(`invoice/add/${itm?.id}`, { state: data })
   }
 
