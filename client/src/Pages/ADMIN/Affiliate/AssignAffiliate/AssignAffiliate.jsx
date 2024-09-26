@@ -292,11 +292,11 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div className=' w-full flex justify-between items-center mt-3'>
+                                        <div className=' w-full flex justify-end items-center mt-3'>
 
-                                            <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 '>
+                                            {/* <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 '>
                                                 Submit
-                                            </button>
+                                            </button> */}
                                             <Pagination
                                                 shape="rounded"
                                                 variant="outlined"
