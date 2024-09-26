@@ -131,10 +131,10 @@ function AddInvoice({ id, email, companyName }) {
                                     <Card className=' w-full'>
                                         <div className='pb-0 pt-4 w-full flex justify-between px-[26px]'>
                                             {/* add invoice */}
-                                            <span className='font-semibold'>
+                                            <span className=''>
                                                 {companyName || ''}
                                             </span>
-                                            <span className='font-semibold'>
+                                            <span className=''>
                                                 {email || ''}
                                             </span>
                                         </div>
