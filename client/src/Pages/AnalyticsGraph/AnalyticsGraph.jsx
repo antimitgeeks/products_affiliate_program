@@ -165,9 +165,9 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between py-2'>
                 <span className='font-semibold text-[17.5px] capitalize'> Total Purchases on  {monthNames[selectedMonth]} : {totalCount}</span>
-                <span className='font-semibold text-[17px]'>
+                {/* <span className='font-semibold text-[17px]'>
                   Total: {totalCount}
-                </span>
+                </span> */}
               </div>
               <div className=' flex w-full relative items-center'>
 
@@ -183,7 +183,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                   height={350}
                   className="px-3 w-full max-w-full"
                 />
-                <span className='absolute left-[-38px] text-[14px] top-[150px]'>Purchases</span>
+                <span className='absolute left-[-25px] text-[14px] top-[150px]'>Clicks</span>
 
               </div>
               <div className='w-full flex justify-center'>

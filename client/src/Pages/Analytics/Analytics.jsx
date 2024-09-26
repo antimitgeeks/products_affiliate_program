@@ -277,8 +277,23 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
                   :
                   affiliatesData?.result?.rows?.length <= 0 || affiliatesData?.result?.rows == undefined ?
-                    <div className=' w-full flex items-center justify-center'>
-                      <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                    // <div className=' w-full flex items-center justify-center'>
+                    //   <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                    //     No data found
+                    //   </span>
+                    // </div>
+                    <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                      <table className='bg-white border-t border-l border-r '>
+                        <thead className=' py-0'>
+                          <tr className='py-0'>
+                            <th>Product</th>
+                            <th>Total Clicks</th>
+                            <th>Date</th>
+                            <th>View Graph</th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                         No data found
                       </span>
                     </div>
@@ -288,7 +303,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                         <table className='shadow'>
                           <thead className=' py-2'>
                             <tr className='py-2'>
-                              <th>Product name</th>
+                              <th>Product</th>
                               <th>Total Clicks</th>
                               <th>Date</th>
                               <th>View Graph</th>

@@ -22,8 +22,24 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
 
           :
           listData?.rows?.length <= 0 || listData?.rows == undefined ?
-            <div className=' w-full flex items-center justify-center mt-2'>
-              <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+            // <div className=' w-full flex items-center justify-center mt-2'>
+            //   <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+            //     No data found
+            //   </span>
+            // </div>
+            <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+              <table className='bg-white border-t border-l border-r '>
+                <thead className=' py-0'>
+                  <tr className='py-0'>
+                    <th>Transaction Id</th>
+                    <th>Product</th>
+                    <th>Commission</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+              </table>
+              <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                 No data found
               </span>
             </div>
@@ -34,7 +50,7 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                   <thead className=' py-2'>
                     <tr className='py-2'>
                       <th>Transaction Id</th>
-                      <th>Product name</th>
+                      <th>Product</th>
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Date</th>

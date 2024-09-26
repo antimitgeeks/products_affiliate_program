@@ -35,7 +35,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
   const HandleRedirectClick = async (item, id) => {
     try {
       const token = Cookies.get('isLogged'); // Assuming you store a token in cookies
-      const apiUrl = `https://f876-49-249-2-6.ngrok-free.app/${item}`; // Replace with your API URL
+      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}`; // Replace with your API URL
 
       // Make the API call
       const response = await axios.post(apiUrl, { id: id },
@@ -43,7 +43,8 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
           headers: {
             Authorization: `Bearer ${token}`, // If authorization is required
             'Content-Type': 'application/json'
-          }
+          },
+          withCredentials: true
         }
       );
       console.log('API response:', response?.data?.message?.result);
@@ -79,7 +80,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
           </>
           :
           listData?.result?.rows?.length <= 0 || listData?.result?.rows == undefined ?
-            <div className=' w-full flex items-center justify-center mt-2'>
+            <div className=' w-full flex items-center justify-center mt-4'>
               <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                 No data found
               </span>

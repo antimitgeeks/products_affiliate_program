@@ -52,8 +52,24 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
             </span>
             {
               ListData?.rows?.length <= 0 || ListData?.rows == undefined ?
-                <div className=' w-full flex mt-2 items-center justify-center'>
-                  <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                // <div className=' w-full flex mt-2 items-center justify-center'>
+                //   <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                //     No data found
+                //   </span>
+                // </div>
+                <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                  <table className='bg-white border-t border-l border-r '>
+                    <thead className=' py-0'>
+                      <tr className='py-0'>
+                        <th>UTM Id</th>
+                        <th>Email Address</th>
+                        <th>Name</th>
+                        <th>Products</th>
+                        <th>Invoices</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                     No data found
                   </span>
                 </div>
