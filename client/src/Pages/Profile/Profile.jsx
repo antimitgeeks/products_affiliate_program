@@ -92,7 +92,7 @@ function Profile({ listData, loading }) {
 
 
   return (
-    <div className=' pt-1'>
+    <div className=' pt-[2px]'>
       <Formik
         enableReinitialize
         validationSchema={validationSchema}
