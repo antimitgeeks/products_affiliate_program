@@ -45,7 +45,9 @@ exports.login = async (details) => {
 exports.register = async (details, userId) => {
 
     const exist = await this.ifIdAlreadyExist(userId)
-
+    if (exist.status == false && exist.userId) {
+        return { status: false, result: exist.userId };
+    }
     if (exist.status == false) {
         const data = { ...details, userId: exist.userId }
         const userDetails = await Users.create(data);
@@ -55,6 +57,8 @@ exports.register = async (details, userId) => {
         const assignAffiliate = await bulkAssign(userDetails.id)
         return userDetails;
     }
+
+
 
 }
 
