@@ -65,7 +65,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
           <div className='mt-[5px]'>
             <span className='font-semibold text-[20px] mb-2 pb-2'>
-              Partners List
+              Partners
             </span>
             {
               ListData?.rows?.length <= 0 || ListData?.rows == undefined ?

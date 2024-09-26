@@ -7,7 +7,7 @@ import { IoSearch } from "react-icons/io5";
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
-import { SetCustomerAffiliateInput, SetCustomerInvoiceSearchInput, SetDashboardSearchInput, SetDefaultSearchInput, SetInvoiceSearchInput, SetSearchInput } from '../../../Redux/SearchSlice/SearchSlice';
+import { SetCustomerAffiliateInput, SetCustomerInvoiceSearchInput, SetDashboardSearchInput, SetDefaultSearchInput, SetInvoiceSearchInput, SetSearchInput, setUserAnalyticsSearchQuery, setUserPageInvoiceQuery } from '../../../Redux/SearchSlice/SearchSlice';
 import { useLocation } from 'react-router-dom';
 
 const MobileSearch = () => {
@@ -129,9 +129,11 @@ const MobileSearch = () => {
       console.log('View Invoice');
       dispatch(SetInvoiceSearchInput(query));
     }
-    else if (lastSegment == 'invoices') 
-    {
-
+    else if (lastSegment == 'invoices') {
+      dispatch(setUserPageInvoiceQuery(query))
+    }
+    else if (lastSegment == 'analytics') {
+      dispatch(setUserAnalyticsSearchQuery(query))
     }
   }
 

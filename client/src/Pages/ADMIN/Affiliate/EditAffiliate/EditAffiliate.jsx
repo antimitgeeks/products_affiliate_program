@@ -66,7 +66,7 @@ function EditAffiliate({ listData, loading }) {
     };
 
     const validationSchema = yup.object().shape({
-        name: yup.string().trim("Enter valid name").required("name is required").strict(),
+        name: yup.string().trim("Enter valid name").required("Name is required").strict(),
         // link: yup.string().trim("Enter valid link").required("link is required").strict(),
         // dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
@@ -174,13 +174,7 @@ function EditAffiliate({ listData, loading }) {
                                         </div>
                                         <Fragment>
                                             <Card className=' w-full'>
-
-                                                <div className='pb-0 pt-4 px-4 flex w-full justify-between'>
-                                                    <span className='text-[20px]'>
-                                                        Edit Affiliate
-                                                    </span>
-                                                    <span>{ }</span>
-                                                </div>
+                                                
                                                 <CardBody>
                                                     <Row className='g-3 pb-1'>
                                                         <Col md='6'>
