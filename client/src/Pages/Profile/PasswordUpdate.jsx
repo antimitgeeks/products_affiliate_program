@@ -105,13 +105,13 @@ function PasswordUpdate({ loading }) {
                                                             <Col md='4'>
                                                                 {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                                                                 {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                                <InputComponent label={"New Password"} type={"text"} value={profileProps.values.password} name='password' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
+                                                                <InputComponent label={"New Password"} type={"text"} value={profileProps.values.password} name='password' onChange={profileProps.handleChange} placeholder={"Enter new password"} />
 
                                                             </Col>
                                                             <Col md='4 mb-3'>
                                                                 {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                                 {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                                <InputComponent label={"Confirm Password"} type={"text"} value={profileProps.values.confirmPassword} name='confirmPassword' onChange={profileProps.handleChange} placeholder={"Enter address"} />
+                                                                <InputComponent label={"Confirm Password"} type={"text"} value={profileProps.values.confirmPassword} name='confirmPassword' onChange={profileProps.handleChange} placeholder={"Confirm new Password"} />
                                                             </Col>
                                                         </Row>
 

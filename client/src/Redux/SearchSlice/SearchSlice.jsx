@@ -1,18 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  defaultSearch:'',
+  defaultSearch: '',
   searchQuery: '',
-  customerAffiliateQuery:'',
+  customerAffiliateQuery: '',
   dashboardQuery: '',
   invoiceQuery: '',
-  customerInvoiceQuery:''
+  customerInvoiceQuery: '',
+  userPageInvoiceQuery: '',
+  userAnalyticsSearchQuery:''
 }
 
 const SearchSlice = createSlice({
   name: 'SearchSlice',
   initialState,
   reducers: {
+
     SetSearchInput: (state, action) => {
       state.searchQuery = action.payload
     },
@@ -28,12 +31,17 @@ const SearchSlice = createSlice({
     SetCustomerInvoiceSearchInput: (state, action) => {
       state.customerInvoiceQuery = action.payload
     },
+    setUserPageInvoiceQuery: (state, action) => {
+      state.userPageInvoiceQuery = action.payload
+    },
+    setUserAnalyticsSearchQuery: (state, action) => {
+      state.userAnalyticsSearchQuery = action.payload
+    },
     SetDefaultSearchInput: (state, action) => {
       state.defaultSearch = action.payload
     },
-
   },
 })
 
-export const { SetSearchInput, SetDashboardSearchInput ,SetInvoiceSearchInput ,SetDefaultSearchInput , SetCustomerInvoiceSearchInput ,SetCustomerAffiliateInput } = SearchSlice.actions
+export const {setUserAnalyticsSearchQuery, setUserPageInvoiceQuery, SetSearchInput, SetDashboardSearchInput, SetInvoiceSearchInput, SetDefaultSearchInput, SetCustomerInvoiceSearchInput, SetCustomerAffiliateInput } = SearchSlice.actions
 export default SearchSlice.reducer; 
