@@ -10,6 +10,7 @@ import { useUserStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 
 function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
+  const [status, setStatus] = useState()
 
   const navigate = useNavigate();
 
@@ -36,20 +37,24 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
     console.log('email click................', id);
     navigate(`customer/profile/${id}`)
   }
-  const selectHandleStatus = (value, user) => {
+  const selectHandleStatus = (isActive, user) => {
+    console.log(user, '------------------------');
+    console.log(isActive, '------------------------');
 
-    UpdateUserStatus({ Id: user?.id, data: { status: Boolean(value) } })
+    UpdateUserStatus({ Id: user?.id, data: { status: isActive } }) // Send boolean value directly
       .then((res) => {
         if (res.error) {
-          toast.error("Internal server error")
-        }
-        else {
-          toast.success("Status Updated")
+          toast.error("Internal server error");
+        } else {
+          toast.success("Status Updated");
         }
       })
-    console.log(user)
-    console.log(value)
-  }
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed to update status");
+      });
+  };
+
 
   return (
     <>
@@ -111,12 +116,15 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
                           ListData?.rows?.map((itm, indx) => (
                             <tr key={indx}>
-                              {console.log(itm, 'User list itemd')}
                               <td>{itm?.userId}</td>
                               <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
                               <td>{itm?.companyName}</td>
                               <td>
-                                <select name="status" value={itm.isActive} onChange={(e) => selectHandleStatus(e.target.value, itm)}>
+                                <select
+                                  name="status"
+                                  value={itm.isActive ? "true" : "false"}
+                                  onChange={(e) => selectHandleStatus(e.target.value === "true", itm)}
+                                >
                                   <option value="true">Active</option>
                                   <option value="false">Deactive</option>
                                 </select>
