@@ -127,7 +127,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 </a> */}
                                 <span className='hover:text-black hover:underline'>
                                   {/* onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id) }} */}
-                                  <a href={itm?.affiliate?.link} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a>
+                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a>
                                 </span>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
@@ -138,7 +138,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                   {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
                                   </a> */}
-                                  <a href={itm?.affiliate?.link} target='_blank' className='hover:text-black hover:underline' >
+                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline' >
                                     {/* onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId) }} */}
                                     Visit link
                                   </a>

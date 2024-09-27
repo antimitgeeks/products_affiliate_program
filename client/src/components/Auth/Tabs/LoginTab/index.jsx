@@ -114,7 +114,7 @@ const LoginTab = (props) => {
                 <div className="relative">
                   <div className="flex w-full items-center justify-center absolute top-[-25px]">
                     <span className="text-red-400 text-[14px]">
-                      {toastMessage == 'User Not Found' ? "User Not Found" : toastMessage === "Your account is inactive" && "Your account is inactive"}
+                      {toastMessage == 'User Not Found' ? "User Not Found" : toastMessage === "Your account is deactivated" && "Your account is deactivated"}
                     </span>
                   </div>
                   <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 relative rounded-full" type="submit">

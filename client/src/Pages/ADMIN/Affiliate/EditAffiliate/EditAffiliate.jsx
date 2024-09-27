@@ -167,7 +167,7 @@ function EditAffiliate({ listData, loading }) {
                                     :
                                     <div>
                                         
-                                        <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-3'>
+                                        <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-0'>
                                             <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                                 <IoArrowBack size={20} />
                                             </span>

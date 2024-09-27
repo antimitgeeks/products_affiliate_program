@@ -10,7 +10,9 @@ import { useUserStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 
 function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
-  const [status, setStatus] = useState()
+  const [status, setStatus] = useState();
+  const [statusLoading, setStatusLoading] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState('')
 
   const navigate = useNavigate();
 
@@ -37,20 +39,27 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
     console.log('email click................', id);
     navigate(`customer/profile/${id}`)
   }
-  const selectHandleStatus = (isActive, user) => {
+  const selectHandleStatus = (isActive, user, indx) => {
     console.log(user, '------------------------');
     console.log(isActive, '------------------------');
-
+    setStatusLoading(true);
+    setSelectedStatus(indx)
     UpdateUserStatus({ Id: user?.id, data: { status: isActive } }) // Send boolean value directly
       .then((res) => {
         if (res.error) {
           toast.error("Internal server error");
+          setStatusLoading(false)
+
         } else {
           toast.success("Status Updated");
+          setStatusLoading(false)
+
         }
       })
       .catch((err) => {
         console.error(err);
+        setStatusLoading(true)
+
         toast.error("Failed to update status");
       });
   };
@@ -120,14 +129,21 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                               <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
                               <td>{itm?.companyName}</td>
                               <td>
-                                <select
-                                  name="status"
-                                  value={itm.isActive ? "true" : "false"}
-                                  onChange={(e) => selectHandleStatus(e.target.value === "true", itm)}
-                                >
-                                  <option value="true">Active</option>
-                                  <option value="false">Deactive</option>
-                                </select>
+                                {
+                                  statusLoading && selectedStatus == indx ?
+                                    <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                      <AiOutlineLoading3Quarters />
+                                    </span>
+                                    :
+                                    <select
+                                      name="status"
+                                      value={itm.isActive ? "true" : "false"}
+                                      onChange={(e) => selectHandleStatus(e.target.value === "true", itm, indx)}
+                                    >
+                                      <option value="true">Active</option>
+                                      <option value="false">Deactive</option>
+                                    </select>
+                                }
                               </td>
                               <td>{itm?.affiliateCount}</td>
                               <td className=' flex gap-2'>
