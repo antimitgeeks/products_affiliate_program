@@ -72,7 +72,6 @@ function AdminAddAffiliateLinks({ listData, loading }) {
             // "purchases": data?.purchases,
             // "clickCount": data?.clickCount
         }
-
         // let DataForApi = {
         //     "name": data?.name,
         //     "link": data?.link,
@@ -85,7 +84,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
             .then((res) => {
                 if (res.error) {
                     console.log(res.error, 'res.error');
-                    toast.error(res?.error?.data?.message);
+                    toast.error(res?.error?.data?.message === "Affiliate With Given Name Already Exist." && "Affiliate with this name already exists");
                     setSubmitLoading(false)
                 }
                 else {
