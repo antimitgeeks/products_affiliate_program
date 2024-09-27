@@ -16,8 +16,8 @@ import Select from 'react-select';
 import { useGetAffiliateListQuery, useGetIndividualAffiliateListQuery } from '../../../../services/AffiliateService';
 import { IoArrowBack } from 'react-icons/io5';
 
-function AddInvoice({ id, email }) {
-
+function AddInvoice({ id, email, companyName }) {
+    console.log(companyName)
     const [listData, setListData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -119,22 +119,31 @@ function AddInvoice({ id, email }) {
                         (profileProps) =>
                         (
                             <Form>
-                                <div className='flex w-full justify-between px-1 py-2 mb-1'>
-                                    <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-                                        <IoArrowBack size={20} />
-                                    </span>
+                                <span className='text-[20px] font-semibold'>
+                                    Add Invoice
+                                </span>
+                                <div className='flex w-full justify-between mt-4 mb-4 px-1 py-0 '>
 
+                                    {/* <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                      <IoArrowBack size={20} />
+                    </span> */}
+                                    <div className=' flex gap-2 items-center'>
+                                        <span onClick={() => { navigate('/dashboard') }} className=' w-fit font-semibold underline text-[16px]  px-1 py-1 bg-white border rounded cursor-pointer'>
+                                            <IoArrowBack size={20} />
+                                        </span>
+                                        <span className=''>
+                                            {companyName || ''}
+                                        </span>
+                                    </div>
+
+                                    <span className=' pt-0'>
+                                        {email || ''}
+                                    </span>
                                 </div>
+
                                 <Fragment>
                                     <Card className=' w-full'>
-                                        <div className='pb-0 pt-4 w-full flex justify-between px-[26px]'>
-                                            <span className='text-[20px]'>
-                                                Add Invoice
-                                            </span>
-                                            <span className='font-semibold'>
-                                                {email || ''}
-                                            </span>
-                                        </div>
+
                                         <CardBody>
                                             <Row className='g-3'>
                                                 <Col md='6'>
@@ -156,13 +165,19 @@ function AddInvoice({ id, email }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '14px',
+                                                                    fontSize: '15px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                                                                     '&:hover': {
                                                                         borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                                                                     },
+                                                                }),
+
+                                                                option: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    fontSize: '15px' // Smaller font size for each option
+
                                                                 }),
                                                                 indicatorSeparator: () => ({
                                                                     display: 'none', // Hide the line near the arrow button
@@ -210,13 +225,19 @@ function AddInvoice({ id, email }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '14px',
+                                                                    fontSize: '15px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                                                                     '&:hover': {
                                                                         borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                                                                     },
+                                                                }),
+
+                                                                option: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    fontSize: '15px' // Smaller font size for each option
+
                                                                 }),
                                                                 indicatorSeparator: () => ({
                                                                     display: 'none', // Hide the line near the arrow button
@@ -231,7 +252,7 @@ function AddInvoice({ id, email }) {
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter transaction Id"} />
+                                                    <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter transaction id"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"transactionId"} component='div' />
                                                 </Col>
                                             </Row>
@@ -240,7 +261,7 @@ function AddInvoice({ id, email }) {
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter Invoice Id"} />
+                                                    <InputComponent label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter invoice id"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"invoiceId"} component='div' />
                                                 </Col >
                                                 <Col md='6'>
@@ -254,7 +275,7 @@ function AddInvoice({ id, email }) {
                                                 Submit
                                             </Btn> */}
                                             < div className=' w-[120px] mt-3' >
-                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
+                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded" type="submit">
                                                     Submit
                                                 </button>
                                             </div >
