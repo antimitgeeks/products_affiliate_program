@@ -28,7 +28,10 @@ exports.allUsers = async (req) => {
                 [Op.or]: {
                     email: {
                         [Op.like]: `${query}%`,
-                        // [Op.like]: {shortId:`${query}%`}
+                    },
+                    userId: {
+                        [Op.like]: `${query}%`,
+
                     },
                     companyName: {
                         [Op.like]: `${query}%`
@@ -42,7 +45,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName",'isActive', 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'createdAt'],
             distinct: true
 
 
@@ -325,12 +328,12 @@ exports.updateUserStatus = async (userId, status) => {
                 id: userId
             }
         })
-    if(updatedUserStatus){
+    if (updatedUserStatus) {
         return {
-            status:true
+            status: true
         }
     }
     return {
-        status:false
+        status: false
     }
 }

@@ -6,7 +6,7 @@ const AdminService = CreateApi.injectEndpoints(
             {
                 GetUserList: builder.query(
                     {
-                        providesTags: ['admin', 'assignCustomer'],
+                        providesTags: ['admin', 'assignCustomer',"userstatus"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/allUsers`,
@@ -150,7 +150,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 UserStatus: builder.mutation(
                     {
-                        invalidatesTags: ["adminAffiliate"],
+                        invalidatesTags: ["adminAffiliate","userstatus"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/user-status/${Id}`,

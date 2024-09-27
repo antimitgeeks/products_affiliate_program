@@ -80,7 +80,7 @@ function AddInvoice({ id, email, companyName }) {
             value: yup.string().required("Payment status is required")
         }).nullable().required("Payment status is required"),
         domain: yup.string().trim("Enter valid domain").required("Domain is required").strict(),
-        commission: yup.string().matches(/^\d+$/, "Click count must be a number").trim("Enter valid commission").required("Commission is required").strict(),
+        commission: yup.string().matches(/^\d+$/, "Commission must be a number").trim("Enter valid commission").required("Commission is required").strict(),
         // paymentMethod: yup.object().shape({
         //     label: yup.string().required("PaymentMethod is required"),
         //     value: yup.string().required("PaymentMethod is required")
