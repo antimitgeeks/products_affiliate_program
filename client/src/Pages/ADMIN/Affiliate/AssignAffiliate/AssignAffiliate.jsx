@@ -249,8 +249,18 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             </span>
                             {
                                 AssignedListData?.rows?.length <= 0 || AssignedListData?.rows == undefined ?
-                                    <div className=' w-full flex items-center justify-center mt-2'>
-                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                                    <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                                        <table className='bg-white border-t border-l border-r '>
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>User Email</th>
+                                                    <th>Location</th>
+                                                    <th>City</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>
@@ -320,8 +330,18 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             </span>
                             {
                                 NotAssignedlistData?.result?.rows?.length <= 0 || NotAssignedlistData?.result?.rows == undefined ?
-                                    <div className=' w-full flex items-center justify-center'>
-                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                                    <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                                        <table className='bg-white border-t border-l border-r '>
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>User Email</th>
+                                                    <th>Location</th>
+                                                    <th>City</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>

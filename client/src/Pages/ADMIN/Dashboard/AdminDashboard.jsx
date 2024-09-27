@@ -95,7 +95,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                             <tr key={indx}>
                               {console.log(itm, 'User list item')}
                               <td>{itm?.userId}</td>
-                              <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
+                              <td><span className=''>{itm?.email}</span></td>
                               <td>{itm?.companyName}</td>
                               <td>{itm?.affiliateCount}</td>
                               <td className=' flex gap-2'>
