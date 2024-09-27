@@ -32,7 +32,7 @@ function CustomerProfile({ loading, profileData }) {
                 </div>
                 <div className="space-y-2 flex flex-col">
                   <span className='flex gap-2'><span className="font-semibold">Email:</span> {profileData?.email}</span>
-                  <span className='flex gap-2'  ><span className="font-semibold">Company Url:</span> {profileData?.companyUrl.slice(0,40)}</span>
+                  <span className='flex gap-2'  ><span className="font-semibold">Company Url:</span> {profileData?.companyUrl?.slice(0,40)}</span>
                 </div>
                 <div className="space-y-2 flex flex-col">
                   <span className='flex gap-2'><span className="font-semibold">Country:</span> {profileData?.country}</span>

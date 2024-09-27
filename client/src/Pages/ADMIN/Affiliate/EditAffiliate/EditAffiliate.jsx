@@ -166,11 +166,12 @@ function EditAffiliate({ listData, loading }) {
                                     </div>
                                     :
                                     <div>
-                                        <p className='text-[20px] font-semibold'>Edit Affiliate</p>
-                                        <div className='flex w-full justify-between px-1 py-2 mb-3 mt-3'>
+                                        
+                                        <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-3'>
                                             <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                                 <IoArrowBack size={20} />
                                             </span>
+                                            <p className='text-[20px] font-semibold'>Edit Affiliate</p>
                                         </div>
                                         <Fragment>
                                             <Card className=' w-full'>
