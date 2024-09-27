@@ -41,10 +41,10 @@ exports.getInvoiceList = async (id, req) => {
                         // [Op.like]: {shortId:`${query}%`}
                     },
                     domain:{
-                        [Op.like]:`${query}`
+                        [Op.like]:`${query}%`
                     },
                     transactionId:{
-                        [Op.like]:`${query}`
+                        [Op.like]:`${query}%`
                     }
                 }
             },
