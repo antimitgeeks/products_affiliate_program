@@ -127,7 +127,8 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                         console.log(res, 'res');
                         toast.success("Affiliate assigned successfull")
                         setSubmitLoading(false);
-                        setSelectedUsers([])
+                        setSelectedUsers([]);
+                        setCurrentPage(1);
                     }
                 })
                 .catch((err) => {
@@ -236,7 +237,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
                     <div className=' flex flex-col gap-3'>
                         <span className=' font-semibold text-[20px]'>
-                           Manage Assign 
+                            Manage Assign
                         </span>
                         <div className='mb-3'>
                             <div className='flex w-full justify-between px-1 py-2 mb-2'>
