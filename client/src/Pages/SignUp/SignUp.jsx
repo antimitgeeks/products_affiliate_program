@@ -75,7 +75,7 @@ function SignUp() {
     city: yup.string().trim("Enter valid city").required("City is required").strict(),
     address: yup.string().trim("Enter valid address").required("Address is required").strict(),
     companyName: yup.string().trim("Enter valid company name").required("Company name is required").strict(),
-    companyUrl: yup.string().trim("Enter valid website URL").required("Website URL is required").strict(),
+    companyUrl: yup.string().url("Enter a valid website url").trim("Enter valid website url").required("Website url is required").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
     password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password is required").strict(),
     confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("Confirm password is required").strict(),

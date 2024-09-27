@@ -198,7 +198,7 @@ function Profile({ listData, loading }) {
                           </Row>
                           <Row className='g-3'>
                             <Col md='6'>
-                              <InputComponent label={"Company URL"} type={"url"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
+                              <InputComponent label={"Company URL"} type={"url"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company url"} />
                             </Col>
                           </Row>
 
