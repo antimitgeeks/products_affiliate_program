@@ -213,7 +213,7 @@ exports.forgetPassword = async (req, res) => {
             const token = jwt.sign(
                 { id: isExisted.id, email: isExisted.email, role: isExisted.role },
                 process.env.JWT_SECRET_KEY,
-                { expiresIn: "3m" }
+                { expiresIn: "24h" }
             );
             const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}/${token}`);
             const sendMailPromise = () => {
