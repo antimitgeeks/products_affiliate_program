@@ -28,13 +28,14 @@ exports.login = async (details) => {
     if (!user) {
         return { status: false, message: `User ${ErrorMessage.NOT_FOUND}` };
     }
-    if (!user.isActive) {
-        return { status: false, message: `${ErrorMessage.IN_ACTIVE}` };
-    }
+
     // Compare password
     const isPasswordValid = await bcrypt.compare(details.password, user.password);
     if (!isPasswordValid) {
         return { status: false, message: `${ErrorMessage.INVALID_CREDENTIAL}` };
+    }
+    if (!user.isActive) {
+        return { status: false, message: `${ErrorMessage.IN_ACTIVE}` };
     }
     // create jwt token for admin
     const token = jwt.sign(
@@ -48,12 +49,12 @@ exports.login = async (details) => {
 //register service
 exports.register = async (details, userId) => {
 
-    const exist = await this.ifIdAlreadyExist(userId)
-    if (exist.status == false && exist.userId) {
-        return { status: false, result: exist.userId };
+    const isExist = await Users.findOne({ where: { email: details.email } })
+    if (isExist) {
+        return { status: false, result: userId };
     }
-    if (exist.status == false) {
-        const data = { ...details, userId: exist.userId }
+    if (!isExist) {
+        const data = { ...details, userId: userId }
         const userDetails = await Users.create(data);
         // remove password
         delete userDetails.dataValues.password;
