@@ -11,7 +11,9 @@ const ProfileboxDropdown = () => {
 
   const logout = () => {
     localStorage.clear();
-    Cookies.remove("isLogged"); navigate('/')
+    Cookies.remove("isLogged"); 
+    window.location.reload(false)
+    navigate('/')
   };
 
   const handleProfile = () => {

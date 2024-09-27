@@ -281,7 +281,7 @@ function SignUp() {
                                   </span>
                                 </div>
                               </div>
-                              <div className=' flex gap-1 mt-[-9.0px] items-center'>
+                              <div className=' flex gap-1  mt-[-2.0px] items-center'>
                                 <input onChange={(e) => { e.target.checked ? setIsChecked(true) : setIsChecked(false) }} className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
                                 <a href='/terms-condition' target='_blank' className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black'>Accept terms and condition</a></a>
                               </div>
