@@ -87,7 +87,7 @@ function SignUp() {
     city: yup.string().trim("Enter valid city").required("City is required").strict(),
     address: yup.string().trim("Enter valid address").required("Address is required").strict(),
     companyName: yup.string().trim("Enter valid company name").required("Company name is required").strict(),
-    companyUrl: yup.string().trim("Enter valid website URL").required("Website URL is required").strict(),
+    companyUrl: yup.string().url("Enter a valid website url").trim("Enter valid website url").required("Website url is required").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
     password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password is required").strict(),
     confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("Confirm password is required").strict(),
@@ -293,7 +293,7 @@ function SignUp() {
                                   </span>
                                 </div>
                               </div>
-                              <div className=' flex gap-1 mt-[-9.0px] items-center'>
+                              <div className=' flex gap-1  mt-[-2.0px] items-center'>
                                 <input onChange={(e) => { e.target.checked ? setIsChecked(true) : setIsChecked(false) }} className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
                                 <a href='/terms-condition' target='_blank' className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black'>Accept terms and condition</a></a>
                               </div>

@@ -162,7 +162,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                 </div>
                                 :
                                 <>
-                                    <p className='text-[20px] font-semibold mb-4'> Add Affiliate Links</p>
+                                    <div> <p className='text-[20px] font-semibold mb-4'> Add Affiliate Links</p></div>
                                     <Fragment>
                                         <Card className=' w-full'>
                                             {/* <CardHeader>

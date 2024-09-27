@@ -132,11 +132,11 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                     <span onClick={() => { navigator.clipboard.writeText(itm?.shortUrl); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                                                         Copy link
                                                                     </span>
-                                                                    <span className=' border hover:text-black p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                                                        <a className='hover:text-black' href={itm?.link} target='_blank'>
+                                                                    <a href={itm?.link} target='_blank' className=' border hover:text-black p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                                                        <span className='hover:text-black' >
                                                                             Visit link
-                                                                        </a>
-                                                                    </span>
+                                                                        </span>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>

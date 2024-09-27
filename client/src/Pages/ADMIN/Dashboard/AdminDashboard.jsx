@@ -83,9 +83,9 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                   <table className='bg-white border-t border-l border-r '>
                     <thead className=' py-0'>
                       <tr className='py-0'>
+                        <th>Company Name</th>
                         <th>UTM Id</th>
                         <th>Email Address</th>
-                        <th>Name</th>
                         <th>Products</th>
                         <th>Invoices</th>
                       </tr>
@@ -102,9 +102,9 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                     <table className=''>
                       <thead>
                         <tr>
+                          <th>Company Name</th>
                           <th>UTM Id</th>
                           <th>Email Address</th>
-                          <th>Name</th>
                           <th>Status</th>
                           <th>Products</th>
                           <th>Invoices</th>
@@ -116,9 +116,9 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
                           ListData?.rows?.map((itm, indx) => (
                             <tr key={indx}>
+                              <td>{itm?.companyName}</td>
                               <td>{itm?.userId}</td>
                               <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
-                              <td>{itm?.companyName}</td>
                               <td>
                                 <select
                                   name="status"
