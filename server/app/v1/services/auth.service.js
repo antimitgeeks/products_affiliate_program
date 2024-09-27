@@ -12,6 +12,7 @@ const ShortUniqueId = require('short-unique-id');
 
 
 const db = require("../models");
+const { jwtDecode } = require("jwt-decode");
 const Users = db.users;
 const Affiliate = db.affiliate;
 const AssignAffiliate = db.affiliateAssign
@@ -209,7 +210,12 @@ exports.forgetPassword = async (req, res) => {
         const isExisted = await Users.findOne({ where: { email: email } })
         if (isExisted) {
             const transporter = nodemailer.createTransport(emailConfig);
-            const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}/${isExisted.id}`);
+            const token = jwt.sign(
+                { id: isExisted.id, email: isExisted.email, role: isExisted.role },
+                process.env.JWT_SECRET_KEY,
+                { expiresIn: "3m" }
+            );
+            const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}/${token}`);
             const sendMailPromise = () => {
                 return new Promise((resolve, reject) => {
                     transporter.sendMail(mailOptions, (error, info) => {
@@ -257,12 +263,14 @@ exports.forgetPassword = async (req, res) => {
 
 
 //reset password
-exports.resetPassword = async (id, password, role) => {
+exports.resetPassword = async (token, password, role) => {
     try {
         const hashPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUND));
-        const isExist = await Users.update({ password: hashPassword }, { where: { id } });
+        const decoded = jwtDecode(token)
+        const isExist = await Users.update({ password: hashPassword }, { where: { id:decoded.id } });
         if (!isExist[0]) {
             return {
+
                 status: false
             }
         }
