@@ -26,7 +26,7 @@ const LoginTab = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().trim("Enter valid email").required("Email field cannot be empty").email(),
+    email: yup.string().trim("Enter valid email").required("Email field cannot be empty").email("Email must be a valid email"),
     password: yup.string().trim("Enter valid password").required("Password field cannot be empty").strict(),
   });
   useEffect(() => {
