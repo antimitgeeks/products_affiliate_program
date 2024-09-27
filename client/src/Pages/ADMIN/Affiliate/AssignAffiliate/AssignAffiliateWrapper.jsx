@@ -15,7 +15,7 @@ function AssignAffiliateWrapper() {
     const [count, setCount] = useState(1);
     const ReduxData = useSelector((state) => state.SearchSlice.adminAssignSearchQuery);
 
-    const dataPerPage = 4;
+    const dataPerPage = 10;
 
 
 
