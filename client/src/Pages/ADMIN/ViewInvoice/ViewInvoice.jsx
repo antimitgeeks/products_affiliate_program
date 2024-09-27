@@ -190,8 +190,11 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                       </tbody>
 
                     </table>
-                    <div className='w-full flex justify-end py-4'>
+                  </div>
 
+              }
+            </div>
+                    <div className='w-full flex justify-end py-4'>
                       <Pagination
                         shape="rounded"
                         variant="outlined"
@@ -201,10 +204,6 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                         onChange={handlePageChange}
                       />
                     </div>
-                  </div>
-
-              }
-            </div>
 
           </>
 

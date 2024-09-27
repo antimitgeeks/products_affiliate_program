@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { useAddAffiliateLinkMutation } from '../../../../services/AffiliateService';
 import { useNavigate } from 'react-router-dom';
 import { useUploadImageMutation } from '../../../../services/AdminService';
+import { IoArrowBack } from 'react-icons/io5';
 // import { useGetProfileDataQuery } from '../../services/AuthServices';
 
 function AdminAddAffiliateLinks({ listData, loading }) {
@@ -162,7 +163,12 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                 </div>
                                 :
                                 <>
-                                    <div> <p className='text-[20px] font-semibold mb-4'> Add Affiliate Links</p></div>
+                                    <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-0'>
+                                        <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                                            <IoArrowBack size={20} />
+                                        </span>
+                                        <p className='text-[20px] font-semibold'>Add Affiliate</p>
+                                    </div>
                                     <Fragment>
                                         <Card className=' w-full'>
                                             {/* <CardHeader>
