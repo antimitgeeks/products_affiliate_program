@@ -39,7 +39,13 @@ function EmailAuth() {
     };
 
     const validationSchema = yup.object().shape({
-        email: yup.string().trim("Enter valid email").required("Email is required").email(),
+        email: yup.string().trim("Enter valid email").required("Email is required").email("Email must be a valid email")
+            .test('is-valid-email', 'Email must be a valid email', value => {
+                if (!value) return false; // Ensure it's not empty
+                // Use a regex to validate email format more strictly if needed
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
+                return emailRegex.test(value);
+            }),
     });
 
     const handleSubmit = (data, { resetForm }) => {

@@ -65,8 +65,20 @@ function SignUp() {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().trim("Enter valid email").required("Email is required").email("Email must be a valid email"),
-    payPalAddress: yup.string().trim("Enter valid PayPal address").required("PayPal address is required").email("PayPal address must be valid"),
+    email: yup.string().trim("Enter valid email").required("Email is required").email("Email must be a valid email")
+      .test('is-valid-email', 'Email must be a valid email', value => {
+        if (!value) return false; // Ensure it's not empty
+        // Use a regex to validate email format more strictly if needed
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(value);
+      }),
+    payPalAddress: yup.string().trim("Enter valid PayPal address").required("PayPal address is required").email("PayPal address must be valid")
+      .test('is-valid-email', 'PayPal address must be valid', value => {
+        if (!value) return false; // Ensure it's not empty
+        // Use a regex to validate email format more strictly if needed
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(value);
+      }),
     // country: yup.string().trim("Enter valid country").required("country is required").strict(),
     country: yup.object().shape({
       label: yup.string().required("Country is required"),
