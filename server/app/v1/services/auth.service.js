@@ -23,9 +23,13 @@ exports.login = async (details) => {
 
     // check email exist or not for admin 
     const user = await Users.findOne({ where: { email: details.email } });
+
     // log(user)
     if (!user) {
         return { status: false, message: `User ${ErrorMessage.NOT_FOUND}` };
+    }
+    if (!user.isActive) {
+        return { status: false, message: `${ErrorMessage.IN_ACTIVE}` };
     }
     // Compare password
     const isPasswordValid = await bcrypt.compare(details.password, user.password);
