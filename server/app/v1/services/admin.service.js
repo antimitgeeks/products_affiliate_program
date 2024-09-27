@@ -18,11 +18,23 @@ exports.allUsers = async (req) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
+        const query = req.body.search || ""
 
         const result = await Users.findAndCountAll({
             limit: limit,
             offset: offset,
-            where: { role: 'customer' },
+            where: {
+                role: 'customer',
+                [Op.or]: {
+                    email: {
+                        [Op.like]: `${query}%`,
+                        // [Op.like]: {shortId:`${query}%`}
+                    },
+                    companyName: {
+                        [Op.like]: `${query}%`
+                    }
+                }
+            },
             include:
             {
                 model: AffiliateAssign,
@@ -30,7 +42,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName",'isActive', 'createdAt'],
             distinct: true
 
 
@@ -158,6 +170,7 @@ exports.userAffiliates = async (userId, req) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
+        const query = req.body.search || ""
 
         const user = await Users.findOne({ where: { id: userId } });
         if (!user) {
@@ -170,10 +183,23 @@ exports.userAffiliates = async (userId, req) => {
             limit: limit,
             offset: offset,
 
-            where: { userId },
+            where: {
+                userId,
+            },
             include: [
                 {
                     model: Affiliate,
+                    where: {
+                        [Op.or]: {
+                            name: {
+                                [Op.like]: `${query}%`,
+                                // [Op.like]: {shortId:`${query}%`}
+                            },
+                            shortId: {
+                                [Op.like]: `${query}%`
+                            }
+                        },
+                    },
                     require: true
                 }
             ],
@@ -272,7 +298,7 @@ exports.userDetails = async (userId) => {
 
 exports.deleteAffiliateAssign = async (assignedAffilaiteId) => {
 
-    
+
     const deletedClickAndPurchases = await ClickAndPurchases.destroy({
         where: { assignAffiliateId: assignedAffilaiteId }
     })
@@ -288,4 +314,23 @@ exports.deleteAffiliateAssign = async (assignedAffilaiteId) => {
     return false
 
 
+}
+
+
+exports.updateUserStatus = async (userId, status) => {
+    const updatedUserStatus = await Users.update(
+        { isActive: status },
+        {
+            where: {
+                id: userId
+            }
+        })
+    if(updatedUserStatus){
+        return {
+            status:true
+        }
+    }
+    return {
+        status:false
+    }
 }
