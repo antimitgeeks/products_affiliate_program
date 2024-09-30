@@ -5,7 +5,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
 import { MdDelete, MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
-import { useAssignAffiliateMutation, useDeAssignAffiliateMutation } from '../../../../services/AdminService';
+import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { Pagination } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
@@ -61,7 +61,11 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     const [AssignAffiliate] = useAssignAffiliateMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
     const [DeAssign] = useDeAssignAffiliateMutation()
+    const [UpdateCommitssion] = useUpdateCommissionMutation();
 
+    // loading states
+    const [AssignedlistloadingCommission, setAssignedlistloadingCommission] = useState(false);
+    const [NotAssignedlistloadingCommission, setNotAssignedlistloadingCommisson] = useState(false);
     const paramData = useParams();
     console.log(paramData, 'paramdta');
 
@@ -222,7 +226,32 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
     }
 
+    const handleCommison = (value, id) => {
+        console.log(value)
+        setAssignedlistloadingCommission(true)
+        UpdateCommitssion({
+            Id: id, data: {
+                commission: Number(value)
+            }
+        }).then(res => {
+            if (res.error) {
+                console.log(res.error, 'res.error');
+                toast.error("Internal server error");
+                setAssignedlistloadingCommission(false);
 
+            }
+            else {
+                console.log(res, 'res');
+                toast.success("Commission updated successfully");
+                setAssignedlistloadingCommission(false);
+
+            }
+        }).catch((err) => {
+            console.log(err);
+            setAssignedlistloadingCommission(false);
+        });
+    }
+    console.log(AssignedListData, NotAssignedlistData)
     return (
         <>
             {
@@ -296,11 +325,13 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
                                                                 <td>
-                                                                    <select defaultValue={20} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                    <select onChange={(e) => { handleCommison(e.target.value, itm?.user?.id) }} defaultValue={itm?.user?.commisionByPercentage} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
                                                                         <option value="10">10</option>
                                                                         <option value="20">20</option>
                                                                         <option value="40">40</option>
-                                                                        <option value="50">50</option>
+                                                                        <option value="80">80</option>
+                                                                        <option value="90">90</option>
+                                                                        <option value="100">100</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>{itm?.user?.country || "N/A"}</td>
@@ -385,11 +416,13 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                     </td>
                                                                     <td>{itm?.email || "N/A"}</td>
                                                                     <td>
-                                                                        <select defaultValue={20} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                        <select onChange={(e) => { handleCommison(e.target.value, itm?.id) }} defaultValue={itm?.commisionByPercentage} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
                                                                             <option value="10">10</option>
                                                                             <option value="20">20</option>
                                                                             <option value="40">40</option>
-                                                                            <option value="50">50</option>
+                                                                            <option value="80">80</option>
+                                                                            <option value="90">90</option>
+                                                                            <option value="100">100</option>
                                                                         </select>
                                                                     </td>
                                                                     <td>{itm?.country || "N/A"}</td>

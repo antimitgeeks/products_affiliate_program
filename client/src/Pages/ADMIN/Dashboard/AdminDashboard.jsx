@@ -6,7 +6,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { Pagination } from '@mui/material';
-import { useUserStatusMutation } from '../../../services/AdminService';
+import { useUpdateCommissionMutation, useUserStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 
 function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
@@ -14,11 +14,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
   const [statusLoading, setStatusLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('')
 
+  const [commissionLoading, setCommissionLoading] = useState(false);
+  const [selectedCommissonIdx, setSelectedCommissonIdx] = useState();
   const navigate = useNavigate();
 
   const [UpdateUserStatus] = useUserStatusMutation()
+  const [UpdateCommitssion] = useUpdateCommissionMutation();
 
-  console.log(ListData?.rows, 'ListDataaa')
+
 
   const handleAddInvoice = (itm) => {
     const data = { email: itm?.email, companyName: itm?.companyName }
@@ -64,13 +67,31 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
       });
   };
 
-  const handleCommission = (value, user, idx) => {
-    console.log(user, '------------------------');
-    console.log(idx, '------------------------');
-    console.log(value);
+  const handleCommission = (value, id, idx) => {
+    setCommissionLoading(true)
+    setSelectedCommissonIdx(idx);
+    UpdateCommitssion({
+      Id: id, data: {
+        commission: Number(value)
+      }
+    }).then(res => {
+      if (res.error) {
+        console.log(res.error, 'res.error');
+        toast.error("Internal server error");
+        setCommissionLoading(false)
+      }
+      else {
+        console.log(res, 'res');
+        toast.success("Commission updated successfully");
+        setCommissionLoading(false)
+      }
+    }).catch((err) => {
+      console.log(err);
+      setCommissionLoading(false)
+    });
   }
 
-
+  console.log(ListData)
   return (
     <>
       {
@@ -133,12 +154,18 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                             <td>{itm?.userId}</td>
                             <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
                             <td>
-                              <select defaultValue={20} onChange={(e) => {handleCommission(e.target.value,itm,indx) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="40">40</option>
-                                <option value="50">50</option>
-                              </select>
+                              {
+                                commissionLoading && selectedCommissonIdx == indx ? <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                  <AiOutlineLoading3Quarters />
+                                </span> : <select defaultValue={itm?.commisionByPercentage} onChange={(e) => { handleCommission(e.target.value, itm?.id, indx) }} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
+                                  <option value="10">10</option>
+                                  <option value="20">20</option>
+                                  <option value="40">40</option>
+                                  <option value="80">80</option>
+                                  <option value="90">90</option>
+                                  <option value="100">100</option>
+                                </select>
+                              }
                             </td>
                             <td>
                               {
