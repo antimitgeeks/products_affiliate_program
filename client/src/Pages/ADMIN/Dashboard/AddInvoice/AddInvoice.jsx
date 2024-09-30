@@ -164,7 +164,7 @@ function AddInvoice({ id, email, companyName }) {
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                                                     {/* <Col md="12"> */}
                                                     <div className=' relative'>
-                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Product Name"}</span>
+                                                        <span className=' pl-[3px] font-semibold text-[14px]'>{"Product Name"}</span>
                                                         <Select
                                                             placeholder="Select product"
                                                             options={listData}
@@ -177,7 +177,7 @@ function AddInvoice({ id, email, companyName }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '12px',
+                                                                    fontSize: '13px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
@@ -209,7 +209,7 @@ function AddInvoice({ id, email, companyName }) {
                                                 {/* </Col> */}
                                                 <Col md='6'>
                                                     <div className=' relative'>
-                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Payment Status"}</span>
+                                                        <span className=' pl-[3px] font-semibold text-[14px]'>{"Payment Status"}</span>
                                                         <Select
                                                             placeholder="Payment status"
                                                             options={paymentStatusDetails}
@@ -222,7 +222,7 @@ function AddInvoice({ id, email, companyName }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '12px',
+                                                                    fontSize: '13px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover

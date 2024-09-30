@@ -172,7 +172,7 @@ function Profile({ listData, loading }) {
                               {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                               {/* <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={profileProps.handleChange} /> */}
                               <div className=' relative'>
-                                <span className=' pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
+                                <span className=' pl-[3px] font-semibold text-[14px]'>{"Country"}</span>
                                 <Select
                                   placeholder="Select Country"
                                   options={options}
@@ -185,7 +185,7 @@ function Profile({ listData, loading }) {
                                       ...baseStyles,
                                       borderRadius: '8px', // Add border-radius
                                       border: '1px solid rgb(222, 226, 230)', // Default border color
-                                      fontSize: '12px',
+                                      fontSize: '13px',
                                       letterSpacing: '.8px',
                                       boxShadow: 'none', // Remove box-shadow entirely
                                       borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover

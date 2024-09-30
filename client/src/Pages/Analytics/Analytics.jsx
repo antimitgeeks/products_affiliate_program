@@ -238,11 +238,8 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                 <span className='font-semibold text-[17.5px] pl-5'>Total purchases in {monthNames[selectedMonth]} : {purchaseCount}</span>
                 {/* <span>TOtal</span> */}
                 {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
-
               </div>
-
               <div className='relative w-full flex items-center '>
-
                 <ReactApexChart
                   options={chartState?.options}
                   // series={chartState?.series}

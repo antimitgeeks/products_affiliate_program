@@ -42,9 +42,10 @@ module.exports = (sequelize, Sequelize) => {
         companyName: {
             type: Sequelize.STRING
         },
-        // companyNumber: {
-        //     type: Sequelize.STRING,
-        // },
+        commisionByPercentage: {
+            type: Sequelize.INTEGER,
+        },
+
         password: {
             type: Sequelize.STRING,
             allowNull: false

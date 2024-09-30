@@ -295,11 +295,12 @@ function SignUp() {
                               </div>
                             </div>
                             <div className="position-relative form-group mb-0 mt-[-5px]">
-                              {toasterMessage && <div className={"flex w-full items-center justify-center absolute top-[-30px]"}>
-                                <span className='text-red-500'>
-                                  {toasterMessage || ''}
-                                </span>
-                              </div>}
+                              {toasterMessage &&
+                                <div className={"flex w-full items-center justify-center absolute top-[-30px]"}>
+                                  <span className='text-red-500 text-[12px]'>
+                                    {toasterMessage || ''}
+                                  </span>
+                                </div>}
                               <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-0 rounded-full" type="submit">
                                 Sign up
                               </button>
