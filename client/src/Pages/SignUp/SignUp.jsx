@@ -122,7 +122,7 @@ function SignUp() {
           }
           else {
             resetForm();
-            toast.success("User Signed Up Successfully");
+            toast.success("You have successfully signed up! Please log in to continue.");
             navigate('/login');
             console.log(res.data?.result, 'register res');
             setToasterMessage('')
