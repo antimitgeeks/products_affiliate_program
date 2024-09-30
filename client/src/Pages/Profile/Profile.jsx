@@ -185,7 +185,7 @@ function Profile({ listData, loading }) {
                                       ...baseStyles,
                                       borderRadius: '8px', // Add border-radius
                                       border: '1px solid rgb(222, 226, 230)', // Default border color
-                                      fontSize: '14px',
+                                      fontSize: '12px',
                                       letterSpacing: '.8px',
                                       boxShadow: 'none', // Remove box-shadow entirely
                                       borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
