@@ -9,6 +9,8 @@ import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useUpdateComm
 import toast from 'react-hot-toast';
 import { Pagination } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
+import { useDispatch } from 'react-redux';
+import { ClearAdminAssignSearchQuery } from '../../../../Redux/SearchSlice/SearchSlice.jsx';
 
 
 function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assignedcount, AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
@@ -56,6 +58,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     ];
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [SelectedUsers, setSelectedUsers] = useState([]);
     const [DeSelectedUsers, setDeSelectedUsers] = useState([])
     const [AssignAffiliate] = useAssignAffiliateMutation();
@@ -108,8 +111,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     }
 
 
-    console.log(NotAssignedlistData, 'NotAssignedlistData');
-    console.log(AssignedListData, 'AssignedlistData');
 
     const handleSubmit = () => {
         if (SelectedUsers?.length <= 0) {
@@ -274,7 +275,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                     Manage Assign
                                 </span>
                             </div>
-                            {/* <hr className='mb-1' /> */}
+                            <hr className='my-4' />
                             <span className=' font-semibold text-[20px]'>
                                 Assigned Users
                             </span>
@@ -408,13 +409,11 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         {
 
                                                             NotAssignedlistData?.result?.rows?.map((itm, indx) => (
-                                                                <tr key={indx}>
-                                                                    <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
-
+                                                                <tr key={indx} className=''>
+                                                                    <td className='  pl-[30px]'>
                                                                         <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
-
                                                                     </td>
-                                                                    <td>{itm?.email || "N/A"}</td>
+                                                                    <td className=''>{itm?.email || "N/A"}</td>
                                                                     <td>
                                                                         <select onChange={(e) => { handleCommison(e.target.value, itm?.id) }} defaultValue={itm?.commisionByPercentage} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
                                                                             <option value="10">10</option>
