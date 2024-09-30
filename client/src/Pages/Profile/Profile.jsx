@@ -198,7 +198,7 @@ function Profile({ listData, loading }) {
                                     }),
                                   }}
                                 />
-                                <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
+                                <ErrorMessage className='text-red-400 absolute text-[12px] pl-[4px]  mt-0' name={"country"} component='div' />
                               </div>
                             </Col>
                           </Row>

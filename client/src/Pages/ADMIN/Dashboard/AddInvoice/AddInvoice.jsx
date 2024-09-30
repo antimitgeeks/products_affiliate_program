@@ -61,7 +61,7 @@ function AddInvoice({ id, email, companyName }) {
 
     const initialValues = {
         themeName: null,
-        domain: '',
+        // domain: '',
         commission: '',
         // paymentMethod: null,
         transactionId: '',
@@ -79,7 +79,7 @@ function AddInvoice({ id, email, companyName }) {
             label: yup.string().required("Payment status is required"),
             value: yup.string().required("Payment status is required")
         }).nullable().required("Payment status is required"),
-        domain: yup.string().trim("Enter valid domain").required("Domain is required").strict(),
+        // domain: yup.string().trim("Enter valid domain").required("Domain is required").strict(),
         commission: yup.string().matches(/^\d+$/, "Commission must be a number").trim("Enter valid commission").required("Commission is required").strict(),
         // paymentMethod: yup.object().shape({
         //     label: yup.string().required("PaymentMethod is required"),
@@ -92,12 +92,10 @@ function AddInvoice({ id, email, companyName }) {
     const handleSubmit = (data, { resetForm }) => {
 
         console.log('---------------------------------submit');
-
-
         let dataForApi = {
             "userId": id,
             "themeName": data?.themeName?.label,
-            "domain": data?.domain,
+            // "domain": data?.domain,
             "commission": data?.commission,
             "paymentMethod": 'payPal',
             "transactionId": data?.transactionId,
@@ -159,7 +157,6 @@ function AddInvoice({ id, email, companyName }) {
 
                                 <Fragment>
                                     <Card className=' w-full'>
-
                                         <CardBody>
                                             <Row className='g-3'>
                                                 <Col md='6'>
@@ -199,16 +196,16 @@ function AddInvoice({ id, email, companyName }) {
                                                                 }),
                                                             }}
                                                         />
-                                                        <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"themeName"} component='div' />
+                                                        <ErrorMessage className='text-red-400 absolute text-[12px] pl-[4px]  mt-0' name={"themeName"} component='div' />
                                                     </div>
                                                     {/* </Col> */}
                                                     {/* <InputComponent label={"Theme name"} type="text" name='themeName' value={profileProps.values.themeName} placeholder='Enter theme name' onChange={profileProps.handleChange} /> */}
                                                 </Col>
                                                 {/* <Col md='6'> */}
-                                                    {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
-                                                    {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                    {/* <InputComponent label={"Domain"} type={"text"} value={profileProps.values.domain} name='domain' onChange={profileProps.handleChange} placeholder={"Enter domain"} /> */}
-                                                    {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"domain"} component='div' /> */}
+                                                {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
+                                                {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
+                                                {/* <InputComponent label={"Domain"} type={"text"} value={profileProps.values.domain} name='domain' onChange={profileProps.handleChange} placeholder={"Enter domain"} /> */}
+                                                {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"domain"} component='div' /> */}
                                                 {/* </Col> */}
                                                 <Col md='6'>
                                                     <div className=' relative'>
@@ -225,7 +222,7 @@ function AddInvoice({ id, email, companyName }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '15px',
+                                                                    fontSize: '12px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
@@ -244,7 +241,7 @@ function AddInvoice({ id, email, companyName }) {
                                                                 }),
                                                             }}
                                                         />
-                                                        <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"paymentStatus"} component='div' />
+                                                        <ErrorMessage className='text-red-400 absolute text-[12px] pl-[4px]  mt-0' name={"paymentStatus"} component='div' />
                                                     </div>
                                                 </Col>
                                             </Row >
@@ -294,12 +291,12 @@ function AddInvoice({ id, email, companyName }) {
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
                                                     <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter transaction id"} />
-                                                    <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"transactionId"} component='div' />
+                                                    {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"transactionId"} component='div' /> */}
                                                 </Col>
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent  label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter invoice id"} />
+                                                    <InputComponent label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter invoice id"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"invoiceId"} component='div' />
                                                 </Col >
                                             </Row>
@@ -309,9 +306,9 @@ function AddInvoice({ id, email, companyName }) {
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
                                                     <InputComponent label={"Commission"} type={"text"} value={profileProps.values.commission} name='commission' onChange={profileProps.handleChange} placeholder={"Enter commission"} />
-                                                    <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"commission"} component='div' />
+                                                    {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"commission"} component='div' /> */}
                                                 </Col>
-                                                
+
                                             </Row >
                                             {/* <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
                                                 Submit
