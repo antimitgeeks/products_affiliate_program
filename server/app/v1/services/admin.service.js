@@ -90,9 +90,9 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
 
         const affiliateDetails = await AffiliateAssign.findAll({
 
-            where: { 
+            where: {
                 affiliateId
-                
+
             }, attributes: ['userId']
 
         });
@@ -153,13 +153,13 @@ exports.affiliateListAssign = async (id, req) => {
             include: [
                 {
                     model: Users,
-                    where:{
+                    where: {
                         [Op.or]: {
                             email: {
                                 [Op.like]: `${query}%`,
                             },
                         }
-        
+
                     }
                 }
             ],
@@ -338,15 +338,31 @@ exports.deleteAffiliateAssign = async (assignedAffilaiteId) => {
 
 }
 
+//update user status 
+exports.updateUserStatus = async (userId, commision, status) => {
 
-exports.updateUserStatus = async (userId, status) => {
-    const updatedUserStatus = await Users.update(
-        { isActive: status },
-        {
-            where: {
-                id: userId
-            }
-        })
+    let updatedUserStatus
+    if (status != undefined) {
+        console.log("this condition hit")
+        updatedUserStatus = await Users.update(
+            { isActive: status },
+            {
+                where: {
+                    id: userId
+                }
+            })
+    }
+    else {
+
+        updatedUserStatus = await Users.update(
+            { commisionByPercentage: commision },
+            {
+                where: {
+                    id: userId
+                }
+            })
+    }
+
     if (updatedUserStatus) {
         return {
             status: true

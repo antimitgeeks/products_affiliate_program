@@ -148,7 +148,8 @@ exports.updateUserStatus = async (req, res) => {
     try {
         const userId = req.params.id
         const status = req.body.status
-        const result = await service.updateUserStatus(userId,status)
+        const commission = req.body.commission
+        const result = await service.updateUserStatus(userId,commission,status)
         if (result.status) {
             return sendResponse(res, statusCode.OK, true, `User${SuccessMessage.UPDATE}`)
         }
