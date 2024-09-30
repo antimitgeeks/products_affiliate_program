@@ -64,6 +64,12 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
       });
   };
 
+  const handleCommission = (value, user, idx) => {
+    console.log(user, '------------------------');
+    console.log(idx, '------------------------');
+    console.log(value);
+  }
+
 
   return (
     <>
@@ -114,6 +120,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                           <th>Company Name</th>
                           <th>UTM Id</th>
                           <th>Email Address</th>
+                          <th>Commission</th>
                           <th>Status</th>
                           <th>Products</th>
                           <th>Invoices</th>
@@ -125,6 +132,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                             <td>{itm?.companyName}</td>
                             <td>{itm?.userId}</td>
                             <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
+                            <td>
+                              <select defaultValue={20} onChange={(e) => {handleCommission(e.target.value,itm,indx) }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                              </select>
+                            </td>
                             <td>
                               {
                                 statusLoading && selectedStatus == indx ?

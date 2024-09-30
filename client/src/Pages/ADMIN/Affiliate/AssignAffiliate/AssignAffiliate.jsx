@@ -258,6 +258,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                 <tr>
                                                     <th>Action</th>
                                                     <th>User Email</th>
+                                                    <th>Commission</th>
                                                     <th>Location</th>
                                                     <th>City</th>
                                                 </tr>
@@ -276,6 +277,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     <tr>
                                                         <th>Action</th>
                                                         <th>User Email</th>
+                                                        <th>Commission</th>
                                                         <th>Location</th>
                                                         <th>City</th>
                                                     </tr>
@@ -293,6 +295,14 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
+                                                                <td>
+                                                                    <select defaultValue={20} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                        <option value="10">10</option>
+                                                                        <option value="20">20</option>
+                                                                        <option value="40">40</option>
+                                                                        <option value="50">50</option>
+                                                                    </select>
+                                                                </td>
                                                                 <td>{itm?.user?.country || "N/A"}</td>
                                                                 <td>{itm?.user?.city || "N/A"}</td>
 
@@ -338,6 +348,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                 <tr>
                                                     <th>Action</th>
                                                     <th>User Email</th>
+                                                    <th>Commission</th>
                                                     <th>Location</th>
                                                     <th>City</th>
                                                 </tr>
@@ -356,6 +367,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         <tr>
                                                             <th>Action</th>
                                                             <th>User Email</th>
+                                                            <th>Commission</th>
                                                             <th>Location</th>
                                                             <th>City</th>
                                                         </tr>
@@ -372,6 +384,14 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
                                                                     </td>
                                                                     <td>{itm?.email || "N/A"}</td>
+                                                                    <td>
+                                                                        <select defaultValue={20} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                            <option value="10">10</option>
+                                                                            <option value="20">20</option>
+                                                                            <option value="40">40</option>
+                                                                            <option value="50">50</option>
+                                                                        </select>
+                                                                    </td>
                                                                     <td>{itm?.country || "N/A"}</td>
                                                                     <td>{itm?.city || "N/A"}</td>
                                                                 </tr>
@@ -386,7 +406,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                         </div>
                                         <div className='w-full flex justify-between px-2'>
 
-                                            <button onClick={() => handleSubmit()} disabled={SelectedUsers?.length <= 0 ? true : false} className={` ${SelectedUsers?.length <= 0 ? "opacity-70" : ""} w-[120px] bg-black text-white rounded py-2 mt-3`}>
+                                            <button onClick={() => handleSubmit()} disabled={SelectedUsers?.length <= 0 ? true : false} className={` ${SelectedUsers?.length <= 0 ? "opacity-70" : ""} w-[120px] bg-black text-white rounded-full py-2 mt-3`}>
                                                 Submit
                                             </button>
                                             <div className='w-full flex justify-end mt-3'>

@@ -28,17 +28,17 @@ function InputComponent(
             {
                 type == "file" ?
                     <div className='py-2 flex gap-3 w-full form-control border h-10 rounded-[10px]'>
-                        <label className='border-r-2 pr-3 cursor-pointer h-full w-1/4' htmlFor='filee'>Select file</label>
+                        <label className='border-r-2 pr-3 text-[12px] cursor-pointer h-full w-1/4' htmlFor='filee'>Select file</label>
                         <Input
                             id='filee'
                             name={name}
                             onChange={onChange}
-                            className='display-none hidden'
+                            className='display-none text-[12px] hidden'
                             type='file'
                             accept='.jpg,.jpeg,.png' />
 
 
-                        <span className='overflow-hidden truncate .. text-ellipsis w-4/5'>{fileName}</span>
+                        <span className='overflow-hidden text-[12px] truncate .. text-ellipsis w-4/5'>{fileName}</span>
                     </div>
                     :
                     <Input
@@ -47,7 +47,7 @@ function InputComponent(
                         defaultValue={defaultValue}
                         name={name}
                         onChange={onChange}
-                        className=' py-2 w-full form-control border h-10 rounded-[10px]'
+                        className=' py-2 placeholder:text-[12px] w-full text-[12px] form-control border h-10 rounded-[10px]'
                         type={type}
                         placeholder={placeholder}
                         disabled={disabled}

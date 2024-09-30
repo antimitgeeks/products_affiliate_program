@@ -180,7 +180,7 @@ function AddInvoice({ id, email, companyName }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '15px',
+                                                                    fontSize: '12px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
@@ -204,11 +204,48 @@ function AddInvoice({ id, email, companyName }) {
                                                     {/* </Col> */}
                                                     {/* <InputComponent label={"Theme name"} type="text" name='themeName' value={profileProps.values.themeName} placeholder='Enter theme name' onChange={profileProps.handleChange} /> */}
                                                 </Col>
-                                                <Col md='6'>
+                                                {/* <Col md='6'> */}
                                                     {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                                                     {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                    <InputComponent label={"Domain"} type={"text"} value={profileProps.values.domain} name='domain' onChange={profileProps.handleChange} placeholder={"Enter domain"} />
-                                                    <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"domain"} component='div' />
+                                                    {/* <InputComponent label={"Domain"} type={"text"} value={profileProps.values.domain} name='domain' onChange={profileProps.handleChange} placeholder={"Enter domain"} /> */}
+                                                    {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"domain"} component='div' /> */}
+                                                {/* </Col> */}
+                                                <Col md='6'>
+                                                    <div className=' relative'>
+                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Payment Status"}</span>
+                                                        <Select
+                                                            placeholder="Payment status"
+                                                            options={paymentStatusDetails}
+                                                            name="paymentStatus"
+                                                            value={profileProps.values.paymentStatus}
+                                                            // value={[{value:"IN",label:'India'}]}
+                                                            onChange={value => profileProps.setFieldValue('paymentStatus', value)}
+                                                            styles={{
+                                                                control: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    borderRadius: '8px', // Add border-radius
+                                                                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                                                                    fontSize: '15px',
+                                                                    letterSpacing: '.8px',
+                                                                    boxShadow: 'none', // Remove box-shadow entirely
+                                                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
+                                                                    '&:hover': {
+                                                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                                                    },
+                                                                }),
+
+                                                                option: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    fontSize: '15px' // Smaller font size for each option
+
+                                                                }),
+                                                                indicatorSeparator: () => ({
+                                                                    display: 'none', // Hide the line near the arrow button
+                                                                }),
+                                                            }}
+                                                        />
+                                                        <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"paymentStatus"} component='div' />
+                                                    </div>
                                                 </Col>
                                             </Row >
                                             <br></br>
@@ -274,49 +311,13 @@ function AddInvoice({ id, email, companyName }) {
                                                     <InputComponent label={"Commission"} type={"text"} value={profileProps.values.commission} name='commission' onChange={profileProps.handleChange} placeholder={"Enter commission"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"commission"} component='div' />
                                                 </Col>
-                                                <Col md='6'>
-                                                    <div className=' relative'>
-                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Payment Status"}</span>
-                                                        <Select
-                                                            placeholder="Payment status"
-                                                            options={paymentStatusDetails}
-                                                            name="paymentStatus"
-                                                            value={profileProps.values.paymentStatus}
-                                                            // value={[{value:"IN",label:'India'}]}
-                                                            onChange={value => profileProps.setFieldValue('paymentStatus', value)}
-                                                            styles={{
-                                                                control: (baseStyles, state) => ({
-                                                                    ...baseStyles,
-                                                                    borderRadius: '8px', // Add border-radius
-                                                                    border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '15px',
-                                                                    letterSpacing: '.8px',
-                                                                    boxShadow: 'none', // Remove box-shadow entirely
-                                                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
-                                                                    '&:hover': {
-                                                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
-                                                                    },
-                                                                }),
-
-                                                                option: (baseStyles, state) => ({
-                                                                    ...baseStyles,
-                                                                    fontSize: '15px' // Smaller font size for each option
-
-                                                                }),
-                                                                indicatorSeparator: () => ({
-                                                                    display: 'none', // Hide the line near the arrow button
-                                                                }),
-                                                            }}
-                                                        />
-                                                        <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"paymentStatus"} component='div' />
-                                                    </div>
-                                                </Col>
+                                                
                                             </Row >
                                             {/* <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
                                                 Submit
                                             </Btn> */}
                                             < div className=' w-[120px] mt-3' >
-                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded" type="submit">
+                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
                                                     Submit
                                                 </button>
                                             </div >
