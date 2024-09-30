@@ -127,7 +127,8 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                         console.log(res, 'res');
                         toast.success("Affiliate assigned successfull")
                         setSubmitLoading(false);
-                        setSelectedUsers([])
+                        setSelectedUsers([]);
+                        setCurrentPage(1);
                     }
                 })
                 .catch((err) => {
@@ -235,22 +236,34 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                     :
 
                     <div className=' flex flex-col gap-3'>
-
                         <div className='mb-3'>
-                            <div className='flex w-full justify-between px-1 py-2 mb-2'>
+                            <div className='flex w-full justify-start gap-2 px-1 py-2 mb-2'>
                                 <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                     <IoArrowBack size={20} />
                                 </span>
+                                <span className=' font-semibold text-[20px]'>
+                                    Manage Assign
+                                </span>
                             </div>
-                            <hr className='mb-2' />
-
+                            {/* <hr className='mb-1' /> */}
                             <span className=' font-semibold text-[20px]'>
                                 Assigned Users
                             </span>
+
                             {
                                 AssignedListData?.rows?.length <= 0 || AssignedListData?.rows == undefined ?
-                                    <div className=' w-full flex items-center justify-center mt-2'>
-                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                                    <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                                        <table className='bg-white border-t border-l border-r '>
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>User Email</th>
+                                                    <th>Location</th>
+                                                    <th>City</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>
@@ -292,11 +305,11 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div className=' w-full flex justify-between items-center mt-3'>
+                                        <div className=' w-full flex justify-end items-center mt-3'>
 
-                                            <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 '>
+                                            {/* <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 '>
                                                 Submit
-                                            </button>
+                                            </button> */}
                                             <Pagination
                                                 shape="rounded"
                                                 variant="outlined"
@@ -310,18 +323,27 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             }
                         </div>
 
-                        <br />
+                        {/* <br /> */}
                         <hr />
 
-                        <div className=' mt-2'>
+                        <div className=' mt-1'>
                             <span className='font-semibold text-[20px]'>
-
                                 Not Assigned Users
                             </span>
                             {
                                 NotAssignedlistData?.result?.rows?.length <= 0 || NotAssignedlistData?.result?.rows == undefined ?
-                                    <div className=' w-full flex items-center justify-center'>
-                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                                    <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                                        <table className='bg-white border-t border-l border-r '>
+                                            <thead>
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>User Email</th>
+                                                    <th>Location</th>
+                                                    <th>City</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>

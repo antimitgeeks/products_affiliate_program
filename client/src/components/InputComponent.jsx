@@ -15,14 +15,15 @@ function InputComponent(
         fileName,
         auto,
         disabled,
-        id
+        id,
+
     }
 ) {
     return (
 
         <div className=' w-full relative'>
             {
-                label && <span className=' pl-[3px] font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span>} </span>
+                label && <span className=' pl-[3px] font-semibold text-[13px]'>{label}  {required && <span className='text-red-400'>*</span>} </span>
             }
             {
                 type == "file" ?
@@ -33,7 +34,9 @@ function InputComponent(
                             name={name}
                             onChange={onChange}
                             className='display-none hidden'
-                            type='file' />
+                            type='file'
+                            accept='.jpg,.jpeg,.png' />
+
 
                         <span className='overflow-hidden truncate .. text-ellipsis w-4/5'>{fileName}</span>
                     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, } from "react-router-dom";
+import { Routes, Route, useNavigate, } from "react-router-dom";
 // import NoPageFound from './Pages/NoPageFound';
 // import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import EmailAuth from './Pages/ForgetPassword/EmailAuth';
@@ -35,16 +35,19 @@ import NoPageFound from './Pages/NoPageFound';
 import TermAndConditions from './Pages/Terms&Condition';
 
 function Routing() {
-    const [authenticateLogin, setAthenticateLogin] = useState(false);
+    const navigate = useNavigate()
     const [decodedToken, setDecodedToken] = useState();
+    const [authenticateLogin, setAthenticateLogin] = useState(false);
     const [role, setRole] = useState('');
-    console.log("Hello from Routing")
 
     const userToken = Cookies.get("isLogged");
     //////// Checking if user is logged or not ////////////  
     useEffect((e) => {
         if (!userToken || userToken === null) {
             setAthenticateLogin(false)
+            if (!window.location.pathname.includes('reset-password')) {
+                navigate('/');
+            }
         }
         else {
             setAthenticateLogin(true)
@@ -63,8 +66,6 @@ function Routing() {
     }, [userToken, authenticateLogin])
 
 
-    console.log(role, 'ROLEaaa');
-    console.log(authenticateLogin, 'AuthenticateLoginaaa')
 
     return (
         <div className=' w-full h-full'>
@@ -89,21 +90,21 @@ function Routing() {
                         </Route>
                         :
                         authenticateLogin ?
-                        <Route path='/dashboard/' element={<Layout />} >
-                            <Route path='' element={<AdminDashboardWrapper />} />
-                            <Route path='profile' element={<ProfileWrapper />} />
-                            <Route path='customer/profile/:id' element={<CustomerProfileWrapper />} />
-                            <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
-                            <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
-                            <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
-                            <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
-                            <Route path='affiliate-links' element={<AdminAffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/edit/:id' element={<EditAffiliateWrapper />} />
-                            <Route path='affiliate-links/assign/:id' element={<AssignAffiliateWrapper />} />
-                        </Route>
-                        :
-                        <Route path='*' element={<><NoPageFound/></>}/>
+                            <Route path='/dashboard/' element={<Layout />} >
+                                <Route path='' element={<AdminDashboardWrapper />} />
+                                <Route path='profile' element={<ProfileWrapper />} />
+                                <Route path='customer/profile/:id' element={<CustomerProfileWrapper />} />
+                                <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
+                                <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
+                                <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
+                                <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
+                                <Route path='affiliate-links' element={<AdminAffiliateLinksWrapper />} />
+                                <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper />} />
+                                <Route path='affiliate-links/edit/:id' element={<EditAffiliateWrapper />} />
+                                <Route path='affiliate-links/assign/:id' element={<AssignAffiliateWrapper />} />
+                            </Route>
+                            :
+                            <Route path='*' element={<><NoPageFound /></>} />
                 }
             </Routes>
         </div>

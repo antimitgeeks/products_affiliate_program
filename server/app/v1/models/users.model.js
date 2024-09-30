@@ -57,6 +57,10 @@ module.exports = (sequelize, Sequelize) => {
         isActive: {
             type: Sequelize.BOOLEAN,
             defaultValue:true
+        },
+        commisionByPercentage: {
+            type: Sequelize.INTEGER,
+            defaultValue:20
         }
     });
 

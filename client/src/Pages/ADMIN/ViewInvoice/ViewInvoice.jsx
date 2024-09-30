@@ -6,9 +6,10 @@ import Select from 'react-select';
 import { useUpdateInvoiceStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { IoArrowBack } from "react-icons/io5";
+import { Pagination } from '@mui/material';
 
 
-function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
+function ViewInvoice({ loading, listData, OverViewData, email, companyName, count, currentPage, setCurrentPage }) {
 
 
   console.log(listData, 'ListDataaa')
@@ -46,6 +47,11 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
         console.log(err, 'catchErr')
       })
 
+  }
+
+  // handle pagination
+  const handlePageChange = (e, page) => {
+    setCurrentPage(page);
   }
 
   return (
@@ -90,19 +96,19 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
                     <div className='font-semibold'>
                       Pending
                     </div>
-                    {OverViewData?.pending || 0} $
+                    ${OverViewData?.pending || 0}
                   </div>
                   <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Paid
                     </div>
-                    {OverViewData?.total || 0} $
+                    ${OverViewData?.total || 0}
                   </div>
                   <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total
                     </div>
-                    {(OverViewData?.pending + OverViewData?.total) || 0} $
+                    ${(OverViewData?.pending + OverViewData?.total) || 0}
                   </div>
                 </div>
               </div>
@@ -149,7 +155,7 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
                             <tr key={indx}>
                               <td>{itm?.transactionId || "N/A"}</td>
                               <td>{itm?.themeName}</td>
-                              <td style={{ paddingLeft: '30px' }}>{itm?.commission || '0'} $ </td>
+                              <td style={{ paddingLeft: '30px' }}>${itm?.commission || '0'} </td>
                               {/* <td>{itm.status}</td> */}
 
                               <Select
@@ -185,8 +191,19 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
 
                     </table>
                   </div>
+
               }
             </div>
+                    <div className='w-full flex justify-end py-4'>
+                      <Pagination
+                        shape="rounded"
+                        variant="outlined"
+                        color="standard"
+                        page={currentPage}
+                        count={count}
+                        onChange={handlePageChange}
+                      />
+                    </div>
 
           </>
 
