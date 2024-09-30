@@ -180,7 +180,7 @@ function AddInvoice({ id, email, companyName }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '15px',
+                                                                    fontSize: '12px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
@@ -289,7 +289,7 @@ function AddInvoice({ id, email, companyName }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '15px',
+                                                                    fontSize: '12px',
                                                                     letterSpacing: '.8px',
                                                                     boxShadow: 'none', // Remove box-shadow entirely
                                                                     borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
@@ -316,7 +316,7 @@ function AddInvoice({ id, email, companyName }) {
                                                 Submit
                                             </Btn> */}
                                             < div className=' w-[120px] mt-3' >
-                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded" type="submit">
+                                                <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
                                                     Submit
                                                 </button>
                                             </div >
