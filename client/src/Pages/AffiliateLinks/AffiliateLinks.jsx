@@ -100,6 +100,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
 
                 {
                   listData?.result?.rows?.map((itm) => {
+                    console.log(itm)
                     return <>
                       <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' object-contain w-1/2 shadow-sm text-center flex justify-center items-center rounded-xl h-[220px]  p-2 bg-slate-100'>
@@ -144,7 +145,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                   </span>
                                 </a>
                               </div>
-                              <a href='https://www.google.com/' target='_blank' className='w-full py-2 rounded px-2 text-center hover:text-white hover:no-underline flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
+                              <a href={itm?.affiliate?.dropboxLink} target='_blank' className='w-full py-2 rounded px-2 text-center hover:text-white hover:no-underline flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
                             </div>
                           </div>
                           <div className=' flex gap-6'>
