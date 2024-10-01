@@ -66,9 +66,9 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     const [DeAssign] = useDeAssignAffiliateMutation()
     const [UpdateCommitssion] = useUpdateCommissionMutation();
 
-    // loading states
-    const [AssignedlistloadingCommission, setAssignedlistloadingCommission] = useState(false);
-    const [NotAssignedlistloadingCommission, setNotAssignedlistloadingCommisson] = useState(false);
+    // loading state
+    const [commissionLoading, setCommissionLoading] = useState(false);
+    const [selectedCommissonIdx, setSelectedCommissonIdx] = useState();
     const paramData = useParams();
     console.log(paramData, 'paramdta');
 
@@ -226,32 +226,89 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
         AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(id) })
 
     }
+    const [commisionToast, setCommissionToast] = useState({
+        message: '',
+        id: ''
+    });
+    let timeoutId;
+    //     UpdateCommitssion({
+    //         Id: id, data: {
+    //             commission: Number(value)
+    //         }
+    //     }).then(res => {
+    //         if (res.error) {
+    //             console.log(res.error, 'res.error');
+    //             toast.error("Internal server error");
+    //             setAssignedlistloadingCommission(false);
 
-    const handleCommison = (value, id) => {
-        console.log(value)
-        setAssignedlistloadingCommission(true)
-        UpdateCommitssion({
-            Id: id, data: {
-                commission: Number(value)
-            }
-        }).then(res => {
-            if (res.error) {
-                console.log(res.error, 'res.error');
-                toast.error("Internal server error");
-                setAssignedlistloadingCommission(false);
+    //         }
+    //         else {
+    //             console.log(res, 'res');
+    //             toast.success("Commission updated successfully");
+    //             setAssignedlistloadingCommission(false);
 
-            }
-            else {
-                console.log(res, 'res');
-                toast.success("Commission updated successfully");
-                setAssignedlistloadingCommission(false);
-
-            }
-        }).catch((err) => {
-            console.log(err);
-            setAssignedlistloadingCommission(false);
-        });
-    }
+    //         }
+    //     }).catch((err) => {
+    //         console.log(err);
+    //         setAssignedlistloadingCommission(false);
+    //     });
+    // }
+    // Function to handle keydown event
+    const handleCommission = (value, id, idx) => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        if (value === "" || value === null || value === undefined) {
+            setCommissionToast(
+                {
+                    message: "Commission is required",
+                    id: idx
+                }
+            );
+            // toast.error("Commission is required");
+            return;
+        }
+        const numericValue = Number(value);
+        if (numericValue < 1 || numericValue > 50) {
+            setCommissionToast(
+                {
+                    message: "Commission should be between 1-50",
+                    id: idx
+                }
+            );
+            // toast.error("Commission should be between 1-50");
+            return;
+        }
+        setCommissionLoading(true);
+        setSelectedCommissonIdx(idx);
+        timeoutId = setTimeout(() => {
+            UpdateCommitssion({
+                Id: id,
+                data: {
+                    commission: numericValue
+                }
+            }).then(res => {
+                if (res.error) {
+                    console.log(res.error, 'res.error');
+                    toast.error("Internal server error");
+                    setCommissionLoading(false);
+                } else {
+                    console.log(res, 'res');
+                    toast.success("Commission updated successfully");
+                    setCommissionLoading(false);
+                }
+            }).catch((err) => {
+                console.log(err);
+                toast.error("An error occurred while updating the commission");
+                setCommissionLoading(false);
+            });
+        }, 500);
+    };
+    const handleKeyDown = (e, value, id, idx) => {
+        if (e.key === 'Enter') {
+            handleCommission(value, id, idx);
+        }
+    };
     console.log(AssignedListData, NotAssignedlistData)
     return (
         <>
@@ -262,9 +319,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             <AiOutlineLoading3Quarters />
                         </span>
                     </div>
-
                     :
-
                     <div className=' flex flex-col gap-3'>
                         <div className='mb-3'>
                             <div className='flex w-full justify-start gap-2 px-1 py-2 mb-2'>
@@ -309,31 +364,32 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         <th>User Email</th>
                                                         <th>Commission</th>
                                                         <th>Location</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     {
-
                                                         AssignedListData?.rows?.map((itm, indx) => (
                                                             <tr key={indx}>
                                                                 <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
-
                                                                     {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
                                                                     <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span>
-
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
-                                                                <td>
-                                                                    <select onChange={(e) => { handleCommison(e.target.value, itm?.user?.id) }} defaultValue={itm?.user?.commisionByPercentage} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
-                                                                        <option value="10">10</option>
-                                                                        <option value="20">20</option>
-                                                                        <option value="40">40</option>
-                                                                        <option value="80">80</option>
-                                                                        <option value="90">90</option>
-                                                                        <option value="100">100</option>
-                                                                    </select>
+                                                                <td className='relative'>
+                                                                    {commissionLoading && selectedCommissonIdx == indx ?
+                                                                        <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                        </span> :
+                                                                        <input
+                                                                            type="number"
+                                                                            min="1"
+                                                                            max="50"
+                                                                            defaultValue={itm?.user?.commisionByPercentage}
+                                                                            onChange={() => setCommissionToast({ message: "", id: '' })}
+                                                                            onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.user?.id, indx)} // Only handle keydown
+                                                                            className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
+                                                                        />}
+                                                                    {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
                                                                 </td>
                                                                 <td>{itm?.user?.city},  {itm?.user?.country || "N/A"}</td>
                                                             </tr>
@@ -402,27 +458,32 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     </thead>
                                                     <tbody>
 
-                                                        {
-
-                                                            NotAssignedlistData?.result?.rows?.map((itm, indx) => (
-                                                                <tr key={indx} className=''>
-                                                                    <td className='  pl-[30px]'>
-                                                                        <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
-                                                                    </td>
-                                                                    <td className=''>{itm?.email || "N/A"}</td>
-                                                                    <td>
-                                                                        <select onChange={(e) => { handleCommison(e.target.value, itm?.id) }} defaultValue={itm?.commisionByPercentage} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
-                                                                            <option value="10">10</option>
-                                                                            <option value="20">20</option>
-                                                                            <option value="40">40</option>
-                                                                            <option value="80">80</option>
-                                                                            <option value="90">90</option>
-                                                                            <option value="100">100</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td>{itm?.city},  {itm?.country || "N/A"}</td>
-                                                                </tr>
-                                                            ))
+                                                        {NotAssignedlistData?.result?.rows?.map((itm, indx) => (
+                                                            <tr key={indx} className=''>
+                                                                <td className='  pl-[30px]'>
+                                                                    <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
+                                                                </td>
+                                                                <td className=''>{itm?.email || "N/A"}</td>
+                                                                <td className='relative'>
+                                                                    {commissionLoading && selectedCommissonIdx == indx ?
+                                                                        <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                        </span> :
+                                                                        <input
+                                                                            disabled={!SelectedUsers?.includes(itm?.id)}
+                                                                            type="number"
+                                                                            min="1"
+                                                                            max="50"
+                                                                            defaultValue={itm?.commisionByPercentage}
+                                                                            onChange={() => setCommissionToast({ message: "", id: '' })}
+                                                                            onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)} // Only handle keydown
+                                                                            className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
+                                                                        />}
+                                                                    {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
+                                                                </td>
+                                                                <td>{itm?.city},  {itm?.country || "N/A"}</td>
+                                                            </tr>
+                                                        ))
                                                         }
                                                         <tr className="spacer-row">
                                                             <td colSpan="5"></td>
