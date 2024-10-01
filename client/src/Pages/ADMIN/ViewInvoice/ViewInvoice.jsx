@@ -66,7 +66,7 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
           :
 
           <>
-            <p className='text-[20px] font-semibold'>Invoice View</p>
+            <p className='text-[20px] font-semibold'>Invoices</p>
 
 
 
