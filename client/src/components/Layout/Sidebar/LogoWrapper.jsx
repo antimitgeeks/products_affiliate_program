@@ -62,7 +62,7 @@ const LogoWrapper = () => {
               <span className=' m-auto h-[53px] duration-600 ease-in-out w-[66px] bg-orange hover:text-black my-3 mb-4 flex items-center justify-center text-[19.5px] font-semibold mt-3 pt-2 ml-[11px]'>Hello !</span>
               :
               <span className='overflow-hidden flex break-all w-[245px] capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
-                Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.slice(0,25) + "!"}
+                Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.slice(0,25) || '' + "!"}
               </span>
           }
         </Link>

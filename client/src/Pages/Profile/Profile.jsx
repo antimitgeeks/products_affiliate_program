@@ -118,7 +118,7 @@ function Profile({ listData, loading }) {
                   </div>
                   :
                   <>
-                    <p className='text-[20px] font-semibold mb-3 pb-2'>Profile</p>
+                    <p className='text-[20px] font-semibold mb-3 pb-2'>Account</p>
                     <Fragment>
                       <Card className=' w-full'>
                         {/* <CardHeader className='pb-0'>
@@ -126,7 +126,7 @@ function Profile({ listData, loading }) {
                       </CardHeader> */}
                         <div className='pb-0 pt-4 px-[26px]'>
                           <span className='text-[20px]'>
-                            Profile Update
+                            Update Profile
                           </span>
                         </div>
                         <CardBody>

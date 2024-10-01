@@ -28,7 +28,7 @@ const ProfileBox = () => {
     else {
       setLoading(false);
       setListData(data?.result);
-      setCookieProfile(data?.result?.result?.companyName)
+      setCookieProfile(data?.result?.result?.companyName || "")
 
     }
   }, [listLoading, data, listFetching])
