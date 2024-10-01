@@ -33,7 +33,7 @@ const LoginTab = (props) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
         return emailRegex.test(value);
       }),
-    password: yup.string().trim("Enter valid password").required("Password field cannot be empty").strict(),
+    password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password field cannot be empty").strict(),
   });
   useEffect(() => {
     if (isLogged) {
@@ -91,7 +91,7 @@ const LoginTab = (props) => {
                   <div className="relative">
                     <InputComponent label={"Email"} placeholder={"Enter email address"} value={loginProps.values.email} name={"email"} type="text" onChange={handleInputChange} />
                     <div className="flex w-full items-center absolute bottom-[-20px]">
-                      <span className="text-red-400 text-[14px]">
+                      <span className="text-red-400 text-[12px]">
                         {toastMessage == '"email" must be a valid email' && "Enter valid email address"}
                       </span>
                     </div>
@@ -99,7 +99,7 @@ const LoginTab = (props) => {
                   <div className=" relative flex gap-1 justify-between">
                     <InputComponent label={"Password"} placeholder={"Enter password"} value={loginProps.values.password} name={"password"} type={showPassword == "password" ? "password" : "text"} onChange={handleInputChange} />
                     <div className="flex w-full items-center absolute bottom-[-20px]">
-                      <span className="text-red-400 text-[14px]">
+                      <span className="text-red-400 text-[12px]">
                         {toastMessage == 'Invalid Credential' && "Enter the correct password"}
                       </span>
                     </div>
@@ -119,7 +119,7 @@ const LoginTab = (props) => {
                 </FormGroup>
                 <div className="relative">
                   <div className="flex w-full items-center justify-center absolute top-[-25px]">
-                    <span className="text-red-400 text-[14px]">
+                    <span className="text-red-400 text-[12px]">
                       {toastMessage == 'User Not Found' ? "User Not Found" : toastMessage === "Your account is deactivated" && "Your account is deactivated"}
                     </span>
                   </div>

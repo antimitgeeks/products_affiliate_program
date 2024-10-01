@@ -32,7 +32,7 @@ function AssignAffiliateWrapper() {
 
     const [NotAssignedlistData, setNotAssignedListData] = useState([]);
     const [notAssignedlistloading, setnotAssignedListLoading] = useState(false);
-
+    console.log(NotAssignedlistData)
     useEffect(() => {
         if (listLoading || listFetching) {
             setnotAssignedListLoading(true)
@@ -55,7 +55,7 @@ function AssignAffiliateWrapper() {
 
     const [AssignedListData, setAssignedListData] = useState([]);
     const [Assignedlistloading, setAssignedListLoading] = useState(false);
-
+    console.log(AssignedListData)
     useEffect(() => {
         if (AssignedlistLoading || AssignedlistFetching) {
             setAssignedListLoading(true)
@@ -63,12 +63,12 @@ function AssignAffiliateWrapper() {
         else {
             setAssignedListLoading(false);
             setAssignedListData(AssignedData?.result);
-            setAssignedCount(Math.ceil(AssignedData?.result?.count / dataPerPage ))
+            setAssignedCount(Math.ceil(AssignedData?.result?.count / dataPerPage))
         }
     }, [AssignedlistFetching, AssignedData, AssignedlistLoading])
 
     return (
-        <div className='page-body pb-5 px-4'>
+        <div className='page-body py-4 px-4'>
             <AssignAffiliate AssignedListData={AssignedListData} Assignedlistloading={Assignedlistloading} NotAssignedlistData={NotAssignedlistData} notAssignedlistloading={notAssignedlistloading} setCurrentPage={setCurrentPage} setAssignedCurrentPage={setAssignedCurrentPage} currentPage={currentPage} AssignedcurrentPage={AssignedcurrentPage} count={count} Assignedcount={Assignedcount} />
         </div>
     )

@@ -62,6 +62,10 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
     },
   });
 
+  const currentMonth = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+  console.log(currentMonth, currentYear, selectedYear);
+
 
 
   useEffect(() => {
@@ -201,7 +205,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
               <Select
                 className='rounded w-full'
-                options={MonthList}
+                options={selectedYear === currentYear ? MonthList.slice(0, currentMonth) : MonthList}
                 onChange={handleMonthChange}
                 defaultValue={MonthList.find(month => month.value === selectedMonth)}
                 styles={{
@@ -235,14 +239,11 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
-                <span className='font-semibold text-[17.5px] pl-5'>Total Purchases on {monthNames[selectedMonth]} : {purchaseCount}</span>
+                <span className='font-semibold text-[17.5px] pl-5'>Total purchases in {monthNames[selectedMonth]} : {purchaseCount}</span>
                 {/* <span>TOtal</span> */}
                 {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
-
               </div>
-
               <div className='relative w-full flex items-center '>
-
                 <ReactApexChart
                   options={chartState?.options}
                   // series={chartState?.series}
@@ -257,7 +258,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
                   className="px-3 w-full max-w-full"
                 />
-                <span className='absolute left-[-38px] text-[14px] top-[150px]'>Purchases</span>
+                <span className='absolute left-[-38px] text-[14px] top-[150px]'>Counts</span>
               </div>
               <div className='w-full flex justify-center'>
                 <span className=' pl-[0px] m-auto text-[14px]'>Days</span>

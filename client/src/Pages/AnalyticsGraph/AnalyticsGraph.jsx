@@ -44,6 +44,9 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
     },
   });
 
+  const currentMonth = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+  console.log(currentMonth, currentYear, selectedYear);
   useEffect(() => {
     // Get day from the date string
     const getDay = (dateString) => new Date(dateString).getDate();
@@ -133,7 +136,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
 
               <Select
                 className='rounded w-full'
-                options={MonthList}
+                options={selectedYear === currentYear ? MonthList.slice(0, currentMonth) : MonthList}
                 onChange={handleMonthChange}
                 defaultValue={MonthList.find(month => month.value === selectedMonth)}
                 styles={{
@@ -164,7 +167,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
           <div className='w-full flex flex-col gap-12 pt-6'>
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between py-2'>
-                <span className='font-semibold text-[17.5px] capitalize pl-5'> Total Purchases on  {monthNames[selectedMonth]} : {totalCount}</span>
+                <span className='font-semibold text-[17.5px] pl-5'> Total purchases in  {monthNames[selectedMonth]} : {totalCount}</span>
                 {/* <span className='font-semibold text-[17px]'>
                   Total: {totalCount}
                 </span> */}
@@ -183,7 +186,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                   height={350}
                   className="px-3 w-full max-w-full"
                 />
-                <span className='absolute left-[-25px] text-[14px] top-[150px]'>Clicks</span>
+                <span className='absolute left-[-25px] text-[14px] top-[150px]'>Counts</span>
 
               </div>
               <div className='w-full flex justify-center'>

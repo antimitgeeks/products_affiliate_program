@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Pagination } from '@mui/material';
+import { BsExclamationCircle } from "react-icons/bs";
 
-function Dashboard({ loading, listData, overviewLoading, overviewData, setCurrentPage, currentPage, count }) {
+function Dashboard({ loading, listData, overviewLoading, overviewData, setCurrentPage, currentPage, count, commision }) {
 
   const navigate = useNavigate();
 
@@ -18,6 +19,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
   return (
     <>
       <p className='text-[20px] font-semibold'>Overview</p>
+      <p className='font-semibold flex items-center gap-[5px]'><BsExclamationCircle /> As a registered partner, you earn {commision} % for every purchase made by your recommendation.</p>
 
       {
         loading || overviewLoading ?
@@ -69,7 +71,6 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                         <tr className='py-0'>
                           <th>Transaction Id</th>
                           <th>Product</th>
-                          <th>Domain</th>
                           <th>Commission</th>
                           <th>Status</th>
                           <th>Date</th>
@@ -88,7 +89,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                           <tr className='py-2'>
                             <th>Transaction Id</th>
                             <th>Product</th>
-                            <th>Domain</th>
+
                             <th>Commission</th>
                             <th>Status</th>
                             <th>Date</th>
@@ -99,7 +100,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                             <tr key={invoice?.id}>
                               <td>{invoice?.transactionId || 'N/A'}</td>
                               <td>{invoice?.themeName}</td>
-                              <td>{invoice?.domain}</td>
+
                               <td style={{ paddingLeft: '40px' }}>${invoice?.commission}</td>
                               <td>{invoice?.status}</td>
                               <td>{invoice?.createdAt
