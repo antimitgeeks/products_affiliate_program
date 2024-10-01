@@ -1,5 +1,6 @@
 const shortid = require('shortid');
 const db = require("../models");
+
 const { Op } = require('sequelize')
 const Sequelize = require('sequelize');
 const Affiliate = db.affiliate;
@@ -33,7 +34,7 @@ exports.addAffiliate = async (req, res, shortId) => {
         const host = await req.headers.host
         details.shortUrl = `${host}/${shortId}`
         const result = await Affiliate.create(details)
-        const users  = await Users.findAll()
+        const users = await Users.findAll()
         const bulkData = [];
         for (const user of users) {
             bulkData.push({
@@ -128,21 +129,21 @@ exports.getAffiliate = async (req, res) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
         const query = req.body.search || ""
-        
-        console.log(query,"query")
+
+        console.log(query, "query")
         const result = await Affiliate.findAndCountAll({
             limit: limit,
             offset: offset,
-            where:{
-                [Op.or]:{
-                name:{
-                    [Op.like]:`${query}%`,
-                    // [Op.like]: {shortId:`${query}%`}
-                },
-                shortId:{
-                    [Op.like]:`${query}%`
+            where: {
+                [Op.or]: {
+                    name: {
+                        [Op.like]: `${query}%`,
+                        // [Op.like]: {shortId:`${query}%`}
+                    },
+                    shortId: {
+                        [Op.like]: `${query}%`
+                    }
                 }
-            }
             },
             order: [
                 ['createdAt', 'DESC'],
@@ -192,32 +193,54 @@ exports.getAffiliate = async (req, res) => {
 }
 
 //add assgin affiliate service
+
 exports.addAssignAffiliate = async (id, details) => {
+    const transaction = await db.sequelize.transaction();
     try {
-        const addedValue = await details.userId.map(async (i) => {
-            return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: id, userId: i }])
 
-        })
-        const result = await Promise.all(addedValue).then((i) => {
-            return i
-        })
+        const addedValue = await Promise.all(details.details.map(async (i) => {
+            const result = await Users.update(
+                { commisionByPercentage: i.commision },
+                {
+                    where: { id: i.userId },
+                    transaction,
+                }
+            );
 
-        if (addedValue) {
+
+            if (result[0] === 0) {
+                return false
+            }
+
+            return {
+                affiliateId: id,
+                userId: i.userId,
+            };
+        }));
+        if (!addedValue[0] == false) {
+            const createdAssign = await AssignAffiliate.bulkCreate(addedValue, { transaction });
+
+            await transaction.commit();
+
             return {
                 status: true,
-                result: result
-            }
+                result: createdAssign,
+            };
         }
-        return false
+        await transaction.rollback()
+
     } catch (error) {
-        console.log(error)
+
+        await transaction.rollback();
+        console.log('Error occurred:', error);
+
         return {
             status: false,
-            result: error
-        }
+            result: error.message,
+        };
     }
+};
 
-}
 
 exports.updateAffiliate = async (id, body, req) => {
 
