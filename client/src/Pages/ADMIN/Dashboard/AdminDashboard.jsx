@@ -145,12 +145,12 @@ function AdminDashboard({
     }
   };
 
-  // const handleBlur = (e, oldValue) => {
-  //   console.log('firstdsfhgdfg dfghs --- ---fdxg- - ------ -----')
-  //   if (e.target.value === 0 || e.target.value > 50 || e.target.value < 0) {
-  //     e.target.value = oldValue;
-  //   }
-  // }
+  const handleBlur = (e, oldValue) => {
+    if (e.target.value === '' || e.target.value > 50 || e.target.value < 0) {
+      setCommissionToast({ message: "", id: '' });
+      e.target.value = oldValue;
+    }
+  }
 
   console.log(ListData)
   return (
@@ -223,7 +223,7 @@ function AdminDashboard({
                                   defaultValue={itm?.commisionByPercentage}
                                   onChange={handleChange}
                                   onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)}
-                                  // onBlur={(e) => handleBlur(e, itm?.commisionByPercentage)}
+                                  onBlur={(e) => handleBlur(e, itm?.commisionByPercentage)}
                                   className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
                                 />}
                               {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
