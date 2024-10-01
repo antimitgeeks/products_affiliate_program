@@ -290,7 +290,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     <th>User Email</th>
                                                     <th>Commission</th>
                                                     <th>Location</th>
-                                                    <th>City</th>
+
                                                 </tr>
                                             </thead>
                                         </table>
@@ -309,7 +309,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         <th>User Email</th>
                                                         <th>Commission</th>
                                                         <th>Location</th>
-                                                        <th>City</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -335,9 +335,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                         <option value="100">100</option>
                                                                     </select>
                                                                 </td>
-                                                                <td>{itm?.user?.country || "N/A"}</td>
-                                                                <td>{itm?.user?.city || "N/A"}</td>
-
+                                                                <td>{itm?.user?.city},  {itm?.user?.country || "N/A"}</td>
                                                             </tr>
                                                         ))
                                                     }
@@ -382,7 +380,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     <th>User Email</th>
                                                     <th>Commission</th>
                                                     <th>Location</th>
-                                                    <th>City</th>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -401,7 +398,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                             <th>User Email</th>
                                                             <th>Commission</th>
                                                             <th>Location</th>
-                                                            <th>City</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -424,8 +420,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                             <option value="100">100</option>
                                                                         </select>
                                                                     </td>
-                                                                    <td>{itm?.country || "N/A"}</td>
-                                                                    <td>{itm?.city || "N/A"}</td>
+                                                                    <td>{itm?.city},  {itm?.country || "N/A"}</td>
                                                                 </tr>
                                                             ))
                                                         }
