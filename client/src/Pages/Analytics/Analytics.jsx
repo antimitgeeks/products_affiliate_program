@@ -9,7 +9,6 @@ import { Pagination } from '@mui/material';
 
 
 function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading, analyticsData, affiliatesData, selectedMonth, setSelectedMonth, count, setCurrentPage, currentPage }) {
-
   const navigate = useNavigate();
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
@@ -239,7 +238,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
-                <span className='font-semibold text-[17.5px] pl-5'>Total purchases in {monthNames[selectedMonth]} : {purchaseCount}</span>
+                <span className='font-semibold text-[17.5px] pl-5'>Total purchases in {monthNames[selectedMonth]}, {selectedYear} : {purchaseCount}</span>
                 {/* <span>TOtal</span> */}
                 {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
               </div>
@@ -316,7 +315,13 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                                 <td>{affiliate.affiliate?.name}</td>
                                 <td className='pl-[30px]'>{affiliate?.clicks}</td>
                                 <td>{affiliate?.createdAt
-                                  ? new Date(affiliate?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+                                  ? (() => {
+                                    const date = new Date(affiliate.createdAt);
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    const month = date.toLocaleString('en-GB', { month: 'long' });
+                                    const year = date.getFullYear();
+                                    return `${day} ${month} ${year}`;
+                                  })()
                                   : 'N/A'}</td>
                                 <td style={{ width: '40px' }} className='pl-[30px] w-fit '><MdRemoveRedEye onClick={() => viewGraphHandle(affiliate?.id, affiliate.affiliate?.name)} className='w-fit cursor-pointer hover:opacity-90' size={20} /></td>
                               </tr>
@@ -329,9 +334,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                       </div>
                     </div>
               }
-
             </div>
-
             <div className='w-full flex justify-end pb-4'>
               {
                 affiliatesData?.result?.length <= 0 || affiliatesData?.result == undefined ?
@@ -346,17 +349,11 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                     onChange={handlePageChange}
                   />
               }
-
             </div>
-
-
           </div>
         </div>
       </>}
-
-
     </>
-
   )
 }
 

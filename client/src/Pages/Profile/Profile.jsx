@@ -55,8 +55,8 @@ function Profile({ listData, loading }) {
     }).nullable().required("Country is required"),
     city: yup.string().trim("Enter valid city").required("City is required").strict(),
     address: yup.string().trim("Enter valid address").required("Address is required").strict(),
-    companyName: yup.string().trim("Enter valid companyName").required("Company name is required").strict(),
-    companyUrl: yup.string().url("Enter a valid company url").trim("Enter valid company url").required("Company url is required").strict(),
+    companyName: yup.string().trim("Enter valid companyName").strict(),
+    companyUrl: yup.string().url("Enter a valid company url").trim("Enter valid company url").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
   });
 
