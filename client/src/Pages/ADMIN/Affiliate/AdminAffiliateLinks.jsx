@@ -47,8 +47,8 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
 
     }
 
-    const handleDeleteClick = (id) => {
-        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(id) })
+    const handleDeleteClick = (id, name) => {
+        AlertComponent({ heading: `Are you sure you want to delete the ${name} ? `, handleDeleteYes: () => handleDeleteYes(id) })
     }
 
     return (
@@ -113,7 +113,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                     <span onClick={() => { handleEdit(itm?.id, itm?.name) }} className=' pl-[20px] cursor-pointer hover:opacity-90 '>
                                                                         <FaEdit size={18} />
                                                                     </span>
-                                                                    <span onClick={() => handleDeleteClick(itm?.id)} className=' cursor-pointer'>
+                                                                    <span onClick={() => handleDeleteClick(itm?.id, itm?.name)} className=' cursor-pointer'>
                                                                         <MdDelete size={19} />
                                                                     </span>
                                                                 </div>

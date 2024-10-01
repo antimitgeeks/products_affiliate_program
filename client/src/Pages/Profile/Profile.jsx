@@ -42,8 +42,8 @@ function Profile({ listData, loading }) {
   };
 
   const validationSchema = yup.object().shape({
-    payPalAddress: yup.string().trim("Enter valid PayPal address").required("PayPal address is required").email("PayPal address must be valid")
-      .test('is-valid-email', 'PayPal address must be valid', value => {
+    payPalAddress: yup.string().trim("Enter the valid PayPal address").required("PayPal address is required").email("Enter the valid PayPal address")
+      .test('is-valid-email', 'Enter the valid PayPal address', value => {
         if (!value) return false; // Ensure it's not empty
         // Use a regex to validate email format more strictly if needed
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
