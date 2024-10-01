@@ -118,7 +118,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             toast.error("Select at least one user")
         }
         else {
-
+            console.log(SelectedUsers, "this is the selected user in 121")
             let dataForApi = {
                 "details": SelectedUsers
             }
@@ -345,7 +345,15 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     }
     const handleKeyDown = (e, value, id, idx, type) => {
         if (type === 'assign') {
-            handleCommissionArray(value, id, idx);
+            const newValue = e.target.value;
+            if (newValue === '' || /^\d{1,2}$/.test(newValue)) {
+                setCommissionToast({ message: "", id: '' });
+                e.target.value = newValue;
+                console.log("new value before going in handle commission array", newValue);
+                handleCommissionArray(newValue, id, idx);
+            } else {
+                e.target.value = e.target.value.slice(0, 2);
+            }
         } else if (type === 'notAssign') {
             if (e.key === 'Enter') {
                 handleCommission(value, id, idx);
@@ -424,17 +432,17 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     {
                                                         AssignedListData?.rows?.map((itm, indx) => (
                                                             <tr key={indx}>
-                                                                <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
+                                                                <td className='pl-[25px]'>
                                                                     {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
                                                                     <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span>
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
-                                                                <td className='relative'>
+                                                                <td className='relative '>
                                                                     {commissionLoading && selectedCommissonIdx == indx ?
                                                                         <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
                                                                             <AiOutlineLoading3Quarters />
                                                                         </span> :
-                                                                        <input
+                                                                        <div className='flex relative'><input
                                                                             type="number"
                                                                             min="1"
                                                                             max="50"
@@ -442,8 +450,11 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                             onChange={handleChange}
                                                                             onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.user?.id, indx, 'notAssign')}
                                                                             onBlur={(e) => handleBlur(e, itm?.user?.commisionByPercentage)}
-                                                                            className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
-                                                                        />}
+                                                                            className="bg-white border border-black  text-black text-sm rounded-lg focus:ring-black focus:border-black block w-fit p-2.5"
+                                                                        />
+                                                                            <span className='absolute top-[24%] text-[14px] left-[20%]'>%</span>
+                                                                        </div>
+                                                                    }
                                                                     {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
                                                                 </td>
                                                                 <td>{itm?.user?.city},  {itm?.user?.country || "N/A"}</td>
@@ -520,17 +531,21 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                 </td>
                                                                 <td className=''>{itm?.email || "N/A"}</td>
                                                                 <td className='relative'>
-                                                                    {<input
-                                                                        disabled={SelectedUsers?.findIndex(obj => obj.userId == itm.id) >= 0 ? false : true}
-                                                                        type="number"
-                                                                        min="1"
-                                                                        max="50"
-                                                                        defaultValue={itm?.commisionByPercentage}
-                                                                        onChange={(e) => handleKeyDown(e, e.target.value, itm?.id, indx, 'assign')}
-                                                                        // Only handle keydown
-                                                                        className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
-                                                                    />}
-                                                                    {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
+                                                                    {
+                                                                        <div className='flex relative'><input
+                                                                            disabled={SelectedUsers?.findIndex(obj => obj.userId == itm.id) >= 0 ? false : true}
+                                                                            type="number"
+                                                                            min="1"
+                                                                            max="50"
+                                                                            defaultValue={itm?.commisionByPercentage}
+                                                                            onChange={(e) => handleKeyDown(e, e.target.value, itm?.id, indx, 'assign')}
+                                                                            // Only handle keydown
+                                                                            className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-fit p-2.5"
+                                                                        />
+                                                                            <span className='absolute text-[14px] top-[24%] left-[15%]'>%</span>
+                                                                        </div>
+                                                                    }
+                                                                    {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[-3px]'>{commisionToast.message}</p>}
                                                                 </td>
                                                                 <td>{itm?.city},  {itm?.country || "N/A"}</td>
                                                             </tr>

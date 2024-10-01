@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaLink } from "react-icons/fa6";
+import { FaDropbox, FaLink } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Pagination } from '@mui/material';
 import { FaEdit } from "react-icons/fa";
@@ -68,12 +68,12 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                         <div className=' w-full flex items-center justify-between'>
                             <span>
                                 <span className='font-semibold text-[20px]'>
-                                    Affiliate Links
+                                    Affiliate Products Links
                                 </span>
                             </span>
-                            <span onClick={() => navigate('add')} className=' w-[180px] justify-center flex items-center hover:opacity-90 cursor-pointer p-2 bg-black text-white rounded-full'>
+                            <span onClick={() => navigate('add')} className=' w-[240px] justify-center flex items-center hover:opacity-90 cursor-pointer p-2 bg-black text-white rounded-full'>
                                 <span>
-                                    Create Affiliate Links
+                                    Create Affiliate Product Links
                                 </span>
                             </span>
                         </div>
@@ -89,6 +89,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
 
                                     {
                                         listData?.rows?.map((itm) => {
+                                            console.log(itm)
                                             return <>
 
                                                 <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
@@ -139,7 +140,8 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className=' flex gap-6'>
+                                                        <a href={itm?.dropboxLink} target='_blank' className='w-full py-2 rounded px-2 text-center hover:text-white hover:no-underline mt-2 flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
+                                                        <div className=' flex mt-2 gap-6'>
                                                             <div onClick={() => ManageAssignClick(itm?.id)} className='border rounded px-2 py-1 cursor-pointer'>
                                                                 Manage Assign
                                                             </div>
