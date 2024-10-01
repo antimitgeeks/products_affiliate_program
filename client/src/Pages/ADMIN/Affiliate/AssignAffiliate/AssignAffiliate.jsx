@@ -352,6 +352,21 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             }
         }
     };
+    const handleChange = (e) => {
+        const newValue = e.target.value;
+        if (newValue === '' || /^\d{1,2}$/.test(newValue)) {
+            setCommissionToast({ message: "", id: '' });
+            e.target.value = newValue;
+        } else {
+            e.target.value = e.target.value.slice(0, 2);
+        }
+    };
+    const handleBlur = (e, oldValue) => {
+        if (e.target.value === '' || e.target.value > 50 || e.target.value < 0) {
+            setCommissionToast({ message: "", id: '' });
+            e.target.value = oldValue;
+        }
+    }
     console.log(AssignedListData, NotAssignedlistData)
     return (
         <>
@@ -403,23 +418,18 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         <th>User Email</th>
                                                         <th>Commission</th>
                                                         <th>Location</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     {
-
                                                         AssignedListData?.rows?.map((itm, indx) => (
                                                             <tr key={indx}>
                                                                 <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
-
                                                                     {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
                                                                     <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span>
-
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
-                                                                <td>
+                                                                <td className='relative'>
                                                                     {commissionLoading && selectedCommissonIdx == indx ?
                                                                         <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
                                                                             <AiOutlineLoading3Quarters />
@@ -429,12 +439,12 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                             min="1"
                                                                             max="50"
                                                                             defaultValue={itm?.user?.commisionByPercentage}
-                                                                            onChange={() => setCommissionToast({ message: "", id: '' })}
-                                                                            onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.user?.id, indx, 'notAssign')} // Only handle keydown
+                                                                            onChange={handleChange}
+                                                                            onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.user?.id, indx, 'notAssign')}
+                                                                            onBlur={(e) => handleBlur(e, itm?.user?.commisionByPercentage)}
                                                                             className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
                                                                         />}
                                                                     {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
-
                                                                 </td>
                                                                 <td>{itm?.user?.city},  {itm?.user?.country || "N/A"}</td>
                                                             </tr>
@@ -509,7 +519,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                     <input value={itm?.id} checked={SelectedUsers?.findIndex(obj => obj.userId === itm?.id) >= 0 ? true : false} onChange={handleCheckboxChange} type="checkbox" />
                                                                 </td>
                                                                 <td className=''>{itm?.email || "N/A"}</td>
-                                                                <td>
+                                                                <td className='relative'>
                                                                     {<input
                                                                         disabled={SelectedUsers?.findIndex(obj => obj.userId == itm.id) >= 0 ? false : true}
                                                                         type="number"
