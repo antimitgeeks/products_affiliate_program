@@ -211,9 +211,9 @@ function AdminDashboard({
                       <tbody>
                         {ListData?.rows?.map((itm, indx) => (
                           <tr key={indx}>
-                            <td>{itm?.companyName}</td>
+                            <td>{itm?.companyName || '-'}</td>
                             <td>{itm?.userId}</td>
-                            <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
+                            <td><span className=''>{itm?.email}</span></td>
                             <td className='relative'>
                               {commissionLoading && selectedCommissonIdx == indx ?
                                 <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>

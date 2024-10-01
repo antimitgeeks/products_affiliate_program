@@ -143,7 +143,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                         <a href={itm?.dropboxLink} target='_blank' className='w-full py-2 rounded px-2 text-center hover:text-white hover:no-underline mt-2 flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
                                                         <div className=' flex mt-2 gap-6'>
                                                             <div onClick={() => ManageAssignClick(itm?.id)} className='border rounded px-2 py-1 cursor-pointer'>
-                                                                Manage Assign
+                                                                Assigned users
                                                             </div>
                                                         </div>
                                                     </div>

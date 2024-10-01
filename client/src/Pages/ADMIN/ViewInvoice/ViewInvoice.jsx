@@ -81,7 +81,7 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                     <IoArrowBack size={20} />
                   </span>
                   <span className=''>
-                    {companyName || ''}
+                    {companyName || '-'}
                   </span>
                 </div>
 
