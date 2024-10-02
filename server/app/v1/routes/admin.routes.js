@@ -14,5 +14,7 @@ router.delete('/affiliate/assign-delete/:id', controllers.deleteAffiliateAssign)
 router.put('/user-status/:id', authAdmin, controllers.updateUserStatus) //update user status and commision as well
 router.put('/commission/:id', authAdmin, controllers.updateCommission) //update user status and commision as well
 router.post('/affiliate/assignedUsers/:id', authAdmin, controllers.assignedUsers)
+router.put('/update-type/:id',authAdmin,controllers.updateAffiliateType) //update  affilaite type 
+// router.delete(',delete-assign',authAdmin,controllers.deleteAffiliateA)
 
 module.exports = router;

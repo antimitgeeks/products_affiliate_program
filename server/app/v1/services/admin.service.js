@@ -415,6 +415,34 @@ exports.assignedUsers = async (affiliateId) => {
         }
     }
 
+}
 
+//update afffilite type
+exports.updateAffiliateType = async (affiliateId, details) => {
+    
+   const result =  await details.map(async (i) => {
+        await AffiliateAssign.update(
+            { type: i.type },
+            {
+                where: {
+                    [Op.and]: [
+                        { userId: i.userId },
+                        { affiliateId: affiliateId }
 
+                    ]
+                }
+            }
+        )
+    })
+
+    
+
+    if (result) {
+        return {
+            status: true
+        }
+    }
+    return {
+        status: false
+    }
 }

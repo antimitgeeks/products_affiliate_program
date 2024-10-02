@@ -177,6 +177,23 @@ exports.updateCommission = async (req, res) => {
 
     }
 }
+//update afffilite type
+exports.updateAffiliateType = async (req, res) => {
+    try {
+        const affiliateId = req.params.id
+        const details = req.body.details
+        const result = await service.updateAffiliateType(affiliateId,details)
+        if (result.status) {
+            return sendResponse(res, statusCode.OK, true, `Assign Affiliate ${SuccessMessage.UPDATE}`)
+        }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
 
 //get all assigned users of a affiliate
 exports.assignedUsers = async (req, res) => {
