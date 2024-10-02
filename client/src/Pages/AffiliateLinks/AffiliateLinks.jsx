@@ -65,7 +65,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     }
 
     try {
-      const apiUrl = `https://b92c-49-249-2-6.ngrok-free.app/${item}`;
+      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}`;
       console.log(token)
       // Make the API call
       const response = await axios.post(apiUrl, { id: id },
