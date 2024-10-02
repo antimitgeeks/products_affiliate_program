@@ -34,13 +34,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
 
   const HandleRedirectClick = async (item, id, userId, redirectLink, utmId) => {
 
-    // const getData = async () => {
-    //   const res = await axios.get("https://api.ipify.org/?format=json");
-    //   console.log(res.data, 'IP data');
-    //   // setIP(res.data.ip);
-    // };
-    // getData()
-
     const token = Cookies.get('isLogged');
     console.log(item, 'item')
     console.log(id, 'item id')
@@ -65,7 +58,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     }
 
     try {
-      const apiUrl = `https://b92c-49-249-2-6.ngrok-free.app/${item}`;
+      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}?UserId=${userId}`;
       console.log(token)
       // Make the API call
       const response = await axios.post(apiUrl, { id: id },
@@ -100,6 +93,11 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
       toast.error('Internal server error')
     }
   };
+
+  // const HandleRedirectClick = () => {
+
+  // }
+
   return (
     <>
       <p className='text-[20px] font-semibold'>Affiliate Links</p>
@@ -156,15 +154,31 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
                                 </a> */}
+
+                                {/* previous click logic */}
+
                                 <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id, itm?.userId, itm?.affiliate?.link, listData?.result?.uniqueId) }} className='hover:text-black hover:underline'>
                                   {itm?.affiliate?.shortUrl}
                                   {/* <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a> */}
                                 </span>
+
+                                {/* new click logic  */}
+
+                                {/* <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id, itm?.userId, itm?.affiliate?.link, listData?.result?.uniqueId) }} className='hover:text-black hover:underline'>
+                                  {itm?.affiliate?.shortUrl}
+                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a>
+                                </span> */}
+
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
-                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                {/* <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                  Copy link
+                                </span> */}
+                                <span onClick={() => { navigator.clipboard.writeText(`https://product-affiliate-program-jz6xc.ondigitalocean.app/share?shortId=${itm?.affiliate?.shortId}&Id=${itm?.id}&UserId=${itm?.userId}&AffiliateLink=${itm?.affiliate?.link}&UniqueId=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
+
+
                                 <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className=' hover:text-black border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
