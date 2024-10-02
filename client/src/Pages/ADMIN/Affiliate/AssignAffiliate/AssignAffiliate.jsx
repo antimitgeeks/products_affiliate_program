@@ -2,61 +2,15 @@ import React, { useState } from 'react';
 import './AssignAffiliate.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
-import { MdDelete, MdRemoveRedEye } from "react-icons/md";
-import { FaSquarePlus } from "react-icons/fa6";
+import { IoArrowBack } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
-import { Pagination, selectClasses } from '@mui/material';
+import { Pagination } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
 import { useDispatch } from 'react-redux';
-import { ClearAdminAssignSearchQuery } from '../../../../Redux/SearchSlice/SearchSlice.jsx';
-
 
 function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assignedcount, AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
-    const invoices = [
-        {
-            id: 1,
-            themeName: "Elegant Portfolio",
-            domain: "elegantportfolio.com",
-            date: "2024-09-01",
-            commission: "$200",
-            status: "Paid",
-        },
-        {
-            id: 2,
-            themeName: "Modern Blog",
-            domain: "modernblog.net",
-            date: "2024-08-15",
-            commission: "$150",
-            status: "Pending",
-        },
-        {
-            id: 3,
-            themeName: "Tech Startup",
-            domain: "techstartup.io",
-            date: "2024-07-30",
-            commission: "$300",
-            status: "Paid",
-        },
-        {
-            id: 4,
-            themeName: "ItGeeks",
-            domain: "itgeeks.io",
-            date: "2024-08-30",
-            commission: "$100",
-            status: "Paid",
-        },
-        {
-            id: 5,
-            themeName: "Krown",
-            domain: "Krown.io",
-            date: "2024-08-30",
-            commission: "$120",
-            status: "Pending",
-        }
-    ];
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [SelectedUsers, setSelectedUsers] = useState([]);
@@ -65,7 +19,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     const [submitLoading, setSubmitLoading] = useState(false);
     const [DeAssign] = useDeAssignAffiliateMutation()
     const [UpdateCommitssion] = useUpdateCommissionMutation();
-
     // loading state
     const [commissionLoading, setCommissionLoading] = useState(false);
     const [selectedCommissonIdx, setSelectedCommissonIdx] = useState();
@@ -220,7 +173,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     }
 
     const handleDeAssignCLick = (id) => {
-        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(id) })
+        AlertComponent({ heading: "Are you sure you want to delete this user? ", handleDeleteYes: () => handleDeleteYes(id) })
     }
     const [commisionToast, setCommissionToast] = useState({
         message: '',
