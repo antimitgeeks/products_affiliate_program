@@ -4,7 +4,8 @@ import { confirmAlert } from 'react-confirm-alert';
 function AlertComponent(
     {
         handleDeleteYes,
-        heading
+        heading,
+        handleSelected
     }
 ) {
 
@@ -19,6 +20,9 @@ function AlertComponent(
                             <button
                                 onClick={() => {
                                     handleDeleteYes();
+                                    if (handleSelected) {
+                                        handleSelected();
+                                    }
                                     onClose();
                                 }}
                                 className=' py-[3px] px-3 bg-slate-600 rounded-full hover:opacity-75 text-[14px] text-white'
