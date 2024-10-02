@@ -5,7 +5,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
 import { MdDelete, MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
-import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
+import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useDeleteMultiAssignedUserMutation, useUpdateAssignOfAffiliatMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { Pagination, selectClasses } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
@@ -64,11 +64,18 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     const [AssignAffiliate] = useAssignAffiliateMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
     const [DeAssign] = useDeAssignAffiliateMutation()
+    const [DeleteMulti] = useDeleteMultiAssignedUserMutation();
     const [UpdateCommitssion] = useUpdateCommissionMutation();
+    const [UpdateAssign] = useUpdateAssignOfAffiliatMutation();
+    const [checkedOptions, setCheckedOptions] = useState([]);
+
+    const [selectedAssign, setSelectedAssign] = useState();
+    const [assignLoading, setAssignLoading] = useState();
 
     // loading state
     const [commissionLoading, setCommissionLoading] = useState(false);
     const [selectedCommissonIdx, setSelectedCommissonIdx] = useState();
+
     const paramData = useParams();
     console.log(paramData, 'paramdta');
 
@@ -196,8 +203,10 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
         setAssignedCurrentPage(page)
     }
 
-    const handleDeleteYes = (id) => {
-        DeAssign({ Id: id })
+    const handleDeleteYes = () => {
+        let userIds = checkedOptions.map((itm) => itm?.id);
+        console.log(userIds);
+        DeleteMulti({ details: userIds })
             .then((res) => {
                 if (res.error) {
                     console.log(res.error, 'res.error');
@@ -206,7 +215,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                 }
                 else {
                     console.log(res, 'res');
-                    toast.success("Affiliate Unassigned successfull")
+                    toast.success("Deleted user successfully")
                     setSubmitLoading(false);
                     setSelectedUsers([])
                 }
@@ -219,8 +228,8 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
     }
 
-    const handleDeAssignCLick = (id) => {
-        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(id) })
+    const handleDeAssignCLick = () => {
+        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(), handleSelected: () => { setCheckedOptions([]) } })
     }
     const [commisionToast, setCommissionToast] = useState({
         message: '',
@@ -375,11 +384,46 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             e.target.value = oldValue;
         }
     }
-    console.log(AssignedListData, NotAssignedlistData)
+    console.log(AssignedListData, NotAssignedlistData);
+
+    const selectHandleAssign = (type, userID, indx, affiliateID) => {
+        setAssignLoading(true);
+        setSelectedAssign(indx);
+        console.log(type, userID, indx);
+        UpdateAssign({
+            details: [
+                { "userId": userID, "type": type },
+            ], affiliatId: affiliateID
+        })
+            .then((res) => {
+                console.log(res);
+                if (res.error) {
+                    toast.error("Internal server error");
+                    setAssignLoading(false)
+
+                } else {
+                    if (type = "assigned") {
+                        toast.success("User Assigned");
+                        
+                    }
+                    else {
+                        toast.success("User Deassigned");
+                    }
+                    setAssignLoading(false)
+
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                setAssignLoading(true)
+
+                toast.error("Failed to update status");
+            });
+    }
     return (
         <>
             {
-                notAssignedlistloading || Assignedlistloading ?
+                Assignedlistloading ?
                     <div className=' w-full flex items-center justify-center'>
                         <span className=' w-fit flex  items-center justify-center animate-spin'>
                             <AiOutlineLoading3Quarters />
@@ -391,21 +435,19 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                     <IoArrowBack size={20} />
                                 </span>
                                 <span className=' font-semibold text-[20px]'>
-                                    Manage Assign
+                                    Assigned Users
                                 </span>
                             </div>
-                            <hr className='my-4' />
-                            <span className=' font-semibold text-[20px]'>
-                                Assigned Users
-                            </span>
+                            <hr className='my-2' />
                             {
-                                AssignedListData?.rows?.length <= 0 || AssignedListData?.rows == undefined ?
-                                    <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                                AssignedListData?.length <= 0 ?
+                                    <div className='invoices-page   w-full flex items-center flex-col justify-center'>
                                         <table className='bg-white border-t border-l border-r '>
                                             <thead>
                                                 <tr>
                                                     <th>Action</th>
                                                     <th>User Email</th>
+                                                    <th>Assigned Affiliate</th>
                                                     <th>Commission</th>
                                                     <th>Location</th>
                                                 </tr>
@@ -424,19 +466,53 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     <tr>
                                                         <th>Action</th>
                                                         <th>User Email</th>
+                                                        <th>Assigned Affiliate</th>
                                                         <th>Commission</th>
                                                         <th>Location</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody className="relative">
+                                                    <div className='flex w-full justify-start gap-2 px-1 py-2 mb-2'>
+                                                        {checkedOptions.length > 0 && (
+                                                            <div className='absolute top-0 mb-1 w-full flex border justify-between right-0 items-center px-3'>
+                                                                <span className=''>{checkedOptions.length}, selected user</span>
+                                                                <button
+                                                                    className='ml-2 p-1 rounded-full'
+                                                                    onClick={() => { handleDeAssignCLick() }}
+                                                                >
+                                                                    <MdDelete size={20} />
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                     {
-                                                        AssignedListData?.rows?.map((itm, indx) => (
+                                                        AssignedListData?.map((itm, indx) => (
                                                             <tr key={indx}>
                                                                 <td className='pl-[25px]'>
                                                                     {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
-                                                                    <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span>
+                                                                    <input value={itm} checked={checkedOptions.includes(itm)} onChange={(e) => {
+                                                                        if (checkedOptions.includes(itm)) {
+                                                                            setCheckedOptions(prev => prev.filter(obj => obj !== itm))
+                                                                        } else {
+                                                                            setCheckedOptions(prev => [...prev, itm])
+                                                                        }
+                                                                    }} type="checkbox" style={{ accentColor: "black" }} />
+                                                                    {/* <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span> */}
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
+                                                                <td>
+                                                                    {
+                                                                        assignLoading && selectedAssign == indx ?
+                                                                            <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                                <AiOutlineLoading3Quarters />
+                                                                            </span>
+                                                                            :
+                                                                            <select name="status" value={itm?.type} onChange={(e) => selectHandleAssign(e.target.value, itm?.user?.id, indx, itm?.affiliateId)}>
+                                                                                <option value="assigned">Assign</option>
+                                                                                <option value="deAssigned">Deassign</option>
+                                                                            </select>
+                                                                    }
+                                                                </td>
                                                                 <td className='relative '>
                                                                     {commissionLoading && selectedCommissonIdx == indx ?
                                                                         <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
@@ -452,7 +528,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                             onBlur={(e) => handleBlur(e, itm?.user?.commisionByPercentage)}
                                                                             className="bg-white border border-black  text-black text-sm rounded-lg focus:ring-black focus:border-black block w-fit p-2.5"
                                                                         />
-                                                                            <span className='absolute top-[24%] text-[14px] left-[20%]'>%</span>
+                                                                            <span className='absolute top-[25%] text-[14px] left-[26%]'>%</span>
                                                                         </div>
                                                                     }
                                                                     {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
@@ -488,7 +564,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                         {/* <br /> */}
                         <hr />
 
-                        <div className=' mt-1'>
+                        {/* <div className=' mt-1'>
                             <span className='font-semibold text-[20px]'>
                                 Not Assigned Users
                             </span>
@@ -577,7 +653,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                         </div>
                                     </>
                             }
-                        </div>
+                        </div> */}
                     </div>
 
             }
