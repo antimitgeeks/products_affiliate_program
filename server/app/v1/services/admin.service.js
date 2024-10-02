@@ -384,19 +384,42 @@ exports.updateCommission = async (userId, commision) => {
 }
 
 
-exports.assignedUsers = async (affiliateId) => {
+exports.assignedUsers = async (affiliateId, req) => {
 
     try {
 
-        let result = await AffiliateAssign.findAll(
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+        const query = req.body.search || ""
+
+        let result = await AffiliateAssign.findAndCountAll(
 
             {
+
+                limit: limit,
+                offset: offset,
                 where: {
                     affiliateId: affiliateId
                 },
                 include: [{
                     model: Users,
                     attributes: { exclude: ['password'] },
+                    where: {
+                        [Op.or]: {
+                            email: {
+                                [Op.like]: `${query}%`,
+                            },
+
+                            city: {
+                                [Op.like]: `${query}%`,
+                            },
+                            country: {
+                                [Op.like]: `${query}%`,
+                            }
+
+                        },
+                    }
                 }]
             })
 
@@ -449,10 +472,10 @@ exports.updateAffiliateType = async (affiliateId, details) => {
 
 exports.bulkDeleteAffiliateAssign = async (details) => {
 
-    const deletedAssigned = await details.map(async(i) => {
+    const deletedAssigned = await details.map(async (i) => {
         console.log(i)
         const deletedClickAndPurchases = await ClickAndPurchases.destroy({
-            where: { assignAffiliateId: i}
+            where: { assignAffiliateId: i }
         })
 
         const deletedAssigned = await AffiliateAssign.destroy({

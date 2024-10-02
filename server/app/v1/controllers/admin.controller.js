@@ -217,7 +217,7 @@ exports.assignedUsers = async (req, res) => {
     try {
         const affiliateId = req.params.id
 
-        const result = await service.assignedUsers(affiliateId)
+        const result = await service.assignedUsers(affiliateId,req)
         if (result.status && result.result) {
             return sendResponse(res, statusCode.OK, true, `Data ${SuccessMessage.FETCH}`, result.result)
         }
