@@ -122,8 +122,8 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
               <div className='w-full flex flex-col h-full items-center gap-8 '>
 
                 {
-                  listData?.result?.rows?.map((itm) => {
-                    return <>
+                  listData?.result?.rows?.map((itm,idx) => {
+                    return <div key={idx}>
                       <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' object-contain w-1/2 shadow-sm text-center flex justify-center items-center rounded-xl h-[220px]  p-2 bg-slate-100'>
                           {/* <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" /> */}
@@ -180,7 +180,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   })
                 }
 
