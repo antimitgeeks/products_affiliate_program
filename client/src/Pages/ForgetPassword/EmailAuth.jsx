@@ -49,7 +49,6 @@ function EmailAuth() {
 
     const handleSubmit = (data, { resetForm }) => {
         setLoading(true);
-        console.log(data, 'register data');
         let registerData = {
             "email": data?.email,
         }
@@ -62,7 +61,6 @@ function EmailAuth() {
                     setLoading(false)
                 }
                 else {
-                    console.log(res);
                     resetForm();
                     setShowMessage(true);
                     setToastMessage(res.error)

@@ -10,14 +10,11 @@ import { useDeleteAffiliateMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 
 function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, count }) {
-
-    console.log(listData, 'ListDataa');
     const navigate = useNavigate();
 
     const [DeleteAffiliate] = useDeleteAffiliateMutation()
 
     const ManageAssignClick = (id) => {
-        // console.log(id,'affiliate id')
         navigate(`assign/${id}`)
     }
 
@@ -26,12 +23,20 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
     }
 
     const handleEdit = (id, name) => {
-        console.log(id, 'idd');
+
+
+
+
+
+
+
+
+
+
         navigate(`edit/${id}`)
     }
 
     const handleDeleteYes = (id) => {
-        // console.log(selectedAffiliate,'DELETED'),
         DeleteAffiliate({ Id: id })
             .then((res) => {
                 if (res?.error) {
@@ -89,9 +94,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
 
                                     {
                                         listData?.rows?.map((itm) => {
-                                            console.log(itm)
                                             return <>
-
                                                 <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                                                     <div className='w-1/2 shadow-sm rounded-xl h-[220px] p-2 bg-slate-100 flex items-center justify-center'>
                                                         {itm?.imageUrl?.includes("images") ? (
@@ -104,7 +107,6 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                             <span className="text-gray-500">No Image Available</span>
                                                         )}
                                                     </div>
-
                                                     <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                                                         <div className=' flex flex-col gap-5'>
                                                             <div className='flex items-center justify-between relative'>
@@ -119,10 +121,8 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                 </div>
                                                             </div>
                                                             <div className='flex flex-col gap-3'>
-
                                                                 <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                                                     <FaLink />
-                                                                    {console.log(itm?.shortUrl)}
                                                                     <a className='text-black hover:text-black' href={itm?.link} target='_blank'>
                                                                         {/* Visit link */}
                                                                         {itm?.shortUrl}

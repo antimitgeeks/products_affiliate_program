@@ -151,7 +151,6 @@ function SignUp() {
     //     toast.error(err.response.data.message || "Internal server error");
     //   });
   };
-  console.log(userCreateLoader)
   return (
     <Formik
       enableReinitialize

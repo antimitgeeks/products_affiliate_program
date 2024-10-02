@@ -28,12 +28,9 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
     setCurrentPage(page)
   }
   const handleEmailClick = (id) => {
-    console.log('email click................', id);
     navigate(`customer/profile/${id}`)
   }
   const selectHandleStatus = (isActive, user, indx) => {
-    console.log(user, '------------------------');
-    console.log(isActive, '------------------------');
     setStatusLoading(true);
     setSelectedStatus(indx)
     UpdateUserStatus({ Id: user?.id, data: { status: isActive } }) // Send boolean value directly
@@ -98,16 +95,13 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
         }
       }).then(res => {
         if (res.error) {
-          console.log(res.error, 'res.error');
           toast.error("Internal server error");
           setCommissionLoading(false);
         } else {
-          console.log(res, 'res');
           toast.success("Commission updated successfully");
           setCommissionLoading(false);
         }
       }).catch((err) => {
-        console.log(err);
         toast.error("An error occurred while updating the commission");
         setCommissionLoading(false);
       });
