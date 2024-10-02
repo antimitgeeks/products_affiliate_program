@@ -18,7 +18,7 @@ exports.allUsers = async (req) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
-        const query = req.body.search || ""
+        const query = req.body.search || "";
 
         const result = await Users.findAndCountAll({
             limit: limit,
@@ -31,32 +31,118 @@ exports.allUsers = async (req) => {
                     },
                     userId: {
                         [Op.like]: `${query}%`,
-
                     },
                     companyName: {
-                        [Op.like]: `${query}%`
-                    }
-                }
+                        [Op.like]: `${query}%`,
+                    },
+                },
             },
-            include:
-            {
+            include: {
                 model: AffiliateAssign,
-                attributes: ['affiliateId']
+                attributes: ['affiliateId'],
             },
-
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'commisionByPercentage', 'createdAt'],
-            distinct: true
-
-
+            attributes: [
+                "id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'commisionByPercentage', 'createdAt'
+            ],
+            distinct: true,
         });
+        let allUsers = []
+        // First map for getting affiliateAssigns
+        const finalResult = await Promise.all(result.rows.map(async (user) => {
+            // Fetch the email once per user
+            const userData = await Users.findOne({
+                where: { id: user.id }
+            });
+        
+            // Map over the affiliateAssigns of each user
+            const affiliateAssigns = await Promise.all(user.affiliateAssigns.map(async (assign) => {
+                // Perform the query to get affiliate assignments
+                const affiliateResult = await AffiliateAssign.findAll({
+                    where: {
+                        [Op.and]: [
+                            { userId: user.id },
+                            { affiliateId: assign.affiliateId }
+                        ]
+                    }
+                });
+        
+                // Add only the email to each affiliate assignment
+                return affiliateResult.map(result => ({
+                    ...result.toJSON(),  // Spread the original affiliate assignment data
+                    email: userData.email  // Attach only the email from the user
+                }));
+            }));
+        
+            return {
+                affiliateAssign: affiliateAssigns.flat(),  // Flatten the array in case there are multiple assigns
+            };
+        }));
+        
+        console.log(finalResult);
+        
+        console.log(finalResult);
+        
+        
+        console.log(finalResult);
+        
 
+        console.log(allUsers, "---------------allUsers");
+
+        // Now flatten the results if needed (since it's nested arrays)
+        const flattenedResults = finalResult.flat();
+
+        // console.log(flattenedResults, "Flattened Final Result");
+
+        return {
+            status: true,
+            result: flattenedResults
+        }
+        // const b = 
+        // if(result){
+        //     finalResult = result.map(async(i)=>{
+        //             await AffiliateAssign.findOne({
+        //                 where:{
+        //                     userId:i.id
+        //                 }
+        //             })
+        //     })
+        // }
 
         if (result) {
-            await result?.rows?.map(user => {
+            await result?.rows?.map(async (user) => {
+                // console.log(user.id,"=============user")
+                // console.log(user.dataValues.affiliateAssigns,"=============affilaite assign id ")
+                const b = []
+                const a = user.dataValues.affiliateAssigns.map((i) => {
+                    return b.push(i.affiliateId)
+                })
+                // console.log(a,"a")
+                // console.log(b)
+                const c = await a.map(async (i) => {
+                    // Return the result of the async function so that map returns a promise
+                    return await AffiliateAssign.findAll({
+                        where: {
+                            [Op.and]: [
+                                { userId: user.id },
+                                { affiliateId: i }
+                            ]
+                        }
+                    });
+                });
+
+                // Use Promise.all() to wait for all promises to resolve
+                const d = Promise.all(c).then((e) => {
+                    return e;
+                }).catch((err) => {
+                    console.error(err); // Catch any errors from the promises
+                });
+                // console.log(d,"===d")
+                // console.log(assignAffiliate,'assign affiliate')
                 const affiliateCount = user.affiliateAssigns.length;
                 user.dataValues.affiliateCount = affiliateCount;
-                delete user.dataValues.affiliateAssigns
+                user.dataValues.assignedAffilaite = assignAffiliate
+                // delete user.dataValues.affiliateAssigns
             });
 
             return {
