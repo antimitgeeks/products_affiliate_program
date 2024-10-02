@@ -47,9 +47,11 @@ const ProfileBox = () => {
   return (
     <div className=' flex gap-2 pl-4 items-center justify-center'>
       <span className='  rounded-full flex items-center font-semibold justify-center'><img src={ProfileImage} className='object-cover w-[50px]  rounded-full  h-[50px]' alt="" /></span>
-      <div className=' flex flex-col gap-0 w-fit'>
-        <span className=' m-0 p-0 w-fit capitalize'>{role == 'admin' ? "Admin" : cookieProfile?.slice(0, 25) || "Profile"}</span>
-      </div>
+      {(role == 'admin' || cookieProfile) &&
+        <div className=' flex flex-col gap-0 w-fit'>
+          <span className=' m-0 p-0 w-fit capitalize'>{role == 'admin' ? "Admin" : cookieProfile?.slice(0, 25) || "Profile"}</span>
+        </div>
+      }
     </div>
   );
 };
