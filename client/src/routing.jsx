@@ -46,7 +46,7 @@ function Routing() {
     useEffect((e) => {
         if (!userToken || userToken === null) {
             setAthenticateLogin(false)
-            if (!window.location.pathname.includes('reset-password') && !window.location.pathname.includes('terms-condition') && !window.location.pathname.includes('forgot-password') && !window.location.pathname.includes('register') && !window.location.pathname.includes('affiliate')) {
+            if (!window.location.pathname.includes('reset-password') && !window.location.pathname.includes('terms-condition') && !window.location.pathname.includes('forgot-password') && !window.location.pathname.includes('register') && !window.location.pathname.includes('affiliate') && !window.location.pathname.includes('share')) {
                 navigate('/');
             }
         }
