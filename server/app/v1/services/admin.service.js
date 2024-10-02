@@ -419,8 +419,8 @@ exports.assignedUsers = async (affiliateId) => {
 
 //update afffilite type
 exports.updateAffiliateType = async (affiliateId, details) => {
-    
-   const result =  await details.map(async (i) => {
+
+    const result = await details.map(async (i) => {
         await AffiliateAssign.update(
             { type: i.type },
             {
@@ -435,7 +435,7 @@ exports.updateAffiliateType = async (affiliateId, details) => {
         )
     })
 
-    
+
 
     if (result) {
         return {
@@ -445,4 +445,26 @@ exports.updateAffiliateType = async (affiliateId, details) => {
     return {
         status: false
     }
+}
+
+exports.bulkDeleteAffiliateAssign = async (details) => {
+
+    const deletedAssigned = await details.map(async(i) => {
+        console.log(i)
+        const deletedClickAndPurchases = await ClickAndPurchases.destroy({
+            where: { assignAffiliateId: i}
+        })
+
+        const deletedAssigned = await AffiliateAssign.destroy({
+            where: { id: i }
+        })
+    })
+
+
+    if (deletedAssigned) {
+        return true
+    }
+
+    return false
+
 }

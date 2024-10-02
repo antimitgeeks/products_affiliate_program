@@ -195,6 +195,23 @@ exports.updateAffiliateType = async (req, res) => {
     }
 }
 
+//bulk delete affilaite assign
+exports.bulkDeleteAffiliateAssign = async (req, res) => {
+    try {
+        const affiliateIds = req.body.details
+        const result = await service.bulkDeleteAffiliateAssign(affiliateIds)
+        if (result) {
+            return sendResponse(res, statusCode.OK, true, `Assigne Affiliate ${SuccessMessage.DELETE}`)
+        }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
+
 //get all assigned users of a affiliate
 exports.assignedUsers = async (req, res) => {
     try {
