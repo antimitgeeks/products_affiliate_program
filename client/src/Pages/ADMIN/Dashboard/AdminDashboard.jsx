@@ -130,12 +130,27 @@ function AdminDashboard({
       });
     }, 500);
   };
-  // Function to handle keydown event
   const handleKeyDown = (e, value, id, idx) => {
     if (e.key === 'Enter') {
       handleCommission(value, id, idx);
     }
   };
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    if (newValue === '' || /^\d{1,2}$/.test(newValue)) {
+      setCommissionToast({ message: "", id: '' });
+      e.target.value = newValue;
+    } else {
+      e.target.value = e.target.value.slice(0, 2);
+    }
+  };
+
+  const handleBlur = (e, oldValue) => {
+    if (e.target.value === '' || e.target.value > 50 || e.target.value < 0) {
+      setCommissionToast({ message: "", id: '' });
+      e.target.value = oldValue;
+    }
+  }
 
   console.log(ListData)
   return (
@@ -196,24 +211,24 @@ function AdminDashboard({
                       <tbody>
                         {ListData?.rows?.map((itm, indx) => (
                           <tr key={indx}>
-                            <td>{itm?.companyName}</td>
+                            <td>{itm?.companyName || '-'}</td>
                             <td>{itm?.userId}</td>
-                            <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
+                            <td><span className=''>{itm?.email}</span></td>
                             <td className='relative'>
-                              {/* <input type="number" min="1" max="50" defaultValue={itm?.commisionByPercentage} onChange={(e) => { handleCommission(e.target.value, itm?.id, indx) }} className="bg-white border border-black  text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5" /> */}
                               {commissionLoading && selectedCommissonIdx == indx ?
                                 <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
                                   <AiOutlineLoading3Quarters />
                                 </span> :
-                                <input
-                                  type="number"
-                                  min="1"
-                                  max="50"
+                                <div className='flex relative'><input type="number" min="1" max="50" maxLength={2}
                                   defaultValue={itm?.commisionByPercentage}
-                                  onChange={() => setCommissionToast({ message: "", id: '' })}
-                                  onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)} // Only handle keydown
+                                  onChange={handleChange}
+                                  onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)}
+                                  onBlur={(e) => handleBlur(e, itm?.commisionByPercentage)}
                                   className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
-                                />}
+                                />
+                                  <span className='absolute top-[25%] text-[14px] left-[35%]'>%</span>
+                                </div>
+                              }
                               {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
                             </td>
                             <td>
