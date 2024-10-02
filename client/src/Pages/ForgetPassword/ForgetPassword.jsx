@@ -20,7 +20,6 @@ function ForgetPassword() {
     let isLogged = Cookies.get("isLogged");
     const navigate = useNavigate();
     const ParamData = useParams();
-    console.log(ParamData, 'paramData');
 
     const [showPassword, setShowPassword] = useState("password");
     const [showConfirmPassword, setShowConfirmPassword] = useState("password")
@@ -47,24 +46,20 @@ function ForgetPassword() {
 
     const handleSubmit = (data, { resetForm }) => {
         setLoading(true);
-        console.log(data, 'reset data');
         let resetData = {
             password: data?.password,
         }
         Reset({ data: resetData, Id: ParamData?.id })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error, 'reset error')
                     toast.error(res.error.data.message || "Something went wrong");
                 }
                 else {
                     navigate('/login');
                     toast.success(res?.data?.message);
-                    console.log(res?.data?.message, 'reset res')
                 }
             })
             .catch((err) => {
-                console.log(err, 'reset catch err');
                 toast.error(err.data.message || "Something went wrong");
             })
     };

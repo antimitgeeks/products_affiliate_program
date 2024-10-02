@@ -50,8 +50,6 @@ function EditAffiliate({ listData, loading }) {
     const [UploadImage] = useUploadImageMutation();
     const [EditAffilaite] = useEditAffiliateMutation();
 
-    console.log(listData, 'listDataa');
-
     useEffect(() => {
         setImageUrl(listData?.imageUrl || '')
     }, [listData])
@@ -91,19 +89,16 @@ function EditAffiliate({ listData, loading }) {
         EditAffilaite({ Id: AffiliateId, data: DataForApi })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
                     toast.error(res?.error?.data?.message || "Internal server erro");
                     setSubmitLoading(false)
                 }
                 else {
-                    console.log(res, 'res');
                     //   toast.success("Data updated successfully");
                     navigate('/dashboard/affiliate-links')
                     setSubmitLoading(false)
                 }
             })
             .catch((err) => {
-                console.log(err, 'err');
                 toast.error("Internal server error");
                 setSubmitLoading(false)
             })
@@ -137,7 +132,6 @@ function EditAffiliate({ listData, loading }) {
                     }
                 })
                 .catch((err) => {
-                    console.log(err?.data?.error || "Internal server errors", 'err');
                     setImageUploadLoading(false);
                 });
         } else {

@@ -56,10 +56,8 @@ function Routing() {
     useEffect(() => {
         if (userToken?.length > 1) {
             const decodingToken = jwtDecode(userToken);
-            console.log(decodingToken?.role, 'decodedToken');
             setRole(decodingToken?.role)
         }
-        console.log('')
     }, [userToken, authenticateLogin])
     return (
         <div className=' w-full h-full'>

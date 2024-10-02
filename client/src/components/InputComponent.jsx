@@ -48,7 +48,7 @@ function InputComponent(
                         className=' py-2 placeholder:!text-[13px] w-full !text-[13px] form-control border h-10 rounded-[10px]'
                         type={type}
                         placeholder={placeholder}
-                        disabled={disabled}
+                        disabled={Boolean(disabled)}
                     />
             }
 

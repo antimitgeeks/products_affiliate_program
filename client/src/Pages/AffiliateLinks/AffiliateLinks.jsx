@@ -10,7 +10,6 @@ import toast from 'react-hot-toast';
 import { FaDropbox } from "react-icons/fa6";
 function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, currentPage }) {
 
-  console.log(listData, 'ListDataaaa 12');
 
   const navigate = useNavigate();
   // const profileJson = Cookies.get('profileData')
@@ -42,9 +41,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     // getData()
 
     const token = Cookies.get('isLogged');
-    console.log(item, 'item')
-    console.log(id, 'item id')
-    console.log(userId, 'item userId')
 
     let data = JSON.parse(localStorage.getItem('userData')) || [];
 
@@ -53,7 +49,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     if (existingUser) {
       const existingItem = existingUser.items.find(i => i.item === item);
       if (existingItem) {
-        console.log('Item already exists for this user, skipping API call');
         return window.open(`${redirectLink}?utm_campaign=${utmId}`, '_blank')
       } else {
         existingUser.items.push({ item });
@@ -66,7 +61,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
 
     try {
       const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}`;
-      console.log(token)
       // Make the API call
       const response = await axios.post(apiUrl, { id: id },
         {
@@ -82,7 +76,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
           }
         }
       );
-      console.log('API response:', response?.data?.message?.result);
 
       const redirectUrl = response?.data?.message?.result;
 
@@ -129,9 +122,8 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
               <div className='w-full flex flex-col h-full items-center gap-8 '>
 
                 {
-                  listData?.result?.rows?.map((itm) => {
-                    console.log(itm)
-                    return <>
+                  listData?.result?.rows?.map((itm,idx) => {
+                    return <div key={idx}>
                       <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' object-contain w-1/2 shadow-sm text-center flex justify-center items-center rounded-xl h-[220px]  p-2 bg-slate-100'>
                           {/* <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" /> */}
@@ -188,7 +180,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   })
                 }
 

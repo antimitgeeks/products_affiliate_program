@@ -11,8 +11,6 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
   const [totalCount, setTotalCount] = useState(0);
 
   const navigate = useNavigate();
-  console.log(analyticsData, '----------------------------analyticsData');
-
   const [chartState, setChartState] = useState({
     options: {
       chart: {
@@ -46,7 +44,6 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
 
   const currentMonth = new Date().getMonth() + 1;
   const currentYear = new Date().getFullYear();
-  console.log(currentMonth, currentYear, selectedYear);
   useEffect(() => {
     // Get day from the date string
     const getDay = (dateString) => new Date(dateString).getDate();
@@ -62,8 +59,6 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
       const count = filteredData != undefined && filteredData?.filter(click => getDay(click.createdAt) === day).length;
       return count;
     });
-
-    console.log(counts, 'Clicks COUNT');
     setClicksData(counts);
 
     const totalPurchases = counts.reduce((total, count) => total + count, 0);
