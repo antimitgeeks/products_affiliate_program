@@ -13,6 +13,7 @@ import { toast } from 'react-hot-toast';
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 import Banner from '../../Assets/logo/new-banner01.jpg'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 function SignUp() {
   const [userCreateLoader, setUserCreateLoader] = useState(false);
@@ -84,8 +85,10 @@ function SignUp() {
       .required("Confirm password is required").strict(),
   });
   const handleSubmit = (data, { resetForm }) => {
+    setUserCreateLoader(true);
     if (!isChecked) {
       setToasterMessage('Please accept terms & conditon')
+      setUserCreateLoader(false);
     }
     else {
       setToasterMessage('')
@@ -100,7 +103,6 @@ function SignUp() {
         "password": data?.password,
       }
       setToasterMessage('')
-      setUserCreateLoader(true);
       Register({ data: registerData })
         .then((res) => {
           if (res.error) {
@@ -119,7 +121,6 @@ function SignUp() {
           setUserCreateLoader(false);
           setToasterMessage("Something went Wrong")
         })
-      setUserCreateLoader(false);
     }
     // LoginUser({ data: loginData })
     //   .then((res) => {
@@ -150,6 +151,7 @@ function SignUp() {
     //     toast.error(err.response.data.message || "Internal server error");
     //   });
   };
+  console.log(userCreateLoader)
   return (
     <Formik
       enableReinitialize
@@ -289,8 +291,14 @@ function SignUp() {
                                     {toasterMessage === '"email" must be a valid email' ? '' : toasterMessage}
                                   </span>
                                 </div>}
-                              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-0 rounded-full" type="submit">
-                                Sign up
+                              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 relative rounded-full" type="submit">
+                                {userCreateLoader ?
+                                  <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                    <AiOutlineLoading3Quarters />
+                                  </span>
+                                  :
+                                  "Sign up"
+                                }
                               </button>
                             </div>
                             <P className='text-center mb-0 text-[16px] pt-0 mt-0 '>
