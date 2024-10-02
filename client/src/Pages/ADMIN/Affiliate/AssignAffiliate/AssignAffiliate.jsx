@@ -420,6 +420,8 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                 toast.error("Failed to update status");
             });
     }
+
+    console.log(AssignedcurrentPage,Assignedcount,handleAssignedPageChange,"424 pagination console")
     return (
         <>
             {
