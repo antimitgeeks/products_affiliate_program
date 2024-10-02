@@ -45,7 +45,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive','commisionByPercentage', 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'commisionByPercentage', 'createdAt'],
             distinct: true
 
 
@@ -365,13 +365,13 @@ exports.updateUserStatus = async (userId, status) => {
 exports.updateCommission = async (userId, commision) => {
 
     let updatedUserStatus = await Users.update(
-            { commisionByPercentage: commision },
-            {
-                where: {
-                    id: userId
-                }
-            })
-    
+        { commisionByPercentage: commision },
+        {
+            where: {
+                id: userId
+            }
+        })
+
 
     if (updatedUserStatus) {
         return {
@@ -381,4 +381,40 @@ exports.updateCommission = async (userId, commision) => {
     return {
         status: false
     }
+}
+
+
+exports.assignedUsers = async (affiliateId) => {
+
+    try {
+
+        let result = await AffiliateAssign.findAll(
+
+            {
+                where: {
+                    affiliateId: affiliateId
+                },
+                include: [{
+                    model: Users,
+                    attributes: { exclude: ['password'] },
+                }]
+            })
+
+
+        if (AffiliateAssign) {
+            return {
+                status: true,
+                result: result,
+            }
+        }
+
+    } catch (error) {
+        return {
+            status: false,
+            result: error
+        }
+    }
+
+
+
 }
