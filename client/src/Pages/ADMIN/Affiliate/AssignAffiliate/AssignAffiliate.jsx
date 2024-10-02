@@ -184,7 +184,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     }
 
     const handleDeAssignCLick = () => {
-        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes: () => handleDeleteYes(), handleSelected: () => { setCheckedOptions([]) } })
+        AlertComponent({ heading: "Are you sure you want to delete selected user?", handleDeleteYes: () => handleDeleteYes(), handleSelected: () => { setCheckedOptions([]) } })
     }
     const [commisionToast, setCommissionToast] = useState({
         message: '',
