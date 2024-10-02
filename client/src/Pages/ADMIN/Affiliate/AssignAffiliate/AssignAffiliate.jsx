@@ -7,56 +7,11 @@ import { MdDelete, MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useDeleteMultiAssignedUserMutation, useUpdateAssignOfAffiliatMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
-import { Pagination, selectClasses } from '@mui/material';
+import { Pagination } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
 import { useDispatch } from 'react-redux';
-import { ClearAdminAssignSearchQuery } from '../../../../Redux/SearchSlice/SearchSlice.jsx';
-
 
 function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assignedcount, AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
-    const invoices = [
-        {
-            id: 1,
-            themeName: "Elegant Portfolio",
-            domain: "elegantportfolio.com",
-            date: "2024-09-01",
-            commission: "$200",
-            status: "Paid",
-        },
-        {
-            id: 2,
-            themeName: "Modern Blog",
-            domain: "modernblog.net",
-            date: "2024-08-15",
-            commission: "$150",
-            status: "Pending",
-        },
-        {
-            id: 3,
-            themeName: "Tech Startup",
-            domain: "techstartup.io",
-            date: "2024-07-30",
-            commission: "$300",
-            status: "Paid",
-        },
-        {
-            id: 4,
-            themeName: "ItGeeks",
-            domain: "itgeeks.io",
-            date: "2024-08-30",
-            commission: "$100",
-            status: "Paid",
-        },
-        {
-            id: 5,
-            themeName: "Krown",
-            domain: "Krown.io",
-            date: "2024-08-30",
-            commission: "$120",
-            status: "Pending",
-        }
-    ];
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [SelectedUsers, setSelectedUsers] = useState([]);
@@ -404,7 +359,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                 } else {
                     if (type = "assigned") {
                         toast.success("User Assigned");
-                        
+
                     }
                     else {
                         toast.success("User Deassigned");
@@ -517,10 +472,10 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                 </td>
                                                                 <td className='relative '>
                                                                     {commissionLoading && selectedCommissonIdx == indx ?
-                                                                        <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                        <span className=' w-full flex py-[13px] items-center justify-center m-auto self-center animate-spin'>
                                                                             <AiOutlineLoading3Quarters />
                                                                         </span> :
-                                                                        <div className='flex relative'><input
+                                                                        <div className='flex relative forRemovingArrows'><input
                                                                             type="number"
                                                                             min="1"
                                                                             max="50"
@@ -528,9 +483,9 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                             onChange={handleChange}
                                                                             onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.user?.id, indx, 'notAssign')}
                                                                             onBlur={(e) => handleBlur(e, itm?.user?.commisionByPercentage)}
-                                                                            className="bg-white border border-black  text-black text-sm rounded-lg focus:ring-black focus:border-black block w-fit p-2.5"
+                                                                            className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-[60%] p-2.5"
                                                                         />
-                                                                            <span className='absolute top-[25%] text-[14px] left-[26%]'>%</span>
+                                                                            <span className='absolute text-[14px] top-[25%] left-[45%]'>%</span>
                                                                         </div>
                                                                     }
                                                                     {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
