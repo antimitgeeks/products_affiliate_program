@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import './AssignAffiliate.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
-import { MdDelete, MdRemoveRedEye } from "react-icons/md";
-import { FaSquarePlus } from "react-icons/fa6";
+import { IoArrowBack } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useDeleteMultiAssignedUserMutation, useUpdateAssignOfAffiliatMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { Pagination } from '@mui/material';
@@ -32,15 +31,9 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     const [selectedCommissonIdx, setSelectedCommissonIdx] = useState();
 
     const paramData = useParams();
-    console.log(paramData, 'paramdta');
-
-
-
     const handleCheckboxChange = (e) => {
         const isChecked = e.target.checked;
         const value = parseInt(e.target.value);
-        console.log(value);
-
         if (isChecked) {
             setSelectedUsers([...SelectedUsers, { userId: value }])
         }
@@ -80,20 +73,16 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             toast.error("Select at least one user")
         }
         else {
-            console.log(SelectedUsers, "this is the selected user in 121")
             let dataForApi = {
                 "details": SelectedUsers
             }
-            console.log(SelectedUsers, "selected users in api")
             AssignAffiliate({ Id: paramData?.id, data: dataForApi })
                 .then((res) => {
                     if (res.error) {
-                        console.log(res.error, 'res.error');
                         toast.error("Internal server error");
                         setSubmitLoading(false)
                     }
                     else {
-                        console.log(res, 'res');
                         toast.success("Affiliate assigned successfull")
                         setSubmitLoading(false);
                         setSelectedUsers([]);
@@ -101,23 +90,11 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                     }
                 })
                 .catch((err) => {
-                    console.log(err, 'err');
                     toast.error("Internal server error");
                     setSubmitLoading(false)
                 })
         }
-
-
-
-
-        console.log(SelectedUsers, 'selectedUsers');
-
     }
-    console.log(
-
-        AssignedListData
-    )
-
     const handleDeAssignSubmit = () => {
         if (DeSelectedUsers?.length <= 0) {
             toast.error("Select at least one user")
@@ -130,24 +107,20 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             DeAssign({ Id: paramData?.id, data: dataForApi })
                 .then((res) => {
                     if (res.error) {
-                        console.log(res.error, 'res.error');
                         toast.error("Internal server error");
                         setSubmitLoading(false)
                     }
                     else {
-                        console.log(res, 'res');
                         toast.success("Affiliate assigned successfull")
                         setSubmitLoading(false);
                         setSelectedUsers([])
                     }
                 })
                 .catch((err) => {
-                    console.log(err, 'err');
                     toast.error("Internal server error");
                     setSubmitLoading(false)
                 })
         }
-        console.log(DeSelectedUsers, 'DeselectedUsers');
     }
 
     const handlePageChange = (e, page) => {
@@ -160,23 +133,19 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
     const handleDeleteYes = () => {
         let userIds = checkedOptions.map((itm) => itm?.id);
-        console.log(userIds);
         DeleteMulti({ details: userIds })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
                     toast.error("Internal server error");
                     setSubmitLoading(false)
                 }
                 else {
-                    console.log(res, 'res');
                     toast.success("Deleted user successfully")
                     setSubmitLoading(false);
                     setSelectedUsers([])
                 }
             })
             .catch((err) => {
-                console.log(err, 'err');
                 toast.error("Internal server error");
                 setSubmitLoading(false)
             })
@@ -197,19 +166,16 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     //         }
     //     }).then(res => {
     //         if (res.error) {
-    //             console.log(res.error, 'res.error');
     //             toast.error("Internal server error");
     //             setAssignedlistloadingCommission(false);
 
     //         }
     //         else {
-    //             console.log(res, 'res');
     //             toast.success("Commission updated successfully");
     //             setAssignedlistloadingCommission(false);
 
     //         }
     //     }).catch((err) => {
-    //         console.log(err);
     //         setAssignedlistloadingCommission(false);
     //     });
     // }
@@ -249,23 +215,19 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                 }
             }).then(res => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
                     toast.error("Internal server error");
                     setCommissionLoading(false);
                 } else {
-                    console.log(res, 'res');
                     toast.success("Commission updated successfully");
                     setCommissionLoading(false);
                 }
             }).catch((err) => {
-                console.log(err);
                 toast.error("An error occurred while updating the commission");
                 setCommissionLoading(false);
             });
         }, 500);
     };
     const handleCommissionArray = (value, id, idx) => {
-        console.log(value, id, idx, "inside handle commission array");
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
@@ -302,7 +264,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                     }
                     selectedUsr[indexToMatch] = dobj
                 }
-                console.log(selectedUsr)
                 return selectedUsr;
             })
         }, 500);
@@ -313,7 +274,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             if (newValue === '' || /^\d{1,2}$/.test(newValue)) {
                 setCommissionToast({ message: "", id: '' });
                 e.target.value = newValue;
-                console.log("new value before going in handle commission array", newValue);
                 handleCommissionArray(newValue, id, idx);
             } else {
                 e.target.value = e.target.value.slice(0, 2);
@@ -339,19 +299,16 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             e.target.value = oldValue;
         }
     }
-    console.log(AssignedListData, NotAssignedlistData);
 
     const selectHandleAssign = (type, userID, indx, affiliateID) => {
         setAssignLoading(true);
         setSelectedAssign(indx);
-        console.log(type, userID, indx);
         UpdateAssign({
             details: [
                 { "userId": userID, "type": type },
             ], affiliatId: affiliateID
         })
             .then((res) => {
-                console.log(res);
                 if (res.error) {
                     toast.error("Internal server error");
                     setAssignLoading(false)
@@ -375,8 +332,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                 toast.error("Failed to update status");
             });
     }
-
-    console.log(AssignedcurrentPage,Assignedcount,handleAssignedPageChange,"424 pagination console")
     return (
         <>
             {
@@ -517,10 +472,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                     </div>
                             }
                         </div>
-
-                        {/* <br /> */}
-                        <hr />
-
                         {/* <div className=' mt-1'>
                             <span className='font-semibold text-[20px]'>
                                 Not Assigned Users
@@ -612,7 +563,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             }
                         </div> */}
                     </div>
-
             }
         </>
     );

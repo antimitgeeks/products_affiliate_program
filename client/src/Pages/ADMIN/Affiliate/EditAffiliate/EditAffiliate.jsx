@@ -217,7 +217,7 @@ function EditAffiliate({ listData, loading }) {
                                                                         <span className='absolute right-[-18px] top-[-16px]'>
                                                                             <span className=' w-0 h-0'>
                                                                                 <input className='hidden' type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
-                                                                                <label htmlFor="thumbnail">
+                                                                                <label htmlFor="thumbnail" className='cursor-pointer'>
                                                                                     <FaEdit />
                                                                                 </label>
                                                                             </span>
