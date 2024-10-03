@@ -7,8 +7,17 @@ import { FaSquarePlus } from "react-icons/fa6";
 import { Pagination } from '@mui/material';
 import { useUpdateCommissionMutation, useUserStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
+import PopUpForClicks from './PopUpForClicks';
 
 function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
+  const [affiliateAssign, setAffiliateAssign] = useState();
+  const [dataForClicks, setDataForClicks] = useState(
+    {
+      id: '',
+      userId: ''
+    }
+  );
+  const [isPopUp, setIsPopUp] = useState(false)
   const [statusLoading, setStatusLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('')
   const [commissionLoading, setCommissionLoading] = useState(false);
@@ -54,7 +63,6 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
         toast.error("Failed to update status");
       });
   };
-
   const [commisionToast, setCommissionToast] = useState({
     message: '',
     id: ''
@@ -127,6 +135,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
       e.target.value = oldValue;
     }
   }
+  const openPopup = (id, userId, affiliateAssign) => {
+    setDataForClicks({
+      id: id,
+      userId: userId
+    })
+    setAffiliateAssign(affiliateAssign)
+    setIsPopUp(true);
+  }
   return (
     <>
       {loading ?
@@ -140,7 +156,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
           <span className='font-semibold text-[20px] mb-2 pb-2'>
             Partners
           </span>
-          {ListData?.rows?.length <= 0 || ListData?.rows == undefined ?
+          {ListData?.length <= 0 || ListData === undefined ?
             <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
               <table className='bg-white border-t border-l border-r '>
                 <thead className=' py-0'>
@@ -148,7 +164,10 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                     <th>Company Name</th>
                     <th>UTM Id</th>
                     <th>Email Address</th>
+                    <th>Commission</th>
+                    <th>Status</th>
                     <th>Products</th>
+                    <th>Clicks</th>
                     <th>Invoices</th>
                   </tr>
                 </thead>
@@ -169,25 +188,26 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Products</th>
+                      <th>Clicks</th>
                       <th>Invoices</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {ListData?.rows?.map((itm, indx) => (
+                    {ListData?.map((itm, indx) => (
                       <tr key={indx}>
-                        <td>{itm?.companyName || '-'}</td>
-                        <td>{itm?.userId}</td>
-                        <td><span className=''>{itm?.email}</span></td>
+                        <td>{itm?.affiliateAssign[0]?.companyName || '-'}</td>
+                        <td>{itm?.affiliateAssign[0]?.utmId}</td>
+                        <td><span className=''>{itm?.affiliateAssign[0]?.email}</span></td>
                         <td className='relative'>
                           {commissionLoading && selectedCommissonIdx == indx ?
                             <span className=' w-full flex p-[13px] items-center justify-center m-auto self-center animate-spin'>
                               <AiOutlineLoading3Quarters />
                             </span> :
                             <div className='flex relative forRemovingArrows'><input type="number" min="1" max="50" maxLength={2}
-                              defaultValue={itm?.commisionByPercentage}
+                              defaultValue={itm?.affiliateAssign[0]?.commisionByPercentage}
                               onChange={handleChange}
-                              onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)}
-                              onBlur={(e) => handleBlur(e, itm?.commisionByPercentage)}
+                              onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.affiliateAssign[0]?.id, indx)}
+                              onBlur={(e) => handleBlur(e, itm?.affiliateAssign[0]?.commisionByPercentage)}
                               className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-[80%] p-2.5"
                             />
                               <span className='absolute text-[14px] top-[25%] left-[50%]'>%</span>
@@ -202,18 +222,21 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                                 <AiOutlineLoading3Quarters />
                               </span>
                               :
-                              <select name="status" value={itm.isActive ? "true" : "false"} onChange={(e) => selectHandleStatus(e.target.value === "true", itm, indx)}>
+                              <select name="status" value={itm?.affiliateAssign[0]?.isActive ? "true" : "false"} onChange={(e) => selectHandleStatus(e.target.value === "true", itm?.affiliateAssign[0], indx)}>
                                 <option value="true">Activate</option>
                                 <option value="false">Deactivate</option>
                               </select>
                           }
                         </td>
                         <td>{itm?.affiliateCount}</td>
+                        <td>
+                          <div onClick={() => openPopup(itm?.affiliateAssign[0]?.assignId, itm?.affiliateAssign[0]?.id, itm?.affiliateAssign)} className='border text-center p-[5px] rounded cursor-pointer hover:bg-gray-100 duration-300'>{itm?.affiliateAssign[0]?.totaClicksCount?.allCount}</div>
+                        </td>
                         <td className='flex gap-2' style={{ padding: '20px' }}>
-                          <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
+                          <span onClick={() => { handleViewInvoice(itm?.affiliateAssign[0]) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
                             <MdRemoveRedEye size={22} />
                           </span>
-                          <span onClick={() => { handleAddInvoice(itm) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
+                          <span onClick={() => { handleAddInvoice(itm?.affiliateAssign[0]) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
                             <FaSquarePlus size={20} />
                           </span>
                         </td>
@@ -240,6 +263,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
           }
         </div>
       }
+      {isPopUp && <PopUpForClicks setIsPopUp={() => setIsPopUp(false)} isPopUp={isPopUp} dataForClicks={dataForClicks} affiliateAssign={affiliateAssign} />}
     </>
   );
 }

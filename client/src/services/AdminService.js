@@ -54,7 +54,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 UpdateAssignOfAffiliat: builder.mutation(
                     {
-                        invalidatesTags: ['admin', "overvieww","newAssignedUser"],
+                        invalidatesTags: ['admin', "overvieww", "newAssignedUser"],
                         query: ({ details, affiliatId }) => (
                             {
                                 url: `/admin/update-type/${affiliatId}`,
@@ -118,7 +118,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 GetAssignedCustomerList: builder.query(
                     {
-                        providesTags: ["adminAffiliate", "updatecommission","newAssignedUser"],
+                        providesTags: ["adminAffiliate", "updatecommission", "newAssignedUser"],
                         query: ({ Id, data }) => (
                             {
 
@@ -201,10 +201,38 @@ const AdminService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
-
+                GetAffiliateTotalClicks: builder.query(
+                    {
+                        providesTags: ["affiliateTotalClicks"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/total-clicks`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
             }
         )
     }
 );
 
-export const { useUpdateCommissionMutation, useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation, useDeleteAffiliateMutation, useDeAssignAffiliateMutation, useUserStatusMutation, useDeleteMultiAssignedUserMutation, useUpdateAssignOfAffiliatMutation } = AdminService;
+export const { useUpdateCommissionMutation,
+    useGetUserListQuery,
+    useAddInvoiceMutation,
+    useGetIndividualInvoiceListQuery,
+    useUpdateInvoiceStatusMutation,
+    useGetAffiliateAvailableUsersQuery,
+    useAssignAffiliateMutation,
+    useGetAssignedCustomerListQuery,
+    useEditAffiliateMutation,
+    useGetSingleAffiliateQuery,
+    useUploadImageMutation,
+    useDeleteAffiliateMutation,
+    useDeAssignAffiliateMutation,
+    useUserStatusMutation,
+    useDeleteMultiAssignedUserMutation,
+    useUpdateAssignOfAffiliatMutation,
+    useGetAffiliateTotalClicksQuery,
+} = AdminService;
