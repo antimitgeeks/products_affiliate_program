@@ -62,6 +62,7 @@ exports.allUsers = async (req) => {
                     where: {
                         [Op.and]: [
                             { userId: user.id },
+                            // {type:'assigned'},
                             { affiliateId: assign.affiliateId }
                         ]
                     }
@@ -69,13 +70,16 @@ exports.allUsers = async (req) => {
 
                 // Calculate the length (number of results)
                 const affiliateCount = affiliateResult.length;
+                // console.log(affiliateResult[0].type,"affiliateResult")
+                // if(affiliateResult[0].type=='assigned'){
+               
 
                 // Resolve all mapped promises
                 return Promise.all(affiliateResult.map(async (result, index) => {
                     // Call your function here
                     const totalCount = await totalClicks(userData.id);  // Execute the function within the map
                     // console.log(totalCount, "total click counts");
-                    console.log(result,"result")
+                    // console.log(result,"result")
                     // Return the modified object as well
                     return {
                         // ...result.toJSON(),  // Spread the original affiliate assignment data
@@ -93,6 +97,7 @@ exports.allUsers = async (req) => {
                         totaClicksCount: totalCount
                     };
                 }));
+                // }
             }));
 
             // Flatten the affiliateAssigns result and add the count
