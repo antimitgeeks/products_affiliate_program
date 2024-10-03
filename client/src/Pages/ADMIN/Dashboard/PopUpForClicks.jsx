@@ -3,13 +3,14 @@ import './PopUpForClicks.css';
 import { useGetAffiliateTotalClicksQuery } from '../../../services/AdminService';
 import LoadingImage from '../../../Assets/logo/loading-7528_512.gif';
 
-const PopUpForClicks = ({ isPopUp, setIsPopUp, dataForClicks, affiliateAssign }) => {
+const PopUpForClicks = ({ isPopUp, setIsPopUp, affiliateAssign }) => {
     const [listData, setListData] = useState([]);
-    const affiliateIds = affiliateAssign.map(item => item.assignId);
+    console.log(affiliateAssign.id)
+    const affiliateIds = affiliateAssign.affiliateAssigns.map(item => item.id);
     const { data, isLoading } = useGetAffiliateTotalClicksQuery({
         data: {
             id: affiliateIds,
-            userId: dataForClicks.userId,
+            userId: affiliateAssign.id,
         }
     });
     useEffect(() => {
