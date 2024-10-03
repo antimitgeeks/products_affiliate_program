@@ -33,7 +33,11 @@ exports.addAffiliate = async (req, res, shortId) => {
         const host = await req.headers.host
         details.shortUrl = `${host}/${shortId}`
         const result = await Affiliate.create(details)
-        const users = await Users.findAll()
+        const users = await Users.findAll({
+            where: {
+                role: 'customer'
+            }
+        })
         const bulkData = [];
         for (const user of users) {
             bulkData.push({
@@ -360,23 +364,19 @@ exports.getAffiliateById = async (id) => {
 }
 
 //total affilaite clicks
-exports.totalAffiliateClick = async (userId, assignAffiliateId, limit = 1, page = 1) => {
-    const offset = (page - 1) * limit;  // Calculate the offset
-
+exports.totalAffiliateClick = async (userId, assignAffiliateId) => {
     if (assignAffiliateId) {
         const final = await assignAffiliateId.map(async (i) => {
             const assignAffiliateid = await AssignAffiliate.findOne({
                 where: {
                     id: i
                 }
-            });
+            })
             const affiliateName = await Affiliate.findOne({
                 where: {
                     id: assignAffiliateid.affiliateId
                 }
-            });
-
-            // Apply limit and offset for pagination
+            })
             let user = await ClickAndPurchases.findAndCountAll({
                 where: {
                     [Op.and]: [
@@ -384,23 +384,19 @@ exports.totalAffiliateClick = async (userId, assignAffiliateId, limit = 1, page 
                         { assignAffiliateId: i },
                         { type: "clicks" }
                     ],
-                },
-                limit,  // Pagination limit
-                offset  // Pagination offset
-            });
+                }
+            })
+            
+            user.affiliateName = affiliateName.name
+            return user
+        })
+        const user = await Promise.all(final).then((i) => {
+            return i
+        }).catch((error) => {
+            console.log(error)
+            return error
 
-            user.affiliateName = affiliateName.name;
-            return user;
-        });
-
-        const user = await Promise.all(final)
-            .then((i) => i)
-            .catch((error) => {
-                console.log(error);
-                return error;
-            });
-
-        // Count all clicks without pagination
+        })
         const allCount = await ClickAndPurchases.findAndCountAll({
             where: {
                 [Op.and]: [
@@ -408,33 +404,25 @@ exports.totalAffiliateClick = async (userId, assignAffiliateId, limit = 1, page 
                     { type: "clicks" }
                 ],
             }
-        });
-
-        // Return paginated results with meta-data
+        })
+        console.log(user)
+        // const result = user.length()
         return {
             individualCount: user,
-            allCount: allCount.count,
-            currentPage: page,
-            totalPages: Math.ceil(allCount.count / limit),
-            itemsPerPage: limit
-        };
-    } else {
+            allCount: allCount.count
+        }
+    }
+    else {
         const allCount = await ClickAndPurchases.findAndCountAll({
             where: {
                 [Op.and]: [
-                    { userId: userId },
+                    { userId: id },
                     { type: "clicks" }
                 ],
-            },
-            limit,  // Pagination limit
-            offset  // Pagination offset
-        });
-
+            }
+        })
         return {
-            allCount: allCount.count,
-            currentPage: page,
-            totalPages: Math.ceil(allCount.count / limit),
-            itemsPerPage: limit
-        };
+            allCount: allCount.count
+        }
     }
-};
+}
