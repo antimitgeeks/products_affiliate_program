@@ -62,7 +62,7 @@ const parentDirectory = path.join(__dirname, "server/app/v1/utils")
 // app.use(express.static(path.join(parentDirectory)));
 
 app.use('/', express.static(path.join(parentDirectory, 'images')));
-app.post('/:shortLinkId', authenticate,redirectShortLink)
+app.post('/:shortLinkId',redirectShortLink)
 
 app.use(process.env.BASE_URL, routes);
 
