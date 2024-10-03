@@ -58,12 +58,14 @@ function ViewInvoiceWrapper() {
 
   const { data: analysisData, isFetching: isAnalysisFetching, isLoading: isAnalysisLoading } = useGetMonthlyAnalysisQuery({
     data: {
-      "month": new Date().getMonth() + 1,
-      "year": new Date().getFullYear()
+      "month": "09",
+      "year": "2024"
     },
     Id: id
   }
   )
+
+  
 
   useEffect(() => {
     if (isAnalysisFetching || isAnalysisLoading) {
