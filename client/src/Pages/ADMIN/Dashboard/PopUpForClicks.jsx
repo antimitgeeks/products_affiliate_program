@@ -44,8 +44,8 @@ const PopUpForClicks = ({ isPopUp, setIsPopUp, affiliateAssign }) => {
                     <table className='min-w-full border-collapse border border-gray-200'>
                         <thead>
                             <tr className='bg-gray-100'>
-                                <th className='border border-gray-200 px-4 py-2'>Affiliate Name</th>
-                                <th className='border border-gray-200 px-4 py-2'>Count</th>
+                                <th className='border border-gray-200 px-4 py-2'>Products Name</th>
+                                <th className='border border-gray-200 px-4 py-2'>Clicks</th>
                             </tr>
                         </thead>
                         <tbody>
