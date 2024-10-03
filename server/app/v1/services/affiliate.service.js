@@ -109,7 +109,7 @@ exports.redirectShortLink = async (req, res, userId, assignAffiliateId, deviceId
 
         // // Log the click and increment the 'click' count in one step
         // await Promise.all([
-            await ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id, deviceId: deviceId }),
+        await ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id, deviceId: deviceId }),
 
             await AssignAffiliate.update({ clicks: Sequelize.literal('clicks + 1') }, { where: { id: assignAffiliate.id } })
         // ]);
@@ -360,29 +360,47 @@ exports.getAffiliateById = async (id) => {
 }
 
 //total affilaite clicks
-exports.totalAffiliateClick = async (id, assignAffiliateId) => {
+exports.totalAffiliateClick = async (userId, assignAffiliateId) => {
     if (assignAffiliateId) {
-        const user = await ClickAndPurchases.findAndCountAll({
-            where: {
-                [Op.and]: [
-                    { userId: id },
-                    { assignAffiliateId: assignAffiliateId },
-                    { type: "clicks" }
-                ],
-            }
+       const final = await assignAffiliateId.map(async (i) => {
+            const assignAffiliateid = await AssignAffiliate.findOne({where:{
+                id:i
+            }})
+            const affiliateName = await Affiliate.findOne({
+                where:{
+                    id:assignAffiliateid.affiliateId
+                }
+            })
+            let user = await ClickAndPurchases.findAndCountAll({
+                where: {
+                    [Op.and]: [
+                        { userId: userId },
+                        { assignAffiliateId: i },
+                        { type: "clicks" }
+                    ],
+                }
+            })
+            user.affiliateName = affiliateName.name
+            return user
+        })
+        const user = await Promise.all(final).then((i)=>{
+            return i
+        }).catch((error)=>{
+            console.log(error)
+            return error 
+           
         })
         const allCount = await ClickAndPurchases.findAndCountAll({
             where: {
                 [Op.and]: [
-                    { userId: id },
+                    { userId: userId },
                     { type: "clicks" }
                 ],
             }
         })
-        console.log(user)
         // const result = user.length()
         return {
-            individualCount: user.count,
+            individualCount: user,
             allCount: allCount.count
         }
     }
