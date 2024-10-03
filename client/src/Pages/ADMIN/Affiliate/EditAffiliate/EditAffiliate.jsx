@@ -65,7 +65,7 @@ function EditAffiliate({ listData, loading }) {
 
     const validationSchema = yup.object().shape({
         name: yup.string().trim("Enter valid name").required("Name is required").strict(),
-        dropboxLink: yup.string().url("Enter a valid dropbox link").trim("Enter a valid dropbox link").required("Dropbox link is required").strict(),
+        dropboxLink: yup.string().url("Enter a valid dropbox link").trim("Enter a valid dropbox link").strict(),
         // link: yup.string().trim("Enter valid link").required("link is required").strict(),
         // dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),

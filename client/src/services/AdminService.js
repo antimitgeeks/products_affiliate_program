@@ -6,7 +6,7 @@ const AdminService = CreateApi.injectEndpoints(
             {
                 GetUserList: builder.query(
                     {
-                        providesTags: ['admin', 'assignCustomer', "userstatus", "updatecommission"],
+                        providesTags: ['admin', 'assignCustomer', "userstatus", "updatecommission", "affiliateTotalClicks"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/allUsers`,
@@ -203,7 +203,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 GetAffiliateTotalClicks: builder.query(
                     {
-                        providesTags: ["affiliateTotalClicks"],
+                        providesTags: ["admin", "adminAffiliate", "affiliateTotalClicks"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/affiliate/total-clicks`,

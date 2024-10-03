@@ -53,7 +53,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     }
 
     try {
-      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}?UserId=${userId}`;
+      const apiUrl = `https://61b3-49-249-2-6.ngrok-free.app/${item}?UserId=${userId}`;
       // Make the API call
       const response = await axios.post(apiUrl, { id: id },
         {
@@ -166,7 +166,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 {/* <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span> */}
-                                <span onClick={() => { navigator.clipboard.writeText(`https://product-affiliate-program-jz6xc.ondigitalocean.app/share?shortId=${itm?.affiliate?.shortId}&Id=${itm?.id}&UserId=${itm?.userId}&AffiliateLink=${itm?.affiliate?.link}&UniqueId=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                <span onClick={() => { navigator.clipboard.writeText(`https://61b3-49-249-2-6.ngrok-free.app/share?shortId=${itm?.affiliate?.shortId}&Id=${itm?.id}&UserId=${itm?.userId}&AffiliateLink=${itm?.affiliate?.link}&UniqueId=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
 
@@ -210,7 +210,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
               </div>
             </div>
       }
-
     </>
   )
 }
