@@ -129,18 +129,18 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                     </a>
                                                                 </span>
                                                                 <div className=' w-full flex justify-between gap-4'>
-                                                                    <span onClick={() => { navigator.clipboard.writeText(itm?.link); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                                                    {/* <span onClick={() => { navigator.clipboard.writeText(itm?.link); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                                                         Copy link
-                                                                    </span>
+                                                                    </span> */}
                                                                     <a href={itm?.link} target='_blank' className=' border hover:text-black p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                                                         <span className='hover:text-black' >
                                                                             Visit link
                                                                         </span>
                                                                     </a>
+                                                                    <a href={itm?.dropboxLink} target='_blank' className='w-full py-2 rounded px-1 text-center hover:text-white hover:no-underline mt-0 flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a href={itm?.dropboxLink} target='_blank' className='w-full py-2 rounded px-2 text-center hover:text-white hover:no-underline mt-2 flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
                                                         <div className=' flex mt-2 gap-6'>
                                                             <div onClick={() => ManageAssignClick(itm?.id)} className='border rounded px-2 py-1 cursor-pointer'>
                                                                 Assigned users
