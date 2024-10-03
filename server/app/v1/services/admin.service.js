@@ -66,33 +66,45 @@ exports.allUsers = async (req) => {
                         ]
                     }
                 });
-        
-                // Add only the email to each affiliate assignment
-                return affiliateResult.map(result => ({
+            
+                // Calculate the length (number of results)
+                const affiliateCount = affiliateResult.length;
+            
+                // Return all results, adding affiliateCount to the first object of each set
+                return affiliateResult.map((result, index) => ({
                     ...result.toJSON(),  // Spread the original affiliate assignment data
-                    email: userData.email  // Attach only the email from the user
+                    id: userData.id,
+                    email: userData.email,  // Attach only the email from the user
+                    userId: userData.userId,
+                    country: userData.country,
+                    city: userData.city,
+                    address: userData.address,
+                    companyName: userData.companyName,
+                    isActive: userData.isActive,
+                    commisionByPercentage: userData.commisionByPercentage,
                 }));
             }));
-        
+            
+            const flattenResult = (affiliateAssigns.flat())
             return {
-                affiliateAssign: affiliateAssigns.flat(),  // Flatten the array in case there are multiple assigns
+                affiliateAssign: affiliateAssigns.flat(),  
+                affiliateCount:flattenResult.length
             };
+            
+            
         }));
         
-        console.log(finalResult);
+        // console.log(finalResult);
         
-        console.log(finalResult);
-        
-        
-        console.log(finalResult);
+    
         
 
-        console.log(allUsers, "---------------allUsers");
+        // console.log(allUsers, "---------------allUsers");
 
         // Now flatten the results if needed (since it's nested arrays)
         const flattenedResults = finalResult.flat();
 
-        // console.log(flattenedResults, "Flattened Final Result");
+        console.log(flattenedResults, "Flattened Final Result");
 
         return {
             status: true,
