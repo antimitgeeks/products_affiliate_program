@@ -18,6 +18,12 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      - echo Uploading build to S3...
+      - aws s3 sync client/build/ s3://$S3_BUCKET --delete  # Sync the built files to S3
+      - echo Build files deployed to S3 successfully!
+      - echo Invalidating CloudFront cache...
+      - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+      - echo CloudFront cache invalidation completed!
 
 artifacts:
   files:
@@ -30,7 +36,8 @@ cache:
 
 env:
   variables:
-    S3_BUCKET: "my-product-affiliate-frontend"  # Replace with your S3 bucket name
+    S3_BUCKET: "my-product-affiliate-frontend" 
+    DISTRIBUTION_ID: "E2CO7FXKLQFJW8"  
 
 # Deploy to S3 after build
 post_build:

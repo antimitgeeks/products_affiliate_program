@@ -121,7 +121,7 @@ const LoginTab = (props) => {
                           <AiOutlineLoading3Quarters />
                         </span>
                         :
-                        "Sign In updated--------------------"
+                        "Sign In updated--------------------2"
                     }
                   </button>
                 </div>
