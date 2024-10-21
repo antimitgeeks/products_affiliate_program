@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - npm install 
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - cd client
+      - npm install
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: client/build 
+
+cache:
+  paths:
+    - 'node_modules/**/*'
+
+env:
+  variables:
+    S3_BUCKET: "my-product-affiliate-frontend"  # Replace with your S3 bucket name
+
+# Deploy to S3 after build
+post_build:
+  commands:
+    - echo Uploading build to S3...
+    - aws s3 sync client/build/ s3://$S3_BUCKET --delete  # Sync the built files to S3
+    - echo Build files deployed to S3 successfully!
