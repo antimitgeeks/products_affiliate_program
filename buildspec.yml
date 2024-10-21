@@ -15,6 +15,7 @@ phases:
     commands:
       - echo Build started on `date`
       - npm run build
+      - cd ..
   post_build:
     commands:
       - echo Build completed on `date`
@@ -38,10 +39,3 @@ env:
   variables:
     S3_BUCKET: "my-product-affiliate-frontend" 
     DISTRIBUTION_ID: "E2CO7FXKLQFJW8"  
-
-# Deploy to S3 after build
-post_build:
-  commands:
-    - echo Uploading build to S3...
-    - aws s3 sync . s3://$S3_BUCKET --delete  # Sync the built files to S3
-    - echo Build files deployed to S3 successfully!
