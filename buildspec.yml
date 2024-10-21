@@ -43,5 +43,5 @@ env:
 post_build:
   commands:
     - echo Uploading build to S3...
-    - aws s3 sync client/build/ s3://$S3_BUCKET --delete  # Sync the built files to S3
+    - aws s3 sync . s3://$S3_BUCKET --delete  # Sync the built files to S3
     - echo Build files deployed to S3 successfully!
