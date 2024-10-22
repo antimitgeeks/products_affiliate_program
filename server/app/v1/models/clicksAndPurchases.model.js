@@ -20,17 +20,17 @@ module.exports = (sequelize, Sequelize) => {
     const ClickAndPurchases = sequelize.define("clickandpurchases", {
         userId: {
             type: Sequelize.INTEGER,
-            references: {
-                model: "users",
-                key: 'id',
-            },
+            // references: {
+            //     model: "users",
+            //     key: 'id',
+            // },
         },
         assignAffiliateId: {
             type: Sequelize.INTEGER,
-            references: {
-                model: "affiliateAssign",
-                key: 'id',
-            },
+            // references: {
+            //     model: "affiliateAssign",
+            //     key: 'id',
+            // },
         },
         type: {
             type: Sequelize.ENUM,
