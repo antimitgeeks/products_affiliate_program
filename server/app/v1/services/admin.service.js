@@ -20,6 +20,7 @@ exports.allUsers = async (req) => {
         const offset = (page - 1) * limit;
         const query = req.body.search || "";
 
+
         const result = await Users.findAndCountAll({
             limit: limit,
             offset: offset,
@@ -37,89 +38,29 @@ exports.allUsers = async (req) => {
                     },
                 },
             },
-            include: {
+            include: [{
                 model: AffiliateAssign,
-                attributes: ['affiliateId'],
-            },
-            order: [['createdAt', 'DESC']],
-            attributes: [
-                "id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'commisionByPercentage', 'createdAt'
-            ],
+                attributes: ['id', 'affiliateId', "clicks"], // Get only the affiliateId field
+            }],
             distinct: true,
         });
-        let allUsers = []
-        // First map for getting affiliateAssigns
-        const finalResult = await Promise.all(result.rows.map(async (user) => {
-            // Fetch the email once per user
-            const userData = await Users.findOne({
-                where: { id: user.id }
-            });
+        for (const user of result.rows) {
+            let totalClicks = 0;
+            let totalAffiliateAssign = 0;
+            if (user?.affiliateAssigns?.length) {
+                for (const assingAffiliate of user.affiliateAssigns) {
+                    totalAffiliateAssign += 1
+                    totalClicks += assingAffiliate?.clicks || 0;
+                }
 
-            // Map over the affiliateAssigns of each user
-            const affiliateAssigns = await Promise.all(user.affiliateAssigns.map(async (assign) => {
-                // Perform the query to get affiliate assignments
-                const affiliateResult = await AffiliateAssign.findAll({
-                    where: {
-                        [Op.and]: [
-                            { userId: user.id },
-                            // {type:'assigned'},
-                            { affiliateId: assign.affiliateId }
-                        ]
-                    }
-                });
-
-                // Calculate the length (number of results)
-                const affiliateCount = affiliateResult.length;
-                // console.log(affiliateResult[0].type,"affiliateResult")
-                // if(affiliateResult[0].type=='assigned'){
-               
-
-                // Resolve all mapped promises
-                return Promise.all(affiliateResult.map(async (result, index) => {
-                    // Call your function here
-                    const totalCount = await totalClicks(userData.id);  // Execute the function within the map
-                    // console.log(totalCount, "total click counts");
-                    // console.log(result,"result")
-                    // Return the modified object as well
-                    return {
-                        // ...result.toJSON(),  // Spread the original affiliate assignment data
-                        id: userData.id,
-                        assignId:result.id,
-                        email: userData.email,  // Attach only the email from the user
-                        utmId: userData.userId,
-                        // userId:userData.id
-                        country: userData.country,
-                        city: userData.city,
-                        address: userData.address,
-                        companyName: userData.companyName,
-                        isActive: userData.isActive,
-                        commisionByPercentage: userData.commisionByPercentage,
-                        totaClicksCount: totalCount
-                    };
-                }));
-                // }
-            }));
-
-            // Flatten the affiliateAssigns result and add the count
-            const flattenResult = affiliateAssigns.flat();
-            return {
-                affiliateAssign: flattenResult,
-                affiliateCount: flattenResult.length
-            };
-        }));
-
-
-
-        // console.log(allUsers, "---------------allUsers");
-
-        // Now flatten the results if needed (since it's nested arrays)
-        // const flattenedResults = finalResult.flat();
-
-        // console.log(flattenedResults, "Flattened Final Result");
+            }
+            user.dataValues.totalClicks = totalClicks
+            user.dataValues.affiliateCount = totalAffiliateAssign
+        }
 
         return {
             status: true,
-            result: finalResult
+            result: result
         }
 
     } catch (error) {
@@ -131,21 +72,6 @@ exports.allUsers = async (req) => {
     }
 }
 
-
-const totalClicks = async function (id) {
-    // console.log(id,"id-----------------------------------")
-    const allCount = await ClickAndPurchases.findAndCountAll({
-        where: {
-            [Op.and]: [
-                { userId: id },
-                { type: "clicks" }
-            ],
-        }
-    })
-    return {
-        allCount: allCount.count
-    }
-}
 
 //not assigned
 exports.notAssignedCustomers = async (affiliateId, req) => {
@@ -474,6 +400,7 @@ exports.assignedUsers = async (affiliateId, req) => {
                     model: Users,
                     attributes: { exclude: ['password'] },
                     where: {
+                        role: 'customer',
                         [Op.or]: {
                             email: {
                                 [Op.like]: `${query}%`,
